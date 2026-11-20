@@ -69,7 +69,7 @@ footer{margin-top:15px;text-align:center}
 <header><div><p class="eyebrow">NOCTURNE STUDIO · 01</p><h1>夜曲 <span>Nocturne</span></h1><p>一台隨時可以彈的鋼琴。</p></div><span class="badge">✦ VIRTUAL PIANO</span></header>
 <section class="panel guide" aria-labelledby="guide-title">
 <div class="guide-top"><div><p class="eyebrow">GUIDED SESSION</p><h2 id="guide-title">跟譜工作室</h2></div>
-<div class="guide-tools"><label class="field">樂曲 <select id="song"><option value="moon">月光小徑 · 原創</option><option value="ode">歡樂頌 · 貝多芬</option><option value="twinkle">小星星 · 傳統曲</option></select></label></div></div>
+<div class="guide-tools"><label class="field">樂曲 <select id="song"><option value="moon">月光小徑 · 原創</option><option value="ode">歡樂頌 · 貝多芬</option><option value="twinkle">小星星 · 傳統曲</option><option value="canon">Canon in D（D 大調卡農）· 帕赫貝爾</option></select></label></div></div>
 <div class="guide-top"><div class="modes" role="group" aria-label="學習模式">
 <button id="modeDemo" type="button" aria-pressed="true">Demo 示範</button>
 <button id="modeAlong" type="button" aria-pressed="false">Play Along 跟彈</button>
@@ -279,7 +279,18 @@ const desc={Demo:'先聽完整示範，跟著高亮琴鍵看音符。',Along:'�
 const songs={
  moon:{score:'C4 E4 G4 A4:2 G4 E4 D4 F4 A4 G4:2 D4 E4 C4+E4:2 D4 E4+G4:2 C4:2',bass:[48,50,48,43,48,45,48,43]},
  ode:{score:'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2',bass:[48,43,48,43,48,43,48,48]},
- twinkle:{score:'C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2',bass:[48,45,53,48,43,48,43,48,48,45,53,48]}
+ twinkle:{score:'C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2',bass:[48,45,53,48,43,48,43,48,48,45,53,48]},
+ canon:{
+  // Simplified study based on Pachelbel's public-domain Canon in D.
+  score:[
+   'F#4:4 | E4:4 | D4:4 | C#4:4',
+   'B3:4 | A3:4 | B3:4 | C#4:4',
+   'D4 F#4 A4 F#4 | E4 C#4 A3 C#4 | D4 F#4 B4 F#4 | C#4 E4 F#4 A4',
+   'B4 G4 D4 G4 | A4 F#4 D4 F#4 | G4 E4 D4 B3 | C#4 E4 A4 E4',
+   'D4+F#4:2 D4+A4:2 | D4+F#4+A4:4'
+  ].join(' | '),
+  bass:[50,57,59,54,55,50,55,57,50,57,59,54,55,50,55,57,50,50]
+ }
 };
 let mode='Demo', lesson=null, modeScore=[], guidePos=0, guideRaf=0, seeking=false, pausedLesson=null;
 const tempo=()=>Math.min(240,Math.max(40,Number(ui.bpm.value)||100));
