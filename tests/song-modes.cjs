@@ -6,13 +6,25 @@ const {join}=require('node:path');
 const {JSDOM}=require('jsdom');
 const html=readFileSync(join(__dirname,'..','index.html'),'utf8');
 
-function piano(t,noAudio=false){
+function piano(t,noAudio=false,screen={width:0,height:0}){
   const {window:w}=new JSDOM(html,{runScripts:'outside-only',pretendToBeVisual:true});
   t.after(()=>w.close());
   const d=w.document, by=id=>d.getElementById(id), voices=[], timers=new Map();
   let clock=100,serial=0;
   Object.defineProperty(w.performance,'now',{value:()=>clock});
-  w.requestAnimationFrame=()=>0;w.cancelAnimationFrame=()=>{};
+  const frames=new Map();
+  w.requestAnimationFrame=fn=>{const id=++serial;frames.set(id,fn);return id;};
+  w.cancelAnimationFrame=id=>frames.delete(id);
+  function frame(){const batch=[...frames.values()];frames.clear();for(const fn of batch)fn(clock);}
+  w.matchMedia=query=>({get matches(){
+    if(query.includes('reduced-motion'))return !!screen.reduced;
+    const width=Number(query.match(/min-width:\s*(\d+)/)?.[1]||0);
+    const height=Number(query.match(/min-height:\s*(\d+)/)?.[1]||0);
+    return screen.width>=width&&screen.height>=height;
+  },addEventListener(){}});
+  Object.defineProperty(w.HTMLElement.prototype,'clientWidth',{get(){return this.id==='readingLane'?screen.width:0;}});
+  function resize(width,height){Object.assign(screen,{width,height});w.dispatchEvent(new w.Event('resize'));frame();}
+
   w.setTimeout=(fn,ms=0)=>{const id=++serial;timers.set(id,{at:clock+ms,fn});return id;};
   w.clearTimeout=id=>timers.delete(id);
   const tick=(ms,fire=true)=>{
@@ -39,7 +51,7 @@ function piano(t,noAudio=false){
   function change(id,value){by(id).value=value;by(id).dispatchEvent(new w.Event('change'));}
   function keyPress(code){for(const type of ['keydown','keyup'])d.dispatchEvent(new w.KeyboardEvent(type,{code,bubbles:true}));}
   function start(song,mode){change('song',song);by('mode'+mode).click();by('lessonAction').click();}
-  return {by,tick,change,keyPress,start,voices,note:()=>d.querySelector('#score .current')?.textContent,
+  return {by,tick,frame,resize,change,keyPress,start,voices,note:()=>d.querySelector('#score .current')?.textContent,
     pianoKey:n=>d.querySelector('#keybed [data-midi="'+n+'"]')};
 }
 
@@ -122,4 +134,64 @@ test('audio failure leaves transport stopped and reports on the visible lesson s
   assert.equal(p.by('lessonFeedback').textContent,'此瀏覽器不支援 Web Audio。');
   assert.equal(p.by('lessonFeedback').closest('details'),null);
   assert.equal(p.voices.length,0);
+});
+
+const group=(p,i)=>p.by('readingTrack').querySelector('[data-group="'+i+'"]');
+const groupLabels=(p,i)=>[...group(p,i).querySelectorAll('.read-pitch')].map(x=>x.textContent);
+function groupX(p,i){
+  const shift=parseFloat(p.by('readingTrack').style.transform.slice('translateX('.length));
+  return shift+parseFloat(group(p,i).style.left);
+}
+test('desktop scores use the real key mapping and fallback; resize never changes a manual view',t=>{
+  const p=piano(t,false,{width:3440,height:900});
+  assert.equal(p.by('keyView').value,'61');
+  assert.equal(p.pianoKey(36).querySelector('.note').textContent,'C2');
+  assert.equal(p.pianoKey(36).querySelector('.hotkey').textContent,'');
+  assert.deepEqual(groupLabels(p,0),['Q']);
+  p.change('keyView','88');p.resize(1250,800);assert.equal(p.by('keyView').value,'88');
+  p.change('octave','1');assert.deepEqual(groupLabels(p,0),['Z']);
+  p.change('octave','2');assert.deepEqual(groupLabels(p,0),['C4']);
+  p.change('transpose','-12');assert.deepEqual(groupLabels(p,0),['Z']);
+  const key=p.pianoKey(60);p.by('labelCde').click();
+  assert.equal(p.by('keybed').dataset.labelMode,'cde');assert.equal(key,p.pianoKey(60));
+  assert.deepEqual(groupLabels(p,0),['C4']);
+  p.by('labelQwerty').click();assert.deepEqual(groupLabels(p,0),['Z']);
+  assert.equal(p.by('labelQwerty').getAttribute('aria-pressed'),'true');
+});
+test('horizontal track crosses the 30% cursor in musical time; reduced motion snaps on note changes',t=>{
+  for(const reduced of [false,true]){
+    const width=1200,p=piano(t,false,{width,height:800,reduced});
+    assert.equal(p.by('keyView').value,'25');p.start('moon','Demo');
+    assert.equal(groupX(p,0),360);assert.equal(groupX(p,1),460);
+    p.tick(300);p.frame();assert.equal(groupX(p,0),reduced?360:310);
+    p.tick(300);p.frame();assert.equal(groupX(p,1),360);assert.equal(group(p,0).dataset.state,'done');
+    p.by('modeAlong').click();p.tick(300);p.frame();
+    assert.equal(groupX(p,1),reduced?360:310);
+    p.by('lessonAction').click();const x=groupX(p,1);p.tick(5000);p.frame();assert.equal(groupX(p,1),x);
+  }
+});
+test('Practice fixes the cursor at the waiting chord and retains per-pitch hits through label switches',t=>{
+  const p=piano(t,false,{width:1200,height:800});p.start('moon','Practice');
+  for(const k of 'QETYTEWRYTWE')p.keyPress('Key'+k);
+  assert.deepEqual(groupLabels(p,12),['Q','E']);
+  const g=group(p,12),x=groupX(p,12);assert.equal(x,360);
+  p.keyPress('KeyQ');p.tick(8000);p.frame();assert.equal(groupX(p,12),x);
+  assert.equal(g.querySelector('[data-midi="60"]').dataset.hit,'true');
+  assert.equal(g.querySelector('[data-midi="64"]').dataset.hit,'false');
+  p.by('labelCde').click();
+  assert.deepEqual(groupLabels(p,12),['C4','E4']);assert.equal(p.note(),'C4+E4');
+  p.keyPress('KeyE');assert.equal(g.dataset.state,'done');assert.equal(groupX(p,13),360);
+  assert.equal(g.querySelector('[data-midi="64"]').dataset.hit,'true');
+});
+
+test('mid-hold Practice parks the awaited glyph on the cursor without changing transport time',t=>{
+  const p=piano(t,false,{width:1200,height:800});p.start('canon','Demo');
+  p.tick(2340);p.frame();assert.equal(groupX(p,0),-30);
+  p.by('modePractice').click();assert.equal(groupX(p,0),360);
+  assert.equal(Number(p.by('seek').value),2.34);
+  assert.equal(group(p,0).querySelector('.read-pitch').dataset.mapped,'true');
+  p.by('labelCde').click();assert.equal(group(p,0).querySelector('.read-pitch').dataset.mapped,'false');
+  p.tick(5000);p.frame();assert.equal(groupX(p,0),360);
+  p.by('modeAlong').click();assert.equal(groupX(p,0),-30);p.tick(60);
+  assert.equal(p.note(),'E4');assert.equal(groupX(p,1),360);
 });

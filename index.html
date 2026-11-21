@@ -148,6 +148,74 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
   .sequence-line .kicker,.track-line progress,.brand-tag{display:none}.scoreline{gap:4px}.timeline{min-width:90px}
   .score span:nth-child(n+5){display:none}.cue-line{align-items:flex-start}.cue-copy p{font-size:.68rem}
 }
+
+/* The full-size console reads time horizontally. The compact touch layout above keeps its pitch-aligned roll. */
+.desktop-labels,.desktop-reader-title,#readingLane{display:none}
+@media(min-width:1000px) and (min-height:520px){
+  :root{--key-h:50vh;--key-h:50dvh;--bar-h:clamp(48px,6.7vh,97px);--time-h:clamp(31px,4.8vh,70px);--brand-w:clamp(108px,10.5vw,490px);--edge:clamp(10px,1.25vw,48px)}
+  .desk{width:100%;max-width:none;display:grid;grid-template-columns:var(--brand-w) max-content max-content minmax(0,1fr) max-content;grid-template-rows:var(--bar-h) var(--time-h) minmax(0,1fr) auto var(--key-h);background:#171b22}
+  .masthead,.performance,.song-bar{display:contents}
+  .identity{grid-area:1/1/3/2;align-self:stretch;display:grid;grid-template-columns:auto auto;justify-content:center;align-content:center;column-gap:5px;row-gap:3px;background:#20252c;border-inline-end:1px solid #ffffff16;border-bottom:1px solid #0d1014}
+  .identity .brand-mark{width:clamp(18px,1.8vw,60px);height:clamp(24px,3.4vh,76px)}
+  .identity h1{font-size:clamp(18px,1.75vw,70px);letter-spacing:-.05em}
+  .brand-tag{grid-column:1/-1;text-align:center;padding:0;border:0;color:#91a8aa;font-size:clamp(8px,.65vw,12px);letter-spacing:.17em}.brand-tag span{display:none}
+  .transport{grid-area:1/2;justify-self:start;gap:3px;margin-left:var(--edge)}
+  .modes{grid-area:1/3;align-self:center;justify-self:start;gap:1px;margin-left:7px;padding:2px;background:#13171d;border:1px solid #32383f;border-radius:6px}
+  .transport button,.modes button,.mast-tools select,.panel-switch,.desktop-labels button{min-height:clamp(32px,3.9vh,54px);font-size:clamp(12px,.86vw,19px);border-radius:4px}
+  .transport button{padding:4px 7px;background:#252b31;border-color:#363e45}.transport #lessonAction{min-width:59px;color:#052f28;background:var(--mint);border-color:#83c7b1}
+  .modes button{padding:3px clamp(7px,.7vw,16px);min-height:clamp(27px,3.4vh,49px)}
+  .modes small,.key-select #viewLabel{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .modes button[aria-pressed=true]{color:#d9fff1;background:#254c44;border-color:#3a6659}
+  .song-field{position:absolute;z-index:1;left:53%;top:calc(env(safe-area-inset-top) + var(--bar-h)/2);transform:translate(-50%,-50%);width:clamp(160px,25vw,520px);display:grid;justify-items:center;gap:0}
+  .song-field .kicker{display:none}.song-field select{width:100%;max-width:100%;justify-self:center;text-align:center;text-overflow:ellipsis;white-space:nowrap;font-size:clamp(13px,1.1vw,25px);color:#f5efdf;min-height:33px}
+  .mast-tools{grid-area:1/5/3/6;align-self:stretch;align-items:flex-start;gap:clamp(5px,.45vw,16px);padding:calc((var(--bar-h) - clamp(32px,3.9vh,54px))/2) var(--edge) 0 6px}
+  .desktop-labels{display:flex;align-items:center;background:#101519;border:1px solid #374149;border-radius:4px;overflow:hidden}
+  .desktop-labels button{padding:4px 7px;background:none;border:0;color:#a9b9c1;min-height:calc(clamp(32px,3.9vh,54px) - 2px);font:700 clamp(10px,.74vw,17px)/1.1 ui-monospace,monospace}
+  .desktop-labels button[aria-pressed=true]{color:#dcfff4;background:#305e52}.desktop-labels button[aria-pressed=true]:hover:not(:disabled){color:#fff;background:#376a5b}.desktop-labels button:focus-visible{outline-offset:-2px}
+  .mast-tools select,.panel-switch{background-color:#242a32;border-color:#3a434d}.mast-tools select{padding:4px 5px}
+  .tools-panel{z-index:9;top:calc(env(safe-area-inset-top) + var(--bar-h));bottom:calc(var(--key-h) + env(safe-area-inset-bottom) + 3px);right:var(--edge)}
+  #studioDrawer #labelToggle{display:none}
+  .guide-strip{grid-area:2/2/3/-1;padding:0 var(--edge);display:flex;align-items:center;background:#171b22;border:0;border-bottom:1px solid #252c33}
+  .scoreline,.track-line,.timeline{width:100%}.scoreline{display:block;position:relative}.track-line{display:flex;gap:0}.track-line progress,.sequence-line{position:absolute;overflow:hidden;width:1px;height:1px;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap}
+  .timeline{display:flex;gap:10px;color:#99a5ae;font-size:clamp(10px,.7vw,15px)}
+  .timeline input{appearance:none;-webkit-appearance:none;height:24px;background:transparent;cursor:pointer}.timeline input:disabled{cursor:default;opacity:.65}
+  .timeline input::-webkit-slider-runnable-track{height:3px;background:#455058;border-radius:4px}
+  .timeline input::-moz-range-track{height:3px;background:#455058;border-radius:4px}
+  .timeline input::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border:1px solid #3d655c;border-radius:50%;background:#a8dfcb;margin-top:-4px}
+  .timeline input::-moz-range-thumb{width:10px;height:10px;border:1px solid #3d655c;border-radius:50%;background:#a8dfcb}
+  .note-runway{grid-area:3/1/4/-1;position:relative;background:#191c22;box-shadow:inset 0 5px 18px #10121740}
+  .note-runway::before,#noteLane,.mobile-roll-title{display:none}
+  .stage-sign{left:var(--edge);top:clamp(8px,1.5vh,26px);color:#96a8af}.stage-sign::before{background:#628d83}.desktop-reader-title{display:inline}.stage-index{font-size:clamp(9px,.62vw,14px);letter-spacing:.13em}
+  #readingLane{display:block;position:absolute;inset:0;overflow:hidden;pointer-events:none}
+  #readingLane::after{content:"";position:absolute;left:30%;top:22%;bottom:22%;width:2px;transform:translateX(-50%);background:#73d8ba;box-shadow:0 0 8px #46af8e50}
+  #readingTrack{position:absolute;inset:0;z-index:1}
+  .read-note{position:absolute;top:50%;transform:translate(-50%,-50%);display:inline-flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap;line-height:1.02;color:#dce1e3}
+  .read-pitch{font:700 clamp(19px,min(2.2vw,4vh),54px)/1.06 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:-.055em}
+  .read-pitch[data-mapped=true]{text-transform:lowercase}
+  .read-note[data-state=done]{color:#7d8995}.read-note[data-current=true],.read-note[data-state=current]{color:#ccffe9;background:#191c22;padding:3px 5px}
+  .read-note[data-state=hit],.read-pitch[data-hit=true]{color:#82a79b}
+  .cue-line{grid-area:4/1/5/-1;min-height:clamp(28px,4.5vh,62px);padding:4px var(--edge);background:#191c22;border:0}
+  .cue-copy p{color:#b3c0c6;font-size:clamp(12px,.9vw,20px)}#lessonFeedback{color:#afdacb}.range-group{gap:10px}#range{font-size:clamp(10px,.73vw,16px)}
+  .piano-dock{grid-area:5/1/6/-1;min-height:0;overflow:hidden;border-top:3px solid #a84f58;box-shadow:0 -2px 6px #0007}
+  #keyboardViewport,#keybed{height:100%}#keyboardViewport{overflow-y:hidden}
+  #keybed{border-radius:0}.piano-dock #keybed .key{justify-content:flex-end;gap:0;padding-bottom:clamp(17px,7.5vh,145px);border-radius:0 0 4px 4px}
+  #keybed .white{background:linear-gradient(180deg,#cfcfc9 0%,#edece7 4%,#fbfaf5 29%,#eeede7 94%,#dbdbd7 98%);border-color:#90928e;box-shadow:inset 0 -5px 1px #bcbeb9,inset 1px 0 2px #fff}
+  #keybed .black{height:66%;background:linear-gradient(90deg,#101216 0%,#303337 12%,#24262b 28%,#1b1c21 75%,#101115 100%);box-shadow:inset 0 -9px 2px #0c0e10,2px 3px 4px #0007}
+  .piano-dock #keybed .black{padding-bottom:clamp(12px,4.8vh,100px)}
+  #keybed .white.active{background:linear-gradient(#a5c8b6,#e4f6eb 62%,#bad9c5);box-shadow:inset 0 -4px #84a791}
+  #keybed .black.active{background:linear-gradient(110deg,#324d43,#47695e);box-shadow:inset 0 -6px #254238}
+  #keybed .target::after{top:auto;bottom:4%;width:clamp(6px,.8vw,14px);height:clamp(6px,.8vw,14px)}
+  #keybed .target{outline-offset:-2px}
+  #keybed .note,#keybed .black .note,#keybed .hotkey{font:650 clamp(12px,min(3.2vh,46cqw),52px)/1.12 ui-monospace,SFMono-Regular,Consolas,monospace;opacity:1;color:#393c3e;max-width:98%;padding:clamp(2px,.6vh,12px) clamp(2px,6cqw,18px);background:linear-gradient(#e0dfdd,#ccceca);border:1px solid #c1c4c0;border-radius:clamp(3px,.35vw,8px);box-shadow:0 2px 1px #858b875e}
+  #keybed .note,#keybed .black .note{font-size:clamp(9px,min(2.8vh,29cqw),42px);padding-inline:clamp(0px,2cqw,8px)}
+  #keybed .black .note,#keybed .black .hotkey{color:#eee;letter-spacing:-.04em;background:linear-gradient(#393e43,#303439);border-color:#41454a;box-shadow:0 2px 1px #16191b}
+  #keybed .hotkey:empty,#keybed .note:empty,#keybed[data-label-mode=cde] .hotkey,#keybed[data-label-mode=qwerty] .key:not([data-unmapped=true]) .note{display:none}
+  #keybed .hotkey{text-transform:lowercase}
+}
+@media(min-width:1000px) and (max-width:1180px) and (min-height:520px){
+  .desk{--brand-w:108px}.transport{margin-left:7px}.modes{margin-left:4px}.modes button{padding-inline:5px}.song-field{width:clamp(228px,calc(100vw - 770px),280px);left:54%}.song-field select{font-size:clamp(12px,1.1vw,14px)}.mast-tools{gap:4px;padding-right:8px}
+}
+
 </style>
 </head>
 <body>
@@ -159,6 +227,7 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
     <div class="brand-tag" aria-hidden="true">Virtual piano<span>演奏工作室</span></div>
   </div>
   <div class="mast-tools">
+    <div class="desktop-labels" role="group" aria-label="讀譜與琴鍵標示"><button type="button" id="labelQwerty" aria-pressed="true" title="電腦鍵盤字母">QWERTY</button><button type="button" id="labelCde" aria-pressed="false" title="琴鍵音名">CDE</button></div>
     <label class="key-select"><span id="viewLabel">琴鍵顯示</span><select id="keyView" aria-label="琴鍵顯示"><option value="25">25 鍵</option><option value="61">61 鍵</option><option value="88">88 鍵</option></select></label>
     <details id="studioDrawer">
       <summary class="panel-switch"><svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 4h6m4 0h4M2 9h2m4 0h8M2 14h9m4 0h1"/><circle cx="10" cy="4" r="2"/><circle cx="6" cy="9" r="2"/><circle cx="13" cy="14" r="2"/></svg>工具</summary>
@@ -218,7 +287,7 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
       <button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button><button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
     </div></div>
   </div>
-  <div class="note-runway"><div class="stage-sign" aria-hidden="true"><span class="stage-index">Piano roll</span></div><div id="noteLane" aria-hidden="true"></div></div>
+  <div class="note-runway"><div class="stage-sign" aria-hidden="true"><span class="stage-index"><span class="mobile-roll-title">Piano roll</span><span class="desktop-reader-title">讀譜線 · Score reader</span></span></div><div id="noteLane" aria-hidden="true"></div><div id="readingLane" aria-hidden="true"><div id="readingTrack"></div></div></div>
 </section>
 <section class="piano-dock" aria-label="底部琴鍵"><div id="keyboardViewport"><div id="keybed" role="group" aria-label="虛擬鋼琴琴鍵"></div></div></section>
 </main>
@@ -231,6 +300,7 @@ const keys='zsxdcvgbhnjmq2w3er5t6y7ui'.split(''); // consecutive semitones C3–
 const codes=keys.map(k=>/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase());
 const base=()=>48+12*Number(ui.octave.value), shift=()=>Number(ui.transpose.value);
 const mappedStart=()=>base()+shift();
+const shortcutFor=midi=>(keys[midi-mappedStart()]||'').toUpperCase();
 const isBlack=pitch=>names[pitch%12].includes('♯');
 const keyButtons=new Map();
 
@@ -323,9 +393,32 @@ function revealKey(midi, center=false){
     viewport.scrollLeft+=bounds.right-frame.right;
   }
 }
+function updateKeyLabel(k,midi){
+  const shortcut=shortcutFor(midi), full=name(midi);
+  const fallback=bindingsShown&&!shortcut;
+  k.dataset.unmapped=String(!shortcut);
+  k.setAttribute('aria-label',full+(shortcut?'，電腦鍵 '+shortcut:''));
+  k.querySelector('.note').textContent=fallback?full:ui.labels.value==='off'?'':ui.labels.value==='sol'?sol[((midi%12)+12)%12]:full;
+  k.querySelector('.hotkey').textContent=bindingsShown?shortcut:'';
+}
+function syncLabelMode(){
+  ui.keybed.dataset.labelMode=bindingsShown?'qwerty':'cde';
+  $('labelQwerty')?.setAttribute('aria-pressed',String(bindingsShown));
+  $('labelCde')?.setAttribute('aria-pressed',String(!bindingsShown));
+  guide.labelToggle.setAttribute('aria-pressed',String(bindingsShown));
+  guide.labelToggle.setAttribute('aria-label',bindingsShown?'切換至 CDE 音名':'切換至 QWERTY 電腦鍵');
+}
+function setLabelMode(qwerty,explicit=true){
+  bindingsShown=qwerty;
+  if(explicit&&!qwerty)ui.labels.value='en';
+  syncLabelMode();
+  // Keep the key DOM, pointer capture, focused key and active lesson untouched.
+  for(const [midi,key] of keyButtons)updateKeyLabel(key,midi);
+  drawTimeline();
+}
 function render(){
   const {start,count}=displayedRange();
-  const end=start+count-1, mappingBase=base(), transpose=shift();
+  const end=start+count-1, transpose=shift();
   const pitches=Array.from({length:count},(_,i)=>start+i);
   const whiteCount=pitches.filter(pitch=>!isBlack(pitch)).length;
   const buttons=document.createDocumentFragment();
@@ -338,12 +431,10 @@ function render(){
   let whites=0;
   for(const pitch of pitches){
     const black=isBlack(pitch), midi=pitch+transpose, k=document.createElement('button');
-    const shortcut=(keys[pitch-mappingBase]||'').toUpperCase();
     k.className='key '+(black?'black':'white');
     k.type='button';
     k.dataset.i=pitch-start;
     k.dataset.midi=midi;
-    k.setAttribute('aria-label',name(midi)+(shortcut?'，電腦鍵 '+shortcut:''));
     if(black){
       k.style.left=(100*whites/whiteCount)+'%';
       k.style.width=(100*.62/whiteCount)+'%';
@@ -352,15 +443,13 @@ function render(){
     }
     const note=document.createElement('span');
     note.className='note';
-    note.textContent=ui.labels.value==='off'?'':ui.labels.value==='sol'?sol[midi%12]:name(midi);
     const hotkey=document.createElement('span');
     hotkey.className='hotkey';
-    hotkey.textContent=bindingsShown?shortcut:'';
-    k.append(note,hotkey);
+    k.append(note,hotkey);updateKeyLabel(k,midi);
     buttons.append(k);
     keyButtons.set(midi,k);
   }
-  ui.keybed.replaceChildren(buttons);
+  ui.keybed.replaceChildren(buttons);syncLabelMode();
   laneGeometryDirty=true;
   for(const item of active.values())light(item.midi,1);
   if(playing)for(const item of playing.voices.values())light(item.midi,1);
@@ -461,20 +550,32 @@ function setPitch(){
   releaseLive();
   render();
   centerMapping();
-  paintTargets();
+  paintTargets();drawTimeline();
 }
 ui.keyView.onchange=()=>{
   render();
   centerMapping();
-  paintTargets();
+  paintTargets();drawTimeline();
 };
 function onStageGeometry(){
-  refreshKeyNavigation();
+  refreshKeyNavigation();readerWidth=0;
   laneGeometryDirty=true;
   if(!laneLayoutFrame)laneLayoutFrame=requestAnimationFrame(()=>{
     laneLayoutFrame=0;
+    const size=stageSize(),changed=size!==lastStageSize;lastStageSize=size;
+    const session=lesson||pausedLesson;
+    // Rotation can clip a formerly visible target. Ordinary user panning must not snap back.
+    if(changed&&!desktopReader?.matches&&session&&!pointers.size){
+      const step=session.score[session.index],wanted=step?.pitches.find(p=>!session.got.has(p));
+      const key=keyButtons.get(wanted),vp=ui.keyboardViewport;
+      if(key&&vp.scrollWidth>vp.clientWidth){
+        const k=key.getBoundingClientRect(),frame=vp.getBoundingClientRect();
+        const x=(k.left+k.right)/2,pad=Math.min(44,frame.width*.12);
+        if(x<frame.left+pad||x>frame.right-pad){revealKey(wanted,true);laneGeometryDirty=true;}
+      }
+    }
     const a=lesson;
-    drawNoteLane(a&&a.mode!=='Practice' ? Math.max(0,(performance.now()-a.started)/a.length) : guidePos);
+    drawStage(a&&a.mode!=='Practice' ? Math.max(0,(performance.now()-a.started)/a.length) : guidePos);
   });
 }
 ui.keyboardViewport.addEventListener('scroll',onStageGeometry,{passive:true});
@@ -487,7 +588,7 @@ document.addEventListener('keydown',e=>{
 });
 ui.scrollLow.onclick=()=>{ui.keyboardViewport.scrollLeft-=ui.keyboardViewport.clientWidth*.75;};
 ui.scrollHigh.onclick=()=>{ui.keyboardViewport.scrollLeft+=ui.keyboardViewport.clientWidth*.75;};
-ui.octave.onchange=setPitch;ui.transpose.onchange=setPitch;ui.labels.onchange=()=>{render();paintTargets()};
+ui.octave.onchange=setPitch;ui.transpose.onchange=setPitch;ui.labels.onchange=()=>setLabelMode(ui.labels.value==='off',false);
 for(let i=-12;i<=12;i++)ui.transpose.add(new Option(i===0?'原調':(i>0?'+':'')+i+' 半音',String(i),i===0,i===0));
 const guide=Object.fromEntries('song modeDemo modeAlong modePractice lessonAction lessonHelp score progress lessonFeedback restart labelToggle seek elapsed totalTime'.split(' ').map(id=>[id,$(id)]));
 const desc={Demo:'聽示範，看音符落到琴鍵。',Along:'跟低音伴奏彈旋律；節拍不會等候。',Practice:'按啱先前進；和弦可逐個音彈。'};
@@ -584,10 +685,72 @@ function drawNoteLane(beat){
   }
   for(const [id,el] of laneMarks)if(!keep.has(id)){el.remove();laneMarks.delete(id);}
 }
-guide.paintLane=drawNoteLane;
+// Desktop reads left to right. Onsets are fixed beat offsets; only the track moves.
+const readingLane=$('readingLane'), readTrack=$('readingTrack'), readGroups=new Map();
+const desktopReader=window.matchMedia?.('(min-width: 1000px) and (min-height: 520px)');
+const stageSize=()=>[ui.keyboardViewport.clientWidth,ui.keyboardViewport.clientHeight,!!desktopReader?.matches].join(':');
+let lastStageSize=stageSize();
+let readerScore=null,readerWidth=0;
+function drawReadingLane(beat){
+  if(readerScore!==modeScore){
+    readTrack.replaceChildren();readGroups.clear();readerScore=modeScore;
+  }
+  if(!readerWidth)readerWidth=readingLane.clientWidth;
+  if(!readerWidth||!modeScore.length)return;
+  const state=lesson||pausedLesson,ended=beat>=totalBeats;
+  const waiting=state?.mode==='Practice'&&state.index>=0;
+  const index=waiting?state.index:stepAt(beat);
+  // Practice parks the awaited chord at the cursor without moving the saved transport.
+  const position=(waiting||stillMotion?.matches)&&!ended?stepStarts[index]:beat;
+  const unit=Math.max(56,readerWidth/12),cursor=readerWidth*.30;
+  const x=cursor-position*unit;
+  const translate='translateX('+Number(x.toFixed(2))+'px)';
+  if(readTrack.style.transform!==translate)readTrack.style.transform=translate;
+  const first=stepAt(Math.max(0,position-(cursor+100)/unit)),last=position+(readerWidth-cursor+100)/unit;
+  const shown=new Set();
+  for(let i=first;i<modeScore.length&&stepStarts[i]<=last;i++){
+    shown.add(i);
+    const pitches=modeScore[i].pitches;
+    let group=readGroups.get(i);
+    if(!group){
+      const el=document.createElement('span');el.className='read-note';el.dataset.group=String(i);
+      const parts=pitches.map(midi=>{
+        const part=document.createElement('span');part.className='read-pitch';part.dataset.midi=String(midi);
+        el.append(part);return part;
+      });
+      if(!pitches.length)el.textContent='休止';
+      group={el,parts};readGroups.set(i,group);readTrack.append(el);
+    }
+    const current=i===index&&!ended, heard=state?.played.get(i);
+    const hit=current&&state?.mode!=='Demo'&&pitches.length>0&&pitches.every(p=>heard?.has(p));
+    const grade=current?(hit?'hit':'current'):(ended||i<index?'done':'next');
+    if(group.el.dataset.state!==grade){
+      group.el.dataset.state=grade;group.el.dataset.current=String(current);
+    }
+    const left=Number((stepStarts[i]*unit).toFixed(2))+'px';
+    if(group.el.style.left!==left)group.el.style.left=left;
+    for(let j=0;j<pitches.length;j++){
+      const midi=pitches[j],part=group.parts[j],shortcut=shortcutFor(midi);
+      const label=(bindingsShown&&shortcut)||name(midi);
+      if(part.textContent!==label)part.textContent=label;
+      const mapped=String(!!(bindingsShown&&shortcut));
+      if(part.dataset.mapped!==mapped)part.dataset.mapped=mapped;
+      const hit=String(state?.mode!=='Demo'&&!!heard?.has(midi));
+      if(part.dataset.hit!==hit)part.dataset.hit=hit;
+    }
+  }
+  for(const [i,group] of readGroups)if(!shown.has(i)){group.el.remove();readGroups.delete(i);}
+}
+function drawStage(beat){
+  if(readTrack&&desktopReader?.matches){drawReadingLane(beat);return;}
+  drawNoteLane(beat);
+}
+guide.paintLane=drawStage;
+desktopReader?.addEventListener?.('change',onStageGeometry);
+stillMotion?.addEventListener?.('change',onStageGeometry);
 if(lane&&window.ResizeObserver){
   const observer=new ResizeObserver(onStageGeometry);
-  observer.observe(lane);observer.observe(ui.keyboardViewport);
+  observer.observe(lane);observer.observe(ui.keyboardViewport);if(readingLane)observer.observe(readingLane);
 }
 const clockText=seconds=>Math.floor(seconds/60)+':'+String(Math.floor(seconds%60)).padStart(2,'0');
 let stepStarts=[], totalBeats=0;
@@ -638,7 +801,7 @@ function guideChange(next=mode){
 function makeLesson(length,position){
   const offset=stepAt(position);
   return {mode,index:-1,score:modeScore,timer:null,voices:new Set(),bassVoice:null,bassPulse:-1,
-    got:new Set(),hit:0,misses:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),
+    got:new Set(),played:new Map(),hit:0,misses:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),
     started:performance.now()-position*length,pos:position,length};
 }
 function silenceLesson(a){
@@ -690,7 +853,7 @@ function inputLesson(midi){
   const step=a.score[a.index];
   if(step.pitches.includes(midi)){
     if(a.got.has(midi))return;
-    a.got.add(midi);a.hit++;
+    a.got.add(midi);a.hit++;a.played.set(a.index,new Set(a.got));
     if(a.mode==='Practice'&&a.got.size===step.pitches.length){advancePractice();return;}
     paintTargets();drawTimeline();
     guide.lessonFeedback.textContent=a.mode==='Practice'
@@ -712,7 +875,10 @@ function queueLesson(resume=false){
   if(changed||resume){
     for(const v of a.voices)v.release(.09);
     a.voices.clear();if(changed)a.got.clear();a.index=index;
-    if(a.mode==='Demo')for(const midi of step.pitches)a.voices.add(voice(midi,ctx.currentTime,.82));
+    if(a.mode==='Demo'){
+      for(const midi of step.pitches)a.voices.add(voice(midi,ctx.currentTime,.82));
+      a.played.set(index,new Set(step.pitches));
+    }
     drawGuide();guide.lessonFeedback.textContent=a.mode==='Along'
       ?'跟彈中 · 已彈對 '+a.hit+' 個音符':'第 '+(index+1)+' / '+a.score.length+' 組';
   }
@@ -749,10 +915,9 @@ function switchMode(next){
 for(const m of ['Demo','Along','Practice'])guide['mode'+m].onclick=()=>switchMode(m);
 guide.song.onchange=()=>guideChange();guide.lessonAction.onclick=()=>startLesson();
 guide.restart.onclick=()=>{stopLesson();pausedLesson=null;guidePos=0;startLesson();};
-guide.labelToggle.onclick=()=>{
-  bindingsShown=!bindingsShown;ui.labels.value=bindingsShown?'off':'en';
-  guide.labelToggle.setAttribute('aria-label',bindingsShown?'顯示音名 CDE':'顯示電腦鍵 QWERTY');render();paintTargets();
-};
+guide.labelToggle.onclick=()=>setLabelMode(!bindingsShown);
+if($('labelQwerty'))$('labelQwerty').onclick=()=>setLabelMode(true);
+if($('labelCde'))$('labelCde').onclick=()=>setLabelMode(false);
 guide.seek.addEventListener('pointerdown',()=>{seeking=true;});
 guide.seek.addEventListener('pointerup',()=>setTimeout(()=>{seeking=false;drawTimeline()},0));
 guide.seek.addEventListener('pointercancel',()=>{seeking=false;drawTimeline();});
@@ -892,6 +1057,8 @@ ui.metro.onclick=()=>{
 };
 window.addEventListener('blur',()=>releaseLive(true));
 document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseLive(true);stopPlayback();pauseLesson();stopMetro();}});
+// Pick the spacious default once; resizing must never change a musician's view.
+if(window.matchMedia?.('(min-width: 1920px) and (min-height: 520px)')?.matches)ui.keyView.value='61';
 render();guideChange();drawTracks();
 </script>
 </body>
