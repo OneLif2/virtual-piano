@@ -25,12 +25,21 @@ with sync_playwright() as playwright, TemporaryDirectory() as tmp:
     target = page.locator("#score .current")
     seek = page.locator("#seek")
 
+    drawer = page.locator("#studioDrawer")
+    def tools_open(is_open):
+        if drawer.evaluate("details => details.open") != is_open:
+            drawer.locator(":scope > summary").click()
+
+    tools_open(True)
     page.locator("#bpm").fill("40")
+    tools_open(False)
     action.click()
     expect(target).to_have_text("C4")
     # Changing the BPM after playback starts must not affect an active seek.
+    tools_open(True)
     page.locator("#bpm").fill("240")
     page.locator("#bpm").press("Tab")
+    tools_open(False)
     seek.evaluate("""slider => {
         slider.value = '2.50';
         slider.dispatchEvent(new Event('change', {bubbles: true}));
@@ -44,13 +53,19 @@ with sync_playwright() as playwright, TemporaryDirectory() as tmp:
     expect(target).to_have_text("G4")
 
     page.locator("#modeAlong").click()
-    action.click()
+    # A mode switch should not rewind the song. Restart explicitly for the score check.
+    expect(action).to_contain_text("暫停")
+    expect(target).to_have_text("G4")
+    tools_open(True)
+    page.locator("#bpm").fill("100")
+    tools_open(False)
+    page.locator("#restart").click()
     expect(target).to_have_text("C4")
     page.keyboard.press("q")
     expect(page.locator("#lessonFeedback")).to_contain_text("已彈對 1")
 
     page.locator("#modePractice").click()
-    action.click()
+    page.locator("#restart").click()
     page.keyboard.press("w")
     expect(target).to_have_text("C4")
     page.keyboard.press("q")
@@ -59,6 +74,7 @@ with sync_playwright() as playwright, TemporaryDirectory() as tmp:
     expect(target).to_have_text("G4")
     action.click()
 
+    tools_open(True)
     page.locator("#meter").select_option("3")
     metro = page.locator("#metro")
     metro.click()
@@ -69,14 +85,16 @@ with sync_playwright() as playwright, TemporaryDirectory() as tmp:
     for track, key in enumerate(("q", "w", "e", "r")):
         page.locator("#tracks input[type=radio]").nth(track).check()
         page.locator("#rec").click()
+        tools_open(False)
         if track == 0:
             piano_key = page.locator('#keybed [data-i="12"]')
-            piano_key.hover(position={"x": 8, "y": 85})
+            piano_key.hover(position={"x": 8, "y": int(piano_key.bounding_box()["height"] * .85)})
             page.mouse.down()
             expect(piano_key).to_have_class("key white active")
             page.mouse.up()
         else:
             page.keyboard.press(key)
+        tools_open(True)
         page.locator("#rec").click()
         expect(page.locator("#tracks small").nth(track)).to_have_text("1 音符")
     page.locator("#review").click()
