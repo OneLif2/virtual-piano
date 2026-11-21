@@ -31,7 +31,10 @@ button:disabled{opacity:.44;cursor:default}
 :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 input[type=range]{width:102px;accent-color:var(--amber)}
 input[type=number]{width:68px}
-.keyheads{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--soft);margin:18px 0 6px}
+.keyheads{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--soft);margin:18px 0 6px}
+#keyboardViewport.wide{overflow-x:auto;padding:4px 0 8px}
+#keyboardViewport.wide #keybed{min-width:calc(var(--white-count) * 26px)}
+.key-nav button{min-height:32px;padding:2px 10px}
 #keybed{position:relative;display:flex;isolation:isolate;height:clamp(143px,28vw,287px);border-radius:5px 5px 9px 9px;box-shadow:0 -4px 0 #ab5061,0 10px 20px #0006;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden;background:#0c0c0d}
 #keybed .key{position:relative;border-radius:0 0 6px 6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;white-space:nowrap;padding:0 0 7px;line-height:1.2;gap:4px;-webkit-tap-highlight-color:transparent}
 .track input[type=range]{display:block;width:100%;margin:3px 0}footer a{color:#d2ae8c}
@@ -61,7 +64,7 @@ progress{width:100%;height:7px;accent-color:var(--amber);display:block;margin-to
 textarea{width:100%;min-height:76px;resize:vertical;background:#161519;border:1px solid #51464b;border-radius:8px;padding:8px;font: .83rem/1.5 ui-monospace,monospace;margin-bottom:5px}
 footer{margin-top:15px;text-align:center}
 .beat{min-width:2em;font-size:.8rem;color:var(--amber);margin-left:auto;text-align:center}
-@media(max-width:580px){main{width:calc(100% - 20px);padding-top:23px}.panel{padding:10px}.below{grid-template-columns:1fr}.badge,.hotkey{display:none}.controls{gap:8px 10px}.keyheads{margin-top:14px}.black .note{display:none}header{margin-bottom:14px}}
+@media(max-width:580px){main{width:calc(100% - 20px);padding-top:23px}.panel{padding:10px}.below{grid-template-columns:1fr}.badge,.hotkey{display:none}.wide .hotkey{display:inline}.controls{gap:8px 10px}.keyheads{margin-top:14px}.black .note{display:none}header{margin-bottom:14px}}
 </style>
 </head>
 <body>
@@ -83,16 +86,23 @@ footer{margin-top:15px;text-align:center}
 </section>
 <section class="panel" aria-label="鋼琴">
 <div class="controls">
-<label class="field">音域 <select id="octave"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
+<label class="field">琴鍵顯示 <select id="keyView"><option value="25">25 鍵</option><option value="61">五個八度（61 鍵）</option><option value="88">88 鍵</option></select></label>
+<label class="field">實體鍵盤音域 <select id="octave"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
 <label class="field">移調 <select id="transpose"></select></label>
 <label class="field">琴鍵標籤 <select id="labels"><option value="en">C D E</option><option value="sol">Do Re Mi</option><option value="off">不顯示</option></select></label>
 <label class="field">音色 <select id="preset"><option value="">夜曲原聲</option></select></label>
 <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
 <button id="sustain" aria-pressed="false" type="button">延音 · Space</button>
 </div>
-<div class="keyheads"><span id="range">C3–C5</span><span>鋼琴音色 · 25 鍵</span></div>
-<div id="keybed" role="group" aria-label="虛擬鋼琴琴鍵"></div>
-<p class="hint">觸碰琴鍵或用電腦鍵盤：Z–M 彈低八度，Q–U 彈高八度；可同時按多個鍵。鍵盤焦點在琴鍵時，也可用 Enter 或 Space 彈奏。</p>
+<div class="keyheads">
+<span id="range">C3–C5</span>
+<div id="keyNav" class="key-nav" hidden>
+<button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button>
+<button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
+</div>
+</div>
+<div id="keyboardViewport"><div id="keybed" role="group" aria-label="虛擬鋼琴琴鍵"></div></div>
+<p class="hint">可用滑鼠、觸控或按琴鍵上標示嘅電腦鍵。琴鍵取得焦點時，可用左右方向鍵移動，按 Enter 或 Space 彈奏。</p>
 <div id="status" role="status">按任意琴鍵開始演奏。</div>
 </section>
 <div class="below">
@@ -115,11 +125,21 @@ footer{margin-top:15px;text-align:center}
 <script src="studio.js"></script>
 <script>
 'use strict';
-const $=id=>document.getElementById(id), ui=Object.fromEntries('octave transpose labels volume sustain range keybed status bpm meter metro beat rec review stop recordHint notes playNotes demo preset tracks export clearTrack'.split(' ').map(id=>[id,$(id)]));
+const $=id=>document.getElementById(id), ui=Object.fromEntries('keyView octave transpose labels volume sustain range keyboardViewport keyNav scrollLow scrollHigh keybed status bpm meter metro beat rec review stop recordHint notes playNotes demo preset tracks export clearTrack'.split(' ').map(id=>[id,$(id)]));
 const names=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'], sol=['Do','Do♯','Re','Re♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
 const keys='zsxdcvgbhnjmq2w3er5t6y7ui'.split(''); // consecutive semitones C3–C5
 const codes=keys.map(k=>/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase());
 const base=()=>48+12*Number(ui.octave.value), shift=()=>Number(ui.transpose.value);
+const mappedStart=()=>base()+shift();
+const isBlack=pitch=>names[pitch%12].includes('♯');
+const keyButtons=new Map();
+
+function displayedRange(){
+  const count=Number(ui.keyView.value);
+  if(count===88)return {start:21,count};
+  if(count===61)return {start:Math.max(24,Math.min(48,base()-12)),count};
+  return {start:base(),count};
+}
 const name=n=>names[((n%12)+12)%12]+(Math.floor(n/12)-1);
 const hz=n=>440*Math.pow(2,(n-69)/12);
 let ctx=null, master=null, playing=null, metroTimer=null, nextBeat=0, beat=0, pedalHold=false, pedalLatch=false, recording=null, exporting=false;
@@ -179,32 +199,79 @@ function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value){
     for(const osc of partials)osc.stop(t+fade);
   }};
 }
-function render(){
-  ui.keybed.replaceChildren();lit.clear();
-  ui.range.textContent=name(base()+shift())+'–'+name(base()+shift()+24);
-  let whites=0;
-  for(let i=0;i<25;i++){
-    const black=names[i%12].includes('♯'), k=document.createElement('button'), midi=base()+shift()+i;
-    k.className='key '+(black?'black':'white');k.type='button';k.dataset.i=i;
-    k.setAttribute('aria-label',name(midi)+(keys[i]?('，電腦鍵 '+keys[i].toUpperCase()):''));
-    if(black){k.style.left=(100*whites/15)+'%';k.style.width=(100*.62/15)+'%';}else whites++;
-    const p=document.createElement('span'); p.className='note'; p.textContent=ui.labels.value==='off'?'':ui.labels.value==='sol'?sol[midi%12]:name(midi);
-    const hk=document.createElement('span');hk.className='hotkey';hk.textContent=bindingsShown?(keys[i]||'').toUpperCase():'';
-    k.append(p,hk);ui.keybed.append(k);
+function refreshKeyNavigation(){
+  const viewport=ui.keyboardViewport;
+  const limit=viewport.scrollWidth-viewport.clientWidth;
+  ui.keyNav.hidden=ui.keyView.value==='25'||limit<=1;
+  ui.scrollLow.disabled=viewport.scrollLeft<=1;
+  ui.scrollHigh.disabled=viewport.scrollLeft>=limit-1;
+}
+function revealKey(midi, center=false){
+  const key=keyButtons.get(midi), viewport=ui.keyboardViewport;
+  if(!key||viewport.scrollWidth<=viewport.clientWidth)return;
+  const frame=viewport.getBoundingClientRect(), bounds=key.getBoundingClientRect();
+  if(center){
+    viewport.scrollLeft+=(bounds.left+bounds.right-frame.left-frame.right)/2;
+  }else if(bounds.left<frame.left){
+    viewport.scrollLeft+=bounds.left-frame.left;
+  }else if(bounds.right>frame.right){
+    viewport.scrollLeft+=bounds.right-frame.right;
   }
-  for(const data of active.values())light(data.i,1);
-  if(playing)for(const data of playing.voices.values()){data.i=data.midi-base()-shift();light(data.i,1)}
 }
-function light(i,delta){
-  if(i<0||i>24)return;
-  const n=Math.max(0,(lit.get(i)||0)+delta);
-  if(n)lit.set(i,n);else lit.delete(i);
-  ui.keybed.children[i]?.classList.toggle('active',n>0);
+function render(){
+  const {start,count}=displayedRange();
+  const end=start+count-1, mappingBase=base(), transpose=shift();
+  const pitches=Array.from({length:count},(_,i)=>start+i);
+  const whiteCount=pitches.filter(pitch=>!isBlack(pitch)).length;
+  const buttons=document.createDocumentFragment();
+  keyButtons.clear();
+  lit.clear();
+  ui.range.textContent=name(start+transpose)+'–'+name(end+transpose)+' · '+count+' 鍵';
+  ui.keyboardViewport.classList.toggle('wide',count>25);
+  ui.keybed.style.setProperty('--white-count',whiteCount);
+
+  let whites=0;
+  for(const pitch of pitches){
+    const black=isBlack(pitch), midi=pitch+transpose, k=document.createElement('button');
+    const shortcut=(keys[pitch-mappingBase]||'').toUpperCase();
+    k.className='key '+(black?'black':'white');
+    k.type='button';
+    k.dataset.i=pitch-start;
+    k.dataset.midi=midi;
+    k.setAttribute('aria-label',name(midi)+(shortcut?'，電腦鍵 '+shortcut:''));
+    if(black){
+      k.style.left=(100*whites/whiteCount)+'%';
+      k.style.width=(100*.62/whiteCount)+'%';
+    }else{
+      whites++;
+    }
+    const note=document.createElement('span');
+    note.className='note';
+    note.textContent=ui.labels.value==='off'?'':ui.labels.value==='sol'?sol[midi%12]:name(midi);
+    const hotkey=document.createElement('span');
+    hotkey.className='hotkey';
+    hotkey.textContent=bindingsShown?shortcut:'';
+    k.append(note,hotkey);
+    buttons.append(k);
+    keyButtons.set(midi,k);
+  }
+  ui.keybed.replaceChildren(buttons);
+  for(const item of active.values())light(item.midi,1);
+  if(playing)for(const item of playing.voices.values())light(item.midi,1);
+  refreshKeyNavigation();
 }
-function press(id,i){
-  if(i<0||i>24||active.has(id)||!audio())return;
-  const midi=base()+shift()+i, presetId=ui.preset.value, velocity=.88, v=voice(midi,ctx.currentTime,velocity,presetId), item={i,v,note:null};
-  light(i,1);
+function light(midi,delta){
+  const key=keyButtons.get(midi);
+  if(!key)return;
+  const n=Math.max(0,(lit.get(midi)||0)+delta);
+  if(n)lit.set(midi,n);else lit.delete(midi);
+  key.classList.toggle('active',n>0);
+}
+function press(id,midi){
+  if(!keyButtons.has(midi)||active.has(id)||!audio())return;
+  const presetId=ui.preset.value, velocity=.88;
+  const v=voice(midi,ctx.currentTime,velocity,presetId), item={midi,v,note:null};
+  light(midi,1);
   if(recording&&recording.notes.length<1500){
     item.note={midi,presetId,velocity,start:Math.max(0,performance.now()-recording.started),duration:0};
     recording.notes.push(item.note);
@@ -218,7 +285,7 @@ function finish(item){
 }
 function up(id){
   const item=active.get(id); if(!item)return;
-  active.delete(id);light(item.i,-1);
+  active.delete(id);light(item.midi,-1);
   if(isSustain())tails.add(item);else finish(item);
 }
 function updatePedal(){
@@ -238,40 +305,67 @@ document.addEventListener('keydown',e=>{
   if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing||typing(e.target))return;
   const k=focusedKey(e.target);
   if(k&&(e.code==='ArrowLeft'||e.code==='ArrowRight')){
-    e.preventDefault();const next=Number(k.dataset.i)+(e.code==='ArrowLeft'?-1:1);ui.keybed.children[next]?.focus();return;
+    e.preventDefault();const next=Number(k.dataset.midi)+(e.code==='ArrowLeft'?-1:1);keyButtons.get(next)?.focus();return;
   }
-  if(k&&(e.code==='Space'||e.code==='Enter')){e.preventDefault();if(!e.repeat)press('f'+e.code,Number(k.dataset.i));return;}
+  if(k&&(e.code==='Space'||e.code==='Enter')){e.preventDefault();if(!e.repeat)press('f'+e.code,Number(k.dataset.midi));return;}
   if(e.code==='Space'&&!(e.target instanceof Element&&e.target.closest('button'))){e.preventDefault();pedalHold=true;updatePedal();return;}
   const i=codes.indexOf(e.code);
-  if(i>=0){e.preventDefault();if(!e.repeat)press('k'+e.code,i);}
+  if(i>=0){
+    e.preventDefault();
+    if(!e.repeat){
+      const midi=mappedStart()+i;
+      revealKey(midi);
+      press('k'+e.code,midi);
+    }
+  }
 });
 document.addEventListener('keyup',e=>{
   up('k'+e.code);up('f'+e.code);
   if(e.code==='Space'&&pedalHold){pedalHold=false;updatePedal();}
 });
 ui.keybed.addEventListener('focusout',()=>{up('fSpace');up('fEnter')});
-function indexAt(x,y){const k=document.elementFromPoint(x,y)?.closest('#keybed .key');return k?Number(k.dataset.i):-1;}
+function midiAt(x,y){
+  const key=focusedKey(document.elementFromPoint(x,y));
+  return key?Number(key.dataset.midi):null;
+}
 ui.keybed.addEventListener('pointerdown',e=>{
   if(e.button!==0)return;
   const k=focusedKey(e.target);if(!k)return;
   e.preventDefault();pointers.add(e.pointerId);
-  ui.keybed.setPointerCapture(e.pointerId);press('p'+e.pointerId,Number(k.dataset.i));
+  ui.keybed.setPointerCapture(e.pointerId);press('p'+e.pointerId,Number(k.dataset.midi));
 });
 ui.keybed.addEventListener('pointermove',e=>{
   if(!pointers.has(e.pointerId))return;
-  const id='p'+e.pointerId,i=indexAt(e.clientX,e.clientY);
-  if(active.get(id)?.i===i)return;
-  up(id);press(id,i);
+  const id='p'+e.pointerId,midi=midiAt(e.clientX,e.clientY);
+  if(active.get(id)?.midi===midi)return;
+  up(id);press(id,midi);
 });
 function pointerUp(e){pointers.delete(e.pointerId);up('p'+e.pointerId);}
 for(const event of ['pointerup','pointercancel','lostpointercapture'])ui.keybed.addEventListener(event,pointerUp);
 ui.keybed.addEventListener('click',e=>{
   const k=focusedKey(e.target);if(!k||e.detail!==0||!audio())return;
-  const id='assist';press(id,Number(k.dataset.i));setTimeout(()=>up(id),230);
+  const id='assist';press(id,Number(k.dataset.midi));setTimeout(()=>up(id),230);
 });
 ui.sustain.onclick=()=>{pedalLatch=!pedalLatch;updatePedal();ui.sustain.blur()};
 ui.volume.oninput=setVolume;
-function setPitch(){releaseLive();render();paintTargets();}
+function centerMapping(){
+  revealKey(mappedStart()+12,true);
+}
+function setPitch(){
+  releaseLive();
+  render();
+  centerMapping();
+  paintTargets();
+}
+ui.keyView.onchange=()=>{
+  render();
+  centerMapping();
+  paintTargets();
+};
+ui.keyboardViewport.addEventListener('scroll',refreshKeyNavigation);
+window.addEventListener('resize',refreshKeyNavigation);
+ui.scrollLow.onclick=()=>{ui.keyboardViewport.scrollLeft-=ui.keyboardViewport.clientWidth*.75;};
+ui.scrollHigh.onclick=()=>{ui.keyboardViewport.scrollLeft+=ui.keyboardViewport.clientWidth*.75;};
 ui.octave.onchange=setPitch;ui.transpose.onchange=setPitch;ui.labels.onchange=()=>{render();paintTargets()};
 for(let i=-12;i<=12;i++)ui.transpose.add(new Option(i===0?'原調':(i>0?'+':'')+i+' 半音',String(i),i===0,i===0));
 const guide=Object.fromEntries('song modeDemo modeAlong modePractice lessonAction lessonHelp score progress lessonFeedback restart labelToggle seek elapsed totalTime'.split(' ').map(id=>[id,$(id)]));
@@ -313,13 +407,14 @@ function parseNotes(src){
 }
 function paintTargets(){
   const current=lesson?.score[lesson.index], pitched=new Set(current?.pitches||[]);
-  for(let i=0;i<ui.keybed.children.length;i++)ui.keybed.children[i].classList.toggle('target',pitched.has(base()+shift()+i));
+  for(const [midi,key] of keyButtons)key.classList.toggle('target',pitched.has(midi));
+  if(current)revealKey(current.pitches[0]);
 }
 const clockText=seconds=>Math.floor(seconds/60)+':'+String(Math.floor(seconds%60)).padStart(2,'0');
 let stepStarts=[], totalBeats=0;
 function drawTimeline(){
   cancelAnimationFrame(guideRaf);
-  const stepTime=(lesson?.length||60000/tempo())/1000;
+  const stepTime=(lesson?.length||pausedLesson?.length||60000/tempo())/1000;
   const pos=lesson&&lesson.mode!=='Practice' ? Math.max(0,(performance.now()-lesson.started)/1000) : guidePos*stepTime;
   const max=totalBeats*stepTime;
   guide.seek.max=Math.max(.01,max);if(!seeking)guide.seek.value=Math.min(pos,max);
@@ -357,7 +452,7 @@ function guideChange(next=mode){
   guide.lessonHelp.textContent=desc[mode];guide.lessonFeedback.textContent='';
   modeScore=parseNotes(songs[guide.song.value].score);totalBeats=0;stepStarts=modeScore.map(x=>{const at=totalBeats;totalBeats+=x.beats;return at;});guidePos=0;drawGuide();
 }
-function startLesson(){
+function startLesson(length=60000/tempo()){
   if(lesson){
     if(lesson.mode==='Practice'){stopLesson();return;}
     const a=lesson;
@@ -370,7 +465,7 @@ function startLesson(){
   if(guidePos>=totalBeats)guidePos=0;
   if(recording||!audio())return;
   stopPlayback();releaseLive(true);
-  ui.octave.value='0';ui.transpose.value='0';render();
+  ui.octave.value='0';ui.transpose.value='0';render();centerMapping();
   if(pausedLesson){
     const a=pausedLesson;pausedLesson=null;lesson=a;
     const now=performance.now();
@@ -380,10 +475,10 @@ function startLesson(){
     guide.lessonFeedback.textContent=a.mode==='Along'?'跟彈中 · 已彈對 '+a.hit+' 個音符':'繼續示範。';
     drawGuide();queueLesson();return;
   }
-  const length=60000/tempo();
   const offset=mode==='Practice'?0:stepStarts.reduce((last,s,i)=>s<=guidePos?i:last,0);
   const now=performance.now()+75;
-  lesson={mode,index:offset-1,score:modeScore,timer:null,voices:new Set(),got:new Set(),hit:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),misses:0,started:now-(stepStarts[offset]||0)*length,nextAt:now,length};
+  const position=mode==='Practice'?0:guidePos;
+  lesson={mode,index:offset-1,score:modeScore,timer:null,voices:new Set(),got:new Set(),hit:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),misses:0,started:now-position*length,nextAt:now,length};
   if(mode==='Practice')advancePractice();else queueLesson();
 }
 function advancePractice(){
@@ -415,16 +510,16 @@ function queueLesson(){
     const step=a.score[a.index], now=ctx.currentTime;
     if(a.mode==='Demo')for(const p of step.pitches)a.voices.add(voice(p,now,.82));
     else {
-      const elapsed=Math.round((a.nextAt-a.started)/a.length);
+      const elapsed=Math.round(stepStarts[a.index]);
       if(elapsed%2===0)a.voices.add(voice(songs[guide.song.value].bass[Math.floor(elapsed/4)%songs[guide.song.value].bass.length],now,.36));
     }
     drawGuide();
     guide.lessonFeedback.textContent=a.mode==='Along'?'跟彈中 · 已彈對 '+a.hit+' 個音符':'第 '+(a.index+1)+' / '+a.score.length+' 組';
-    a.nextAt+=step.beats*a.length;queueLesson();
+    a.nextAt=a.started+(stepStarts[a.index]+step.beats)*a.length;queueLesson();
   }, Math.max(0,a.nextAt-performance.now()));
 }
 for(const m of ['Demo','Along','Practice'])guide['mode'+m].onclick=()=>guideChange(m);
-guide.song.onchange=()=>guideChange();guide.lessonAction.onclick=startLesson;
+guide.song.onchange=()=>guideChange();guide.lessonAction.onclick=()=>startLesson();
 guide.restart.onclick=()=>{stopLesson();pausedLesson=null;guidePos=0;startLesson();};
 guide.labelToggle.onclick=()=>{
   bindingsShown=!bindingsShown;ui.labels.value=bindingsShown?'off':'en';
@@ -435,11 +530,13 @@ guide.seek.addEventListener('pointerup',()=>setTimeout(()=>{seeking=false;drawTi
 guide.seek.addEventListener('pointercancel',()=>{seeking=false;drawTimeline();});
 guide.seek.addEventListener('keydown',e=>{if(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)){seeking=true;setTimeout(()=>{seeking=false;drawTimeline()},0)}});
 guide.seek.addEventListener('change',()=>{
-  seeking=false;pausedLesson=null;
-  const seconds=Number(guide.seek.value), wasPlaying=!!lesson, perBeat=(lesson?.length||60000/tempo())/1000;
+  seeking=false;
+  const seconds=Number(guide.seek.value), wasPlaying=!!lesson;
+  const length=lesson?.length||pausedLesson?.length||60000/tempo();
+  pausedLesson=null;
   if(wasPlaying)stopLesson();
-  guidePos=Math.min(totalBeats,seconds/perBeat);drawTimeline();
-  if(wasPlaying&&guidePos<totalBeats)startLesson();else drawGuide();
+  guidePos=Math.min(totalBeats,seconds*1000/length);
+  if(wasPlaying&&guidePos<totalBeats)startLesson(length);else drawGuide();
 });
 ui.bpm.onchange=()=>{ui.bpm.value=tempo();drawTimeline();};
 
@@ -457,7 +554,7 @@ function syncControls(){
 function stopPlayback(){
   if(!playing)return;
   for(const timer of playing.timers)clearTimeout(timer);
-  for(const d of playing.voices.values()){d.v.release(.07);light(d.i,-1);}
+  for(const d of playing.voices.values()){d.v.release(.07);light(d.midi,-1);}
   playing=null;syncControls();
 }
 function playback(notes,monitor=false){
@@ -468,8 +565,8 @@ function playback(notes,monitor=false){
   let end=0;
   notes.forEach((n,id)=>{
     const {midi,start,duration,presetId,velocity=.88}=n;end=Math.max(end,start+duration);
-    later(()=>{const i=midi-base()-shift(),v=voice(midi,ctx.currentTime,velocity,presetId);p.voices.set(id,{v,i,midi});light(i,1)},start+25);
-    later(()=>{const d=p.voices.get(id);if(d){d.v.release();light(d.i,-1);p.voices.delete(id)}},start+duration+25);
+    later(()=>{const v=voice(midi,ctx.currentTime,velocity,presetId);p.voices.set(id,{v,midi});light(midi,1)},start+25);
+    later(()=>{const d=p.voices.get(id);if(d){d.v.release();light(d.midi,-1);p.voices.delete(id)}},start+duration+25);
   });
   later(()=>{stopPlayback();if(!recording)status('回放完成。')},end+160);
 }
