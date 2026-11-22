@@ -1120,7 +1120,15 @@ function runSelfTest() {
   stopLesson();
   ui.result.classList.remove("on");
 
-  // 6. mode switch keeps the song
+  // 6. the Play button is wired to the lesson, not just the library
+  loadSong("twinkle");
+  setMode("Demo");
+  ui.play.click();
+  check("play button starts", S.status === "playing", "status " + S.status);
+  ui.play.click();
+  check("play button stops", S.status === "idle", "status " + S.status);
+
+  // 7. mode switch keeps the song
   loadSong("canon");
   setMode("Practice");
   check("mode switch keeps song", S.song.id === "canon" && S.mode === "Practice", S.mode);

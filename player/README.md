@@ -52,7 +52,7 @@ one, Play Along scoring a hit, Demo clock/progress, and mode switching without l
   --virtual-time-budget=3000 --dump-dom (Resolve-Path .\index.html)  # add ?selftest=1 to the URL
 ```
 
-Current status: **18 passed, 0 failed**.
+Current status: **21 passed, 0 failed**.
 
 ## Deep links
 
