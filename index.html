@@ -228,7 +228,7 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
   </div>
   <div class="mast-tools">
     <div class="desktop-labels" role="group" aria-label="讀譜與琴鍵標示"><button type="button" id="labelQwerty" aria-pressed="true" title="電腦鍵盤字母">QWERTY</button><button type="button" id="labelCde" aria-pressed="false" title="琴鍵音名">CDE</button></div>
-    <label class="key-select"><span id="viewLabel">琴鍵顯示</span><select id="keyView" aria-label="琴鍵顯示"><option value="25">25 鍵</option><option value="61">61 鍵</option><option value="88">88 鍵</option></select></label>
+    <label class="key-select"><span id="viewLabel">琴鍵顯示</span><select id="keyView" aria-label="琴鍵顯示"><option value="25">25 鍵</option><option value="34" selected>34 鍵</option><option value="61">61 鍵</option><option value="88">88 鍵</option></select></label>
     <details id="studioDrawer">
       <summary class="panel-switch"><svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 4h6m4 0h4M2 9h2m4 0h8M2 14h9m4 0h1"/><circle cx="10" cy="4" r="2"/><circle cx="6" cy="9" r="2"/><circle cx="13" cy="14" r="2"/></svg>工具</summary>
       <div class="tools-panel" role="region" aria-label="演奏工具">
@@ -283,7 +283,7 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
   </div></div>
   <div class="cue-line">
     <div class="cue-copy"><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
-    <div class="range-group"><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
+    <div class="range-group"><span id="range">C3–A5 · 34 鍵</span><div id="keyNav" class="key-nav" hidden>
       <button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button><button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
     </div></div>
   </div>
@@ -296,11 +296,17 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
 'use strict';
 const $=id=>document.getElementById(id), ui=Object.fromEntries('keyView octave transpose labels volume sustain range keyboardViewport keyNav scrollLow scrollHigh keybed status bpm meter metro beat rec review stop recordHint notes playNotes demo preset tracks export clearTrack'.split(' ').map(id=>[id,$(id)]));
 const names=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'], sol=['Do','Do♯','Re','Re♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
-const keys='zsxdcvgbhnjmq2w3er5t6y7ui'.split(''); // consecutive semitones C3–C5
-const codes=keys.map(k=>/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase());
+const compactKeys='zsxdcvgbhnjmq2w3er5t6y7ui'; // existing compact map, C3–C5
+const keys=compactKeys+'9o0p,l.;/'; // in the 34-key view continue through A5
+const punctuation={',':'Comma','.':'Period',';':'Semicolon','/':'Slash'};
+const codes=Array.from(keys,k=>punctuation[k]||(/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase()));
+const bindingCount=()=>ui.keyView.value==='34'?keys.length:compactKeys.length;
 const base=()=>48+12*Number(ui.octave.value), shift=()=>Number(ui.transpose.value);
 const mappedStart=()=>base()+shift();
-const shortcutFor=midi=>(keys[midi-mappedStart()]||'').toUpperCase();
+function shortcutFor(midi){
+  const i=midi-mappedStart();
+  return i>=0&&i<bindingCount()?keys[i].toUpperCase():'';
+}
 const isBlack=pitch=>names[pitch%12].includes('♯');
 const keyButtons=new Map();
 
@@ -377,7 +383,7 @@ function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value){
 function refreshKeyNavigation(){
   const viewport=ui.keyboardViewport;
   const limit=viewport.scrollWidth-viewport.clientWidth;
-  ui.keyNav.hidden=ui.keyView.value==='25'||limit<=1;
+  ui.keyNav.hidden=limit<=1;
   ui.scrollLow.disabled=viewport.scrollLeft<=1;
   ui.scrollHigh.disabled=viewport.scrollLeft>=limit-1;
 }
@@ -425,7 +431,7 @@ function render(){
   keyButtons.clear();
   lit.clear();
   ui.range.textContent=name(start+transpose)+'–'+name(end+transpose)+' · '+count+' 鍵';
-  ui.keyboardViewport.classList.toggle('wide',count>25);
+  ui.keyboardViewport.classList.toggle('wide',count>34);
   ui.keybed.style.setProperty('--white-count',whiteCount);
 
   let whites=0;
@@ -505,7 +511,7 @@ document.addEventListener('keydown',e=>{
   if(k&&(e.code==='Space'||e.code==='Enter')){e.preventDefault();if(!e.repeat)press('f'+e.code,Number(k.dataset.midi));return;}
   if(e.code==='Space'&&!(e.target instanceof Element&&e.target.closest('button,summary,a[href]'))){e.preventDefault();pedalHold=true;updatePedal();return;}
   const i=codes.indexOf(e.code);
-  if(i>=0){
+  if(i>=0&&i<bindingCount()){
     e.preventDefault();
     if(!e.repeat){
       const midi=mappedStart()+i;
@@ -1057,8 +1063,6 @@ ui.metro.onclick=()=>{
 };
 window.addEventListener('blur',()=>releaseLive(true));
 document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseLive(true);stopPlayback();pauseLesson();stopMetro();}});
-// Pick the spacious default once; resizing must never change a musician's view.
-if(window.matchMedia?.('(min-width: 1920px) and (min-height: 520px)')?.matches)ui.keyView.value='61';
 render();guideChange();drawTracks();
 </script>
 </body>

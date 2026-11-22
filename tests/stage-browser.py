@@ -39,7 +39,7 @@ def check_desktop_bounds(page, width, height, expected):
     assert white["height"] >= 2.35*white["width"], white
     assert .43 <= black["width"]/white["width"] <= .77, (white,black)
     assert .47 <= black["height"]/white["height"] <= .75, (white,black)
-    expected_width = width / (15 if expected == 25 else 36)
+    expected_width = width / {25:15, 34:20, 61:36, 88:52}[expected]
     assert abs(white["width"]-expected_width) <= 2, white
     assert page.locator("#readingLane").is_visible()
     assert not page.locator("#noteLane").is_visible()
@@ -127,8 +127,14 @@ def test_view(browser, url, width, height, report_only, layout_only, captures):
     page.on("pageerror", lambda e: errors.append(str(e)))
     page.on("requestfailed", lambda req: errors.append(req.url))
     page.goto(url)
-    initial_count=61 if desktop and width>=1920 else 25
+    initial_count=34
+    expect(page.locator("#keyView")).to_have_value("34")
     expect(page.locator("#keybed .key")).to_have_count(initial_count)
+    expect(page.locator("#keybed .white")).to_have_count(20)
+    expect(page.locator("#keybed .black")).to_have_count(14)
+    assert page.locator("#keyboardViewport").evaluate("v => v.scrollWidth <= v.clientWidth + 1")
+    expect(page.locator("#keybed .key").first).to_have_attribute("data-midi","48")
+    expect(page.locator("#keybed .key").last).to_have_attribute("data-midi","81")
     state = inspect(page)
     print(f"{width}x{height} " + json.dumps(state, sort_keys=True), flush=True)
     if report_only:
@@ -152,7 +158,7 @@ def test_view(browser, url, width, height, report_only, layout_only, captures):
     page.keyboard.press("Escape")
     expect(page.locator("#notes")).to_be_hidden()
     expect(summary).to_be_focused()
-    for count in [61, 88, 25]:
+    for count in [61, 88, 25, 34]:
         page.locator("#keyView").select_option(str(count))
         expect(page.locator("#keybed .key")).to_have_count(count)
         assert abs(inspect(page)["dockBottomGap"]) <= 26

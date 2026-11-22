@@ -51,12 +51,13 @@ function piano(t) {
   return {window, document, notes, byId, key, change, send, press};
 }
 
-test('all keyboard views keep the compact typing layout', t => {
+test('four keyboard views preserve compact shortcuts and extend only the default', t => {
   const {document, notes, key, change, press} = piano(t);
   const keys = '#keybed .key';
-  assert.equal(document.querySelectorAll(keys).length, 25);
+  assert.equal(document.querySelector('#keyView').value, '34');
+  assert.equal(document.querySelectorAll(keys).length, 34);
   for (const [count, first, last, whites] of [
-    [25, 48, 72, 15], [61, 36, 96, 36], [88, 21, 108, 52]
+    [25, 48, 72, 15], [34, 48, 81, 20], [61, 36, 96, 36], [88, 21, 108, 52]
   ]) {
     change('keyView', String(count));
     const buttons = [...document.querySelectorAll(keys)];
@@ -64,7 +65,7 @@ test('all keyboard views keep the compact typing layout', t => {
     assert.equal(buttons[0], key(first));
     assert.equal(buttons.at(-1), key(last));
     assert.equal(buttons.filter(button => button.classList.contains('white')).length, whites);
-    assert.equal(buttons.filter(button => button.querySelector('.hotkey').textContent).length, 25);
+    assert.equal(buttons.filter(button => button.querySelector('.hotkey').textContent).length, count === 34 ? 34 : 25);
     press('KeyQ');
     press('Digit5');
     assert.deepEqual(notes.slice(-2).map(note => note.midi), [60, 66]);
@@ -80,6 +81,42 @@ test('all keyboard views keep the compact typing layout', t => {
     assert.equal(key(36 + 12 * octave).querySelector('.hotkey').textContent, 'Z');
     assert.equal(key(60 + 12 * octave).querySelector('.hotkey').textContent, 'I');
   }
+});
+
+test('all 34 physical keys are distinct and attack and release the labelled semitone', t => {
+  const {notes, key, change, send} = piano(t);
+  const labels = [...'zsxdcvgbhnjmq2w3er5t6y7ui9o0p,l.;/'];
+  const punctuation = {',':'Comma', '.':'Period', ';':'Semicolon', '/':'Slash'};
+  const codes = labels.map(k => punctuation[k] || (/\d/.test(k) ? 'Digit'+k : 'Key'+k.toUpperCase()));
+  assert.equal(new Set(codes).size, 34);
+  codes.forEach((code, i) => {
+    const midi = 48+i;
+    assert.equal(key(midi).querySelector('.hotkey').textContent, labels[i].toUpperCase());
+    send('keydown', code);
+    assert.equal(notes.length, i+1);
+    assert.deepEqual(notes.at(-1), {midi, released:false});
+    assert.ok(key(midi).classList.contains('active'));
+    send('keyup', code);
+    assert.ok(notes.at(-1).released);
+    assert.ok(!key(midi).classList.contains('active'));
+  });
+  // Losing a shortcut on view change must not orphan its already sounding voice.
+  send('keydown', 'Slash');
+  change('keyView', '61');
+  assert.ok(key(81).classList.contains('active'));
+  send('keyup', 'Slash');
+  assert.deepEqual(notes.at(-1), {midi:81, released:true});
+  assert.ok(!key(81).classList.contains('active'));
+  const n = notes.length;
+  for (const view of ['25','61','88']) {
+    change('keyView', view);
+    for (const code of codes.slice(25)) { send('keydown', code); send('keyup', code); }
+    assert.equal(notes.length, n, 'extended hotkeys should not affect '+view+'-key view');
+  }
+  change('keyView', '34'); change('octave','1'); change('transpose','-1');
+  send('keydown', 'Slash'); send('keyup', 'Slash');
+  assert.deepEqual(notes.at(-1), {midi:92, released:true});
+  assert.equal(key(92).querySelector('.hotkey').textContent, '/');
 });
 
 test('pointer endpoints and held keys release across views', t => {

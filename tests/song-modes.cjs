@@ -144,7 +144,9 @@ function groupX(p,i){
 }
 test('desktop scores use the real key mapping and fallback; resize never changes a manual view',t=>{
   const p=piano(t,false,{width:3440,height:900});
-  assert.equal(p.by('keyView').value,'61');
+  assert.equal(p.by('keyView').value,'34');
+  assert.equal(p.pianoKey(81).querySelector('.hotkey').textContent,'/');
+  p.change('keyView','61');
   assert.equal(p.pianoKey(36).querySelector('.note').textContent,'C2');
   assert.equal(p.pianoKey(36).querySelector('.hotkey').textContent,'');
   assert.deepEqual(groupLabels(p,0),['Q']);
@@ -161,7 +163,7 @@ test('desktop scores use the real key mapping and fallback; resize never changes
 test('horizontal track crosses the 30% cursor in musical time; reduced motion snaps on note changes',t=>{
   for(const reduced of [false,true]){
     const width=1200,p=piano(t,false,{width,height:800,reduced});
-    assert.equal(p.by('keyView').value,'25');p.start('moon','Demo');
+    assert.equal(p.by('keyView').value,'34');p.start('moon','Demo');
     assert.equal(groupX(p,0),360);assert.equal(groupX(p,1),460);
     p.tick(300);p.frame();assert.equal(groupX(p,0),reduced?360:310);
     p.tick(300);p.frame();assert.equal(groupX(p,1),360);assert.equal(group(p,0).dataset.state,'done');
