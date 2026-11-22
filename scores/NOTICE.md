@@ -1,7 +1,7 @@
 # 樂譜來源與轉檔紀錄・Canon in D practice score
 
 **Pachelbel's Canon (Canon in D)** — Johann Pachelbel (1653–1706). 曲目本身已屬公有領域。
-本目錄的音符資料來自 **OnlinePianist 虛擬鋼琴**的線上歌曲包，屬於該站的練習編曲；本站只重繪為 MusicXML 並標明出處，未取得任何原始程式或音訊資產。
+本目錄的音符資料與原音檔來自 **OnlinePianist 虛擬鋼琴**的線上歌曲包，屬於該站的練習編曲；本站只重繪為 MusicXML 並標明出處，未取得任何原始程式。
 
 ## 來源
 
@@ -11,6 +11,8 @@
 | 目錄 | `https://www.onlinepianist.com/static_assets/vp/catalog.json` → `id: 7961`, `title: "Pachelbel's Canon (Canon in D)"`, `composer: "Johann Pachelbel"` |
 | 歌曲包 | `https://www.onlinepianist.com/static_assets/data/pivot/7961/7961_full.song` |
 | 本地副本 | [`source/7961_full.song`](source/7961_full.song) — 4,844 bytes，SHA-256 `562fc5ee8bb9e7c25403c3071aea16c7357fb90986aef2004b7b0185c2fee872` |
+| 原音檔 | `https://www.onlinepianist.com/static_assets/data/pivot/7961/7961_full.m4a` |
+| 本地副本 | [`media/canon-practice.m4a`](media/canon-practice.m4a) — 5,286,060 bytes（M4A／AAC，2:40），SHA-256 `f4b02924321d7a246714a28b16036751e768e7454af7540ca5412396fd4e26bf` |
 | 擷取日期 | 2026-11-22 |
 
 `.song` 是 ZIP（單一成員 `7961.song`，deflate），解壓後再以播放器的 32 位元組金鑰 `1mN1Iri8116261127824664135251` 循環 XOR，得到一份 `MIDIFile` 格式（MusicXML 0.9 MIDI DTD）的文字：`<TicksPerBeat>480`、3 個 track、絕對時間戳、含 `Note On/Off`、`SetTempo`、`Marker`。
@@ -31,6 +33,7 @@
 | --- | --- | --- |
 | [`canon-practice-f.musicxml`](canon-practice-f.musicxml) | 站上實際播放的調（F 大調，1 降號），MusicXML 4.0 | `e47fd9b07497275003f5be23631b7a6addf49b70a98e6c8a0db71c92064c6322` |
 | [`canon-in-d.musicxml`](canon-in-d.musicxml) | 原調 D 大調（2 升號），音符下移小三度 | `4eb261da50a5c62f28369a31a755db5912be97a442a99b651eaff2a4a34a7401` |
+| [`media/canon-practice.m4a`](media/canon-practice.m4a) | 站上練習版原音檔（2:40），可邊聽邊對譜 | `f4b02924321d7a246714a28b16036751e768e7454af7540ca5412396fd4e26bf` |
 | `practice-f-01.svg` … `canon-d-02.svg` | 以 Verovio 6.4.1 排版的向量頁面（每版 2 頁，18 + 15 小節） | — |
 
 ## 重現與驗證
