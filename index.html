@@ -391,8 +391,9 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
             <label class="field">音色 <select id="preset"><option value="">夜曲原聲</option></select></label>
             
             <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
-            <label id="alongBoostField" class="field" hidden>跟彈音量加強
-              <input id="alongBoost" aria-label="跟彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
+            <label class="field">背景音量 <input id="backingVolume" type="range" min="0" max="100" value="45" aria-label="背景音量"><output id="backingVolumeLabel" for="backingVolume">45%</output></label>
+            <label id="alongBoostField" class="field" hidden>手彈音量加強
+              <input id="alongBoost" aria-label="手彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
               <output id="alongBoostReadout" for="alongBoost">+9 dB</output></label>
             <label class="field">電腦鍵配置 <select id="keyLayout" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="reference" selected>參考配置 · 42 鍵</option><option value="compact">精簡配置 · 25 鍵</option></select></label>
             <label class="field">實體鍵盤音域 <select id="octave" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
@@ -460,7 +461,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
       <br>按錯或 MISS 會返回該音並停住，按對後才去下一音；補彈不抹走 MISS。拖動時間條可重練任何段落，跳時間會重置本次成績。
       </div></details>
     </section><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
-    <div class="range-group"><button id="pocGuideSound" type="button" aria-pressed="true" hidden>譜音：開</button><span id="alongMix" hidden>只聽按鍵</span><label class="hint-view" for="scoreView"><span>提示</span><select id="scoreView" aria-label="按鍵提示模式"><option value="falling">直向落鍵 ↓</option><option value="horizontal">橫向單行 →</option><option value="auto">自動（按螢幕）</option></select></label><button id="performanceFocus" type="button" aria-controls="keybed" aria-pressed="false" aria-describedby="performanceHelp" title="啟用全鍵演奏；Esc 離開">全鍵演奏</button><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
+    <div class="range-group"><button id="pocGuideSound" type="button" aria-pressed="false" hidden disabled>譜音：開</button><span id="alongMix" hidden>只聽按鍵</span><span id="backingStatus" role="status" style="font-size:.7rem;white-space:nowrap">背景：待載入</span><label class="hint-view" for="scoreView"><span>提示</span><select id="scoreView" aria-label="按鍵提示模式"><option value="falling">直向落鍵 ↓</option><option value="horizontal">橫向單行 →</option><option value="auto">自動（按螢幕）</option></select></label><button id="performanceFocus" type="button" aria-controls="keybed" aria-pressed="false" aria-describedby="performanceHelp" title="啟用全鍵演奏；Esc 離開">全鍵演奏</button><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
       <button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button><button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
     </div></div>
   </div>
@@ -672,6 +673,7 @@ function rhythmTick(){
   rhythmPaint(a);a.timer=setTimeout(rhythmTick,20);
 }
 function rhythmStart(length){
+  if(!lesson&&!backingState.buffer)return backingPrepare(length);
   if(lesson){rhythmPause();return;}
   if(recording||!audio())return;
   if(guidePos>=totalBeats)guidePos=0;
@@ -684,7 +686,7 @@ function rhythmStart(length){
     rhythmAttach(a,guidePos);
   }
   rhythmSeekAnchor=null;
-  a.floor=a.pos=guidePos;a.started=renderMs(a)-guidePos*a.length;lesson=a;
+  a.floor=a.pos=guidePos;a.started=renderMs(a)-guidePos*a.length;lesson=a;backingStart(a);
   rhythmSync(a,guidePos);drawGuide(guidePos);rhythmCue(a);rhythmPaint(a);rhythmTick();
 }
 function rhythmPause(){
@@ -727,6 +729,7 @@ function rhythmRelease(a,id){
 let rhythmSeekGesture=null,rhythmSeekAnchor=null;
 const rhythmClock=s=>clockText(s)+'.'+String(Math.round(s*1000)%1000).padStart(3,'0');
 function rhythmSeekBegin(){
+  backingCancelRequest();
   if(mode!=='Practice'||!isFull())return;
   if(!rhythmSeekGesture){
     rhythmSeekGesture={running:!!lesson,paused:!!pausedLesson};
@@ -751,6 +754,7 @@ function rhythmSeekCancel(){
   if(state?.running&&pausedLesson)rhythmStart(pausedLesson.length);else drawTimeline();
 }
 function rhythmSeekCommit(seconds){
+  backingCancelRequest();
   const state=rhythmSeekGesture||{running:!!lesson,paused:!!pausedLesson};
   const length=lesson?.length||pausedLesson?.length||60000/tempo();
   rhythmSeekGesture=null;seeking=false;$('rhythmHud').dataset.seeking='false';
@@ -782,6 +786,7 @@ function rhythmBlock(a,notes,reason){
   rhythmOpenRetry(a,a.retryQueue.shift(),reason);
 }
 function rhythmOpenRetry(a,notes,reason){
+  backingStop(a);
   clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
   const i=notes[0].stepIndex,beat=stepStarts[i];
   a.retryGate={index:i,beat,reason,pending:new Map(notes.map(n=>[n.midi,n.id]))};
@@ -816,10 +821,85 @@ function rhythmRetryInput(a,midi,id){
   const next=a.score.findIndex((s,i)=>i>previous&&s.pitches.length);
   if(next<0){rhythmStop(true);return;}
   a.floor=a.pos=guidePos=stepStarts[next];a.started=renderMs(a)-guidePos*a.length;
-  rhythmSync(a,guidePos);drawGuide(guidePos);rhythmPaint(a);
+  backingStart(a);rhythmSync(a,guidePos);drawGuide(guidePos);rhythmPaint(a);
   guide.lessonFeedback.textContent='已按對 · 繼續下一音；補彈唔會抹走原有 MISS';
   rhythmTick();
 }
+
+</script>
+<script>
+/* Shared Web Audio clock: recorded backing is separate from piano key voices. */
+const backingState={buffer:null,loading:null,current:null,gain:null,generation:0,lastOffset:0,error:null};
+function backingSnapshot(){
+  const v=backingState.current;
+  return {loaded:!!backingState.buffer,loading:!!backingState.loading,playing:!!v,
+    offset:v?v.offset+Math.max(0,ctx.currentTime-v.when):backingState.lastOffset,
+    duration:backingState.buffer?.duration||0,ownerMode:v?.owner.mode||null,error:backingState.error};
+}
+window.NocturneBacking=Object.freeze({snapshot:backingSnapshot});
+function backingStatus(text){
+  const el=$('backingStatus');el.textContent=text;
+  el.dataset.playing=String(!!backingState.current);
+}
+function backingVolume(){
+  const v=Number($('backingVolume').value)/100;
+  $('backingVolumeLabel').value=Math.round(v*100)+'%';
+  if(backingState.gain)backingState.gain.gain.setTargetAtTime(v,ctx.currentTime,.02);
+}
+function backingCancelRequest(){backingState.generation++;}
+function backingPrepare(length){
+  if(recording||!audio())return;
+  const token=++backingState.generation,selected=mode,position=guidePos;
+  backingStatus('背景：載入中…');guide.lessonFeedback.textContent='正在載入背景音樂，準備好後才會開始計時…';
+  if(!backingState.loading){
+    backingState.error=null;
+    backingState.loading=fetch('scores/media/canon-practice.m4a').then(r=>{
+      if(!r.ok)throw Error('背景音軌 HTTP '+r.status);return r.arrayBuffer();
+    }).then(bytes=>ctx.decodeAudioData(bytes)).then(buffer=>{
+      backingState.buffer=buffer;
+      if(!backingState.gain){
+        backingState.gain=ctx.createGain();
+        backingState.gain.gain.value=Number($('backingVolume').value)/100;
+        backingState.gain.connect(master);
+      }
+      return buffer;
+    });
+  }
+  syncControls();
+  backingState.loading.then(()=>{
+    if(token!==backingState.generation||mode!==selected||lesson||Math.abs(guidePos-position)>1e-6)return;
+    backingStatus('背景：已準備');startLesson(length);
+  }).catch(e=>{
+    if(token!==backingState.generation)return;
+    backingState.error=String(e);backingStatus('背景：載入失敗');
+    guide.lessonFeedback.textContent='背景音樂載入失敗，請按開始重試。'+(location.protocol==='file:'?' 本機請用 HTTP 伺服器開啟。':'');
+  }).finally(()=>{backingState.loading=null;syncControls();});
+}
+function backingStop(owner){
+  const v=backingState.current;if(!v||owner&&v.owner!==owner)return;
+  backingState.lastOffset=v.offset+Math.max(0,ctx.currentTime-v.when);
+  backingState.current=null;
+  try{v.level.gain.cancelScheduledValues(ctx.currentTime);v.level.gain.setTargetAtTime(0,ctx.currentTime,.004);v.source.stop(ctx.currentTime+.025);}catch(_){}
+  backingStatus('背景：已暫停');
+}
+function backingStart(a){
+  backingStop();
+  if(!backingState.buffer||lesson!==a||a.retryGate)return;
+  const when=ctx.currentTime,offset=Math.max(0,(when*1000-a.started)/1000);
+  if(offset>=backingState.buffer.duration){backingStatus('背景：已完結');return;}
+  const source=ctx.createBufferSource(),level=ctx.createGain();
+  source.buffer=backingState.buffer;level.gain.value=1;
+  source.connect(level).connect(backingState.gain);
+  const voice={source,level,owner:a,when,offset};
+  backingState.current=voice;backingState.lastOffset=offset;
+  source.onended=()=>{
+    source.disconnect();level.disconnect();
+    if(backingState.current===voice){backingState.current=null;backingStatus('背景：已完結');}
+  };
+  source.start(when,offset);backingStatus('背景：播放中');
+}
+document.getElementById('backingVolume').oninput=backingVolume;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)backingCancelRequest();});
 
 </script>
 <script src="studio.js"></script>
@@ -906,7 +986,7 @@ function audio(){
       master=ctx.createGain();
       alongBus=ctx.createGain();alongBus.connect(master);setAlongBoost(true);
       const limiter=ctx.createDynamicsCompressor(); limiter.threshold.value=-15; limiter.ratio.value=6;
-      outputGuard=ctx.createWaveShaper();guardAlongOutput(mode==='Along'&&isFull());
+      outputGuard=ctx.createWaveShaper();guardAlongOutput(mode!=='Demo'&&isFull());
       master.connect(limiter).connect(outputGuard).connect(ctx.destination); setVolume();
     }
     if(ctx.state!=='running')ctx.resume().catch(()=>{
@@ -1037,7 +1117,7 @@ function light(midi,delta){
 function press(id,midi,physical=false){
   if(!Number.isInteger(midi)||(!physical&&!keyButtons.has(midi))||active.has(id)||!audio())return;
   const presetId=ui.preset.value, velocity=.88;
-  const out=!recording&&isFull()&&mode==='Along'?alongBus:master;
+  const out=!recording&&isFull()&&mode!=='Demo'?alongBus:master;
   const v=voice(midi,ctx.currentTime,velocity,presetId,out), item={midi,v,note:null};
   light(midi,1);
   if(recording&&recording.notes.length<1500){
@@ -1197,7 +1277,9 @@ const desc={Demo:'自動示範：聽旋律，看音符落到琴鍵。',Along:'�
 const fullScore=window.NocturneScorePlayer,isFull=()=>guide.song.value==='canonFull'&&!!fullScore;
 let usedFull=false,preFullTempo=100;
 if(!fullScore){guide.song.querySelector('[value=canonFull]').disabled=true;guide.song.value='canon';}
-const fullDesc={Demo:'原譜頭 4.8 秒休止，第一音按 C（A4）；示範自動彈雙手；只想聽自己彈，可揀 Practice，或關閉跟彈譜音。',Along:'按開始會播放所選聲部，跟住亮起嘅鍵一齊彈。關閉「譜音」就只聽你按嘅鍵。',Practice:'跟住節奏點按：長音按一下即可，前後 0.5 秒內亦接受。錯鍵或 MISS 會返回並停住等你按對；未按鍵不會發聲。CL＝Caps Lock。'};
+const fullDesc={Demo:'背景音樂＋自動示範琴鍵。原譜首 4.8 秒休止，第一音 C＝A4。',
+Along:'背景音樂繼續；只有你按下的琴鍵會發聲，不會自動代彈。',
+Practice:'背景＋手彈＋停等助手。錯鍵或 MISS 時，背景與提示一起返回並停住；按對後繼續。長音按一下、前後 0.5 秒內接受。'};
 const songs={
  moon:{score:'C4 E4 G4 A4:2 G4 E4 D4 F4 A4 G4:2 D4 E4 C4+E4:2 D4 E4+G4:2 C4:2',bass:[48,50,48,43,48,45,48,43]},
  ode:{score:'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2',bass:[48,43,48,43,48,43,48,48]},
@@ -1615,10 +1697,11 @@ function stopLesson(completed=false){
   }else guide.lessonFeedback.textContent='已停止。';
 }
 function selectMode(next){
+  backingCancelRequest();
   mode=next;$('rhythmHud').hidden=next!=='Practice';
   const opt=isFull()&&mode==='Along';
-  $('pocGuideSound').hidden=!opt;$('alongBoostField').hidden=!opt;guardAlongOutput(opt);
-  $('alongMix').hidden=mode==='Demo'||opt;
+  $('pocGuideSound').hidden=true;$('alongBoostField').hidden=mode==='Demo';guardAlongOutput(mode!=='Demo'&&isFull());
+  $('alongMix').hidden=mode==='Demo';$('alongMix').textContent='背景＋手彈';
   if(mode!=='Demo'&&metroTimer)stopMetro();
   for(const m of ['Demo','Along','Practice'])guide['mode'+m].setAttribute('aria-pressed',String(m===mode));
   guide.lessonHelp.textContent=(isFull()?fullDesc:desc)[mode];guide.lessonFeedback.textContent='';
@@ -1645,6 +1728,7 @@ function makeLesson(length,position){
     started:(audioTimed?ctx.currentTime*1000:performance.now())-position*length,pos:position,length};
 }
 function silenceLesson(a){
+  backingStop(a);
   for(const item of a.fullVoices.values())item.voice.release(.025);a.fullVoices.clear();
   a.autoNotes=[];a.sliceTick=-1;paintAutoKeys([]);
   for(const v of a.voices)v.release(.07);
@@ -1661,6 +1745,7 @@ function pauseLesson(){
   guide.lessonFeedback.textContent='已暫停 · 第 '+(a.score[a.index]?.group||1)+' / '+fullScore.leadGroups+' 組';
 }
 function startLesson(length=60000/tempo()){
+  if(isFull()&&!lesson&&!backingState.buffer)return backingPrepare(length);
   if(mode==='Practice'&&isFull())return rhythmStart(length);
   if(lesson){pauseLesson();return;}
   if(recording||!audio())return;
@@ -1670,11 +1755,11 @@ function startLesson(length=60000/tempo()){
   ui.octave.value='0';ui.transpose.value='0';updateOctaveChoices();render();centerMapping();
   if(pausedLesson){
     const a=pausedLesson;pausedLesson=null;lesson=a;
-    a.floor=a.pos;a.started=renderMs(a)-a.pos*a.length;
+    a.floor=a.pos;a.started=renderMs(a)-a.pos*a.length;backingStart(a);
     if(a.mode==='Practice'){drawGuide();practiceCue();return;}
     queueLesson(true);return;
   }
-  lesson=makeLesson(length,guidePos);
+  lesson=makeLesson(length,guidePos);backingStart(lesson);
   if(mode==='Practice'){lesson.index=stepAt(guidePos)-1;advancePractice();}else queueLesson();
 }
 function remaining(a,step){return step.pitches.filter(p=>!a.got.has(p));}
@@ -1755,7 +1840,7 @@ function inputLesson(midi,id){
 }
 // Demo plays the entire source. The optional Along guide sounds only the selected
 // practice staff/staves. Neither path calls press()/inputLesson() or awards hits.
-function scoreSounds(a){return a.mode==='Demo'||(a.mode==='Along'&&$('pocGuideSound').getAttribute('aria-pressed')==='true');}
+function scoreSounds(a){return a.mode==='Demo';}
 $('pocGuideSound').onclick=()=>{
   const b=$('pocGuideSound'),on=b.getAttribute('aria-pressed')!=='true';
   b.setAttribute('aria-pressed',String(on));b.textContent='譜音：'+(on?'開':'關');
@@ -1815,7 +1900,7 @@ function queueLesson(resume=false,sample){
   if(changed||resume){
     drawGuide(beat);guide.lessonFeedback.textContent=isFull()&&!step.pitches.length?
       (beat<sourceNotes[0].start?'前奏休止 · 0:04.800 第一音 C（A4）':beat>=sourceNotes[sourceNotes.length-1].end?'尾奏休止 · 等候全曲完結':'休止'):
-      a.mode==='Along'?'跟彈中'+(isFull()&&scoreSounds(a)?' · 正在播譜':' · 只聽按鍵')+' · 已彈對 '+a.hit+' 個音符':'第 '+step.group+' / '+fullScore.leadGroups+' 組';
+      a.mode==='Along'?'跟彈中'+(isFull()&&scoreSounds(a)?' · 自動示範':' · 背景＋手彈')+' · 已彈對 '+a.hit+' 個音符':'第 '+step.group+' / '+fullScore.leadGroups+' 組';
   }else drawTimeline(beat);
   const wait=Math.max(1,(next-beat)*a.length);
   a.timer=setTimeout(()=>{if(lesson===a)queueLesson();},isFull()?Math.min(25,wait):wait);
@@ -1832,7 +1917,7 @@ function switchMode(next){
   const a=makeLesson(old.length,guidePos);
   if(next==='Practice'&&isFull()){
     rhythmAttach(a,guidePos);
-    if(running){lesson=a;performanceMode(true);drawGuide();rhythmCue(a);rhythmTick();}
+    if(running){lesson=a;performanceMode(true);backingStart(a);drawGuide();rhythmCue(a);rhythmTick();}
     else{pausedLesson=a;drawGuide();rhythmPaint(a);guide.lessonFeedback.textContent='已暫停 · 繼續後按一下即可判定';}
     return;
   }
@@ -1845,7 +1930,7 @@ function switchMode(next){
     a.index=nextInput;guidePos=a.pos=stepStarts[nextInput];
   }
   if(running){
-    lesson=a;
+    lesson=a;backingStart(a);
     if(next!=='Demo')performanceMode(true);
     if(next==='Practice'){drawGuide();practiceCue();}else queueLesson();
   }else{
@@ -1889,7 +1974,7 @@ function syncControls(){
   guide.restart.disabled=!!recording;
   ui.playNotes.disabled=!!lesson||!!recording;
   ui.stop.disabled=!playing;
-  guide.lessonAction.disabled=!!recording;
+  guide.lessonAction.disabled=!!recording||!!backingState.loading;
   ui.octave.disabled=ui.transpose.disabled=!!lesson;
 }
 function stopPlayback(){
