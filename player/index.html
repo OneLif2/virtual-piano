@@ -396,7 +396,7 @@ const sound = {
       this.master = this.ctx.createGain();
       this.master.gain.value = 0.9;
       this.master.connect(this.ctx.destination);
-        this.ctx.addEventListener?.("statechange", () => paintAudio());
+        if (this.ctx.addEventListener) this.ctx.addEventListener("statechange", () => paintAudio());
       }
       if (this.ctx.state !== "running") this.ctx.resume().catch(() => {});
       return this.ctx;
@@ -587,7 +587,7 @@ function markTargets() {
     if (step && step.at - S.clock < 1.2) target = step;
   }
   if (!target) return;
-  for (const p of target.pitches) keyEls.get(p)?.classList.add("target");
+  for (const p of target.pitches) { const el = keyEls.get(p); if (el) el.classList.add("target"); }
 }
 
 function flashKey(midi, on) {
@@ -939,11 +939,11 @@ function bind() {
     const key = e.target.closest("[data-midi]");
     if (!key) return;
     e.preventDefault();
-    key.setPointerCapture?.(e.pointerId);
+    if (key.setPointerCapture) key.setPointerCapture(e.pointerId);
     pressMidi(Number(key.dataset.midi));
   });
   const up = (e) => {
-    const key = e.target.closest?.("[data-midi]");
+    const key = e.target.closest ? e.target.closest("[data-midi]") : null;
     if (key) releaseMidi(Number(key.dataset.midi));
   };
   ui.keyboard.addEventListener("pointerup", up);
