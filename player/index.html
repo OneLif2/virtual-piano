@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#131417">
+<meta name="vp-build" content="2026-11-23.2">
 <title>Virtual Piano — Songs, Demo, Play Along, Practice</title>
 <meta name="description" content="A self-contained virtual piano with a song library, search, and Demo / Play Along / Practice modes.">
 <style>
@@ -386,21 +387,29 @@ const STORAGE_KEY = "vp.history.v1";
 const sound = {
   ctx: null, master: null, muted: false, retry: 0,
   unlock() {
-    if (this.muted) return null;
-    if (!this.ctx) {
+    if (this.muted || this.broken) return null;
+    try {
+      if (!this.ctx) {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return null;
       this.ctx = new AC({ latencyHint: "interactive" });
       this.master = this.ctx.createGain();
       this.master.gain.value = 0.9;
       this.master.connect(this.ctx.destination);
-      this.ctx.addEventListener?.("statechange", () => paintAudio());
+        this.ctx.addEventListener?.("statechange", () => paintAudio());
+      }
+      if (this.ctx.state !== "running") this.ctx.resume().catch(() => {});
+      return this.ctx;
+    } catch (err) {
+      this.broken = true;
+      console.warn("audio disabled:", err);
+      paintAudio();
+      return null;
     }
-    if (this.ctx.state !== "running") this.ctx.resume().catch(() => {});
-    return this.ctx;
   },
   voice(midi, seconds, velocity) {
     const ctx = this.ctx;
+    if (!ctx) return;
     const t = ctx.currentTime + 0.01;
     const freq = 440 * Math.pow(2, (midi - 69) / 12);
     const out = ctx.createGain();
@@ -704,11 +713,17 @@ function setMode(mode) {
     Practice: "<b>Practice</b> waits for the right key and moves on only when you find it. Chords can be pressed one note at a time.",
   };
   ui.modeHint.innerHTML = hints[mode];
+  paintPlayLabel();
   if (wasPlaying) startLesson(); else { updateLane(); updateProgress(); }
 }
 
 function skipRests() {
   while (S.cursor < S.melody.steps.length && !S.melody.steps[S.cursor].pitches.length) S.cursor++;
+}
+
+function paintPlayLabel() {
+  if (S.status === "playing") { ui.play.textContent = "\u25a0 Stop"; return; }
+  ui.play.textContent = S.mode === "Practice" ? "\u25b6 Start practice" : "\u25b6 Play Song";
 }
 
 function startLesson() {
@@ -722,10 +737,11 @@ function startLesson() {
   ui.play.textContent = "■ Stop";
   ui.kicker.textContent = S.mode === "Practice" ? "PRACTICE" : S.mode === "Along" ? "PLAY ALONG" : "DEMO";
   ui.feedback.innerHTML = S.mode === "Practice"
-    ? "Press the highlighted key to move on."
+    ? "Waiting for the first key \u2014 press the glowing note on the keyboard."
     : S.mode === "Along" ? "Follow the highlighted keys — the song will not wait." : "Listening…";
   ui.state.textContent = "playing";
   if (S.mode === "Practice") skipRests();
+  paintPlayLabel();
   updateLane(); markTargets();
   cancelAnimationFrame(S.raf);
   S.raf = requestAnimationFrame(tick);
@@ -743,11 +759,13 @@ function stopLesson(done = false) {
   if (!done) ui.state.textContent = "ready";
 }
 
-function tick(now) {
+function tick() {
   if (S.status !== "playing") return;
   if (S.mode === "Practice") { S.raf = requestAnimationFrame(tick); return; }
-  if (!S.clock) S.startedAt = now - S.clock * msPerBeat();
-  S.clock = (now - S.startedAt) / msPerBeat();
+  S.frames = (S.frames || 0) + 1;
+  const now = performance.now();
+  const elapsed = (now - S.startedAt) / msPerBeat();
+  S.clock = Number.isFinite(elapsed) && elapsed > 0 ? elapsed : 0;
 
   // accompaniment + demo melody
   while (S.bassPtr < S.bass.steps.length && S.bass.steps[S.bassPtr].at <= S.clock + 0.08) {
@@ -1120,7 +1138,7 @@ bind();
 renderList();
 const params = new URLSearchParams(location.search);
 loadSong(SONGS.some((s) => s.id === params.get("song")) ? params.get("song") : "canon");
-setMode(["Demo", "Along", "Practice"].includes(params.get("mode")) ? params.get("mode") : "Practice");
+setMode(["Demo", "Along", "Practice"].includes(params.get("mode")) ? params.get("mode") : "Demo");
 if (params.has("library")) openLibrary(true);
 paintAudio();
 if (params.has("play")) startLesson();
@@ -1130,8 +1148,16 @@ if (params.has("debug")) {
   const wrap = document.querySelector(".kbwrap");
   document.title = `W${innerWidth} body${document.body.scrollWidth} stage${document.querySelector(".stage").scrollWidth} kb${Math.round(kb.width)} wrap${Math.round(wrap.getBoundingClientRect().width)}`;
 }
+if (params.has("smoke")) {
+  startLesson();
+  setTimeout(() => {
+    const ratio = parseFloat(ui.fill.style.width) || 0;
+    document.title = `SMOKE status=${S.status} mode=${S.mode} frames=${S.frames || 0} clock=${S.clock.toFixed(2)} progress=${ratio.toFixed(1)}% audio=${sound.ctx ? sound.ctx.state : "none"}`;
+  }, 1500);
+}
 if (params.has("selftest")) runSelfTest();
 
+console.info("virtual piano build 2026-11-23.2");
 window.__vp = { S, SONGS, loadSong, setMode, startLesson, stopLesson, pressMidi, releaseMidi, parseTrack };
 })();
 </script>
