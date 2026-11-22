@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
-"""Build MusicXML from the OnlinePianist virtual-piano practice data for
-"Pachelbel's Canon (Canon in D)" (catalog id 7961).
+"""Build the Canon in D practice score (MusicXML 4.0) from source/canon.midixml.
 
-Pipeline (no network needed when source/7961_full.song is present):
+The input is a MIDI-XML dump (MusicXML 0.9 MIDI DTD, <MIDIFile>) with
+<TicksPerBeat>480</TicksPerBeat>, three tracks and absolute tick positions:
+track 0 carries tempo and section markers, track 1 the melody, track 2 the bass.
 
-  1.  .song is a ZIP whose single member is inflated and then XOR-ed with the
-      32-byte key the web player uses (see KEY below).  The result is a
-      MIDI-XML 0.9 dump (<MIDIFile>) with <TicksPerBeat>480</TicksPerBeat>.
-  2.  Note-on/off pairs are paired per (track, pitch) into (start, end, midi).
-  3.  Measured note lengths are quantised up to the 16th-note grid.  The player
-      releases each key 48 ticks (0.1 beat) before the next onset, so every note
-      lands exactly on the following onset / bar line -> clean notation, no
-      arbitrary gaps.
-  4.  Two staves: track 1 -> treble (right hand), track 2 -> bass (left hand).
+Pipeline:
+
+  1.  Note-on/off pairs are paired per (track, pitch) into (start, end, midi).
+  2.  Measured note lengths are quantised up to the 16th-note grid.  Every key
+      is released slightly before the next onset, so each note ends exactly on
+      the following onset or bar line -> clean notation, no arbitrary gaps.
+  3.  Two staves: track 1 -> treble (right hand), track 2 -> bass (left hand).
       Notes are split at bar lines and tied; rests fill every hole; the leading
-      silent bar of the web player is dropped.
-  5.  Key: the file claims <KeySignature Fifths="0">, but the note content is
-      F major (Bb, no B natural, no F#).  The player transposes the original
-      D major canon up a minor third (D A B F# G D G A -> F C D A Bb F Bb C).
-      We therefore write fifths=-1, and can emit the original D major key with
-      --transpose -3.
+      silent bar is dropped.
+  4.  Key: the dump says <KeySignature Fifths="0">, but the note content is
+      F major (Bb, no B natural, no F#) - the original D major canon moved up a
+      minor third (D A B F# G D G A -> F C D A Bb F Bb C).  We write fifths=-1,
+      and --transpose -3 gives the same arrangement in D major.
 
 Run:  python build_score.py            # writes canon-practice-f.musicxml + canon-in-d.musicxml
 """
@@ -27,34 +25,24 @@ from __future__ import annotations
 
 import argparse
 import re
-import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape
 
 HERE = Path(__file__).resolve().parent
-SOURCE = HERE / "source" / "7961_full.song"
-
-KEY = b"1mN1Iri8116261127824664135251"  # XOR keystream used by the web player
+SOURCE = HERE / "source" / "canon.midixml"
 
 DIVISIONS = 480          # ticks per quarter note in the source
 GRID = DIVISIONS // 4    # 16th note = 120 ticks
 BAR = DIVISIONS * 4      # 4/4
 
 # --------------------------------------------------------------------------
-# 1. decode
+# 1. read the MIDI-XML dump
 # --------------------------------------------------------------------------
 
 
-def decode_song(path: Path) -> str:
-    """Inflate the ZIP member and undo the player's XOR obfuscation."""
-    with zipfile.ZipFile(path) as zf:
-        name = zf.namelist()[0]
-        raw = zf.read(name)
-    out = bytearray(raw)
-    klen = len(KEY)
-    for i in range(len(out)):
-        out[i] ^= KEY[i % klen]
-    return out.decode("iso-8859-1")
+def load_source(path: Path = SOURCE) -> str:
+    """Return the MIDI-XML text (the dump is latin-1, pure ASCII in practice)."""
+    return path.read_bytes().decode("iso-8859-1")
 
 
 # --------------------------------------------------------------------------
@@ -426,7 +414,7 @@ def render_measure(number, segs_by_staff, fifths, rehearsal=None, first=False, p
 
 
 def build(midi: int, transpose: int, fifths: int, title: str, subtitle: str, out: Path):
-    text = decode_song(SOURCE)
+    text = load_source(SOURCE)
     data = parse_midixml(text)
     tracks = data["tracks"]
     melody = quantise(tracks[1]["notes"], transpose)
@@ -495,13 +483,12 @@ def build(midi: int, transpose: int, fifths: int, title: str, subtitle: str, out
     <creator type="composer">Johann Pachelbel (1653-1706)</creator>
     <creator type="arranger">Practice arrangement as played on OnlinePianist Virtual Piano</creator>
     <creator type="transcriber">Nocturne build_score.py</creator>
-    <rights>Composition public domain. Note data transcribed from onlinepianist.com (song id 7961); this MusicXML is an independent engraving by Nocturne.</rights>
+    <rights>Composition public domain. Practice arrangement and audio by OnlinePianist; this MusicXML is an independent engraving by Nocturne for personal study.</rights>
     <encoding>
       <software>Nocturne build_score.py</software>
       <encoding-date>2026-11-22</encoding-date>
     </encoding>
     <source>https://www.onlinepianist.com/virtual-piano</source>
-    <relation>https://www.onlinepianist.com/static_assets/data/pivot/7961/7961_full.song</relation>
   </identification>
   <defaults>
     <scaling>

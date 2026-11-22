@@ -9,13 +9,12 @@
     <creator type="composer">Johann Pachelbel (1653-1706)</creator>
     <creator type="arranger">Practice arrangement as played on OnlinePianist Virtual Piano</creator>
     <creator type="transcriber">Nocturne build_score.py</creator>
-    <rights>Composition public domain. Note data transcribed from onlinepianist.com (song id 7961); this MusicXML is an independent engraving by Nocturne.</rights>
+    <rights>Composition public domain. Practice arrangement and audio by OnlinePianist; this MusicXML is an independent engraving by Nocturne for personal study.</rights>
     <encoding>
       <software>Nocturne build_score.py</software>
       <encoding-date>2026-11-22</encoding-date>
     </encoding>
     <source>https://www.onlinepianist.com/virtual-piano</source>
-    <relation>https://www.onlinepianist.com/static_assets/data/pivot/7961/7961_full.song</relation>
   </identification>
   <defaults>
     <scaling>

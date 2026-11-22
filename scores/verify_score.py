@@ -76,7 +76,7 @@ def read_xml(path: Path):
 
 
 def source_expectation(transpose: int, bars: int):
-    data = B.parse_midixml(B.decode_song(B.SOURCE))
+    data = B.parse_midixml(B.load_source())
     mel = B.quantise(data["tracks"][1]["notes"], transpose)
     bass = B.quantise(data["tracks"][2]["notes"], transpose)
     first = min(n[0] for n in mel + bass)

@@ -33,6 +33,7 @@ OPTIONS = {
     "condense": "none",
     "justifyVertically": False,
     "adjustPageHeight": True,
+    "xmlIdSeed": 1,          # deterministic element ids: re-renders are byte-identical
 }
 
 
