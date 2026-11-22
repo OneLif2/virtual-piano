@@ -204,6 +204,12 @@
     function releaseAtTime(t, fade) {
       if (t >= releaseAt) return;
       releaseAt = t;
+      if(t<when){
+        // A stopped/seeked lookahead voice must never attack in the next transport position.
+        vca.gain.cancelScheduledValues(t);vca.gain.setValueAtTime(.00001,t);
+        sources.forEach(src=>{try{src.stop(t);}catch(_){}});
+        return;
+      }
       const span = clamp(number(fade,p.release),.015,1.5);
       const now = Math.max(when+.001,t);
       // Evaluate the known attack/decay ramp, including browsers without cancelAndHold.
@@ -221,7 +227,7 @@
     if (endTime != null) releaseAtTime(endTime);
     else releaseAtTime(when+45);
     main.onended = () => { nodes.forEach(node => { try { node.disconnect(); } catch (_) {} }); };
-    return {release(fade) { releaseAtTime(ctx.currentTime,fade); }};
+    return {release(fade) { releaseAtTime(ctx.currentTime,fade); },releaseAt(time,fade){releaseAtTime(time,fade);}};
   }
   function voice(ctx,destination,midi,time,velocity,presetId) {
     return makeVoice(ctx,destination,midi,time,velocity,presetId,null);

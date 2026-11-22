@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#151c24">
 <meta name="description" content="夜曲是一個可用滑鼠、觸控或電腦鍵盤彈奏的免費虛擬鋼琴。">
-<title>夜曲 Nocturne ｜ 虛擬鋼琴</title>
+<title>夜曲 Nocturne ｜ Canon in D · 雙手全曲 · 192 音</title>
 <style>
 :root{
   color-scheme:dark;--bg:#10151c;--surface:#19222c;--border:#34414f;--ink:#f2f3ee;--muted:#b2c0cb;
@@ -216,6 +216,158 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
   .desk{--brand-w:108px}.transport{margin-left:7px}.modes{margin-left:4px}.modes button{padding-inline:5px}.song-field{width:clamp(228px,calc(100vw - 770px),280px);left:54%}.song-field select{font-size:clamp(12px,1.1vw,14px)}.mast-tools{gap:4px;padding-right:8px}
 }
 
+#performanceFocus,#alongMix{min-height:26px;padding:2px 7px;border-radius:5px;font-size:.7rem;white-space:nowrap}
+#alongMix{display:inline-flex;align-items:center;color:#aae4d4;font-size:.68rem}#alongMix[hidden]{display:none}
+html[data-score-view=falling] #noteLane,html[data-score-view=falling] .mobile-roll-title{display:block}
+html[data-score-view=falling] #readingLane,html[data-score-view=falling] .desktop-reader-title{display:none}
+@media(min-width:1000px) and (min-height:520px){
+  /* Put controls above the roll; the falling note's strike line is the real keyboard edge. */
+  html[data-score-view=falling] .desk{grid-template-rows:var(--bar-h) var(--time-h) auto minmax(0,1fr) var(--key-h)}
+  html[data-score-view=falling] .cue-line{grid-row:3}
+  html[data-score-view=falling] .note-runway{grid-row:4}
+  html[data-score-view=falling] .piano-dock{border-top:1px solid #76c7ad}
+}
+#keybed[data-performance=true]{outline:2px solid #82cab4;outline-offset:-2px}
+#keybed .white[data-middle-c=true]::before{content:"";position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:clamp(5px,.5vw,11px);aspect-ratio:1;background:#af5758;border-radius:50%;pointer-events:none}
+#keybed .white.target[data-middle-c=true]::before{left:25%}
+#keybed .key[data-code=CapsLock] .hotkey,.read-pitch[data-code=CapsLock][data-mapped=true]{text-transform:none}
+@media(max-width:600px){#performanceFocus{font-size:.65rem;padding:2px 4px}}
+#fullScoreLinks{position:absolute;z-index:2;right:var(--gutter);top:8px;display:flex;gap:8px;align-items:center;font-size:clamp(.6rem,1vw,.8rem)}
+#fullScoreLinks a,#fullScoreCredit a{color:#afe2d5;text-underline-offset:.2em}
+#fullScoreLinks a{background:#151d26e8;padding:3px 6px;border-radius:4px}
+#fullScoreCredit p{margin:6px 0}
+.note-runway .stage-sign{z-index:2;top:6px;max-width:calc(100% - 138px)}
+.stage-sign .stage-index{font-size:clamp(9px,.67vw,12px);letter-spacing:.025em;line-height:1.2}
+.duration-legend{white-space:nowrap;color:#9baeb7}
+#mobileNotation{display:block;color:#e1efe9;font:650 .76rem/1.25 ui-monospace,Consolas,monospace;text-transform:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#mobileNotation[data-physical=holding]{color:#adf6c6}#mobileNotation[data-physical=retry]{color:#ffc692}
+.lane-note{box-sizing:border-box;min-width:0;min-height:0;padding:0;display:flex;justify-content:center;align-items:center;border:0;border-radius:2px;overflow:hidden;box-shadow:inset 0 -1px #ddfff6,inset 0 1px #82c3b1;background:#588f86;color:#0a201f}
+.lane-note[data-hold=true]{background:#618e86}
+.lane-note[data-tight=true] .notation-text{visibility:hidden}
+.lane-note .notation-text{line-height:1;font-size:var(--ink-size,11px)}
+.notation-text{display:block;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.notation-text .hold-dashes{display:flex;justify-content:space-around;flex:1;min-width:0;overflow:hidden;color:inherit}
+.notation-text .hold-dashes i{font-style:normal}
+[data-hold=true]>.notation-text{display:flex;align-items:center}
+.lane-note[data-hold=true]>.notation-text{writing-mode:vertical-rl;transform:rotate(180deg);height:100%;width:100%;justify-content:space-between}
+.lane-note[data-hold=true] .hold-dashes{flex-direction:row}
+.lane-note[data-feedback=holding]{background:#a0f1bd}
+.lane-note[data-feedback=retry]{background:#e4ae7d}
+@media(min-width:1000px) and (min-height:520px){
+  #mobileNotation{margin-top:4px;font-size:clamp(11px,.86vw,17px)}.note-runway .stage-sign{top:clamp(6px,1.4vh,20px)}
+  #readingLane::after{z-index:3;pointer-events:none;width:1px;transform:none}
+  .read-note,.read-note[data-current=true],.read-note[data-state=current]{box-sizing:border-box;transform:translateY(-50%);align-items:flex-start;gap:3px;background:none;padding:0;pointer-events:none}
+  .read-pitch{box-sizing:border-box;position:relative;display:block;min-width:0;overflow:hidden;line-height:1.25;letter-spacing:normal;font-size:var(--ink-size,20px);padding:0 0 4px}
+  .read-pitch .notation-text{height:1.3em;padding-inline:1px 3px;box-sizing:border-box}
+  .read-pitch::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;border:1px solid currentColor;border-top:0;opacity:.72;pointer-events:none}
+  .read-pitch[data-rest=true]{color:#8997a2;font-style:italic}.read-pitch[data-rest=true]::after{border-style:dashed}
+  .read-pitch[data-feedback=holding]{color:#acffc7}.read-pitch[data-feedback=retry]{color:#ffbf8c}
+}
+@media(prefers-reduced-motion:reduce){
+  .note-runway .read-note,.note-runway .lane-note{transition:none}
+}
+/* Distinguish an expected score pitch, the automatic voices, the player and a pedal tail. */
+#keybed .key.auto-backing:not(.active){box-shadow:inset 0 6px #4e83b5,inset 0 -4px #6283a2}
+#keybed .key.white.auto-lead:not(.active){background:linear-gradient(#b9a067,#f5eccb 32%,#eee5c9);box-shadow:inset 0 6px #9d782e,inset 0 -4px #ad9259}
+#keybed .key.black.auto-lead:not(.active){background:linear-gradient(115deg,#4c4529,#605337 70%);box-shadow:inset 0 6px #ecc973}
+#keybed .key[data-auto=both]:not(.active){border-inline-start:4px solid #537eaa}
+#keybed .key[data-pedal-held=true]:not(.active){border-bottom:5px double #825590}
+#keybed .key.hold-pending.active{outline:3px double #197b62;outline-offset:-5px}
+#keybed .key.retry{outline:2px dashed #ad4d38;outline-offset:-3px}
+.lane-note[data-role=backing]{z-index:1;background:#486581;color:#f1f6ff;box-shadow:inset 0 0 0 1px #96b6d3}
+.lane-note[data-role=backing][data-current=true]{background:repeating-linear-gradient(135deg,#526f8d 0 6px,#63809c 6px 9px)}
+.lane-note[data-role=demo-lead]{z-index:2;background:#a78c53;color:#171206}
+.lane-note[data-role=demo-lead][data-current=true]{background:#f2d596}
+.lane-note[data-role=target][data-feedback=holding]{background:#abcdfb}
+.lane-input{position:absolute;z-index:4;bottom:0;height:6px;transform:translateX(-50%);border:1px solid #daf0ff;background:#2b9fff;border-radius:3px 3px 0 0;box-sizing:border-box}
+#keybed .key.white[data-manual=true]{background:linear-gradient(#409de6,#c9e7ff 60%,#8bc6f2);box-shadow:inset 0 -5px #2580bf}
+#keybed .key.black[data-manual=true]{background:linear-gradient(#194c7d,#438cbb);box-shadow:inset 0 -5px #235778}
+.poc-strip{display:flex;flex-wrap:wrap;align-items:center;gap:3px 13px;font-size:.76rem}.poc-strip select{min-height:25px;padding:0 4px;font-size:inherit}.poc-strip b{font-family:ui-monospace,monospace;color:#9aefd1}.poc-strip #pocPressed{color:#79c6ff}.cue-copy:has(.poc-strip){flex:1}@media(max-width:600px){.cue-line{flex-wrap:wrap}.poc-strip{gap:2px 6px}}
+#pocGuideSound{min-height:28px;padding:2px 8px;white-space:nowrap}#pocGuideSound[hidden]{display:none}#pocGuideSound[aria-pressed=true]{color:#073b32;background:#92e4cd;border-color:#4a8e77}.poc-strip #pocSounding{color:#ebd59c}
+#phraseKeys{display:inline-flex;align-items:center;gap:2px}
+.poc-strip #phraseKeys b{padding:1px 4px;border-radius:3px;color:#c9d3db;background:#26303a}
+#phraseKeys{flex-wrap:wrap;column-gap:5px}#phraseKeys .chord{display:inline-flex;align-items:center}#phraseKeys .chord b+b::before{content:"+";font-weight:400;opacity:.8}
+.poc-strip #phraseKeys b[aria-current=step]{background:#ffd694;color:#27201c}
+.poc-strip #phraseKeys b.manual{background:#88cdf8;color:#102735}
+@media(max-width:470px){.poc-strip #phraseKeys b{padding-inline:3px}}
+</style>
+<style>
+/* Local sound bank; its fixed overlay doesn't reflow the score, runway or keys. */
+#soundsToggle{display:inline-flex;align-items:center;justify-content:center;gap:.35em;white-space:nowrap}
+#soundsToggle .sounds-icon{color:#9ae5d0}#soundsToggle[aria-expanded=true]{background:#1b4c45;color:#dbfff4;border-color:#6bb6a6}
+#soundsPanel[hidden]{display:none!important}
+#soundsPanel{position:fixed;z-index:40;top:var(--sounds-top,58px);left:max(9px,env(safe-area-inset-left));right:max(9px,env(safe-area-inset-right));max-width:1440px;margin-inline:auto;
+  box-sizing:border-box;display:flex;flex-direction:column;max-height:calc(100vh - var(--sounds-top,58px) - 10px);max-height:calc(100dvh - var(--sounds-top,58px) - max(10px,env(safe-area-inset-bottom)));
+  padding:clamp(10px,1.3vw,20px);border:1px solid #3d505b;border-radius:12px;box-shadow:0 16px 52px #040910bb;
+  background:#19202a;color:#e6eff3;color-scheme:dark;font:500 14px/1.35 system-ui,-apple-system,"Microsoft JhengHei",sans-serif;text-align:left}
+.sounds-head{display:flex;align-items:center;gap:14px;flex:none;margin-bottom:10px}.sounds-intro{min-width:0}.sounds-overline{display:block;font:700 9px/1.25 ui-monospace,monospace;letter-spacing:.15em;color:#9fdccf}.sounds-title{font-size:clamp(17px,1.6vw,24px);line-height:1.2;letter-spacing:.04em;margin:3px 0 0}
+.sounds-current{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:auto;padding:4px 8px;border-radius:4px;color:#b9efde;background:#193832;font-size:clamp(11px,1vw,14px);font-weight:650}
+.sounds-controls{display:flex;align-items:center;gap:5px}.sounds-ctrl{width:32px;height:32px;min-height:0;padding:0;border:1px solid #4b5968;border-radius:5px;color:#dfeaf2;background:#283342;font:500 22px/1 system-ui;cursor:pointer}.sounds-ctrl:disabled{opacity:.35;cursor:default}
+.sounds-rail{display:flex;align-items:stretch;gap:10px;overflow:auto;overscroll-behavior:contain;min-height:0;padding:3px 3px 10px;scroll-padding-inline:4px;scrollbar-color:#536c78 #1a242c;scrollbar-width:thin}
+.sound-family{flex:0 0 clamp(164px,16.5vw,223px);min-width:0;padding:8px 6px 6px;background:#111923;border:1px solid #2d3c47;border-radius:7px;align-self:flex-start}
+.sound-family-title{position:relative;margin:2px 5px 7px;padding-bottom:6px;border-bottom:1px solid #34434d;color:#ebf4f6;font-size:13px;line-height:1.25}
+.sound-family-title small{display:block;margin-top:2px;color:#91a5b0;font-size:10px;font-weight:550;letter-spacing:.02em}
+.sound-choice{display:flex;align-items:center;gap:7px;width:100%;min-height:31px;margin:1px 0;padding:3px 6px;border:1px solid transparent;border-radius:4px;background:transparent;color:#cedbe2;font:550 12px/1.2 system-ui;text-align:left;cursor:pointer}
+.sound-choice:hover{background:#273543;color:white}.sound-choice[aria-pressed=true]{background:#21504a;color:#ddfff2;border-color:#467f75}
+.sound-number{color:#91a4b1;font:500 10px ui-monospace,monospace;font-variant-numeric:tabular-nums}.sound-choice[aria-pressed=true] .sound-number{color:#8df2d5}.sound-name{min-width:0;overflow-wrap:anywhere}
+.sounds-ctrl:focus-visible,.sound-choice:focus-visible,#soundsToggle:focus-visible{outline:2px solid #f3ce88;outline-offset:1px}
+.sounds-foot{font-size:11px;color:#aab9c3;margin:5px 0 0}
+@media(max-width:650px){#soundsPanel{padding:10px 8px;border-radius:8px}.sounds-head{gap:6px}.sounds-controls{gap:3px}.sounds-ctrl{width:30px;height:32px}.sounds-current{max-width:44%;padding:4px 5px}.sounds-rail{gap:6px}.sound-family{flex-basis:160px}.sound-choice{min-height:34px}#soundsToggle{padding-inline:6px}.sounds-overline{font-size:8px;letter-spacing:.07em}}
+@media(max-width:430px){#soundsToggle .sounds-icon{display:none}.sounds-overline{display:none}.sounds-head{flex-wrap:wrap}.sounds-current{font-size:10px}.sounds-ctrl{width:28px}.sounds-foot{font-size:10px}}
+@media(max-height:480px){.sounds-foot,.sounds-overline{display:none}.sounds-head{margin-bottom:4px}.sounds-rail{padding-bottom:4px}}
+
+</style>
+<style>
+/* An explicit single-line reader works at every size and orientation. */
+.hint-view{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;color:#a9bdc6;font-size:.7rem}
+.hint-view select{min-height:29px;max-width:158px;padding:3px 7px;border:1px solid #455862;border-radius:5px;background:#202c36;color:#deeee8;font:inherit}
+.hint-view select:focus-visible{outline:2px solid #f3ce88;outline-offset:2px}
+html[data-score-view=horizontal] #noteLane,html[data-score-view=horizontal] .mobile-roll-title{display:none}
+html[data-score-view=horizontal] #readingLane{display:block;position:absolute;inset:0;overflow:hidden;pointer-events:none}
+html[data-score-view=horizontal] .desktop-reader-title{display:inline}
+html[data-score-view=horizontal] .note-runway::before{display:none}
+html[data-score-view=horizontal] #readingTrack{position:absolute;inset:0;z-index:1}
+html[data-score-view=horizontal] #readingLane::after{content:"";position:absolute;left:22%;top:25%;bottom:25%;width:2px;transform:none;background:#6ce5d0;box-shadow:0 0 9px #6ce5d060;z-index:3}
+html[data-score-view=horizontal] .read-note{position:absolute;top:56%;transform:translateY(-50%);box-sizing:border-box;display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;white-space:nowrap;color:#cbd3da;background:none;padding:0;pointer-events:none}
+html[data-score-view=horizontal] .read-pitch{position:relative;box-sizing:border-box;display:block;flex:none;min-width:0;overflow:hidden;padding:0;font:700 var(--ink-size,24px)/1.3 ui-monospace,Consolas,monospace;letter-spacing:0}
+html[data-score-view=horizontal] .read-pitch .notation-text{height:1.4em;box-sizing:border-box;padding:0 3px 0 1px}
+html[data-score-view=horizontal] .read-pitch::after{display:none}
+html[data-score-view=horizontal] .read-note[data-state=done]{color:#647581}
+html[data-score-view=horizontal] .read-note[data-current=true]{color:#f38a8d}
+html[data-score-view=horizontal] .read-pitch[data-rest=true]{color:transparent}
+html[data-score-view=horizontal] .read-pitch[data-feedback=holding],html[data-score-view=horizontal] .read-pitch[data-feedback=hit]{color:#8dd2ff}
+html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
+/* Auto on desktop uses the same onset-aligned chord rows. */
+@media(min-width:1000px) and (min-height:520px){
+  html[data-score-view=auto] #readingLane::after{left:22%}
+  html[data-score-view=auto] .read-note{flex-direction:column}
+}
+@media(max-width:650px){
+  .cue-line{flex-direction:column;align-items:stretch}
+  .cue-copy{width:100%}
+  .range-group{flex-wrap:wrap;row-gap:4px;justify-content:space-between}
+  .hint-view{font-size:.66rem}.hint-view select{max-width:145px;min-height:29px}
+}
+@media(max-width:999px),(max-height:519px){
+  html[data-score-view=horizontal] .note-runway{min-height:96px}
+}
+
+</style>
+<style>
+.rhythm-hud{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;padding:5px 0;color:#d8e9e7;font:650 .74rem/1.35 system-ui}
+.rhythm-hud [data-stat]{display:inline-flex;align-items:center;gap:5px;color:#9fb1bf;white-space:nowrap}
+.rhythm-hud [data-stat] b{color:#e5eee7;font-variant-numeric:tabular-nums}
+#rhythmJudge{min-width:76px;padding:3px 6px;border:1px solid #637e80;border-radius:4px;text-align:center;color:#d9f9ee;background:#22463e;font-weight:800;letter-spacing:.04em}
+#rhythmJudge[data-grade=PERFECT]{color:#fff0a5;background:#574825}
+#rhythmJudge[data-grade=GREAT]{color:#aaffdf}#rhythmJudge[data-grade=GOOD]{color:#a6d9ff;background:#243c59}
+#rhythmJudge[data-grade=POOR],#rhythmJudge[data-grade=MISS]{color:#ffd1c9;background:#5d3037;border-color:#ad686b}
+#rhythmGauge{width:75px;height:9px;min-height:0;accent-color:#88dfbd}
+#rhythmCounts{flex-basis:100%;color:#a9bdc6;font-size:.67rem;font-variant-numeric:tabular-nums}
+.rhythm-help{font-size:.68rem;color:#c3d4d9;max-width:640px}
+.rhythm-help summary{min-height:24px;padding:2px 6px;display:inline-block;font-size:.68rem}
+.rhythm-help div{padding:8px;border:1px solid #465660;border-radius:4px;background:#182530;line-height:1.7}
+@media(max-width:650px){.rhythm-hud{gap:3px 9px;font-size:.69rem}.rhythm-help{max-width:100%}#rhythmCounts{font-size:.6rem}}
+
 </style>
 </head>
 <body>
@@ -228,7 +380,8 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
   </div>
   <div class="mast-tools">
     <div class="desktop-labels" role="group" aria-label="讀譜與琴鍵標示"><button type="button" id="labelQwerty" aria-pressed="true" title="電腦鍵盤字母">QWERTY</button><button type="button" id="labelCde" aria-pressed="false" title="琴鍵音名">CDE</button></div>
-    <label class="key-select"><span id="viewLabel">琴鍵顯示</span><select id="keyView" aria-label="琴鍵顯示"><option value="25">25 鍵</option><option value="34" selected>34 鍵</option><option value="61">61 鍵</option><option value="88">88 鍵</option></select></label>
+    <label class="key-select"><span id="viewLabel">琴鍵顯示</span><select id="keyView" aria-label="琴鍵顯示"><option value="34" selected>34 鍵</option></select></label>
+    <button type="button" id="soundsToggle" class="panel-switch" aria-controls="soundsPanel" aria-expanded="false" aria-label="音色 Sounds"><span class="sounds-icon" aria-hidden="true">♫</span> <span>Sounds</span></button>
     <details id="studioDrawer">
       <summary class="panel-switch"><svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 4h6m4 0h4M2 9h2m4 0h8M2 14h9m4 0h1"/><circle cx="10" cy="4" r="2"/><circle cx="6" cy="9" r="2"/><circle cx="13" cy="14" r="2"/></svg>工具</summary>
       <div class="tools-panel" role="region" aria-label="演奏工具">
@@ -236,17 +389,23 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
         <section class="tool-group"><h3>音色與鍵盤</h3>
           <div class="controls">
             <label class="field">音色 <select id="preset"><option value="">夜曲原聲</option></select></label>
+            
             <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
-            <label class="field">實體鍵盤音域 <select id="octave"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
-            <label class="field">移調 <select id="transpose"></select></label>
+            <label id="alongBoostField" class="field" hidden>跟彈音量加強
+              <input id="alongBoost" aria-label="跟彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
+              <output id="alongBoostReadout" for="alongBoost">+9 dB</output></label>
+            <label class="field">電腦鍵配置 <select id="keyLayout" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="reference" selected>參考配置 · 42 鍵</option><option value="compact">精簡配置 · 25 鍵</option></select></label>
+            <label class="field">實體鍵盤音域 <select id="octave" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
+            <label class="field">移調 <select id="transpose" disabled title="全曲試奏版固定原譜速度及截圖鍵位"></select></label>
             <label class="field">琴鍵標籤 <select id="labels"><option value="en">C D E</option><option value="sol">Do Re Mi</option><option value="off">不顯示</option></select></label>
             <button id="sustain" aria-pressed="false" type="button">延音 · Space</button>
             <button id="labelToggle" type="button" aria-label="切換實體鍵盤字母提示">QWERTY / CDE</button>
           </div>
-          <p class="hint">按琴鍵或上面標示嘅電腦鍵即可演奏。琴鍵取得焦點時，左右方向鍵可移動，Enter 或 Space 可彈奏。</p>
+          <p class="hint" id="performanceHelp">參考配置：I＝中央 C，左右 Shift 各彈一個音。CL（Caps Lock）可直接彈。「全鍵演奏」先會接收兩個 Shift、⇥（Tab）和 ↑；Esc 或點其他控制即可離開。Caps Lock 的系統燈號由裝置控制。一般操作仍可用 Tab 導覽。</p>
         </section>
+        <p class="hint">綠框係譜面目標，亮藍係你真正按緊嘅鍵；兩者可以唔同。Demo 同呢份 XML 嘅 Play Along（譜音開）會自動發聲：金色係旋律，灰藍係伴奏。紫色雙底線係踏板延音，虛線表示要重試。亦可聚焦琴鍵，按住 Enter／空白鍵彈長音。</p>
         <section class="tool-group"><h3>節拍與四軌錄奏</h3>
-          <div class="actions"><label class="field">速度 BPM <input id="bpm" type="number" min="40" max="240" value="100"></label>
+          <div class="actions"><label class="field">速度 BPM <input id="bpm" disabled title="全曲試奏版固定原譜速度及截圖鍵位" type="number" min="40" max="240" value="100"></label>
             <label class="field">拍子 <select id="meter"><option>2</option><option>3</option><option selected>4</option><option>6</option></select></label>
             <button id="metro" aria-pressed="false" type="button">節拍器</button><span id="beat" class="beat" aria-hidden="true">·</span></div>
           <div class="tracks" id="tracks" aria-label="四軌錄音"></div>
@@ -258,21 +417,23 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
           <div class="actions"><button id="playNotes" class="primary" type="button">播放便箋</button><button id="demo" type="button">載入示範</button></div>
           <p class="hint" id="notes-help">以空格分隔：C4、F#4、Bb4；R 為休止，:2 為兩拍，+ 組成和弦。播放速度使用上方 BPM。</p>
         </section>
+        <section id="fullScoreCredit" class="tool-group hint"><h3>雙手全譜 · 本機試奏</h3><p>來源：本機 sample-7961.midixml。兩手沿用原譜時間、音高及力度。CL 係 Caps Lock，亦可直接點琴鍵，不播放原站音軌。</p></section>
         <div id="status" role="status">按任意琴鍵開始演奏。</div>
         <footer>音色即時合成 · <a href="vendor/NOTICE.md">MP3 編碼器與授權</a></footer>
       </div>
     </details>
   </div>
 </header>
+<section id="soundsPanel" role="region" aria-label="音色 Sounds" hidden></section>
 <section class="performance" aria-label="跟譜工作室">
   <div class="song-bar">
     <label class="song-field"><span class="kicker">Songbook · 樂曲</span>
-      <select id="song" aria-label="樂曲"><option value="moon">月光小徑 · 原創</option><option value="ode">歡樂頌 · 貝多芬</option><option value="twinkle">小星星 · 傳統曲</option><option value="canon">Canon in D（D 大調卡農）· 帕赫貝爾</option></select>
+      <select id="song" aria-label="樂曲"><option value="canonFull" selected>Canon in D · 雙手全曲 · 192 音</option></select>
     </label>
     <div class="modes" role="group" aria-label="學習模式">
-      <button id="modeDemo" type="button" aria-pressed="true">Demo <small>示範</small></button>
+      <button id="modeDemo" type="button" aria-pressed="false">Demo <small>示範</small></button>
       <button id="modeAlong" type="button" aria-pressed="false">Play Along <small>跟彈</small></button>
-      <button id="modePractice" type="button" aria-pressed="false">Practice <small>練習</small></button>
+      <button id="modePractice" type="button" aria-pressed="true">Practice <small>練習</small></button>
     </div>
     <div class="transport"><button id="lessonAction" class="primary" type="button">▶ 開始</button><button id="restart" type="button" title="從頭開始">↺ 重來</button></div>
   </div>
@@ -282,39 +443,421 @@ progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-val
       <div class="timeline"><span id="elapsed">0:00</span><input id="seek" aria-label="移動樂曲時間" type="range" min="0" max="1" step=".01" value="0"><span id="totalTime">0:00</span></div></div>
   </div></div>
   <div class="cue-line">
-    <div class="cue-copy"><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
-    <div class="range-group"><span id="range">C3–A5 · 34 鍵</span><div id="keyNav" class="key-nav" hidden>
+    <div class="cue-copy"><div class="poc-strip"><span id="phraseKeys" aria-label="全曲電腦鍵譜，並排以 + 相連代表和弦"></span><span>目標 <b id="pocExpected">—</b></span><span>自動譜音 <b id="pocSounding" data-midis="">—</b></span><span>按緊 <b id="pocPressed" data-midis="">—</b></span></div><section id="rhythmHud" class="rhythm-hud" aria-label="練習判定與分數" hidden>
+      <b id="rhythmJudge" aria-live="polite">READY</b>
+      <span data-stat>分數 <b id="rhythmScore">0</b></span>
+      <span data-stat>達成率 <b id="rhythmAccuracy">0.00%</b></span>
+      <span data-stat>Combo <b id="rhythmCombo">0</b>／最高 <b id="rhythmMaxCombo">0</b></span>
+      <label data-stat>血量 <meter id="rhythmGauge" min="0" max="100" value="100" aria-label="練習血量"></meter><b id="rhythmGaugeText">100</b></label>
+      <span id="rhythmCounts">每個長音按一下即可；前後 0.5 秒內亦接受。</span>
+      <details class="rhythm-help"><summary>判定及計分規則</summary><div>
+      本頁自訂寬鬆練習規則，並非 Konami 官方數值。以音符開始至結束為有效時段：時段內任一點按均為 PERFECT，不需維持長按。<br>
+      距時段邊界 ≤80ms：PERFECT／1000；≤200ms：GREAT／700；≤350ms：GOOD／300；≤500ms：POOR／100；超過尾端500ms仍未按：MISS／0。<br>
+      PERFECT、GREAT 延續 Combo；GOOD、POOR、MISS 歸零。錯鍵是 POOR／0 分，不取代目標音。<br>
+      每個音只計一次；每個和弦音分開計，可分別點按。總分＝累積分 ÷（本次音數 ×1000）×1,000,000。<br>
+      血量由100開始；PERFECT +2、GREAT +1、GOOD 0、POOR −5、MISS −10。降至0仍可繼續練習。暫停不扣分。<br>
+      達成率以本次最大分數計：SS≥95%、S≥80%、A≥73%、B≥63%，其餘C；示範播放不會代你得分。
+      <br>按錯或 MISS 會返回該音並停住，按對後才去下一音；補彈不抹走 MISS。拖動時間條可重練任何段落，跳時間會重置本次成績。
+      </div></details>
+    </section><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
+    <div class="range-group"><button id="pocGuideSound" type="button" aria-pressed="true" hidden>譜音：開</button><span id="alongMix" hidden>只聽按鍵</span><label class="hint-view" for="scoreView"><span>提示</span><select id="scoreView" aria-label="按鍵提示模式"><option value="falling">直向落鍵 ↓</option><option value="horizontal">橫向單行 →</option><option value="auto">自動（按螢幕）</option></select></label><button id="performanceFocus" type="button" aria-controls="keybed" aria-pressed="false" aria-describedby="performanceHelp" title="啟用全鍵演奏；Esc 離開">全鍵演奏</button><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
       <button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button><button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
     </div></div>
   </div>
-  <div class="note-runway"><div class="stage-sign" aria-hidden="true"><span class="stage-index"><span class="mobile-roll-title">Piano roll</span><span class="desktop-reader-title">讀譜線 · Score reader</span></span></div><div id="noteLane" aria-hidden="true"></div><div id="readingLane" aria-hidden="true"><div id="readingTrack"></div></div></div>
+  <div class="note-runway"><nav id="fullScoreLinks" aria-label="全譜檔案"><a href="?mode=demo&amp;at=120&amp;view=falling">試 2:00</a><a href="score.json">全曲事件</a></nav><div class="stage-sign"><span class="stage-index"><span class="mobile-roll-title">琴鍵線</span><span class="desktop-reader-title">讀譜線</span> · <span class="duration-legend">長音 ( ) · 每個 - 約 ¼ 拍</span><span id="mobileNotation"></span></span></div><div id="noteLane" aria-hidden="true"></div><div id="readingLane" aria-hidden="true"><div id="readingTrack"></div></div></div>
 </section>
-<section class="piano-dock" aria-label="底部琴鍵"><div id="keyboardViewport"><div id="keybed" role="group" aria-label="虛擬鋼琴琴鍵"></div></div></section>
+<section class="piano-dock" aria-label="底部琴鍵"><div id="keyboardViewport"><div id="keybed" role="group" tabindex="-1" data-performance="false" aria-describedby="performanceHelp" aria-label="虛擬鋼琴琴鍵"></div></div></section>
 </main>
+<script>
+/* Pure beginner-practice judgments. These are Nocturne's rules, not Konami's.
+ * A note accepts one tap inside [start - 0.5, end + 0.5] in source seconds.
+ * Distance is measured to the entire note interval: any tap during a hold is
+ * PERFECT. No key-up/hold-duration event is needed for credit.
+ */
+(function (root) {
+  'use strict';
+  const EPS = 1e-9;
+  const WINDOW = .5;
+  const LABELS = ['PERFECT', 'GREAT', 'GOOD', 'POOR', 'MISS'];
+  const POINTS = Object.freeze({PERFECT:1000, GREAT:700, GOOD:300, POOR:100, MISS:0});
+  const GAUGE = Object.freeze({PERFECT:2, GREAT:1, GOOD:0, POOR:-5, MISS:-10});
+  const states = new WeakSet();
+  const finite = (n, field) => {
+    if (typeof n !== 'number' || !Number.isFinite(n)) throw new TypeError(field + ' must be finite');
+    return n;
+  };
+  function pitch(n) {
+    if (!Number.isInteger(n) || n < 0 || n > 127) throw new RangeError('midi must be an integer in 0..127');
+    return n;
+  }
+  function interval(start, end) {
+    finite(start, 'start'); finite(end, 'end');
+    if (start < 0 || end < start) throw new RangeError('Invalid source interval');
+  }
+  const emptyCounts = () => Object.fromEntries(LABELS.map(label => [label, 0]));
+  function valid(state) {
+    if (!state || !states.has(state)) throw new TypeError('Use create() to make a rhythm state');
+  }
+  function judge(time, start, end) {
+    finite(time, 'time'); interval(start, end);
+    const errorSeconds = time < start ? time - start : time > end ? time - end : 0;
+    const error = Math.abs(errorSeconds);
+    const label = error <= .08 + EPS ? 'PERFECT' : error <= .20 + EPS ? 'GREAT' :
+      error <= .35 + EPS ? 'GOOD' : error <= WINDOW + EPS ? 'POOR' : 'MISS';
+    return {label, errorSeconds, points:POINTS[label], accepted:label !== 'MISS'};
+  }
+  function create(notes, startAtSeconds = 0) {
+    if (!Array.isArray(notes)) throw new TypeError('notes must be an array');
+    finite(startAtSeconds, 'startAtSeconds');
+    if (startAtSeconds < 0) throw new RangeError('startAtSeconds must be nonnegative');
+    const ids = new Set();
+    const ordered = notes.map((note, sourceIndex) => {
+      if (!note || typeof note !== 'object') throw new TypeError('Invalid note');
+      pitch(note.midi); interval(note.start, note.end);
+      const id = note.id === undefined ? String(sourceIndex) : note.id;
+      if ((typeof id !== 'string' && typeof id !== 'number') || (typeof id === 'number' && !Number.isFinite(id)) || ids.has(id))
+        throw new TypeError('Note ids must be unique finite numbers or strings');
+      ids.add(id);
+      // Retain source metadata (including the native player's stepIndex).
+      return {...note, id, sourceIndex, result:null};
+    }).filter(note => note.end + WINDOW + EPS >= startAtSeconds)
+      .sort((a,b) => a.start - b.start || a.sourceIndex - b.sourceIndex);
+    const state = {notes:ordered, startAtSeconds, total:ordered.length, points:0,
+      judged:0, hits:0, misses:0, wrong:0, combo:0, maxCombo:0, gauge:100,
+      counts:emptyCounts(), noteCounts:emptyCounts()};
+    states.add(state);
+    return state;
+  }
+  function apply(state, label, points, isNote) {
+    state.counts[label]++;
+    state.points += points;
+    state.combo = label === 'PERFECT' || label === 'GREAT' ? state.combo + 1 : 0;
+    state.maxCombo = Math.max(state.maxCombo, state.combo);
+    state.gauge = Math.max(0, Math.min(100, state.gauge + GAUGE[label]));
+    if (isNote) {
+      state.judged++; state.noteCounts[label]++;
+      if (label === 'MISS') state.misses++; else state.hits++;
+    } else state.wrong++;
+  }
+  function resultFor(state, index, label, errorSeconds) {
+    const note = state.notes[index];
+    // A detached metadata copy avoids a note -> result -> note cycle.
+    const {result:unused, ...metadata} = note;
+    const result = {note:metadata, index, label, errorSeconds,
+      points:POINTS[label], accepted:label !== 'MISS', wrong:false, duplicate:false};
+    note.result = result;
+    apply(state, label, result.points, true);
+    return result;
+  }
+  function expire(state, time) {
+    valid(state); finite(time, 'time');
+    const results = [];
+    for (let i = 0; i < state.notes.length; i++) {
+      const note = state.notes[i];
+      // The exact +0.500s edge is still hittable; expire strictly after it.
+      if (!note.result && time > note.end + WINDOW + EPS)
+        results.push(resultFor(state, i, 'MISS', time - note.end));
+    }
+    return results;
+  }
+  function penalizeWrong(state) {
+    valid(state);
+    // A frozen retry gate must not run matching or expire another chart note.
+    // This is explicit wrong-key feedback only; recovery can be visual while
+    // the original MISS remains in the scoring ledger.
+    apply(state, 'POOR', 0, false);
+    return {note:null, index:-1, label:'POOR', errorSeconds:null,
+      points:0, accepted:false, wrong:true, duplicate:false, expired:[]};
+  }
+  function hit(state, midi, time) {
+    valid(state); pitch(midi); finite(time, 'time');
+    const expired = expire(state, time);
+    // Earliest eligible unresolved note owns an overlapping same-pitch window.
+    // A future perfect must not steal a late hit intended for the earlier note.
+    const index = state.notes.findIndex(note => !note.result && note.midi === midi &&
+      time >= note.start - WINDOW - EPS && time <= note.end + WINDOW + EPS);
+    if (index !== -1) {
+      const j = judge(time, state.notes[index].start, state.notes[index].end);
+      return {...resultFor(state, index, j.label, j.errorSeconds), expired};
+    }
+    // A late press which *itself* expires this pitch already produced a MISS.
+    // Do not charge the same action a second POOR/gauge deduction. A later,
+    // distinct unmatched press is still handled by the ordinary wrong-key rule.
+    const justExpired = expired.some(result => result.note.midi === midi);
+    const duplicate = state.notes.some(note => note.result && note.result.label !== 'MISS' && note.midi === midi &&
+      time >= note.start - WINDOW - EPS && time <= note.end + WINDOW + EPS);
+    if (duplicate || justExpired) return {note:null, index:-1, label:null, errorSeconds:null,
+      points:0, accepted:false, wrong:false, duplicate:true, expired};
+    // An unrelated key is feedback, not a substitute for or a consumption of
+    // any score note. That still-unhit note may subsequently become MISS.
+    return {...penalizeWrong(state), expired};
+  }
+  function summary(state) {
+    valid(state);
+    const accuracy = state.total ? 100 * state.points / (1000 * state.total) : 0;
+    return {score:Math.round(accuracy * 10000), accuracy, total:state.total,
+      judged:state.judged, remaining:state.total-state.judged, hits:state.hits,
+      misses:state.misses, wrong:state.wrong, combo:state.combo, maxCombo:state.maxCombo,
+      gauge:state.gauge, counts:{...state.counts}, noteCounts:{...state.noteCounts}};
+  }
+  const api = Object.freeze({judge, create, hit, expire, penalizeWrong, summary,
+    WINDOW, POINTS, GAUGE, LABELS:Object.freeze(LABELS.slice())});
+  root.NocturneRhythmRules = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof globalThis !== 'undefined' ? globalThis : window);
+
+/* Input-only rhythm practice. One native transport drives hints and judgment. */
+let rhythmLast=null;
+function rhythmPaint(a=lesson||pausedLesson){
+  const s=a?.rhythm?NocturneRhythmRules.summary(a.rhythm):rhythmLast;
+  $('rhythmHud').hidden=mode!=='Practice';
+  if(!s)return;
+  $('rhythmHud').dataset.retry=String(!!a?.retryGate);
+  $('rhythmHud').dataset.retryMidis=a?.retryGate?[...a.retryGate.pending.keys()].join(','):'';
+  for(const key of ['hits','misses','judged','total','wrong'])$('rhythmHud').dataset[key]=s[key];
+  for(const label of ['PERFECT','GREAT','GOOD','POOR','MISS'])
+    $('rhythmHud').dataset['count'+label[0]+label.slice(1).toLowerCase()]=s.counts[label];
+  $('rhythmScore').textContent=s.score.toLocaleString('en-US');
+  $('rhythmAccuracy').textContent=s.accuracy.toFixed(2)+'%';
+  $('rhythmCombo').textContent=s.combo;$('rhythmMaxCombo').textContent=s.maxCombo;
+  $('rhythmGauge').value=s.gauge;$('rhythmGauge').setAttribute('aria-valuetext',s.gauge+' / 100');
+  $('rhythmGaugeText').textContent=s.gauge;
+  $('rhythmCounts').textContent=Object.entries(s.counts).map(([key,n])=>key+' '+n).join(' · ')+
+    ' · 已判定 '+s.judged+'/'+s.total+' 音'+(s.wrong?' · 錯鍵 '+s.wrong:'');
+}
+function rhythmAttach(a,position){
+  const notes=sourceNotes.filter(n=>window.NocturneFullScore.practiceTracks.includes(n.track)).map(n=>({
+    id:n.id,midi:n.midi,start:n.start*a.length/1000,end:n.end*a.length/1000,
+    stepIndex:modeScore.findIndex(s=>s.tick===Math.round(n.start*fullScore.ppq)&&s.pitches.includes(n.midi))
+  })).filter(n=>!a.seekReset||n.end+1e-9>=position*a.length/1000);
+  a.rhythm=NocturneRhythmRules.create(notes,position*a.length/1000);
+  a.index=stepAt(position);a.pos=position;a.recovered=new Set();a.retryQueue=[];rhythmLast=null;
+  $('rhythmJudge').textContent='READY';$('rhythmJudge').dataset.grade='READY';
+}
+function rhythmTime(a){return a.retryGate?a.retryGate.beat*a.length/1000:Math.max(a.floor*a.length/1000,(presentedMs(a)-a.started)/1000);}
+function rhythmResult(a,r){
+  if(!r||r.duplicate)return;
+  if(r.accepted){
+    const i=r.note.stepIndex,played=a.played.get(i)||new Set();
+    played.add(r.note.midi);a.played.set(i,played);
+  }
+  const display=$('rhythmJudge');display.textContent=r.label;display.dataset.grade=r.label;
+  const offset=r.errorSeconds,when=offset==null?'錯鍵':Math.abs(offset)<1e-8?'時段內':
+    (offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
+  const key=r.note?(bindingFor(r.note.midi)?.label||name(r.note.midi)):'';
+  guide.lessonFeedback.textContent=r.label+' · '+key+' '+when+
+    (r.wrong?' · 按錯，返回目標重試':r.label==='MISS'?' · 漏彈，返回目標重試':' · 已合格，唔使長按');
+}
+function rhythmSync(a,beat){
+  a.index=stepAt(beat);a.got=new Set(a.played.get(a.index)||[]);
+  const s=NocturneRhythmRules.summary(a.rhythm);a.hit=s.hits;a.misses=s.misses+s.wrong;
+}
+function rhythmCue(a){
+  if(a.retryGate){rhythmRetryCue(a);return;}
+  const pending=remaining(a,a.score[a.index]);
+  guide.lessonFeedback.textContent=pending.length?'節奏練習中 · '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+
+    ' · 時段內按一下即可，前後 0.5 秒內亦接受':'節奏練習中 · 等候下一音；未按鍵不會發聲';
+}
+function rhythmTick(){
+  const a=lesson;if(!a?.rhythm)return;
+  clearTimeout(a.timer);
+  if(a.retryGate){drawGuide(a.retryGate.beat);rhythmPaint(a);return;}
+  const beat=transportBeat(a),seconds=rhythmTime(a),old=a.index;
+  const expired=NocturneRhythmRules.expire(a.rhythm,seconds);
+  for(const r of expired)rhythmResult(a,r);
+  if(expired.length){rhythmBlock(a,expired.map(r=>r.note),'MISS');return;}
+  rhythmSync(a,beat);
+  if(beat>=totalBeats){rhythmStop(true);return;}
+  if(old!==a.index||expired.length)drawGuide(beat);else drawTimeline(beat);
+  rhythmPaint(a);a.timer=setTimeout(rhythmTick,20);
+}
+function rhythmStart(length){
+  if(lesson){rhythmPause();return;}
+  if(recording||!audio())return;
+  if(guidePos>=totalBeats)guidePos=0;
+  performanceMode(true);stopPlayback();releaseLive(true);if(metroTimer)stopMetro();
+  ui.octave.value='0';ui.transpose.value='0';updateOctaveChoices();render();centerMapping();
+  const a=pausedLesson||makeLesson(length,guidePos);
+  pausedLesson=null;
+  if(!a.rhythm){
+    a.seekReset=rhythmSeekAnchor!==null&&Math.abs(guidePos*a.length/1000-rhythmSeekAnchor)<.001;
+    rhythmAttach(a,guidePos);
+  }
+  rhythmSeekAnchor=null;
+  a.floor=a.pos=guidePos;a.started=renderMs(a)-guidePos*a.length;lesson=a;
+  rhythmSync(a,guidePos);drawGuide(guidePos);rhythmCue(a);rhythmPaint(a);rhythmTick();
+}
+function rhythmPause(){
+  const a=lesson;if(!a?.rhythm)return;
+  const beat=transportBeat(a);clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
+  releaseLive(true);clearGate(a);silenceLesson(a);
+  a.pos=guidePos=beat;lesson=null;pausedLesson=a;drawGuide(beat);rhythmPaint(a);
+  guide.lessonFeedback.textContent='已暫停練習 · 時間及判定已凍結；按「繼續練習」接返';
+}
+function rhythmStop(completed){
+  const a=lesson;if(!a?.rhythm)return;
+  clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
+  if(completed)for(const r of NocturneRhythmRules.expire(a.rhythm,totalBeats*a.length/1000+1e-6))rhythmResult(a,r);
+  releaseLive(true);clearGate(a);silenceLesson(a);
+  rhythmLast=NocturneRhythmRules.summary(a.rhythm);
+  lesson=null;pausedLesson=null;guidePos=completed?totalBeats:0;drawGuide();rhythmPaint(null);
+  const s=rhythmLast,rank=s.accuracy>=95?'SS':s.accuracy>=80?'S':s.accuracy>=73?'A':s.accuracy>=63?'B':'C';
+  guide.lessonFeedback.textContent=completed?'練習完成！ '+rank+' · '+s.score.toLocaleString('en-US')+
+    ' 分 · 命中 '+s.hits+'/'+s.total+' 音 · 最大 Combo '+s.maxCombo:'已停止練習';
+}
+function rhythmInput(a,midi,id){
+  if(a.retryGate){rhythmRetryInput(a,midi,id);return;}
+  const time=rhythmTime(a),r=NocturneRhythmRules.hit(a.rhythm,midi,time);
+  for(const missed of r.expired)rhythmResult(a,missed);
+  rhythmResult(a,r);
+  if(r.accepted)a.chordKeys.set(midi,id);
+  if(r.expired.length){rhythmBlock(a,r.expired.map(m=>m.note),'MISS');return;}
+  if(r.wrong){
+    const target=rhythmPendingTarget(a,time);
+    if(target){rhythmBlock(a,[target],'WRONG');return;}
+  }
+  rhythmSync(a,transportBeat(a));drawGuide();rhythmPaint(a);
+}
+function rhythmRelease(a,id){
+  for(const [midi,key] of a.chordKeys)if(key===id)a.chordKeys.delete(midi);
+  drawGuide();rhythmPaint(a);
+}
+
+/* Timeline navigation and stop-on-error practice. No automatic piano voices. */
+let rhythmSeekGesture=null,rhythmSeekAnchor=null;
+const rhythmClock=s=>clockText(s)+'.'+String(Math.round(s*1000)%1000).padStart(3,'0');
+function rhythmSeekBegin(){
+  if(mode!=='Practice'||!isFull())return;
+  if(!rhythmSeekGesture){
+    rhythmSeekGesture={running:!!lesson,paused:!!pausedLesson};
+    if(lesson?.rhythm)rhythmPause();
+  }
+  seeking=true;
+  $('rhythmHud').dataset.seeking='true';
+}
+function rhythmSeekPreview(){
+  if(mode!=='Practice'||!isFull())return;
+  const text=rhythmClock(Number(guide.seek.value));
+  guide.elapsed.textContent=text;guide.seek.setAttribute('aria-valuetext',text);
+  guide.lessonFeedback.textContent='選擇時間 '+text+' · 放手後由此重練，本次成績會重置';
+}
+function rhythmSeekFinish(){
+  if(rhythmSeekGesture){rhythmSeekCommit(Number(guide.seek.value));return;}
+  seeking=false;drawTimeline();
+}
+function rhythmSeekCancel(){
+  const state=rhythmSeekGesture;rhythmSeekGesture=null;seeking=false;
+  $('rhythmHud').dataset.seeking='false';
+  if(state?.running&&pausedLesson)rhythmStart(pausedLesson.length);else drawTimeline();
+}
+function rhythmSeekCommit(seconds){
+  const state=rhythmSeekGesture||{running:!!lesson,paused:!!pausedLesson};
+  const length=lesson?.length||pausedLesson?.length||60000/tempo();
+  rhythmSeekGesture=null;seeking=false;$('rhythmHud').dataset.seeking='false';
+  if(lesson)rhythmStop(false);
+  if(pausedLesson){clearTimeout(pausedLesson.timer);clearGate(pausedLesson);silenceLesson(pausedLesson);}
+  pausedLesson=null;releaseLive(true);
+  const max=totalBeats*length/1000,target=Math.max(0,Math.min(max,seconds));
+  rhythmSeekAnchor=target;
+  guidePos=target*1000/length;
+  // An idle seek must not initialize an AudioContext or make a sound.
+  const preview={length,seekReset:true};rhythmAttach(preview,guidePos);
+  rhythmLast=NocturneRhythmRules.summary(preview.rhythm);
+  if(guidePos<totalBeats&&(state.running||state.paused)){
+    const a=makeLesson(length,guidePos);a.seekReset=true;rhythmAttach(a,guidePos);pausedLesson=a;
+    if(state.running)rhythmStart(length);else{drawGuide();rhythmPaint(a);}
+  }else{drawGuide();rhythmPaint(null);}
+  guide.lessonFeedback.textContent='已跳至 '+rhythmClock(target)+' · 本次成績已重置'+
+    (guidePos>=totalBeats?' · 已到結尾':state.running?' · 繼續練習':state.paused?' · 按「繼續練習」開始':' · 按「開始練習」開始');
+}
+function rhythmPendingTarget(a,time){
+  const unresolved=a.rhythm.notes.filter(n=>!n.result);
+  return unresolved.find(n=>n.start-.5<=time&&n.end+.5>=time)||unresolved.find(n=>n.start>=time)||null;
+}
+function rhythmBlock(a,notes,reason){
+  const indexes=[...new Set(notes.filter(Boolean).map(n=>n.stepIndex))].sort((x,y)=>x-y);
+  a.retryQueue=indexes.map(i=>a.rhythm.notes.filter(n=>n.stepIndex===i&&
+    (!n.result||n.result.label==='MISS')&&!a.recovered.has(n.id))).filter(g=>g.length);
+  if(!a.retryQueue.length)return;
+  rhythmOpenRetry(a,a.retryQueue.shift(),reason);
+}
+function rhythmOpenRetry(a,notes,reason){
+  clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
+  const i=notes[0].stepIndex,beat=stepStarts[i];
+  a.retryGate={index:i,beat,reason,pending:new Map(notes.map(n=>[n.midi,n.id]))};
+  a.floor=a.pos=guidePos=beat;a.started=renderMs(a)-beat*a.length;
+  a.index=i;a.got=new Set(a.played.get(i)||[]);a.retryMidi=notes[0].midi;
+  drawGuide(beat);rhythmPaint(a);rhythmRetryCue(a);
+}
+function rhythmRetryCue(a){
+  const g=a.retryGate,keys=[...g.pending.keys()].map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）');
+  guide.lessonFeedback.textContent=(g.reason==='MISS'?'MISS':'按錯')+' · 已返回並停在目標 · 等你按 '+keys.join(' + ')+
+    ' · 按對才會繼續；原有扣分保留';
+}
+function rhythmRetryInput(a,midi,id){
+  const g=a.retryGate,noteId=g.pending.get(midi);
+  if(noteId===undefined){
+    rhythmResult(a,NocturneRhythmRules.penalizeWrong(a.rhythm));rhythmRetryCue(a);rhythmPaint(a);return;
+  }
+  const note=a.rhythm.notes.find(n=>n.id===noteId);
+  if(!note.result){
+    const r=NocturneRhythmRules.hit(a.rhythm,midi,note.start);
+    rhythmResult(a,r);
+  }else{
+    a.recovered.add(note.id);
+    const played=a.played.get(note.stepIndex)||new Set();played.add(midi);a.played.set(note.stepIndex,played);
+    $('rhythmJudge').textContent='補彈正確';$('rhythmJudge').dataset.grade='RECOVERED';
+  }
+  a.chordKeys.set(midi,id);g.pending.delete(midi);
+  a.got=new Set(a.played.get(g.index)||[]);a.retryMidi=[...g.pending.keys()][0]??null;
+  if(g.pending.size){drawGuide(g.beat);rhythmPaint(a);rhythmRetryCue(a);return;}
+  if(a.retryQueue.length){rhythmOpenRetry(a,a.retryQueue.shift(),'MISS');return;}
+  const previous=g.index;delete a.retryGate;a.retryMidi=null;
+  const next=a.score.findIndex((s,i)=>i>previous&&s.pitches.length);
+  if(next<0){rhythmStop(true);return;}
+  a.floor=a.pos=guidePos=stepStarts[next];a.started=renderMs(a)-guidePos*a.length;
+  rhythmSync(a,guidePos);drawGuide(guidePos);rhythmPaint(a);
+  guide.lessonFeedback.textContent='已按對 · 繼續下一音；補彈唔會抹走原有 MISS';
+  rhythmTick();
+}
+
+</script>
 <script src="studio.js"></script>
+<script src="full-score.js"></script>
+<script src="full-player.js"></script>
 <script>
 'use strict';
-const $=id=>document.getElementById(id), ui=Object.fromEntries('keyView octave transpose labels volume sustain range keyboardViewport keyNav scrollLow scrollHigh keybed status bpm meter metro beat rec review stop recordHint notes playNotes demo preset tracks export clearTrack'.split(' ').map(id=>[id,$(id)]));
+const $=id=>document.getElementById(id), ui=Object.fromEntries('keyView keyLayout performanceFocus octave transpose labels volume sustain range keyboardViewport keyNav scrollLow scrollHigh keybed status bpm meter metro beat rec review stop recordHint notes playNotes demo preset tracks export clearTrack'.split(' ').map(id=>[id,$(id)]));
 const names=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'], sol=['Do','Do♯','Re','Re♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
-const compactKeys='zsxdcvgbhnjmq2w3er5t6y7ui'; // existing compact map, C3–C5
-const keys=compactKeys+'9o0p,l.;/'; // in the 34-key view continue through A5
-const punctuation={',':'Comma','.':'Period',';':'Semicolon','/':'Slash'};
-const codes=Array.from(keys,k=>punctuation[k]||(/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase()));
-const bindingCount=()=>ui.keyView.value==='34'?keys.length:compactKeys.length;
-const base=()=>48+12*Number(ui.octave.value), shift=()=>Number(ui.transpose.value);
-const mappedStart=()=>base()+shift();
-function shortcutFor(midi){
-  const i=midi-mappedStart();
-  return i>=0&&i<bindingCount()?keys[i].toUpperCase():'';
+// Each preset declares one physical code for each consecutive pitch, low to high.
+const compactCodes=[...'zsxdcvgbhnjmq2w3er5t6y7ui'].map(k=>/[0-9]/.test(k)?'Digit'+k:'Key'+k.toUpperCase());
+const referenceCodes=('ShiftLeft Backquote CapsLock Digit1 Tab KeyQ Digit2 KeyW Digit3 KeyE KeyR Digit5 KeyT Digit6 KeyY Digit7 KeyU KeyI Digit9 KeyO Digit0 KeyP KeyZ KeyS KeyX KeyD KeyC KeyF KeyV KeyB KeyH KeyN KeyJ KeyM Comma KeyL Period Semicolon Slash Quote ShiftRight ArrowUp').split(' ');
+const symbolFor={ShiftLeft:'⇧',ShiftRight:'⇧',CapsLock:'CL',Tab:'⇥',ArrowUp:'↑',Backquote:'`',Comma:',',Period:'.',Semicolon:';',Slash:'/',Quote:"'"};
+const specialNames={ShiftLeft:'左 Shift',ShiftRight:'右 Shift',Tab:'Tab',ArrowUp:'向上方向鍵'};
+function preset(first,codes){
+  const entries=codes.map((code,i)=>({code,pitch:first+i,label:symbolFor[code]||code.replace(/^(Key|Digit)/,'')}));
+  return {first,entries,byCode:new Map(entries.map(e=>[e.code,e]))};
+}
+const layouts={reference:preset(43,referenceCodes),compact:preset(48,compactCodes)};
+const layout=()=>layouts[ui.keyLayout.value],base=()=>48+12*Number(ui.octave.value),shift=()=>Number(ui.transpose.value);
+const mappingOffset=()=>base()-48+shift();
+const bindingFor=midi=>{const l=layout();return l.entries[midi-mappingOffset()-l.first];};
+function updateOctaveChoices(){
+  const l=layout();
+  for(const opt of ui.octave.options){
+    const first=l.first+12*Number(opt.value)+shift();
+    opt.textContent=name(first)+'–'+name(first+l.entries.length-1);
+  }
 }
 const isBlack=pitch=>names[pitch%12].includes('♯');
 const keyButtons=new Map();
 
-function displayedRange(){
-  const count=Number(ui.keyView.value);
+function displayedRange(octave=Number(ui.octave.value)){
+  const origin=48+12*octave,count=Number(ui.keyView.value);
+  if(count===34)return {start:43,count};
   if(count===88)return {start:21,count};
-  if(count===61)return {start:Math.max(24,Math.min(48,base()-12)),count};
-  return {start:base(),count};
+  if(count===61)return {start:Math.max(ui.keyLayout.value==='reference'?12:24,Math.min(48,origin-12)),count};
+  return {start:origin,count};
 }
 const name=n=>names[((n%12)+12)%12]+(Math.floor(n/12)-1);
 const hz=n=>440*Math.pow(2,(n-69)/12);
@@ -328,7 +871,7 @@ if(engine){
     if(!byCategory.has(p.category)){const grp=document.createElement('optgroup');grp.label=p.category;ui.preset.append(grp);byCategory.set(p.category,grp);}
     byCategory.get(p.category).append(new Option(p.name,p.id));
   }
-  if(engine.presets.length){ui.preset.options[0].remove();ui.preset.value=engine.presets[0].id;}
+  if(engine.presets.length){ui.preset.options[0].remove();ui.preset.value=(engine.presets.find(p=>p.id==='concert-grand')||engine.presets[0]).id;}
 }
 const active=new Map(), tails=new Set(), pointers=new Set(), lit=new Map();
 let metroEpoch=0, ticking=new Set();
@@ -337,15 +880,34 @@ const status=s=>{ui.status.textContent=s};
 function soundWarning(message){
   status(message);guide.lessonFeedback.textContent=message;
 }
+let alongBus=null, outputGuard=null;
+// The existing compressor has a finite attack. Only round exceptionally high
+// Along peaks; the transfer is exactly linear below 0.8 and maps zero to zero.
+const alongCeiling=Float32Array.from({length:4097},(_,i)=>{
+  const x=i/2048-1, a=Math.abs(x), knee=.80, headroom=.15;
+  return a<=knee ? x : Math.sign(x)*(knee-headroom*Math.expm1(-(a-knee)/headroom));
+});
+function guardAlongOutput(enabled){if(outputGuard)outputGuard.curve=enabled?alongCeiling:null;}
+function setAlongBoost(initial=false){
+  const input=$('alongBoost'), db=Number(input.value), label=(db>0?'+':'')+db+' dB';
+  $('alongBoostReadout').value=label;input.setAttribute('aria-valuetext',label);
+  if(!alongBus)return;
+  const gain=10**(db/20);
+  if(initial)alongBus.gain.value=gain;
+  else alongBus.gain.setTargetAtTime(gain,ctx.currentTime,.02);
+}
+$('alongBoost').oninput=()=>setAlongBoost();
 function audio(){
   try{
     if(!ctx){
       const C=window.AudioContext||window.webkitAudioContext;
       if(!C){soundWarning('此瀏覽器不支援 Web Audio。');return false;}
-      ctx=new C();
+      ctx=new C({latencyHint:'interactive'});
       master=ctx.createGain();
+      alongBus=ctx.createGain();alongBus.connect(master);setAlongBoost(true);
       const limiter=ctx.createDynamicsCompressor(); limiter.threshold.value=-15; limiter.ratio.value=6;
-      master.connect(limiter).connect(ctx.destination); setVolume();
+      outputGuard=ctx.createWaveShaper();guardAlongOutput(mode==='Along'&&isFull());
+      master.connect(limiter).connect(outputGuard).connect(ctx.destination); setVolume();
     }
     if(ctx.state!=='running')ctx.resume().catch(()=>{
       if(ctx.state!=='running'){if(lesson)pauseLesson();soundWarning('未能啟用聲音，請再按一次琴鍵。');}
@@ -354,11 +916,11 @@ function audio(){
   }catch(e){soundWarning('未能啟用聲音，請檢查瀏覽器設定。');return false;}
 }
 function setVolume(){if(master)master.gain.setTargetAtTime((Number(ui.volume.value)/100)**1.5,ctx.currentTime,.025)}
-function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value){
-  if(engine)return engine.voice(ctx,master,midi,time,velocity,presetId);
+function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value,destination=master){
+  if(engine)return engine.voice(ctx,destination,midi,time,velocity,presetId);
   const freq=hz(midi), gain=ctx.createGain(), partials=[];
   const peak=.24*velocity, decay=Math.max(.35,1.45-(midi-45)*.017);
-  gain.connect(master); gain.gain.setValueAtTime(.0001,time);
+  gain.connect(destination); gain.gain.setValueAtTime(.0001,time);
   gain.gain.exponentialRampToValueAtTime(peak,time+.009);
   gain.gain.exponentialRampToValueAtTime(peak*.42,time+.09);
   gain.gain.exponentialRampToValueAtTime(peak*.075,time+decay);
@@ -383,7 +945,7 @@ function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value){
 function refreshKeyNavigation(){
   const viewport=ui.keyboardViewport;
   const limit=viewport.scrollWidth-viewport.clientWidth;
-  ui.keyNav.hidden=limit<=1;
+  ui.keyNav.hidden=ui.keyView.value==='25'||limit<=1;
   ui.scrollLow.disabled=viewport.scrollLeft<=1;
   ui.scrollHigh.disabled=viewport.scrollLeft>=limit-1;
 }
@@ -400,10 +962,13 @@ function revealKey(midi, center=false){
   }
 }
 function updateKeyLabel(k,midi){
-  const shortcut=shortcutFor(midi), full=name(midi);
+  const binding=bindingFor(midi),shortcut=binding?.label||'', full=name(midi);
   const fallback=bindingsShown&&!shortcut;
   k.dataset.unmapped=String(!shortcut);
-  k.setAttribute('aria-label',full+(shortcut?'，電腦鍵 '+shortcut:''));
+  if(binding)k.dataset.code=binding.code;else delete k.dataset.code;
+  const label=full+(midi===60?'（中央 C）':'')+(binding?'，電腦鍵 '+(binding.code==='CapsLock'?'Caps Lock（CL）':specialNames[binding.code]||shortcut):'');
+  k.setAttribute('aria-label',label);
+  k.title=label+(binding&&specialNames[binding.code]?' · 需啟用全鍵演奏':'');
   k.querySelector('.note').textContent=fallback?full:ui.labels.value==='off'?'':ui.labels.value==='sol'?sol[((midi%12)+12)%12]:full;
   k.querySelector('.hotkey').textContent=bindingsShown?shortcut:'';
 }
@@ -431,7 +996,7 @@ function render(){
   keyButtons.clear();
   lit.clear();
   ui.range.textContent=name(start+transpose)+'–'+name(end+transpose)+' · '+count+' 鍵';
-  ui.keyboardViewport.classList.toggle('wide',count>34);
+  ui.keyboardViewport.classList.toggle('wide',count>25);
   ui.keybed.style.setProperty('--white-count',whiteCount);
 
   let whites=0;
@@ -440,7 +1005,7 @@ function render(){
     k.className='key '+(black?'black':'white');
     k.type='button';
     k.dataset.i=pitch-start;
-    k.dataset.midi=midi;
+    k.dataset.midi=midi;if(midi===60&&!black)k.dataset.middleC='true';
     if(black){
       k.style.left=(100*whites/whiteCount)+'%';
       k.style.width=(100*.62/whiteCount)+'%';
@@ -457,8 +1022,9 @@ function render(){
   }
   ui.keybed.replaceChildren(buttons);syncLabelMode();
   laneGeometryDirty=true;
-  for(const item of active.values())light(item.midi,1);
+  for(const item of active.values()){light(item.midi,1);paintManualKey(item.midi);}
   if(playing)for(const item of playing.voices.values())light(item.midi,1);
+  paintAutoKeys(lesson?.autoNotes||[]);for(const item of tails)paintPedal(item.midi);
   refreshKeyNavigation();
 }
 function light(midi,delta){
@@ -468,55 +1034,80 @@ function light(midi,delta){
   if(n)lit.set(midi,n);else lit.delete(midi);
   key.classList.toggle('active',n>0);
 }
-function press(id,midi){
-  if(!keyButtons.has(midi)||active.has(id)||!audio())return;
+function press(id,midi,physical=false){
+  if(!Number.isInteger(midi)||(!physical&&!keyButtons.has(midi))||active.has(id)||!audio())return;
   const presetId=ui.preset.value, velocity=.88;
-  const v=voice(midi,ctx.currentTime,velocity,presetId), item={midi,v,note:null};
+  const out=!recording&&isFull()&&mode==='Along'?alongBus:master;
+  const v=voice(midi,ctx.currentTime,velocity,presetId,out), item={midi,v,note:null};
   light(midi,1);
   if(recording&&recording.notes.length<1500){
     item.note={midi,presetId,velocity,start:Math.max(0,performance.now()-recording.started),duration:0};
     recording.notes.push(item.note);
   }
   active.set(id,item);
-  inputLesson(midi);
+  paintManualKey(midi);
+  inputLesson(midi,id);
 }
 function finish(item){
   item.v.release();
   if(recording&&item.note)item.note.duration=Math.max(20,performance.now()-recording.started-item.note.start);
 }
-function up(id){
+function paintPedal(midi){
+  const key=keyButtons.get(midi);if(!key)return;
+  if([...tails].some(t=>t.midi===midi))key.dataset.pedalHeld='true';else delete key.dataset.pedalHeld;
+}
+function up(id,cancel=false){
   const item=active.get(id); if(!item)return;
   active.delete(id);light(item.midi,-1);
-  if(isSustain())tails.add(item);else finish(item);
+  paintManualKey(item.midi);
+  if(isSustain()&&!cancel){tails.add(item);paintPedal(item.midi);}else finish(item);
+  endHeldInput(id,cancel);
 }
 function updatePedal(){
   ui.sustain.setAttribute('aria-pressed',String(isSustain()));
-  if(!isSustain()){for(const item of tails)finish(item);tails.clear();}
+  if(!isSustain()){const released=[...tails];tails.clear();for(const item of released){finish(item);paintPedal(item.midi);}}
 }
 function releaseLive(reset=false){
+  const gated=lesson?.hold||lesson?.chordKeys.size||lesson?.retryMidi!=null;
+  if(lesson)clearGate(lesson);
   pedalHold=false;
   if(reset)pedalLatch=false;
-  for(const id of active.keys())up(id);
-  for(const item of tails)finish(item);tails.clear();pointers.clear();
-  updatePedal();
+  for(const id of active.keys())up(id,true);
+  const released=[...tails];tails.clear();for(const item of released){finish(item);paintPedal(item.midi);}
+  pointers.clear();updatePedal();
+  if(gated&&lesson?.mode==='Practice'){drawGuide();practiceCue();}
 }
-const typing=el=>el instanceof Element&&(el.matches('textarea,input,select')||el.isContentEditable);
+const typing=el=>el instanceof Element&&(el.closest('textarea,input,select,[role=textbox]')||el.isContentEditable);
+let fullKeyboard=false;
+function performanceMode(enable,returnFocus=false){
+  if(enable===fullKeyboard)return;
+  fullKeyboard=enable;ui.performanceFocus.setAttribute('aria-pressed',String(enable));ui.keybed.dataset.performance=String(enable);
+  ui.performanceFocus.textContent=enable?'Esc 離開':'全鍵演奏';
+  if(enable)ui.keybed.focus({preventScroll:true});
+  else {releaseLive(true);if(returnFocus)ui.performanceFocus.focus({preventScroll:true});}
+}
+ui.performanceFocus.onpointerdown=e=>{if(fullKeyboard)e.preventDefault();};
+ui.performanceFocus.onclick=()=>performanceMode(!fullKeyboard,true);
+ui.keybed.addEventListener('focusout',e=>{if(fullKeyboard&&!ui.keybed.contains(e.relatedTarget))performanceMode(false);});
 const focusedKey=el=>el instanceof Element&&el.closest('#keybed .key');
 document.addEventListener('keydown',e=>{
-  if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing||typing(e.target))return;
+  if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||(e.isComposing&&e.code!=='CapsLock')||typing(e.target)||typing(document.activeElement))return;
+  const captured=fullKeyboard&&ui.keybed.contains(document.activeElement);
+  if(captured&&e.code==='Escape'){e.preventDefault();performanceMode(false,true);return;}
+  if((specialNames[e.code]||e.shiftKey)&&!captured)return;
   const k=focusedKey(e.target);
   if(k&&(e.code==='ArrowLeft'||e.code==='ArrowRight')){
     e.preventDefault();const next=Number(k.dataset.midi)+(e.code==='ArrowLeft'?-1:1);keyButtons.get(next)?.focus();return;
   }
   if(k&&(e.code==='Space'||e.code==='Enter')){e.preventDefault();if(!e.repeat)press('f'+e.code,Number(k.dataset.midi));return;}
   if(e.code==='Space'&&!(e.target instanceof Element&&e.target.closest('button,summary,a[href]'))){e.preventDefault();pedalHold=true;updatePedal();return;}
-  const i=codes.indexOf(e.code);
-  if(i>=0&&i<bindingCount()){
-    e.preventDefault();
+  const binding=layout().byCode.get(e.code);
+  if(binding){
+    // Outside full-key focus keep browser defaults (including find-as-you-type shortcuts).
+    if(captured||e.code==='CapsLock')e.preventDefault();
     if(!e.repeat){
-      const midi=mappedStart()+i;
-      revealKey(midi);
-      press('k'+e.code,midi);
+      const midi=binding.pitch+mappingOffset();
+      revealKey(midi);press('k'+e.code,midi,true);
     }
   }
 });
@@ -524,7 +1115,7 @@ document.addEventListener('keyup',e=>{
   up('k'+e.code);up('f'+e.code);
   if(e.code==='Space'&&pedalHold){pedalHold=false;updatePedal();}
 });
-ui.keybed.addEventListener('focusout',()=>{up('fSpace');up('fEnter')});
+ui.keybed.addEventListener('focusout',()=>{up('fSpace',true);up('fEnter',true)});
 function midiAt(x,y){
   const key=focusedKey(document.elementFromPoint(x,y));
   return key?Number(key.dataset.midi):null;
@@ -541,19 +1132,22 @@ ui.keybed.addEventListener('pointermove',e=>{
   if(active.get(id)?.midi===midi)return;
   up(id);press(id,midi);
 });
-function pointerUp(e){pointers.delete(e.pointerId);up('p'+e.pointerId);}
+function pointerUp(e){pointers.delete(e.pointerId);up('p'+e.pointerId,e.type!=='pointerup');}
 for(const event of ['pointerup','pointercancel','lostpointercapture'])ui.keybed.addEventListener(event,pointerUp);
 ui.keybed.addEventListener('click',e=>{
   const k=focusedKey(e.target);if(!k||e.detail!==0||!audio())return;
-  const id='assist';press(id,Number(k.dataset.midi));setTimeout(()=>up(id),230);
+  const midi=Number(k.dataset.midi),id='assist'+midi;
+  if(active.has(id)){up(id);return;}
+  press(id,midi);
+  const strike=active.get(id);if(strike&&lesson?.chordKeys.get(midi)!==id)setTimeout(()=>{if(active.get(id)===strike)up(id);},230);
 });
 ui.sustain.onclick=()=>{pedalLatch=!pedalLatch;updatePedal();ui.sustain.blur()};
 ui.volume.oninput=setVolume;
 function centerMapping(){
-  revealKey(mappedStart()+12,true);
+  revealKey(base()+shift()+12,true);
 }
 function setPitch(){
-  releaseLive();
+  releaseLive();updateOctaveChoices();
   render();
   centerMapping();
   paintTargets();drawTimeline();
@@ -571,7 +1165,7 @@ function onStageGeometry(){
     const size=stageSize(),changed=size!==lastStageSize;lastStageSize=size;
     const session=lesson||pausedLesson;
     // Rotation can clip a formerly visible target. Ordinary user panning must not snap back.
-    if(changed&&!desktopReader?.matches&&session&&!pointers.size){
+    if(changed&&!isHorizontalReader()&&session&&!pointers.size){
       const step=session.score[session.index],wanted=step?.pitches.find(p=>!session.got.has(p));
       const key=keyButtons.get(wanted),vp=ui.keyboardViewport;
       if(key&&vp.scrollWidth>vp.clientWidth){
@@ -580,8 +1174,7 @@ function onStageGeometry(){
         if(x<frame.left+pad||x>frame.right-pad){revealKey(wanted,true);laneGeometryDirty=true;}
       }
     }
-    const a=lesson;
-    drawStage(a&&a.mode!=='Practice' ? Math.max(0,(performance.now()-a.started)/a.length) : guidePos);
+    drawTimeline();
   });
 }
 ui.keyboardViewport.addEventListener('scroll',onStageGeometry,{passive:true});
@@ -594,10 +1187,17 @@ document.addEventListener('keydown',e=>{
 });
 ui.scrollLow.onclick=()=>{ui.keyboardViewport.scrollLeft-=ui.keyboardViewport.clientWidth*.75;};
 ui.scrollHigh.onclick=()=>{ui.keyboardViewport.scrollLeft+=ui.keyboardViewport.clientWidth*.75;};
+ui.keyLayout.onchange=()=>{
+  releaseLive(true);updateOctaveChoices();render();paintTargets();drawTimeline();
+};
 ui.octave.onchange=setPitch;ui.transpose.onchange=setPitch;ui.labels.onchange=()=>setLabelMode(ui.labels.value==='off',false);
 for(let i=-12;i<=12;i++)ui.transpose.add(new Option(i===0?'原調':(i>0?'+':'')+i+' 半音',String(i),i===0,i===0));
 const guide=Object.fromEntries('song modeDemo modeAlong modePractice lessonAction lessonHelp score progress lessonFeedback restart labelToggle seek elapsed totalTime'.split(' ').map(id=>[id,$(id)]));
-const desc={Demo:'聽示範，看音符落到琴鍵。',Along:'跟低音伴奏彈旋律；節拍不會等候。',Practice:'按啱先前進；和弦可逐個音彈。'};
+const desc={Demo:'自動示範：聽旋律，看音符落到琴鍵。',Along:'跟譜彈：節拍照行，只聽到你按嘅鍵。',Practice:'按提示彈，放鍵進入下一音。'};
+const fullScore=window.NocturneScorePlayer,isFull=()=>guide.song.value==='canonFull'&&!!fullScore;
+let usedFull=false,preFullTempo=100;
+if(!fullScore){guide.song.querySelector('[value=canonFull]').disabled=true;guide.song.value='canon';}
+const fullDesc={Demo:'原譜頭 4.8 秒休止，第一音按 C（A4）；示範自動彈雙手；只想聽自己彈，可揀 Practice，或關閉跟彈譜音。',Along:'按開始會播放所選聲部，跟住亮起嘅鍵一齊彈。關閉「譜音」就只聽你按嘅鍵。',Practice:'跟住節奏點按：長音按一下即可，前後 0.5 秒內亦接受。錯鍵或 MISS 會返回並停住等你按對；未按鍵不會發聲。CL＝Caps Lock。'};
 const songs={
  moon:{score:'C4 E4 G4 A4:2 G4 E4 D4 F4 A4 G4:2 D4 E4 C4+E4:2 D4 E4+G4:2 C4:2',bass:[48,50,48,43,48,45,48,43]},
  ode:{score:'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2',bass:[48,43,48,43,48,43,48,48]},
@@ -633,12 +1233,73 @@ function parseNotes(src){
     return {pitches:[...new Set(pitches)],beats};
   });
 }
+function fitLeadForInput(pitches){
+  if(!isFull()||!pitches.length)return;
+  const current=Number(ui.octave.value),l=layout(),transpose=shift();
+  const fits=oct=>{
+    const {start,count}=displayedRange(oct),lo=l.first+12*oct,hi=lo+l.entries.length-1;
+    return pitches.every(m=>{const p=m-transpose;return lo<=p&&p<=hi&&start<=p&&p<start+count;});
+  };
+  if(fits(current))return;
+  const next=[...ui.octave.options].map(o=>Number(o.value)).filter(fits).sort((a,b)=>Math.abs(a-current)-Math.abs(b-current))[0];
+  if(next===undefined)return; // generated source is checked against all supported views by QA
+  ui.octave.value=String(next);render();centerMapping();
+}
+function paintAutoKeys(events){
+  const sounding=$('pocSounding'),pitches=[...new Set(events.map(e=>e.midi))].sort((a,b)=>a-b);
+  sounding.dataset.midis=pitches.join(',');
+  sounding.textContent=pitches.map(m=>name(m)+(bindingFor(m)?' ['+bindingFor(m).label+']':'')).join(' + ')||'—';
+  const bits=new Map();
+  for(const {midi,track} of events)bits.set(midi,(bits.get(midi)||0)|(track===0?1:2));
+  for(const [midi,key] of keyButtons){
+    const b=bits.get(midi)||0,v=b===3?'both':b===1?'lead':b===2?'backing':'';
+    if((key.dataset.auto||'')===v)continue;
+    if(v){key.dataset.auto=v;key.setAttribute('aria-description',b===3?'旋律和伴奏同時發聲':b===1?'自動示範發聲':'自動伴奏發聲');}
+    else{delete key.dataset.auto;key.removeAttribute('aria-description');}
+    key.classList.toggle('sounding',!!b);key.classList.toggle('auto-lead',!!(b&1));key.classList.toggle('auto-backing',!!(b&2));
+  }
+}
+
+
+const pitchGroups=fullScore.guide.filter(g=>g.pitches.length);
+function paintPhraseCue(st,held){
+  const root=$('phraseKeys'), group=st?.group||1;
+  const first=Math.max(0,Math.min(pitchGroups.length-7,group-3));
+  if(root.dataset.start!==String(first)){
+    root.dataset.start=first;const frag=document.createDocumentFragment();
+    for(const g of pitchGroups.slice(first,first+7)){
+      const span=document.createElement('span');span.className='chord';
+      for(const midi of g.pitches){
+        const b=document.createElement('b');b.className='phrase-note';b.dataset.midi=midi;b.dataset.group=g.group;
+        b.textContent=bindingFor(midi).label.toLowerCase();b.title=name(midi)+' · '+b.textContent;
+        span.append(b);
+      }frag.append(span);
+    }root.replaceChildren(frag);
+  }
+  for(const b of root.querySelectorAll('.phrase-note')){
+    const current=!!st?.pitches.length&&Number(b.dataset.group)===st.group;
+    if(current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');
+    b.classList.toggle('manual',current&&held.includes(Number(b.dataset.midi)));
+  }
+}
+function pocDisplay(){
+  const fmt=m=>name(m)+(bindingFor(m)?' ['+bindingFor(m).label+']':'');
+  const show=(id,v)=>{const n=$(id),text=v.length?v.map(fmt).join(' + '):'—';if(n.textContent!==text)n.textContent=text;n.dataset.midis=v.join(',');};
+  const state=lesson||pausedLesson;const st=state?.score[state.index];
+  const want=st?st.pitches:(!state&&guidePos<totalBeats?modeScore[stepAt(guidePos)]?.pitches:[]);
+  paintPhraseCue(st||(!state&&guidePos<totalBeats?modeScore[stepAt(guidePos)]:null),[...active.values()].map(x=>x.midi));
+  show('pocExpected',want||[]);show('pocPressed',[...new Set([...active.values()].map(v=>v.midi))].sort((a,b)=>a-b));
+}
+
 function paintTargets(){
   const a=lesson||pausedLesson, current=a?.score[a.index], pitches=current?.pitches||[];
+  // Fixed 34-key view: never change the reference computer keyboard mapping.
+  pocDisplay();
   for(const [midi,key] of keyButtons){
     const target=pitches.includes(midi), hit=!!(target&&a.got.has(midi));
     key.classList.toggle('target',target&&!hit);
     key.classList.toggle('target-hit',hit);
+    key.classList.toggle('hold-pending',!!a?.chordKeys.has(midi));key.classList.toggle('retry',a?.retryMidi===midi);
   }
   const next=pitches.find(p=>!a.got.has(p));
   if(next!==undefined)revealKey(next);
@@ -646,7 +1307,7 @@ function paintTargets(){
 }
 
 // Retain marks while they move; measure keys only after layout or viewport changes.
-const lane=$('noteLane'), laneMarks=new Map(), laneKeys=new Map();
+const lane=$('noteLane'), laneMarks=new Map(), laneKeys=new Map(), laneInputs=new Map();
 let laneGeometryDirty=true, laneLayoutFrame=0;
 const stillMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');
 function stepAt(beat){
@@ -657,44 +1318,143 @@ function stepAt(beat){
   }
   return low;
 }
+// Time-axis endpoints are the score's attack and note-off; typography never moves them.
+const compactCaption=$('mobileNotation'), pitchLegend=document.querySelector('.duration-legend');
+const quarterGlyph=beats=>Number(beats.toFixed(4))+' 拍';
+const syncPx=n=>Number(n.toFixed(3))+'px';
+function notationInfo(step,midi,actualDuration,showShortcut=true){
+  const rest=midi===null;
+  const duration=actualDuration??(rest?step.beats:typeof noteBeats==='function'?noteBeats(step,midi):step.beats);
+  const binding=rest||!showShortcut?null:bindingFor(midi),mapped=!!(bindingsShown&&binding);
+  const raw=rest?'休止':mapped?binding.label:name(midi);
+  const label=mapped&&/^[A-Z]$/.test(raw)?raw.toLowerCase():raw;
+  const hold=!rest&&duration>=1;
+  const count=Math.round(duration*4);
+  // Dashes are a visual ruler. The caption gives the exact length of off-grid holds.
+  const suffix=hold?'-'.repeat(count):'';
+  return {rest,duration,mapped,code:binding?.code||'',label,hold,suffix,text:hold?'('+label+suffix+')':label};
+}
+function tagValue(el,key,value){const val=String(value);if(el.dataset[key]!==val)el.dataset[key]=val;}
+function stylePx(el,key,val){const s=syncPx(val);if(el.style[key]!==s)el.style[key]=s;}
+function notationIndex(beat,state){
+  // Practice owns its target until physical key-up, including the release boundary.
+  return state?.mode==='Practice'&&state.index>=0?state.index:stepAt(beat);
+}
+function notationMark(el,info,start,state,index,midi,current){
+  const signature=info.text;
+  if(el.dataset.ink!==signature){
+    const ink=document.createElement('span');ink.className='notation-text';
+    if(info.hold){
+      const head=document.createElement('span');head.textContent='('+info.label;
+      const tail=document.createElement('span');tail.className='hold-dashes';
+      if(info.suffix[0]==='-'){
+        for(let i=0;i<info.suffix.length;i++){const dash=document.createElement('i');dash.textContent='-';tail.append(dash);}
+      }else tail.textContent=info.suffix;
+      const stop=document.createElement('span');stop.textContent=')';ink.append(head,tail,stop);
+    }else ink.textContent=signature;
+    el.replaceChildren(ink);el.dataset.ink=signature;
+  }
+  if(info.code){tagValue(el,'code',info.code);}else if(el.dataset.code)delete el.dataset.code;
+  tagValue(el,'mapped',info.mapped);tagValue(el,'rest',info.rest);tagValue(el,'hold',info.hold);
+  tagValue(el,'startBeat',start);tagValue(el,'durationBeats',info.duration);tagValue(el,'endBeat',start+info.duration);
+  const seen=state?.played?.get(index)?.has(midi)||false;
+  const physical=!!(state&&lesson===state&&state.mode==='Practice'&&current&&state.chordKeys.has(midi));
+  const retry=!!(state&&lesson===state&&current&&state.retryMidi===midi);
+  const feedback=physical?'holding':retry?'retry':!info.rest&&state?.mode!=='Demo'&&seen?'hit':!info.rest&&current?'expected':'none';
+  tagValue(el,'feedback',feedback);tagValue(el,'hit',feedback==='hit');
+}
+// The blue contact strip is live input only: never infer a press from a score cue
+// or from an automatic voice. Holding a pedal after key-up is not a physical press.
+function paintContact(midi,pressed){
+  const box=laneKeys.get(midi);let mark=laneInputs.get(midi);
+  if(!pressed||!box){if(mark){mark.remove();laneInputs.delete(midi);}return;}
+  if(!mark){mark=document.createElement('span');mark.className='lane-input';mark.dataset.midi=String(midi);lane.append(mark);laneInputs.set(midi,mark);}
+  stylePx(mark,'left',box.x);stylePx(mark,'width',box.w);
+}
+function paintManualKey(midi){
+  pocDisplay();
+  const held=[...active.values()].some(note=>note.midi===midi),key=keyButtons.get(midi);
+  if(key){if(held)key.dataset.manual='true';else delete key.dataset.manual;}
+  paintContact(midi,held);
+}
+let laneHeight=0,lastLaneScroll=NaN;
 function drawNoteLane(beat){
   if(!lane)return;
-  if(laneGeometryDirty){
-    const frame=lane.getBoundingClientRect();laneKeys.clear();
+  const scroll=ui.keyboardViewport.scrollLeft;
+  if(laneGeometryDirty||!laneHeight||scroll!==lastLaneScroll){
+    lastLaneScroll=scroll;
+    const frame=lane.getBoundingClientRect();laneKeys.clear();laneHeight=frame.height;
     for(const [pitch,key] of keyButtons){
       const box=key.getBoundingClientRect(), x=(box.left+box.right)/2-frame.left;
       if(box.width>0&&box.right>frame.left&&box.left<frame.right)
-        laneKeys.set(pitch,{x,w:Math.max(6,Math.min(66,box.width*.88))});
+        laneKeys.set(pitch,{x,w:Math.min(67,box.width*.87)});
+    }
+    // All cue strips sharing a vertical position stay in disjoint pitch columns.
+    const boxes=[...laneKeys.values()].sort((a,b)=>a.x-b.x);
+    for(let i=0;i<boxes.length;i++){
+      const box=boxes[i], gap=Math.min(i?box.x-boxes[i-1].x:Infinity,i+1<boxes.length?boxes[i+1].x-box.x:Infinity);
+      box.w=Math.min(box.w,gap*.92);
     }
     laneGeometryDirty=false;
   }
-  const a=lesson||pausedLesson, index=stepAt(beat), keep=new Set(), horizon=6;
-  const anchor=stillMotion?.matches?(stepStarts[index]||0):beat;
-  for(let i=index;beat<totalBeats&&i<modeScore.length&&stepStarts[i]-anchor<horizon;i++){
-    const y=Math.max(0,(stepStarts[i]-anchor)/horizon*94);
-    for(const midi of modeScore[i].pitches){
-      const box=laneKeys.get(midi);if(!box)continue;
-      const id=i+':'+midi;keep.add(id);
+  const heldPitches=new Set([...active.values()].map(v=>v.midi));
+  for(const m of new Set([...heldPitches,...laneInputs.keys()]))paintContact(m,heldPitches.has(m));
+  if(!modeScore.length||!laneHeight)return;
+  const a=lesson||pausedLesson,index=notationIndex(beat,a),keep=new Set(),unit=Math.max(40,laneHeight/4);
+  const viewEnd=beat+laneHeight/unit;
+  const demo=(a?.mode||mode)==='Demo', scoreDemo=demo&&isFull(), cues=[];
+  // Demo displays the same source events the synthesizer uses. A violin or bass
+  // note can start BEFORE the current lead group and still be sounding now.
+  if(scoreDemo&&beat<totalBeats){
+    const events=[...fullScore.at(beat).notes];
+    let lo=0,hi=sourceNotes.length;
+    while(lo<hi){const m=(lo+hi)>>1;if(sourceNotes[m].start<=beat+1e-9)lo=m+1;else hi=m;}
+    for(let n=lo;n<sourceNotes.length&&sourceNotes[n].start<viewEnd;n++)events.push(sourceNotes[n]);
+    for(const e of events){
+      const i=stepAt(e.start);
+      cues.push({id:'demo:'+e.id,midi:e.midi,i,track:e.track,start:e.start,end:e.end,role:e.track===0?'demo-lead':'backing',current:e.start<=beat+1e-9&&beat<e.end});
+    }
+  }else for(let i=index;beat<totalBeats&&i<modeScore.length&&stepStarts[i]<viewEnd;i++){
+    const step=modeScore[i],start=stepStarts[i];
+    for(const midi of step.pitches){
+      const end=start+noteBeats(step,midi),current=i===index;
+      // A completed hold/chord waits AT the strike line until the final key-up.
+      const awaitingRelease=!!(a?.mode==='Practice'&&current&&a.hold?.midis.includes(midi));
+      if(end<=beat&&!awaitingRelease)continue;
+      cues.push({id:'score:'+i+':'+midi,midi,i,start,end,track:0,role:demo?'demo-lead':'target',current,awaitingRelease});
+    }
+  }
+  for(const cue of cues){
+      const {id,midi,i,start,end,role,current,track,awaitingRelease}=cue,box=laneKeys.get(midi);
+      if(!box)continue; // No octave-folding or substituting the closest visible key.
+      const info=notationInfo(modeScore[i],midi,end-start,true);keep.add(id);
       let el=laneMarks.get(id);
       if(!el){
-        el=document.createElement('span');el.className='lane-note';el.dataset.midi=String(midi);el.dataset.group=String(i);el.textContent=name(midi);
+        el=document.createElement('span');el.className='lane-note';el.dataset.midi=String(midi);el.dataset.group=String(i);
         laneMarks.set(id,el);lane.append(el);
       }
-      const state=i!==index?'next':(a?.index===i&&a.got.has(midi)?'hit':'current');
-      if(el.dataset.state!==state){el.dataset.state=state;el.dataset.current=String(i===index);}
-      const bottom=Number(y.toFixed(2))+'%';
-      if(el.style.bottom!==bottom)el.style.bottom=bottom;
-      const pos=box.x+'px',width=box.w+'px';
-      if(el.style.left!==pos)el.style.left=pos;
-      if(el.style.width!==width)el.style.width=width;
-    }
+      tagValue(el,'role',role);tagValue(el,'track',track);
+      notationMark(el,info,start,role==='backing'?null:a,i,midi,current);
+      tagValue(el,'current',current);tagValue(el,'state',current?(el.dataset.hit==='true'?'hit':'current'):'next');
+      const height=info.duration*unit;
+      const bottom=(start-beat)*unit;
+      stylePx(el,'bottom',awaitingRelease?Math.max(3-height,bottom):bottom);stylePx(el,'height',height);
+      // A unison still occupies a single pitch column. Leave blue edges visible around the gold lead.
+      const unison=role==='demo-lead'&&cues.some(c=>c.role==='backing'&&c.midi===midi&&c.start<end&&c.end>start);
+      const width=unison?box.w*.7:box.w;
+      stylePx(el,'left',box.x);stylePx(el,'width',width);
+      const inline=info.hold?height:width,block=info.hold?width:height;
+      const font=Math.min(14,block*.83,(inline-2)/(.65*info.text.length));
+      tagValue(el,'tight',font<8.5);
+      const size=syncPx(Math.max(8.5,font));if(el.style.getPropertyValue('--ink-size')!==size)el.style.setProperty('--ink-size',size);
   }
   for(const [id,el] of laneMarks)if(!keep.has(id)){el.remove();laneMarks.delete(id);}
 }
 // Desktop reads left to right. Onsets are fixed beat offsets; only the track moves.
 const readingLane=$('readingLane'), readTrack=$('readingTrack'), readGroups=new Map();
 const desktopReader=window.matchMedia?.('(min-width: 1000px) and (min-height: 520px)');
-const stageSize=()=>[ui.keyboardViewport.clientWidth,ui.keyboardViewport.clientHeight,!!desktopReader?.matches].join(':');
+const isHorizontalReader=()=>$('scoreView').value==='horizontal'||(desktopReader?.matches&&$('scoreView').value==='auto');
+const stageSize=()=>[ui.keyboardViewport.clientWidth,ui.keyboardViewport.clientHeight,!!isHorizontalReader()].join(':');
 let lastStageSize=stageSize();
 let readerScore=null,readerWidth=0;
 function drawReadingLane(beat){
@@ -703,56 +1463,76 @@ function drawReadingLane(beat){
   }
   if(!readerWidth)readerWidth=readingLane.clientWidth;
   if(!readerWidth||!modeScore.length)return;
-  const state=lesson||pausedLesson,ended=beat>=totalBeats;
-  const waiting=state?.mode==='Practice'&&state.index>=0;
-  const index=waiting?state.index:stepAt(beat);
-  // Practice parks the awaited chord at the cursor without moving the saved transport.
-  const position=(waiting||stillMotion?.matches)&&!ended?stepStarts[index]:beat;
-  const unit=Math.max(56,readerWidth/12),cursor=readerWidth*.30;
-  const x=cursor-position*unit;
-  const translate='translateX('+Number(x.toFixed(2))+'px)';
+  const state=lesson||pausedLesson,ended=beat>=totalBeats,index=notationIndex(beat,state);
+  // Reserve enough horizontal distance even for consecutive 32nd notes in CDE.
+  // Scale does not depend on the current note, glyph width, group index or rolling tempo.
+  const unit=Math.max(120,readerWidth/14),cursor=readerWidth*.22;
+  const translate='translateX('+syncPx(cursor-beat*unit)+')';
   if(readTrack.style.transform!==translate)readTrack.style.transform=translate;
-  const first=stepAt(Math.max(0,position-(cursor+100)/unit)),last=position+(readerWidth-cursor+100)/unit;
+  tagValue(readingLane,'pixelsPerBeat',unit);
+  const first=stepAt(Math.max(0,beat-(cursor+1)/unit)),last=beat+(readerWidth-cursor+1)/unit;
   const shown=new Set();
   for(let i=first;i<modeScore.length&&stepStarts[i]<=last;i++){
     shown.add(i);
-    const pitches=modeScore[i].pitches;
+    const step=modeScore[i],pitches=step.pitches,start=stepStarts[i];
     let group=readGroups.get(i);
     if(!group){
       const el=document.createElement('span');el.className='read-note';el.dataset.group=String(i);
-      const parts=pitches.map(midi=>{
-        const part=document.createElement('span');part.className='read-pitch';part.dataset.midi=String(midi);
+      const parts=(pitches.length?pitches:[null]).map(midi=>{
+        const part=document.createElement('span');part.className='read-pitch';
+        if(midi!==null)part.dataset.midi=String(midi);
         el.append(part);return part;
       });
-      if(!pitches.length)el.textContent='休止';
       group={el,parts};readGroups.set(i,group);readTrack.append(el);
     }
-    const current=i===index&&!ended, heard=state?.played.get(i);
+    const current=i===index&&!ended,heard=state?.played?.get(i);
     const hit=current&&state?.mode!=='Demo'&&pitches.length>0&&pitches.every(p=>heard?.has(p));
-    const grade=current?(hit?'hit':'current'):(ended||i<index?'done':'next');
-    if(group.el.dataset.state!==grade){
-      group.el.dataset.state=grade;group.el.dataset.current=String(current);
-    }
-    const left=Number((stepStarts[i]*unit).toFixed(2))+'px';
-    if(group.el.style.left!==left)group.el.style.left=left;
-    for(let j=0;j<pitches.length;j++){
-      const midi=pitches[j],part=group.parts[j],shortcut=shortcutFor(midi);
-      const label=(bindingsShown&&shortcut)||name(midi);
-      if(part.textContent!==label)part.textContent=label;
-      const mapped=String(!!(bindingsShown&&shortcut));
-      if(part.dataset.mapped!==mapped)part.dataset.mapped=mapped;
-      const hit=String(state?.mode!=='Demo'&&!!heard?.has(midi));
-      if(part.dataset.hit!==hit)part.dataset.hit=hit;
+    tagValue(group.el,'state',current?(hit?'hit':'current'):(ended||i<index?'done':'next'));
+    tagValue(group.el,'current',current);tagValue(group.el,'startBeat',start);
+    stylePx(group.el,'left',start*unit);stylePx(group.el,'width',step.beats*unit);
+    for(let j=0;j<group.parts.length;j++){
+      const midi=pitches[j]??null,part=group.parts[j],info=notationInfo(step,midi),width=info.duration*unit;
+      notationMark(part,info,start,state,i,midi,current);
+      stylePx(part,'width',width);
+      // The smallest cells shrink their ink rather than shifting their attack or
+      // painting over the next pitch. Larger sustained notes retain full-size type.
+      const font=Math.min(Math.min(46,Math.max(21,readerWidth*.019)),(width-5)/(Math.max(info.text.length,1)*.63));
+      const size=syncPx(Math.max(8,font));if(part.style.getPropertyValue('--ink-size')!==size)part.style.setProperty('--ink-size',size);
     }
   }
   for(const [i,group] of readGroups)if(!shown.has(i)){group.el.remove();readGroups.delete(i);}
 }
 function drawStage(beat){
-  if(readTrack&&desktopReader?.matches){drawReadingLane(beat);return;}
+  // Both readers use the caller's one transport sample, including hold progress.
+  // Reduced-motion mode drops decorative animation, not the score's time axis.
+  if(pitchLegend){
+    const legend=mode==='Demo'?'每個 - 約 ¼ 拍 · 琴鍵：金＝示範旋律、灰藍＝伴奏':'每個 - 約 ¼ 拍 · 綠＝目標、亮藍＝你按下的鍵';
+    if(pitchLegend.textContent!==legend)pitchLegend.textContent=legend;
+  }
+  if(compactCaption){
+    let caption='',physical='none';
+    if(modeScore.length&&beat<totalBeats){
+      const i=notationIndex(beat,lesson||pausedLesson),step=modeScore[i],marks=(step.pitches.length?step.pitches:[null]).map(m=>notationInfo(step,m));
+      const durations=marks.map(m=>m.duration);
+      const token=marks.map(m=>m.text).join(' + ');
+      caption=(marks[0].rest?'':'譜：')+token+' · '+[...new Set(durations)].map(quarterGlyph).join(' / ');
+      if(lesson?.hold?.index===i&&lesson.hold.midi!=null){
+        physical='holding';caption+=beat+1e-7>=lesson.hold.startBeat+lesson.hold.durationBeats?' · 放鍵':' · 已按住';
+      }
+      else if(lesson&&lesson.retryMidi!=null&&step.pitches.includes(lesson.retryMidi)){physical='retry';caption+=' · 放早咗，再試';}
+    }
+    tagValue(compactCaption,'physical',physical);if(compactCaption.textContent!==caption)compactCaption.textContent=caption;
+  }
+  if(readTrack&&isHorizontalReader()){drawReadingLane(beat);return;}
   drawNoteLane(beat);
 }
 guide.paintLane=drawStage;
 desktopReader?.addEventListener?.('change',onStageGeometry);
+$('scoreView').onchange=()=>{
+  document.documentElement.dataset.scoreView=$('scoreView').value;
+  try{localStorage.setItem('nocturne.scoreView',$('scoreView').value);}catch(_){}
+  onStageGeometry();drawTimeline();
+};
 stillMotion?.addEventListener?.('change',onStageGeometry);
 if(lane&&window.ResizeObserver){
   const observer=new ResizeObserver(onStageGeometry);
@@ -760,78 +1540,137 @@ if(lane&&window.ResizeObserver){
 }
 const clockText=seconds=>Math.floor(seconds/60)+':'+String(Math.floor(seconds%60)).padStart(2,'0');
 let stepStarts=[], totalBeats=0;
-function drawTimeline(){
+const sourceNotes=fullScore?[...fullScore.timeline].sort((a,b)=>a.start-b.start||a.track-b.track):[];
+const leadLengths=new Map(sourceNotes.filter(n=>window.NocturneFullScore.practiceTracks.includes(n.track)).map(n=>[Math.round(n.start*fullScore.ppq)+':'+n.midi,n.end-n.start]));
+function noteBeats(step,midi){
+  return step&&(isFull()?leadLengths.get(step.tick+':'+midi)??step.beats:step.beats)||0;
+}
+function isLongNote(step,midi){return noteBeats(step,midi)>=1-1e-8;}
+function renderMs(a){return a?.audioTimed?ctx.currentTime*1000:performance.now();}
+function presentedMs(a){
+  if(!a?.audioTimed)return performance.now();
+  const render=ctx.currentTime*1000,ts=ctx.getOutputTimestamp?.();
+  if(ctx.state!=='running'||!ts||!(ts.contextTime>0)||!(ts.performanceTime>0))return render;
+  return Math.min(render,ts.contextTime*1000+Math.max(0,Math.min(100,performance.now()-ts.performanceTime)));
+}
+function transportBeat(a=lesson){
+  if(!a||a!==lesson)return guidePos;
+  if(a.retryGate)return a.retryGate.beat;
+  if(a.mode==='Practice'&&!a.rhythm){
+    const h=a.hold;
+    if(!h)return guidePos;
+    const elapsed=Math.max(0,(renderMs(a)-h.startedMs)/a.length);
+    return h.startBeat+Math.min(elapsed,h.durationBeats);
+  }
+  return Math.min(totalBeats,Math.max(a.floor,(presentedMs(a)-a.started)/a.length));
+}
+function drawTimeline(sample){
   cancelAnimationFrame(guideRaf);
+  const a=lesson,explicit=typeof sample==='number',beat=explicit?sample:transportBeat(a);
+  if(!explicit&&a&&a.mode!=='Practice'&&
+      (beat>=totalBeats||stepAt(beat)!==a.index||(isFull()&&scoreSounds(a)&&a.sliceTick!==fullScore.at(beat).tick))){
+    queueLesson(false,beat);return;
+  }
   const stepTime=(lesson?.length||pausedLesson?.length||60000/tempo())/1000;
-  const pos=lesson&&lesson.mode!=='Practice' ? Math.max(0,(performance.now()-lesson.started)/1000) : guidePos*stepTime;
+  const pos=beat*stepTime;
   const max=totalBeats*stepTime;
   guide.seek.max=Math.max(.01,max);if(!seeking)guide.seek.value=Math.min(pos,max);
-  guide.seek.disabled=mode==='Practice';
-  guide.elapsed.textContent=clockText(Math.min(pos,max));guide.totalTime.textContent=clockText(max);
-  guide.paintLane?.(lesson&&lesson.mode!=='Practice'?Math.min(totalBeats,pos/stepTime):guidePos);
-  if(lesson&&lesson.mode!=='Practice')guideRaf=requestAnimationFrame(drawTimeline);
+  guide.seek.disabled=mode==='Practice'&&!isFull();
+  const absolute=sec=>{const ms=Math.round((window.NocturneFullScore.sourceStartSec+sec)*1000);
+    return clockText(ms/1000)+'.'+String(ms%1000).padStart(3,'0');};
+  guide.elapsed.textContent=absolute(Math.min(pos,max));guide.totalTime.textContent=absolute(max);
+  guide.seek.setAttribute('aria-valuetext',guide.elapsed.textContent);
+  guide.paintLane?.(beat);
+  if(a?.hold&&!a.hold.ready&&renderMs(a)-a.hold.startedMs>=a.hold.durationBeats*a.length){
+    a.hold.ready=true;guide.lessonFeedback.textContent=a.hold.midis.map(name).join(' + ')+' · 時值已足，放鍵進入下一音';
+  }
+  if(a&&(a.mode!=='Practice'||(a.rhythm&&!a.retryGate)||a.hold))guideRaf=requestAnimationFrame(()=>drawTimeline());
 }
-function drawGuide(){
+function drawGuide(beat){
   const state=lesson||pausedLesson,s=state?.score||modeScore,i=state?.index??-1;
-  guide.progress.max=s.length||1;guide.progress.value=state?Math.max(0,i):guidePos>=totalBeats?s.length:0;
-  const start=Math.max(0,Math.min(Math.max(0,s.length-5),i-2));
-  guide.score.replaceChildren(...s.slice(start,start+8).map((item,j)=>{
-    const el=document.createElement('span');el.textContent=item.pitches.map(name).join('+')||'休止';
-    if(i===j+start){el.className='current';el.setAttribute('aria-current','step');}
-    else if(j+start<i)el.className='done';
+  const notes=s.filter(item=>item.pitches.length);
+  guide.progress.max=notes.length;guide.progress.value=state?(s[i]?.group||0):guidePos>=totalBeats?notes.length:0;
+  const first=Math.max(0,Math.min(notes.length-7,(s[i]?.group||1)-3));
+  guide.score.replaceChildren(...notes.slice(first,first+7).map(item=>{
+    const el=document.createElement('span');el.textContent=item.pitches.map(name).join('+');
+    if(s[i]===item){el.className='current';el.setAttribute('aria-current','step');}
+    else if(s[i]?.tick>item.tick)el.className='done';
     return el;
   }));
-  guide.lessonAction.textContent=lesson?'Ⅱ 暫停':pausedLesson?'▶ 繼續':'▶ 開始';
-  paintTargets(); drawTimeline(); syncControls();
+  guide.lessonAction.textContent=mode==='Practice'?
+    (lesson?'Ⅱ 暫停練習':pausedLesson?'繼續練習':'開始練習'):
+    (lesson?'Ⅱ 暫停':pausedLesson?'▶ 繼續':'▶ 開始');
+  paintTargets(); drawTimeline(beat); syncControls();
 }
 function stopLesson(completed=false){
+  if(lesson?.rhythm)return rhythmStop(completed);
   if(!lesson)return;
   clearTimeout(lesson.timer);
   const old=lesson;
-  silenceLesson(old);
+  clearGate(old);if(!completed||old.mode!=='Practice')releaseLive(true);silenceLesson(old);
   lesson=null;guidePos=completed?totalBeats:0;drawGuide();
   if(completed){
     guide.progress.value=old.score.length;
-    guide.lessonFeedback.textContent=old.mode==='Along'?'完成！彈對 '+old.hit+' / '+old.total+' 個音符，漏彈 '+(old.total-old.hit)+' 個。':old.mode==='Practice'?'練習完成！ '+old.score.length+' 組音符，'+old.misses+' 次彈錯。':'示範完成。';
+    guide.lessonFeedback.textContent=old.mode==='Along'?'完成！彈對 '+old.hit+' / '+old.total+' 個音符，漏彈 '+(old.total-old.hit)+' 個。':old.mode==='Practice'?'練習完成！ '+(isFull()?old.practiceDone:old.score.length)+' 組音符，'+old.misses+' 次彈錯。':'示範完成。';
   }else guide.lessonFeedback.textContent='已停止。';
 }
 function selectMode(next){
-  mode=next;
+  mode=next;$('rhythmHud').hidden=next!=='Practice';
+  const opt=isFull()&&mode==='Along';
+  $('pocGuideSound').hidden=!opt;$('alongBoostField').hidden=!opt;guardAlongOutput(opt);
+  $('alongMix').hidden=mode==='Demo'||opt;
+  if(mode!=='Demo'&&metroTimer)stopMetro();
   for(const m of ['Demo','Along','Practice'])guide['mode'+m].setAttribute('aria-pressed',String(m===mode));
-  guide.lessonHelp.textContent=desc[mode];guide.lessonFeedback.textContent='';
+  guide.lessonHelp.textContent=(isFull()?fullDesc:desc)[mode];guide.lessonFeedback.textContent='';
 }
 function guideChange(next=mode){
   stopLesson();pausedLesson=null;selectMode(next);
-  modeScore=parseNotes(songs[guide.song.value].score);totalBeats=0;stepStarts=modeScore.map(x=>{const at=totalBeats;totalBeats+=x.beats;return at;});guidePos=0;drawGuide();
+  const full=isFull();
+  $('fullScoreCredit').hidden=$('fullScoreLinks').hidden=!full;ui.demo.disabled=!!full;
+  if(full){
+    if(!usedFull){preFullTempo=tempo();ui.bpm.value=String(fullScore.tempoBpm);}
+    modeScore=fullScore.guide;totalBeats=fullScore.endTick/fullScore.ppq;
+    stepStarts=modeScore.map(x=>x.tick/fullScore.ppq);
+  }else{
+    if(usedFull)ui.bpm.value=String(preFullTempo);
+    modeScore=parseNotes(songs[guide.song.value].score);totalBeats=0;
+    stepStarts=modeScore.map(x=>{const at=totalBeats;totalBeats+=x.beats;return at;});
+  }
+  usedFull=full;guidePos=0;drawGuide();
 }
 function makeLesson(length,position){
-  const offset=stepAt(position);
-  return {mode,index:-1,score:modeScore,timer:null,voices:new Set(),bassVoice:null,bassPulse:-1,
-    got:new Set(),played:new Map(),hit:0,misses:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),
-    started:performance.now()-position*length,pos:position,length};
+  const offset=stepAt(position),audioTimed=!!isFull();
+  return {audioTimed,floor:position,autoNotes:[],hold:null,chordKeys:new Map(),retryMidi:null,sliceTick:-1,mode,index:-1,score:modeScore,timer:null,voices:new Set(),fullVoices:new Map(),bassVoice:null,bassPulse:-1,
+    got:new Set(),played:new Map(),hit:0,misses:0,practiceDone:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),
+    started:(audioTimed?ctx.currentTime*1000:performance.now())-position*length,pos:position,length};
 }
 function silenceLesson(a){
+  for(const item of a.fullVoices.values())item.voice.release(.025);a.fullVoices.clear();
+  a.autoNotes=[];a.sliceTick=-1;paintAutoKeys([]);
   for(const v of a.voices)v.release(.07);
   a.voices.clear();a.bassVoice?.release(.07);a.bassVoice=null;a.bassPulse=-1;
 }
 function pauseLesson(){
+  if(lesson?.rhythm)return rhythmPause();
   const a=lesson;if(!a)return;
-  const position=a.mode==='Practice'?guidePos:Math.max(0,(performance.now()-a.started)/a.length);
+  const position=a.mode==='Practice'?(a.hold?.startBeat??guidePos):transportBeat(a);
   if(position>=totalBeats){stopLesson(true);return;}
-  clearTimeout(a.timer);silenceLesson(a);
+  clearTimeout(a.timer);clearGate(a);releaseLive(true);silenceLesson(a);
   if(a.mode!=='Practice'&&stepAt(position)!==a.index){a.index=stepAt(position);a.got.clear();}
   guidePos=a.pos=position;pausedLesson=a;lesson=null;drawGuide();
-  guide.lessonFeedback.textContent='已暫停 · 第 '+(a.index+1)+' / '+a.score.length+' 組';
+  guide.lessonFeedback.textContent='已暫停 · 第 '+(a.score[a.index]?.group||1)+' / '+fullScore.leadGroups+' 組';
 }
 function startLesson(length=60000/tempo()){
+  if(mode==='Practice'&&isFull())return rhythmStart(length);
   if(lesson){pauseLesson();return;}
   if(recording||!audio())return;
+  if(mode!=='Demo')performanceMode(true);
   if(guidePos>=totalBeats)guidePos=0;
-  stopPlayback();releaseLive(true);
-  ui.octave.value='0';ui.transpose.value='0';render();centerMapping();
+  stopPlayback();releaseLive(true);if(mode!=='Demo'&&metroTimer)stopMetro();
+  ui.octave.value='0';ui.transpose.value='0';updateOctaveChoices();render();centerMapping();
   if(pausedLesson){
     const a=pausedLesson;pausedLesson=null;lesson=a;
-    a.started=performance.now()-a.pos*a.length;
+    a.floor=a.pos;a.started=renderMs(a)-a.pos*a.length;
     if(a.mode==='Practice'){drawGuide();practiceCue();return;}
     queueLesson(true);return;
   }
@@ -841,78 +1680,173 @@ function startLesson(length=60000/tempo()){
 function remaining(a,step){return step.pitches.filter(p=>!a.got.has(p));}
 function practiceCue(){
   const a=lesson;
-  guide.lessonFeedback.textContent='第 '+(a.index+1)+' / '+a.score.length+' 組：'+remaining(a,a.score[a.index]).map(name).join(' + ');
+  if(a?.rhythm)return rhythmCue(a);
+  const label=isFull()?window.NocturneFullScore.handLabel+' · 第 '+a.score[a.index].group+' / '+fullScore.leadGroups:'第 '+(a.index+1)+' / '+a.score.length;
+  const pending=remaining(a,a.score[a.index]);
+  const held=pending.length>0&&isLongNote(a.score[a.index],pending[0]);
+  const special=isFull()&&!fullKeyboard&&pending.some(m=>specialNames[bindingFor(m)?.code]);
+  guide.lessonFeedback.textContent='已開始 · 等你按 '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+' · '+label+' 組'+(held?(pending.length>1?' · 一齊按住 ':' · 按住 ')+quarterGlyph(noteBeats(a.score[a.index],pending[0]))+' 再放鍵':'')+(special?' · 點琴鍵，或開「全鍵演奏」使用特殊鍵':'');
 }
 function advancePractice(){
   const a=lesson;
   do{a.index++;}while(a.index<a.score.length&&!a.score[a.index].pitches.length);
   if(a.index>=a.score.length){stopLesson(true);return;}
-  a.got.clear();guidePos=stepStarts[a.index]||0;drawGuide();
+  a.got.clear();a.hold=null;a.chordKeys.clear();a.retryMidi=null;guidePos=stepStarts[a.index]||0;drawGuide();
   practiceCue();
 }
-function inputLesson(midi){
+function clearGate(a){if(!a)return;if(a.hold)guidePos=a.hold.startBeat;a.hold=null;a.chordKeys.clear();a.retryMidi=null;}
+function endHeldInput(id,cancel){
+  if(lesson?.rhythm)return rhythmRelease(lesson,id);
+  const a=lesson;if(!a||a.mode!=='Practice'||!a.chordKeys.size)return;
+  const entry=[...a.chordKeys].find(([,key])=>key===id);if(!entry)return;
+  const [midi]=entry,h=a.hold;a.chordKeys.delete(midi);
+  if(!h){drawGuide();practiceCue();return;} // Partial chord: the overlap clock hasn't started.
+  const enough=(isFull()&&!isLongNote(a.score[a.index],midi))||renderMs(a)-h.startedMs>=h.durationBeats*a.length-1e-6;
+  if(!cancel&&enough&&a.chordKeys.size){
+    h.ready=true;drawGuide();
+    guide.lessonFeedback.textContent='時值已足 · 放開餘下琴鍵：'+[...a.chordKeys.keys()].map(name).join(' + ');return;
+  }
+  a.hold=null;guidePos=h.startBeat;a.chordKeys.clear();
+  if(cancel){a.retryMidi=null;drawGuide();practiceCue();return;}
+  if(!enough){
+    a.retryMidi=midi;drawGuide();
+    const action=h.midis.length>1?'全部放鍵，再一齊按住 ':'再按住 ';
+    guide.lessonFeedback.textContent='放鍵太早 · '+action+h.midis.map(name).join(' + ')+' '+quarterGlyph(h.durationBeats)+'；延音踏板不代替手指。';return;
+  }
+  a.retryMidi=null;for(const pitch of h.midis){a.got.add(pitch);a.hit++;}
+  a.played.set(a.index,new Set(a.got));
+  if(a.got.size===a.score[a.index].pitches.length){a.practiceDone++;advancePractice();}
+  else {drawGuide();practiceCue();}
+}
+function inputLesson(midi,id){
   const a=lesson;if(!a||a.mode==='Demo')return;
+  if(a.rhythm)return rhythmInput(a,midi,id);
   // Input may arrive before a late timer callback. Never credit the previous beat.
-  if(a.mode==='Along'&&performance.now()>=a.started+(stepStarts[a.index]+a.score[a.index].beats)*a.length){
+  if(a.mode==='Along'&&(stepAt(transportBeat(a))!==a.index||transportBeat(a)>=totalBeats)){
     queueLesson();if(lesson!==a)return;
   }
   const step=a.score[a.index];
   if(step.pitches.includes(midi)){
     if(a.got.has(midi))return;
+    if(a.mode==='Practice'&&(isFull()||isLongNote(step,midi))){
+      if(a.chordKeys.has(midi))return;
+      a.chordKeys.set(midi,id);
+      if(a.hold){drawGuide();return;} // A previously released chord key was re-pressed; it must lift again.
+      a.retryMidi=null;guidePos=stepStarts[a.index];
+      const midis=step.pitches,missing=midis.filter(p=>!a.chordKeys.has(p));
+      if(missing.length){
+        drawGuide();guide.lessonFeedback.textContent='保持已按和弦音，再按：'+missing.map(name).join(' + ');return;
+      }
+      a.hold={midi,midis,index:a.index,inputId:id,startBeat:guidePos,durationBeats:noteBeats(step,midi),startedMs:renderMs(a),ready:false};
+      drawGuide();guide.lessonFeedback.textContent='已按準 '+midis.map(name).join(' + ')+(isLongNote(step,midi)?' · 按足 '+quarterGlyph(noteBeats(step,midi))+' 再放':' · 放鍵進入下一組');return;
+    }
     a.got.add(midi);a.hit++;a.played.set(a.index,new Set(a.got));
-    if(a.mode==='Practice'&&a.got.size===step.pitches.length){advancePractice();return;}
+    if(a.mode==='Practice'&&a.got.size===step.pitches.length){a.practiceDone++;advancePractice();return;}
     paintTargets();drawTimeline();
     guide.lessonFeedback.textContent=a.mode==='Practice'
       ?'正確。接着彈：'+remaining(a,step).map(name).join(' + ')
       :'跟彈中 · 已彈對 '+a.hit+' 個音符';
   }else if(a.mode==='Practice'){
-    a.misses++;guide.lessonFeedback.textContent='再試一次。目標：'+remaining(a,step).map(name).join(' + ');
+    a.misses++;if(!a.hold)a.retryMidi=remaining(a,step)[0]??null;drawGuide();guide.lessonFeedback.textContent='再試一次。目標：'+remaining(a,step).map(name).join(' + ');
   }else{
     const left=remaining(a,step);
     if(left.length)guide.lessonFeedback.textContent='跟住節拍 · 目標：'+left.map(name).join(' + ');
   }
 }
-function queueLesson(resume=false){
+// Demo plays the entire source. The optional Along guide sounds only the selected
+// practice staff/staves. Neither path calls press()/inputLesson() or awards hits.
+function scoreSounds(a){return a.mode==='Demo'||(a.mode==='Along'&&$('pocGuideSound').getAttribute('aria-pressed')==='true');}
+$('pocGuideSound').onclick=()=>{
+  const b=$('pocGuideSound'),on=b.getAttribute('aria-pressed')!=='true';
+  b.setAttribute('aria-pressed',String(on));b.textContent='譜音：'+(on?'開':'關');
+  if(lesson?.mode==='Along'&&isFull()){
+    if(!on)silenceLesson(lesson); // cancel queued notes, not manually held keys
+    queueLesson(true); // rejoin at the current beat, without restarting the score
+  }
+};
+ui.preset.addEventListener('change',()=>{
   const a=lesson;
+  if(!ctx||!a||!isFull()||!scoreSounds(a))return;
+  let pending=false;
+  for(const [id,item] of a.fullVoices){
+    if(item.on>ctx.currentTime){item.voice.release();a.fullVoices.delete(id);pending=true;}
+  }
+  if(pending)syncFullAudio(a,transportBeat(a));
+});
+function syncFullAudio(a,beat){
+  if(!scoreSounds(a))return totalBeats;
+  const audible=e=>a.mode==='Demo'||window.NocturneFullScore.practiceTracks.includes(e.track);
+  const slice=fullScore.at(beat);
+  const graphBeat=Math.max(a.floor,(ctx.currentTime*1000-a.started)/a.length),horizon=graphBeat+85/a.length;
+  // Schedule on the Web Audio timeline, not at JS timer arrival; never replay expired notes after a stall.
+  function schedule(e){
+    if(!audible(e)||a.fullVoices.has(e.id)||e.end<=graphBeat+1e-9)return;
+    const on=Math.max(ctx.currentTime,(a.started+e.start*a.length)/1000),off=(a.started+e.end*a.length)/1000;
+    const v=voice(e.midi,on,e.velocity/127,ui.preset.value,a.mode==='Along'?alongBus:master);v.releaseAt?.(off,.035);
+    a.fullVoices.set(e.id,{voice:v,event:e,on});
+  }
+  for(const e of fullScore.at(graphBeat).notes)schedule(e);
+  let lo=0,hi=sourceNotes.length;
+  while(lo<hi){const m=(lo+hi)>>1;if(sourceNotes[m].start<=graphBeat)lo=m+1;else hi=m;}
+  for(let i=lo;i<sourceNotes.length&&sourceNotes[i].start<=horizon;i++)schedule(sourceNotes[i]);
+  for(const [id,item] of a.fullVoices)if(item.event.end<=graphBeat+1e-8){
+    item.voice.release(.035);a.fullVoices.delete(id);
+  }
+  if(a.sliceTick!==slice.tick){a.autoNotes=slice.notes.filter(audible);paintAutoKeys(a.autoNotes);}
+  a.sliceTick=slice.tick;
+  return slice.until;
+}
+function queueLesson(resume=false,sample){
+  const a=lesson;if(!a||a.mode==='Practice')return;
   clearTimeout(a.timer);
-  const now=performance.now(),beat=Math.max(0,(now-a.started)/a.length);
+  const beat=typeof sample==='number'?sample:transportBeat(a);
   if(beat>=totalBeats){stopLesson(true);return;}
   const index=stepAt(beat),changed=a.index!==index,step=a.score[index];
   if(changed||resume){
-    for(const v of a.voices)v.release(.09);
+    for(const v of a.voices)v.release(.07);
     a.voices.clear();if(changed)a.got.clear();a.index=index;
-    if(a.mode==='Demo'){
+    if(!isFull()&&a.mode==='Demo'){
       for(const midi of step.pitches)a.voices.add(voice(midi,ctx.currentTime,.82));
-      a.played.set(index,new Set(step.pitches));
+      a.played.set(index,new Set(step.pitches));a.autoNotes=step.pitches.map(midi=>({midi,track:0}));paintAutoKeys(a.autoNotes);
     }
-    drawGuide();guide.lessonFeedback.textContent=a.mode==='Along'
-      ?'跟彈中 · 已彈對 '+a.hit+' 個音符':'第 '+(index+1)+' / '+a.score.length+' 組';
   }
   let next=stepStarts[index]+step.beats;
-  if(a.mode==='Along'){
-    // Pulse independently of melody durations (including long Canon notes).
-    const pulse=Math.floor(beat/2), bass=songs[guide.song.value].bass;
-    if(pulse!==a.bassPulse){
-      a.bassVoice?.release(.07);a.bassPulse=pulse;
-      a.bassVoice=voice(bass[Math.floor(beat/4)%bass.length],ctx.currentTime,.36);
-    }
-    next=Math.min(next,(pulse+1)*2);
-  }
-  a.timer=setTimeout(()=>{if(lesson===a)queueLesson();},Math.max(1,a.started+next*a.length-performance.now()));
+  if(isFull()&&scoreSounds(a))next=Math.min(next,syncFullAudio(a,beat));
+  if(changed||resume){
+    drawGuide(beat);guide.lessonFeedback.textContent=isFull()&&!step.pitches.length?
+      (beat<sourceNotes[0].start?'前奏休止 · 0:04.800 第一音 C（A4）':beat>=sourceNotes[sourceNotes.length-1].end?'尾奏休止 · 等候全曲完結':'休止'):
+      a.mode==='Along'?'跟彈中'+(isFull()&&scoreSounds(a)?' · 正在播譜':' · 只聽按鍵')+' · 已彈對 '+a.hit+' 個音符':'第 '+step.group+' / '+fullScore.leadGroups+' 組';
+  }else drawTimeline(beat);
+  const wait=Math.max(1,(next-beat)*a.length);
+  a.timer=setTimeout(()=>{if(lesson===a)queueLesson();},isFull()?Math.min(25,wait):wait);
 }
 function switchMode(next){
   if(next===mode)return;
   const old=lesson||pausedLesson, running=!!lesson;
-  const position=running&&mode!=='Practice'?Math.max(0,(performance.now()-old.started)/old.length):guidePos;
-  if(old){clearTimeout(old.timer);silenceLesson(old);}
+  const position=running?transportBeat(old):guidePos;
+  if(old){clearTimeout(old.timer);clearGate(old);releaseLive(true);silenceLesson(old);}
   lesson=null;pausedLesson=null;selectMode(next);
   guidePos=position<totalBeats?position:0;
   if(!old||position>=totalBeats){drawGuide();return;}
   // Same song, same point and locked tempo; a new mode starts its own score.
   const a=makeLesson(old.length,guidePos);
+  if(next==='Practice'&&isFull()){
+    rhythmAttach(a,guidePos);
+    if(running){lesson=a;performanceMode(true);drawGuide();rhythmCue(a);rhythmTick();}
+    else{pausedLesson=a;drawGuide();rhythmPaint(a);guide.lessonFeedback.textContent='已暫停 · 繼續後按一下即可判定';}
+    return;
+  }
   if(next==='Practice'||!running)a.index=stepAt(guidePos);
+  if(next==='Practice'&&!a.score[a.index].pitches.length){
+    const nextInput=a.score.findIndex((step,i)=>i>a.index&&step.pitches.length);
+    if(nextInput<0){
+      guidePos=totalBeats;drawGuide();guide.lessonFeedback.textContent='後面已沒有主旋律音符。「重來」可由第一組開始。';return;
+    }
+    a.index=nextInput;guidePos=a.pos=stepStarts[nextInput];
+  }
   if(running){
     lesson=a;
+    if(next!=='Demo')performanceMode(true);
     if(next==='Practice'){drawGuide();practiceCue();}else queueLesson();
   }else{
     pausedLesson=a;drawGuide();guide.lessonFeedback.textContent='已暫停 · 由此處繼續';
@@ -924,11 +1858,13 @@ guide.restart.onclick=()=>{stopLesson();pausedLesson=null;guidePos=0;startLesson
 guide.labelToggle.onclick=()=>setLabelMode(!bindingsShown);
 if($('labelQwerty'))$('labelQwerty').onclick=()=>setLabelMode(true);
 if($('labelCde'))$('labelCde').onclick=()=>setLabelMode(false);
-guide.seek.addEventListener('pointerdown',()=>{seeking=true;});
-guide.seek.addEventListener('pointerup',()=>setTimeout(()=>{seeking=false;drawTimeline()},0));
-guide.seek.addEventListener('pointercancel',()=>{seeking=false;drawTimeline();});
-guide.seek.addEventListener('keydown',e=>{if(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)){seeking=true;setTimeout(()=>{seeking=false;drawTimeline()},0)}});
+guide.seek.addEventListener('pointerdown',()=>{rhythmSeekBegin();seeking=true;});
+guide.seek.addEventListener('pointerup',()=>setTimeout(rhythmSeekFinish,0));
+guide.seek.addEventListener('input',rhythmSeekPreview);
+guide.seek.addEventListener('pointercancel',rhythmSeekCancel);
+guide.seek.addEventListener('keydown',e=>{if(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)){rhythmSeekBegin();seeking=true;setTimeout(rhythmSeekFinish,0)}});
 guide.seek.addEventListener('change',()=>{
+  if(mode==='Practice'&&isFull())return rhythmSeekCommit(Number(guide.seek.value));
   seeking=false;
   const seconds=Number(guide.seek.value), wasPlaying=!!lesson, wasPaused=!!pausedLesson;
   const length=lesson?.length||pausedLesson?.length||60000/tempo();
@@ -946,6 +1882,7 @@ ui.bpm.onchange=()=>{ui.bpm.value=tempo();drawTimeline();};
 
 function syncControls(){
   ui.rec.disabled=!!lesson;
+  ui.metro.disabled=!!lesson&&lesson.mode!=='Demo';
   ui.review.disabled=!!lesson||!!recording||!tracks.some(t=>!t.mute&&t.gain>0&&t.notes.length);
   ui.export.disabled=!!recording||exporting||!engine||!tracks.some(t=>!t.mute&&t.gain>0&&t.notes.length);
   ui.clearTrack.disabled=!!recording||!!playing||!tracks[trackId].notes.length;
@@ -1026,7 +1963,7 @@ ui.export.onclick=async()=>{
   finally{exporting=false;syncControls();}
 };
 ui.stop.onclick=()=>{stopPlayback();status('已停止回放。')};
-ui.demo.onclick=()=>{ui.notes.value=songs[guide.song.value].score;status('已載入樂曲至音符便箋。')};
+ui.demo.onclick=()=>{if(isFull())return;ui.notes.value=songs[guide.song.value].score;status('已載入樂曲至音符便箋。')};
 ui.playNotes.onclick=()=>{
   try{
     const s=parseNotes(ui.notes.value), length=60000/tempo(), notes=[];let start=0;
@@ -1061,9 +1998,127 @@ ui.metro.onclick=()=>{
   }
   metroTimer=setInterval(schedule,25);ui.metro.setAttribute('aria-pressed','true');schedule();
 };
-window.addEventListener('blur',()=>releaseLive(true));
-document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseLive(true);stopPlayback();pauseLesson();stopMetro();}});
-render();guideChange();drawTracks();
+window.addEventListener('blur',()=>{if(fullKeyboard)performanceMode(false);else releaseLive(true);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(fullKeyboard)performanceMode(false);else releaseLive(true);stopPlayback();pauseLesson();stopMetro();}});
+// Pick the spacious default once; resizing must never change a musician's view.
+ui.keyView.value='34';
+
+updateOctaveChoices();render();guideChange();drawTracks();
+{
+  const requestedView=new URLSearchParams(location.search).get('view');
+  let savedView=null;try{savedView=localStorage.getItem('nocturne.scoreView');}catch(_){}
+  const chosen=['falling','horizontal','auto'].includes(requestedView)?requestedView:
+    ['falling','horizontal','auto'].includes(savedView)?savedView:'falling';
+  $('scoreView').value=chosen;$('scoreView').dispatchEvent(new Event('change'));
+}
+
+</script>
+<script src="sync-mix.js"></script>
+<script>
+/* The native #preset is the only instrument state. This panel is a second view
+   of its actual optgroups and options; selecting never starts a voice. */
+(() => {
+  'use strict';
+  const byId=id=>document.getElementById(id);
+  const toggle=byId('soundsToggle'),panel=byId('soundsPanel'),select=byId('preset');
+  if(!toggle||!panel||!select)return;
+  const families=[...select.querySelectorAll('optgroup')].filter(g=>g.children.length);
+  if(!families.length){toggle.disabled=true;return;}
+  const titles={
+    'Piano & Keys':'鋼琴與鍵盤','Organs':'風琴','Guitars':'結他','Basses':'低音結他',
+    'Bowed Strings':'弓弦樂','Brass':'銅管樂','Woodwinds':'木管樂','World & Plucked':'民族與撥弦',
+    'Mallets & Bells':'音槌與鐘','Synth Leads':'合成主音','Pads & Atmosphere':'音墊與氛圍','Electronic Percussion':'電子敲擊'
+  };
+  const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n;};
+  const makeButton=(id,label,text)=>{const b=el('button','sounds-ctrl',text);b.type='button';b.id=id;b.setAttribute('aria-label',label);b.title=label;return b;};
+  const head=el('div','sounds-head'),intro=el('div','sounds-intro'),overline=el('span','sounds-overline','NOCTURNE  /  SOUND LIBRARY'),
+    heading=el('h2','sounds-title','音色庫'),current=el('span','sounds-current'),tools=el('div','sounds-controls');
+  current.id='soundsCurrent';current.setAttribute('aria-live','polite');
+  const prev=makeButton('soundsPrev','向左瀏覽音色分類','‹'),next=makeButton('soundsNext','向右瀏覽音色分類','›'),exit=makeButton('soundsClose','關閉音色庫','×');
+  intro.append(overline,heading); tools.append(prev,next,exit); head.append(intro,current,tools);
+  const rail=el('div','sounds-rail');rail.id='soundsRail';
+  const foot=el('p','sounds-foot','方向鍵瀏覽　·　Enter / 空白鍵選擇　·　Esc 返回琴鍵');
+  const all=new Map(),rows=[];let number=0;
+  function pick(id){if(select.value!==id){select.value=id;select.dispatchEvent(new Event('change',{bubbles:true}));}refresh();}
+  families.forEach((family,col)=>{
+    const section=el('section','sound-family'),top=el('h3','sound-family-title'),name=titles[family.label]||family.label;
+    section.dataset.family=family.label;top.id='sounds-family-'+col;section.setAttribute('aria-labelledby',top.id);
+    top.append(el('span','',name),el('small','',family.label));section.append(top);
+    const buttons=[];
+    for(const opt of family.children){
+      if(opt.tagName!=='OPTION'||opt.disabled)continue;
+      const b=el('button','sound-choice');b.type='button';b.dataset.preset=opt.value;b.dataset.column=col;b.dataset.row=buttons.length;
+      b.tabIndex=-1;b.setAttribute('aria-label',opt.textContent);
+      b.append(el('span','sound-number',String(++number).padStart(3,'0')),el('span','sound-name',opt.textContent));
+      b.addEventListener('click',()=>pick(opt.value));all.set(opt.value,{b,family:name,name:opt.textContent});
+      section.append(b);buttons.push(b);
+    }
+    rows.push(buttons);rail.append(section);
+  });
+  panel.append(head,rail,foot);
+  function refresh(){const chosen=all.get(select.value);if(!chosen)return;
+    for(const {b} of all.values()){
+      const isCurrent=b===chosen.b;
+      b.setAttribute('aria-pressed',String(isCurrent));
+      if(panel.hidden||!all.has(document.activeElement?.dataset.preset))b.tabIndex=isCurrent?0:-1;
+    }
+    current.textContent=chosen.family+' ／ '+chosen.name;
+    toggle.title='音色：'+chosen.name;
+  }
+  function focusChoice(b){
+    if(!b)return;
+    for(const {b:item} of all.values())item.tabIndex=item===b?0:-1;
+    b.focus({preventScroll:true});
+    const rect=b.getBoundingClientRect(),clip=rail.getBoundingClientRect();
+    if(rect.left<clip.left||rect.right>clip.right)rail.scrollLeft+=rect.left-clip.left-5;
+    if(rect.top<clip.top+2)rail.scrollTop+=rect.top-clip.top-4;
+    else if(rect.bottom>clip.bottom-4)rail.scrollTop+=rect.bottom-clip.bottom+4;
+  }
+  function place(){if(!panel.hidden)panel.style.setProperty('--sounds-top',Math.round(toggle.getBoundingClientRect().bottom+6)+'px');}
+  function open(){
+    const drawer=byId('studioDrawer');if(drawer)drawer.open=false;
+    panel.hidden=false;toggle.setAttribute('aria-expanded','true');place();refresh();
+    focusChoice(all.get(select.value)?.b||rows[0][0]);
+  }
+  function close(restore){
+    if(panel.hidden)return;panel.hidden=true;toggle.setAttribute('aria-expanded','false');refresh();
+    if(!restore)return;
+    if(typeof lesson!=='undefined'&&lesson){
+      if(lesson.mode!=='Demo'&&typeof performanceMode==='function')performanceMode(true);
+      byId('keybed')?.focus({preventScroll:true});
+    }else toggle.focus({preventScroll:true});
+  }
+  toggle.addEventListener('click',()=>panel.hidden?open():close(true));exit.addEventListener('click',()=>close(true));
+  function arrow(step){rail.scrollBy({left:step*Math.max(174,rail.clientWidth*.65),behavior:'instant'});}
+  prev.addEventListener('click',()=>arrow(-1));next.addEventListener('click',()=>arrow(1));
+  function updateScroll(){prev.disabled=rail.scrollLeft<=1;next.disabled=rail.scrollWidth-rail.clientWidth-rail.scrollLeft<=2;}
+  rail.addEventListener('scroll',updateScroll,{passive:true});
+  if(window.ResizeObserver)new ResizeObserver(updateScroll).observe(rail);
+  select.addEventListener('change',refresh);select.addEventListener('input',refresh);
+  panel.addEventListener('focusin',e=>{const b=e.target.closest('.sound-choice');if(b)for(const {b:item} of all.values())item.tabIndex=item===b?0:-1;});
+  function keys(e){
+    // Stop stage shortcuts for the controls, not ordinary keyboard key-up releases.
+    e.stopPropagation();
+    if(e.key==='Escape'&&!panel.hidden){e.preventDefault();close(true);return;}
+    const b=e.target.closest('.sound-choice');if(!b)return;
+    const c=Number(b.dataset.column),r=Number(b.dataset.row);let to;
+    if(e.key==='ArrowUp')to=rows[c][Math.max(0,r-1)];
+    else if(e.key==='ArrowDown')to=rows[c][Math.min(rows[c].length-1,r+1)];
+    else if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
+      const n=Math.max(0,Math.min(rows.length-1,c+(e.key==='ArrowLeft'?-1:1)));
+      to=rows[n][Math.min(rows[n].length-1,r)];
+    }else if(e.key==='Home')to=rows[c][0];
+    else if(e.key==='End')to=rows[c][rows[c].length-1];
+    else return;
+    e.preventDefault();focusChoice(to);
+  }
+  toggle.addEventListener('keydown',keys);panel.addEventListener('keydown',keys);
+  function outside(e){if(!panel.hidden&&!panel.contains(e.target)&&!toggle.contains(e.target))close(false);}
+  document.addEventListener('pointerdown',outside,true);document.addEventListener('focusin',outside);
+  window.addEventListener('resize',place);refresh();
+})();
+
+if(new URLSearchParams(location.search).get('panel')==='sounds'&&document.getElementById('soundsPanel').hidden)document.getElementById('soundsToggle').click();
 </script>
 </body>
 </html>
