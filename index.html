@@ -382,7 +382,35 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 @media(max-width:650px){.rhythm-hud{gap:3px 9px;font-size:.69rem}.rhythm-help{max-width:100%}#rhythmCounts{font-size:.6rem}}
 
 </style>
-</head>
+<style>
+/* Unjudged manual targets are neutral. Red means an actual POOR or MISS only. */
+.read-pitch[data-grade=none]{color:#cbd3da!important}
+.read-pitch[data-grade=PERFECT]{color:#ffb36b!important}
+.read-pitch[data-grade=GREAT]{color:#c6a0ff!important}
+.read-pitch[data-grade=GOOD]{color:#8dd2ff!important}
+.read-pitch[data-grade=POOR],.read-pitch[data-grade=MISS]{color:#ff7e87!important}
+.read-pitch[data-rest=true]{color:transparent!important}
+.lane-note[data-grade=PERFECT]{background:#ffb36b!important;color:#24190f!important}
+.lane-note[data-grade=GREAT]{background:#c6a0ff!important;color:#211931!important}
+.lane-note[data-grade=GOOD]{background:#8dd2ff!important;color:#102231!important}
+.lane-note[data-grade=POOR],.lane-note[data-grade=MISS]{background:#ff7e87!important;color:#321519!important}
+#rhythmJudge[data-grade=PERFECT]{color:#ffb36b;background:#493521}
+#rhythmJudge[data-grade=GREAT]{color:#c6a0ff;background:#352746}
+#rhythmJudge[data-grade=GOOD]{color:#8dd2ff;background:#243c59}
+#rhythmJudge[data-grade=POOR],#rhythmJudge[data-grade=MISS]{color:#ff7e87;background:#49282e}
+#lessonFeedback[data-grade=PERFECT]{color:#ffb36b}
+#lessonFeedback[data-grade=GREAT]{color:#c6a0ff}
+#lessonFeedback[data-grade=GOOD]{color:#8dd2ff}
+#lessonFeedback[data-grade=POOR],#lessonFeedback[data-grade=MISS]{color:#ff7e87}
+
+</style>
+<style>
+    #soundBankStatus{font-size:11px;line-height:1.2;white-space:nowrap;color:#aed4c7}
+    #soundBankStatus[data-state=fallback]{color:#ffd39b}
+    @media(max-width:700px){#soundBankStatus{display:none}
+      #soundBankStatus[data-state=fallback]{display:block;position:fixed;bottom:3px;left:4px;z-index:8;pointer-events:none;background:#30261b;border-radius:3px;padding:2px 4px}}
+    @media(max-width:365px){.masthead{padding-inline:5px}.mast-tools{gap:3px}}
+    </style></head>
 <body>
 <main class="desk">
 <header class="masthead">
@@ -466,15 +494,15 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
       <span data-stat>達成率 <b id="rhythmAccuracy">0.00%</b></span>
       <span data-stat>Combo <b id="rhythmCombo">0</b>／最高 <b id="rhythmMaxCombo">0</b></span>
       <label data-stat>血量 <meter id="rhythmGauge" min="0" max="100" value="100" aria-label="練習血量"></meter><b id="rhythmGaugeText">100</b></label>
-      <span id="rhythmCounts">每個長音按一下即可；前後 0.5 秒內亦接受。</span>
+      <span id="rhythmCounts">每個長音按一下即可；最寬前後 1.3 秒，下一組到達即截止。</span>
       <details class="rhythm-help"><summary>判定及計分規則</summary><div>
       本頁自訂寬鬆練習規則，並非 Konami 官方數值。以音符開始至結束為有效時段：時段內任一點按均為 PERFECT，不需維持長按。<br>
-      距時段邊界 ≤80ms：PERFECT／1000；≤200ms：GREAT／700；≤350ms：GOOD／300；≤500ms：POOR／100；超過尾端500ms仍未按：MISS／0。<br>
-      PERFECT、GREAT 延續 Combo；GOOD、POOR、MISS 歸零。錯鍵是 POOR／0 分，不取代目標音。<br>
+      距有效時段 ≤200ms：PERFECT／1000；≤400ms：GREAT／700；≤900ms：GOOD／300；≤1300ms：POOR／100。超時未命中或下一組不同開始時間的音符到達：MISS／0；以較早者為準。同時和弦不會互相截止。<br>
+      PERFECT、GREAT、GOOD 均 Combo +1；POOR、MISS 歸零。錯鍵是 POOR／0 分，不取代目標音。<br>
       每個音只計一次；每個和弦音分開計，可分別點按。總分＝累積分 ÷（本次音數 ×1000）×1,000,000。<br>
       血量由100開始；PERFECT +2、GREAT +1、GOOD 0、POOR −5、MISS −10。降至0仍可繼續練習。暫停不扣分。<br>
       達成率以本次最大分數計：SS≥95%、S≥80%、A≥73%、B≥63%，其餘C；示範播放不會代你得分。
-      <br>按錯或 MISS 會返回該音並停住，按對後才去下一音；補彈不抹走 MISS。拖動時間條可重練任何段落，跳時間會重置本次成績。
+      <br>按錯或 MISS 會返回該音並停住；按對後由更正音符按原時值繼續，不跳到下一音，補彈不抹走 MISS。時間條可重練任何段落，跳時間會重置本次成績，按任何琴鍵再開始。
       </div></details>
     </section><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
     <div class="range-group"><button id="pocGuideSound" type="button" aria-pressed="false" hidden disabled>譜音：開</button><span id="alongMix" hidden>只聽按鍵</span><span id="backingStatus" role="status" style="font-size:.7rem;white-space:nowrap">背景：待載入</span><label class="hint-view" for="scoreView"><span>提示</span><select id="scoreView" aria-label="按鍵提示模式"><option value="falling">直向落鍵 ↓</option><option value="horizontal">橫向單行 →</option><option value="auto">自動（按螢幕）</option></select></label><button id="performanceFocus" type="button" aria-controls="keybed" aria-pressed="false" aria-describedby="performanceHelp" title="啟用全鍵演奏；Esc 離開">全鍵演奏</button><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
@@ -487,14 +515,15 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 </main>
 <script>
 /* Pure beginner-practice judgments. These are Nocturne's rules, not Konami's.
- * A note accepts one tap inside [start - 0.5, end + 0.5] in source seconds.
+ * A note accepts one tap within 1.3s of its interval, until the next onset.
+ * Simultaneous chord pitches share one onset; a future group cannot steal a hit.
  * Distance is measured to the entire note interval: any tap during a hold is
  * PERFECT. No key-up/hold-duration event is needed for credit.
  */
 (function (root) {
   'use strict';
   const EPS = 1e-9;
-  const WINDOW = .5;
+  const WINDOW = 1.3;
   const LABELS = ['PERFECT', 'GREAT', 'GOOD', 'POOR', 'MISS'];
   const POINTS = Object.freeze({PERFECT:1000, GREAT:700, GOOD:300, POOR:100, MISS:0});
   const GAUGE = Object.freeze({PERFECT:2, GREAT:1, GOOD:0, POOR:-5, MISS:-10});
@@ -519,8 +548,8 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
     finite(time, 'time'); interval(start, end);
     const errorSeconds = time < start ? time - start : time > end ? time - end : 0;
     const error = Math.abs(errorSeconds);
-    const label = error <= .08 + EPS ? 'PERFECT' : error <= .20 + EPS ? 'GREAT' :
-      error <= .35 + EPS ? 'GOOD' : error <= WINDOW + EPS ? 'POOR' : 'MISS';
+    const label = error <= .20 + EPS ? 'PERFECT' : error <= .40 + EPS ? 'GREAT' :
+      error <= .90 + EPS ? 'GOOD' : error <= WINDOW + EPS ? 'POOR' : 'MISS';
     return {label, errorSeconds, points:POINTS[label], accepted:label !== 'MISS'};
   }
   function create(notes, startAtSeconds = 0) {
@@ -537,9 +566,21 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
       ids.add(id);
       // Retain source metadata (including the native player's stepIndex).
       return {...note, id, sourceIndex, result:null};
-    }).filter(note => note.end + WINDOW + EPS >= startAtSeconds)
-      .sort((a,b) => a.start - b.start || a.sourceIndex - b.sourceIndex);
-    const state = {notes:ordered, startAtSeconds, total:ordered.length, points:0,
+    }).sort((a,b) => a.start - b.start || a.sourceIndex - b.sourceIndex);
+    // Compute group deadlines before seek filtering, including overlapping holds.
+    let nextOnset=null;
+    for(let last=ordered.length-1;last>=0;){
+      const onset=ordered[last].start;let first=last;
+      while(first>0&&Math.abs(ordered[first-1].start-onset)<=EPS)first--;
+      for(let i=first;i<=last;i++){
+        const n=ordered[i];n.nextOnset=nextOnset;
+        n.deadline=Math.min(n.end+WINDOW,nextOnset===null?Infinity:nextOnset);
+      }
+      nextOnset=onset;last=first-1;
+    }
+    const pending=ordered.filter(n=>n.end+WINDOW+EPS>=startAtSeconds&&
+      (n.nextOnset===null||startAtSeconds<n.nextOnset-EPS));
+    const state = {notes:pending, startAtSeconds, total:pending.length, points:0,
       judged:0, hits:0, misses:0, wrong:0, combo:0, maxCombo:0, gauge:100,
       counts:emptyCounts(), noteCounts:emptyCounts()};
     states.add(state);
@@ -548,7 +589,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
   function apply(state, label, points, isNote) {
     state.counts[label]++;
     state.points += points;
-    state.combo = label === 'PERFECT' || label === 'GREAT' ? state.combo + 1 : 0;
+    state.combo = label === 'PERFECT' || label === 'GREAT' || label === 'GOOD' ? state.combo + 1 : 0;
     state.maxCombo = Math.max(state.maxCombo, state.combo);
     state.gauge = Math.max(0, Math.min(100, state.gauge + GAUGE[label]));
     if (isNote) {
@@ -556,12 +597,13 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
       if (label === 'MISS') state.misses++; else state.hits++;
     } else state.wrong++;
   }
-  function resultFor(state, index, label, errorSeconds) {
+  function resultFor(state, index, label, errorSeconds, missReason) {
     const note = state.notes[index];
     // A detached metadata copy avoids a note -> result -> note cycle.
     const {result:unused, ...metadata} = note;
     const result = {note:metadata, index, label, errorSeconds,
       points:POINTS[label], accepted:label !== 'MISS', wrong:false, duplicate:false};
+    if(missReason)result.missReason=missReason;
     note.result = result;
     apply(state, label, result.points, true);
     return result;
@@ -571,9 +613,14 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
     const results = [];
     for (let i = 0; i < state.notes.length; i++) {
       const note = state.notes[i];
-      // The exact +0.500s edge is still hittable; expire strictly after it.
-      if (!note.result && time > note.end + WINDOW + EPS)
-        results.push(resultFor(state, i, 'MISS', time - note.end));
+      // Timeout is strict after the inclusive +1.300s edge. A next distinct
+      // onset expires the old group immediately, even inside a long hold.
+      const nextArrived=note.nextOnset!==null&&time>=note.nextOnset-EPS;
+      const timeout=time>note.end+WINDOW+EPS;
+      if(!note.result&&(nextArrived||timeout)){
+        const reason=nextArrived&&note.nextOnset<=note.end+WINDOW+EPS?'NEXT_NOTE':'TIMEOUT';
+        results.push(resultFor(state,i,'MISS',judge(time,note.start,note.end).errorSeconds,reason));
+      }
     }
     return results;
   }
@@ -589,9 +636,15 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
   function hit(state, midi, time) {
     valid(state); pitch(midi); finite(time, 'time');
     const expired = expire(state, time);
+    // Stop-helper must handle the older MISS before this action can award a
+    // later note. Do not turn one late press into an additional wrong penalty.
+    if(expired.length)return {note:null,index:-1,label:null,errorSeconds:null,
+      points:0,accepted:false,wrong:false,duplicate:false,blocked:true,expired};
+    const earliest=state.notes.find(note=>!note.result);
     // Earliest eligible unresolved note owns an overlapping same-pitch window.
     // A future perfect must not steal a late hit intended for the earlier note.
-    const index = state.notes.findIndex(note => !note.result && note.midi === midi &&
+    const index = state.notes.findIndex(note => !note.result && earliest&&
+      Math.abs(note.start-earliest.start)<=EPS&&note.midi === midi &&
       time >= note.start - WINDOW - EPS && time <= note.end + WINDOW + EPS);
     if (index !== -1) {
       const j = judge(time, state.notes[index].start, state.notes[index].end);
@@ -653,13 +706,14 @@ function rhythmAttach(a,position){
 }
 function rhythmTime(a){return a.retryGate?a.retryGate.beat*a.length/1000:Math.max(a.floor*a.length/1000,(presentedMs(a)-a.started)/1000);}
 function rhythmResult(a,r){
-  if(!r||r.duplicate)return;
+  if(!r||r.duplicate||!r.label)return;
   if(r.accepted){
     const i=r.note.stepIndex,played=a.played.get(i)||new Set();
     played.add(r.note.midi);a.played.set(i,played);
   }
+  judgmentRemember(a,r);
   const display=$('rhythmJudge');display.textContent=r.label;display.dataset.grade=r.label;
-  const offset=r.errorSeconds,when=offset==null?'錯鍵':Math.abs(offset)<1e-8?'時段內':
+  const offset=r.errorSeconds,when=r.missReason==='NEXT_NOTE'?'下一組音符已到達':offset==null?'錯鍵':Math.abs(offset)<1e-8?'時段內':
     (offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
   const key=r.note?(bindingFor(r.note.midi)?.label||name(r.note.midi)):'';
   guide.lessonFeedback.textContent=r.label+' · '+key+' '+when+
@@ -673,7 +727,7 @@ function rhythmCue(a){
   if(a.retryGate){rhythmRetryCue(a);return;}
   const pending=remaining(a,a.score[a.index]);
   guide.lessonFeedback.textContent=pending.length?'節奏練習中 · '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+
-    ' · 時段內按一下即可，前後 0.5 秒內亦接受':'節奏練習中 · 等候下一音；未按鍵不會發聲';
+    ' · 時段內按一下即可；最寬前後 1.3 秒，下一組到達即截止':'節奏練習中 · 等候下一音；未按鍵不會發聲';
 }
 function rhythmTick(){
   const a=lesson;if(!a?.rhythm)return;
@@ -684,7 +738,7 @@ function rhythmTick(){
   for(const r of expired)rhythmResult(a,r);
   if(expired.length){rhythmBlock(a,expired.map(r=>r.note),'MISS');return;}
   rhythmSync(a,beat);
-  if(beat>=totalBeats){rhythmStop(true);return;}
+  if(beat>=totalBeats&&!a.rhythm.notes.some(n=>!n.result)){rhythmStop(true);return;}
   if(old!==a.index||expired.length)drawGuide(beat);else drawTimeline(beat);
   rhythmPaint(a);a.timer=setTimeout(rhythmTick,20);
 }
@@ -792,7 +846,7 @@ function rhythmSeekCommit(seconds){
 }
 function rhythmPendingTarget(a,time){
   const unresolved=a.rhythm.notes.filter(n=>!n.result);
-  return unresolved.find(n=>n.start-.5<=time&&n.end+.5>=time)||unresolved.find(n=>n.start>=time)||null;
+  return unresolved[0]||null;
 }
 function rhythmBlock(a,notes,reason){
   const indexes=[...new Set(notes.filter(Boolean).map(n=>n.stepIndex))].sort((x,y)=>x-y);
@@ -833,12 +887,12 @@ function rhythmRetryInput(a,midi,id){
   a.got=new Set(a.played.get(g.index)||[]);a.retryMidi=[...g.pending.keys()][0]??null;
   if(g.pending.size){drawGuide(g.beat);rhythmPaint(a);rhythmRetryCue(a);return;}
   if(a.retryQueue.length){rhythmOpenRetry(a,a.retryQueue.shift(),'MISS');return;}
-  const previous=g.index;delete a.retryGate;a.retryMidi=null;
-  const next=a.score.findIndex((s,i)=>i>previous&&s.pitches.length);
-  if(next<0){rhythmStop(true);return;}
-  a.floor=a.pos=guidePos=stepStarts[next];a.started=renderMs(a)-guidePos*a.length;
+  // Rejoin at the corrected note's attack, not the next note. Its normal
+  // duration and the shared background clock must run before the next onset.
+  const resumeBeat=g.beat;delete a.retryGate;a.retryMidi=null;
+  a.floor=a.pos=guidePos=resumeBeat;a.started=renderMs(a)-guidePos*a.length;
   backingStart(a);rhythmSync(a,guidePos);drawGuide(guidePos);rhythmPaint(a);
-  guide.lessonFeedback.textContent='已按對 · 繼續下一音；補彈唔會抹走原有 MISS';
+  guide.lessonFeedback.textContent='已按對 · 由更正的音符繼續，按原時值前進；補彈唔會抹走原有 MISS';
   rhythmTick();
 }
 
@@ -918,7 +972,76 @@ document.getElementById('backingVolume').oninput=backingVolume;
 document.addEventListener('visibilitychange',()=>{if(document.hidden)backingCancelRequest();});
 
 </script>
+<script>
+/* A score grade belongs to a source note, never to an automatic piano voice. */
+const judgmentLabels=new Set(['PERFECT','GREAT','GOOD','POOR','MISS']);
+const judgmentKey=(index,midi)=>index+':'+midi;
+function judgmentGrade(a,index,midi){
+  if((a?.mode||mode)==='Demo')return 'demo';
+  if(midi==null)return 'none';
+  return a?.judgmentGrades?.get(judgmentKey(index,midi))||'none';
+}
+function judgmentRemember(a,r){
+  if(!a||a.mode==='Demo'||!r||!judgmentLabels.has(r.label))return;
+  a.judgmentGrades??=new Map();
+  const put=(index,midi,label)=>{
+    if(index==null||index<0||midi==null)return;
+    const key=judgmentKey(index,midi);
+    // Recovering a stopped MISS is visual recovery, not a new scoring result.
+    if(a.judgmentGrades.get(key)!=='MISS')a.judgmentGrades.set(key,label);
+  };
+  if(r.note)put(r.note.stepIndex,r.note.midi,r.label);
+  else if(r.wrong){
+    const chart=a.rhythm||a.alongJudgments;
+    if(a.retryGate){
+      for(const midi of a.retryGate.pending.keys())put(a.retryGate.index,midi,'POOR');
+    }else{
+      const unresolved=chart?.notes.filter(n=>!n.result)||[],first=unresolved[0];
+      if(first)for(const n of unresolved)if(n.start===first.start)put(n.stepIndex,n.midi,'POOR');
+    }
+  }
+  if(guide?.lessonFeedback)guide.lessonFeedback.dataset.grade=r.label;
+}
+function judgmentAlongState(a){
+  if(!a.alongJudgments){
+    const notes=sourceNotes.filter(n=>window.NocturneFullScore.practiceTracks.includes(n.track)).map(n=>({
+      id:n.id,midi:n.midi,start:n.start*a.length/1000,end:n.end*a.length/1000,
+      stepIndex:a.score.findIndex(s=>s.tick===Math.round(n.start*fullScore.ppq)&&s.pitches.includes(n.midi))
+    }));
+    a.alongJudgments=NocturneRhythmRules.create(notes,a.floor*a.length/1000);
+  }
+  return a.alongJudgments;
+}
+function judgmentAlongTick(a,beat){
+  const state=judgmentAlongState(a),seconds=Math.max(a.floor*a.length/1000,beat*a.length/1000);
+  for(const r of NocturneRhythmRules.expire(state,seconds))judgmentRemember(a,r);
+}
+function judgmentAlongInput(a,midi,id){
+  const state=judgmentAlongState(a),time=rhythmTime(a);
+  // Along never rewinds/stops: close previous windows, then grade this input.
+  for(const r of NocturneRhythmRules.expire(state,time))judgmentRemember(a,r);
+  const r=NocturneRhythmRules.hit(state,midi,time);
+  for(const expired of r.expired||[])judgmentRemember(a,expired);
+  judgmentRemember(a,r);
+  if(r.accepted){
+    const index=r.note.stepIndex,played=a.played.get(index)||new Set();
+    played.add(midi);a.played.set(index,played);
+  }
+  a.index=stepAt(transportBeat(a));a.got=new Set(a.played.get(a.index)||[]);
+  const summary=NocturneRhythmRules.summary(state);a.hit=summary.hits;a.misses=summary.misses+summary.wrong;
+  paintTargets();drawGuide();
+  if(r.label){
+    const offset=r.errorSeconds,when=offset==null?'錯鍵':Math.abs(offset)<1e-8?'時段內':
+      (offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
+    guide.lessonFeedback.dataset.grade=r.label;
+    guide.lessonFeedback.textContent=r.label+' · '+(bindingFor(midi)?.label||name(midi))+' '+when+' · 背景繼續，手動跟彈';
+  }
+}
+
+</script>
 <script src="studio.js"></script>
+<script type="application/json" id="sampleBankCatalog">{"revision":"044fab8e1456bfafc5776e86dfd6bb8697149aef","assets":{"FluidR3_GM/banjo-mp3.js":{"file":"FluidR3_GM/banjo-mp3.js","bytes":1765131,"sha256":"08f49bde197e518187b17bed57d6b16e4afa1f2102e4e0a368275b57583ec355","blob":"2cd73f81821a14b9eabc23dfe5030045b7976de2"},"FluidR3_GM/sitar-mp3.js":{"file":"FluidR3_GM/sitar-mp3.js","bytes":2906871,"sha256":"be220a6fd38a8594cf41d035ab01b8a61895cf4b8f2d7b3b8da78242a9f9d634","blob":"1e803b292b60c350e3b5d554578a6aeafdd04874"},"FatBoy/accordion-ogg.js":{"file":"FatBoy/accordion-ogg.js","bytes":2889863,"sha256":"476e4b1e23073b2b5b61ac900034663b552a5a7a45360555a34f9d84e44cd0c5","blob":"b6f104d4adf920a99de38d0f6bfdc89b35b7e99e"},"MusyngKite/acoustic_bass-ogg.js":{"file":"MusyngKite/acoustic_bass-ogg.js","bytes":2250827,"sha256":"f5d1f7325750c1ebde65f069bb37e548518e7178faffa19f9547e39ece7c54f0","blob":"cbbef0de8c5e9562072df7d29d8387f193bf53fe"},"FatBoy/acoustic_grand_piano-ogg.js":{"file":"FatBoy/acoustic_grand_piano-ogg.js","bytes":2484530,"sha256":"99215bad2c8ed03d24426d46a5dd05020796ac7336e82ac7ed6dd3f9d1291f90","blob":"7d62fa75a43aaddbd143b0d71bf519d4a589ea74"},"FluidR3_GM/acoustic_grand_piano-ogg.js":{"file":"FluidR3_GM/acoustic_grand_piano-ogg.js","bytes":2657542,"sha256":"4e9fd0caea2b98b2260e7d6aba5db7dc7c558ec1438c8beaf6b808240c8e8e8d","blob":"b37f5d9ad4c82d5c600d39431e190d144db2515d"},"MusyngKite/acoustic_grand_piano-ogg.js":{"file":"MusyngKite/acoustic_grand_piano-ogg.js","bytes":2340030,"sha256":"54680c0289541f06932b77d1fbdd52e362c3518bbda8b1e2233e051d667d2767","blob":"b3195a76d8a423080bdda24dc597fe6bbfaa3e6b"},"FatBoy/acoustic_guitar_nylon-ogg.js":{"file":"FatBoy/acoustic_guitar_nylon-ogg.js","bytes":2390459,"sha256":"04080824c5c17307c33f62c83e4b8fca9fce130150066d0ce797107f86c1caef","blob":"0e71e93f3a7247fc678f6ca1620f76f5a5af1360"},"FatBoy/acoustic_guitar_steel-ogg.js":{"file":"FatBoy/acoustic_guitar_steel-ogg.js","bytes":2472631,"sha256":"5f40d05af66f3c6f2f78cf4c07f6c120720226e98d6a3a37cbedb34ab9ac6df8","blob":"76cc261e9f596de58e31e55ea5999a918290cae4"},"FatBoy/alto_sax-ogg.js":{"file":"FatBoy/alto_sax-ogg.js","bytes":3214694,"sha256":"95316b8b3550c15b91481a723ab5b3b711992eecd37edab5f288b8e3f58aa7a9","blob":"8cf49bc1be414f30b24ceca901ede2e77fcaddaa"},"MusyngKite/baritone_sax-ogg.js":{"file":"MusyngKite/baritone_sax-ogg.js","bytes":3320902,"sha256":"4fcea4d8a17e7ac3864cb0b4884b389d23e386a45e4a3be414fb9f2c1ee2354d","blob":"0798671a31e53e794c39206e7362270797054634"},"FluidR3_GM/bassoon-ogg.js":{"file":"FluidR3_GM/bassoon-ogg.js","bytes":3309017,"sha256":"4f7ee707f921a0900688b3f43bc1e9fa66e06cf46c531e82b20f333c681eba10","blob":"5d6884d4b1948977056f9897270f5d0252195b01"},"FatBoy/blown_bottle-ogg.js":{"file":"FatBoy/blown_bottle-ogg.js","bytes":2829434,"sha256":"791245a5a9aa4ed74d641bb890f652e0e7e2a21b41539b46bd8910f2e24f9576","blob":"c547783271bbea6294cb57c1404940dffa9af9d8"},"FatBoy/brass_section-ogg.js":{"file":"FatBoy/brass_section-ogg.js","bytes":3226667,"sha256":"8fca8097833ac72371bb29d021bc8ff1bcae1f86cb269037ae0cac95b16e8b85","blob":"1320a810218a5afbc7ce05fe618c9a7b140a8f29"},"FatBoy/bright_acoustic_piano-ogg.js":{"file":"FatBoy/bright_acoustic_piano-ogg.js","bytes":2577387,"sha256":"213bbdc2bfbe9e3b7a8691938b6f20eb6557c3bf529966169fec902dac038aa1","blob":"d9f66bd1b6ca62355fb90f62a83bdb11f80602c4"},"FluidR3_GM/celesta-ogg.js":{"file":"FluidR3_GM/celesta-ogg.js","bytes":1911941,"sha256":"372fa34e457f5328601bb6f8b4528f49f8e4c9b87e0ace0c9502c7c2f29b3eff","blob":"450551e764357417e9ae33e254d32efe05af75d7"},"FluidR3_GM/cello-ogg.js":{"file":"FluidR3_GM/cello-ogg.js","bytes":3921871,"sha256":"0d555cfc0e320a04543554014b5688863790ce52b21cfa2b7565e10dac368458","blob":"8738bf30d77d88ed0dcd1d9c2038573d9f02f8fc"},"MusyngKite/choir_aahs-ogg.js":{"file":"MusyngKite/choir_aahs-ogg.js","bytes":3663068,"sha256":"1ba6d803b5a62703dcf9d3d83bcf19ce0bd84f1571bf2cdc29771c7c98eeb48c","blob":"098890104e3517a4931b0903ce6a179fa5214340"},"FatBoy/church_organ-ogg.js":{"file":"FatBoy/church_organ-ogg.js","bytes":3278438,"sha256":"3f8bc1103a6bcf8fc9e84b16b76bd0f209a0a43ed2609406f118d6ac6f7ca827","blob":"1893d1436363400be79858272f31b6e1ff53f482"},"FatBoy/clarinet-ogg.js":{"file":"FatBoy/clarinet-ogg.js","bytes":2766154,"sha256":"2679f6ffdd32f8077b7f3f47f47de4db4e1b5b211bc523473b40581b6b053ecc","blob":"b2420629bcb4c43212210e0c6c7903286e2e08c1"},"MusyngKite/clavinet-ogg.js":{"file":"MusyngKite/clavinet-ogg.js","bytes":2635914,"sha256":"fa47bd5b91f126a12b889124cc8d27654dbe2a5152183b0ac3debea73aaa06d4","blob":"b6ff35b6e7388294e42745e954c54f26356f79c7"},"MusyngKite/contrabass-ogg.js":{"file":"MusyngKite/contrabass-ogg.js","bytes":3214584,"sha256":"4a4a66c55fb1a69e6a4ae3577dc4233098c96b52527226d3850a63e8014759e3","blob":"09cd46df1c5f1bec5c0cf47b09b6bb0ded20e7ad"},"FatBoy/distortion_guitar-ogg.js":{"file":"FatBoy/distortion_guitar-ogg.js","bytes":3110399,"sha256":"9b9d7856795b4dc822d137b86e59380347493d3a827bfdc469134c59ad25ab01","blob":"4d84c8cdda1454c3d0657d87fe589cbca9353b14"},"FatBoy/drawbar_organ-ogg.js":{"file":"FatBoy/drawbar_organ-ogg.js","bytes":2758495,"sha256":"90bda7d347bad0c5126b66bb237abb2931a91000e6e9d230f441696f0e5e390b","blob":"a0b427ff64a3de4b61064c605ebd0824c90f7d04"},"FatBoy/dulcimer-ogg.js":{"file":"FatBoy/dulcimer-ogg.js","bytes":2302198,"sha256":"dc3dee18128989e381ec9b99f7c0de7bb1081b4f1a459d2097bdd5c236445795","blob":"e3e05e907235286e24a92b871610f06e6049977f"},"FatBoy/electric_bass_finger-ogg.js":{"file":"FatBoy/electric_bass_finger-ogg.js","bytes":2263674,"sha256":"da66dc448a437cc7900f83568db06e0da35e6a5a3fa643b3f5dfaf48aee480bf","blob":"21caefc59868fd959f47e2abf15334f81ce07251"},"MusyngKite/electric_bass_pick-ogg.js":{"file":"MusyngKite/electric_bass_pick-ogg.js","bytes":2062520,"sha256":"d3bb5585a5ff36f200c675f8e59b820cd4c274eaa9de25df369c5b583692e3b6","blob":"1454133187e48cf4d1394c161d4a2209580106f9"},"MusyngKite/electric_grand_piano-ogg.js":{"file":"MusyngKite/electric_grand_piano-ogg.js","bytes":2644866,"sha256":"161bcf6d82149f5cf919f7f39997c3fb05862a13aad51a09b6926487b6305be1","blob":"7cd099b0655ae8e051aa44f81820682bc379e13b"},"MusyngKite/electric_guitar_clean-ogg.js":{"file":"MusyngKite/electric_guitar_clean-ogg.js","bytes":2581247,"sha256":"d3230413a260e86d261bb831430184f9d1ef6dde1224eb2e233e96c4cbef47bc","blob":"7838bc324383dae8530619677c4ed312658068fa"},"FatBoy/electric_guitar_jazz-ogg.js":{"file":"FatBoy/electric_guitar_jazz-ogg.js","bytes":2163358,"sha256":"90b8bf7a960320f9312df411be30ae0352cac4e6228d802736169f414595a8d0","blob":"d993830c26586721d6a7225bec6c3e71e7fc7248"},"FluidR3_GM/electric_guitar_muted-ogg.js":{"file":"FluidR3_GM/electric_guitar_muted-ogg.js","bytes":1996703,"sha256":"0c9f9498304aa4d626ffb1642048da3d8dcc063ea4f982e8d6cff2683f97e509","blob":"ab23bc99979a83e43d02828ff2618079dacae14e"},"FluidR3_GM/electric_piano_1-ogg.js":{"file":"FluidR3_GM/electric_piano_1-ogg.js","bytes":2091134,"sha256":"c2336734ad03ec66a8a736cda2249aa306d1963bbe5153da1fb084e56cc88df3","blob":"259be50ffdadb2b315e68926a303dde0bbbadf28"},"MusyngKite/electric_piano_1-ogg.js":{"file":"MusyngKite/electric_piano_1-ogg.js","bytes":2135206,"sha256":"6718b5380e9e4532b2a30b9d9696fb6e1b3b6e210947c28acf263f78e13d0857","blob":"9b49e3d59ab8fab3222735d5eb59135d05713f0d"},"FluidR3_GM/electric_piano_2-ogg.js":{"file":"FluidR3_GM/electric_piano_2-ogg.js","bytes":2349410,"sha256":"bbd68906abb854f1733f3d4169f1a5d8e817a3db54fe528ea0f089ddc97afe2a","blob":"961b50b79dc804d77c3a1c902c7b0b1715ac863c"},"MusyngKite/electric_piano_2-ogg.js":{"file":"MusyngKite/electric_piano_2-ogg.js","bytes":2411990,"sha256":"3e07db26c66cba14d0a64ccfc67f3d0b9fd0ef93cb2f06a9d644e736d9e6fff6","blob":"7bd1f367d365f96f02d515d26601bdcff0f3efdc"},"FluidR3_GM/english_horn-ogg.js":{"file":"FluidR3_GM/english_horn-ogg.js","bytes":2796946,"sha256":"8ee774fd69eba9986f6e956408f549b9197e7973000c1d56d430053f1af2efb5","blob":"2d33a55c12a9e99d708a318ae4561077350b4589"},"FatBoy/flute-ogg.js":{"file":"FatBoy/flute-ogg.js","bytes":2829659,"sha256":"d4b2a20c27f87de11206d520d0351576683e9d038b8eaf3fd7fa2cdfb6eaca76","blob":"e5c6fe6d99a09b1fa74d01a357c0b902a4b74bf2"},"FluidR3_GM/french_horn-ogg.js":{"file":"FluidR3_GM/french_horn-ogg.js","bytes":2862997,"sha256":"cf93b2c8dd823ee82b0c6afe826b38f7d290e8f98a25f628538a46c8e04820a4","blob":"8c505f348ae09eb67d58046536d50833c924ff80"},"MusyngKite/fretless_bass-ogg.js":{"file":"MusyngKite/fretless_bass-ogg.js","bytes":2489583,"sha256":"4af4f49d9022278f3a7a145588482b8e0d45d8030752ed882a59df1a6de0e88a","blob":"ced3466d80a7c489850a4e555ae94877e597e451"},"MusyngKite/glockenspiel-ogg.js":{"file":"MusyngKite/glockenspiel-ogg.js","bytes":2449138,"sha256":"b884b9b4fe44a23178339034a474a6e57e9243d114a18807f87aea6a96177a1c","blob":"eb90749276816b5b50e785e589be4eae9ed52b3c"},"FatBoy/guitar_harmonics-ogg.js":{"file":"FatBoy/guitar_harmonics-ogg.js","bytes":2779366,"sha256":"64969af480ddf21b5530c36e0b3324a29ebe757a1a8343a97b33db8923c96a1b","blob":"8c98747669bb0bfdef81b1db654e64f8273143b6"},"FatBoy/harmonica-ogg.js":{"file":"FatBoy/harmonica-ogg.js","bytes":2624563,"sha256":"ca70e105b2fa6723a6af65adf45e64921272f6196efe6e12868e34bf3e626544","blob":"d75fa41b47eff1e0d212f9fa6610ecd46dfd95bc"},"FluidR3_GM/harpsichord-ogg.js":{"file":"FluidR3_GM/harpsichord-ogg.js","bytes":2488213,"sha256":"183cd6300e043069d388b36a748daf1f6b36050fcb98ac93e68d5eadf10e3d65","blob":"09535c60a7bb1fbe5cee5c09d8ee98575c650678"},"MusyngKite/honkytonk_piano-ogg.js":{"file":"MusyngKite/honkytonk_piano-ogg.js","bytes":2442053,"sha256":"ee202c6e7d9d1e32df3e8f9ef207840d948ed6666f73c876a0ba968d5b194606","blob":"2188ad562877ba3d7ef52448df35da2eff2edc10"},"FatBoy/lead_1_square-ogg.js":{"file":"FatBoy/lead_1_square-ogg.js","bytes":2751195,"sha256":"5b554beeea7b9914c92a4d9a6d3d6c620b72a6e4520f90001b6f2a1acb26f0d5","blob":"c48160fd4d71fdcdf53b7bbc2f0ece81dea9b62b"},"FatBoy/lead_2_sawtooth-ogg.js":{"file":"FatBoy/lead_2_sawtooth-ogg.js","bytes":3570621,"sha256":"9f50dbe8391f6eff2583946d114815aa98bc2574f5003ddfc66f0ec5e5649b20","blob":"bf8ad4377d1365550174bb9c0f5a1a86bd6b6db0"},"FatBoy/marimba-ogg.js":{"file":"FatBoy/marimba-ogg.js","bytes":1894437,"sha256":"617873e2a2778ae9de5d8740b194d8c78c8afeda57a12f8f692bf63d13ce0e38","blob":"242904887aaa4da5341584ae2f7a2298de48639d"},"FluidR3_GM/music_box-ogg.js":{"file":"FluidR3_GM/music_box-ogg.js","bytes":2070395,"sha256":"c5d8cc7be23e9031576f9201f049964ae0aaa5b969a3ccb085e86c191c6d2674","blob":"b9d30257bf177d501c0e921c42a7b3a72e71b406"},"FatBoy/muted_trumpet-ogg.js":{"file":"FatBoy/muted_trumpet-ogg.js","bytes":3237367,"sha256":"9a9322057409930f7e9b72f0cd0340e60319836dbf050aa87c87cba19e354bdb","blob":"9d8149d06bafa6b0cb2a43440bc7f647d91eebfd"},"FatBoy/oboe-ogg.js":{"file":"FatBoy/oboe-ogg.js","bytes":2608078,"sha256":"7e54936019fa760bc982bb966ff308514c48fefd9a92c8427caa071dfe6d0b55","blob":"f25b33efba535d42e537704e7fb61409a468aa8b"},"FatBoy/ocarina-ogg.js":{"file":"FatBoy/ocarina-ogg.js","bytes":2569541,"sha256":"73f5025c7687a2c4d83ee776a0957f4a4fb558b343fea81bb15d87b90bb769cc","blob":"fcd7ecb0c74f247e462bae9440a3fd287222e4e5"},"MusyngKite/orchestra_hit-ogg.js":{"file":"MusyngKite/orchestra_hit-ogg.js","bytes":2491231,"sha256":"4467ec83b4019477a25cddd8a7cf7d8b418f0e498ab676efda1284a74d696443","blob":"7fbf2c9c62c70d695c1b27cee51e52b39118ba7e"},"FatBoy/orchestral_harp-ogg.js":{"file":"FatBoy/orchestral_harp-ogg.js","bytes":2021397,"sha256":"228900e0e7c0d92bafdb26912182ca4f1b5b7322f9ff17e7b4478758ca0cec22","blob":"5461041c985e86c9ff2228b1b2e5f4dd8d758201"},"MusyngKite/overdriven_guitar-ogg.js":{"file":"MusyngKite/overdriven_guitar-ogg.js","bytes":2741995,"sha256":"0403dadb1064df9211ec678be152e29508d1ae3802179faa92e59b4a601e5357","blob":"dad5c639786f2ca979b8c620020257bc31a80224"},"FatBoy/pad_2_warm-ogg.js":{"file":"FatBoy/pad_2_warm-ogg.js","bytes":2820480,"sha256":"0e532747d52430792ae7e69c52f4f3bfec8634fad3fb86ed8abcaccd5ff2e4d9","blob":"e1489c00703b834e5428f4beb220bab389d09447"},"FatBoy/pad_7_halo-ogg.js":{"file":"FatBoy/pad_7_halo-ogg.js","bytes":3466804,"sha256":"20495cbb32e390c11d7fa999776b5c2e82fb1e2f8ed2f70214e4cc7a63bf80d6","blob":"b82af06dc41a9a2953b41b4c90e83c7ef1aaab11"},"FatBoy/pan_flute-ogg.js":{"file":"FatBoy/pan_flute-ogg.js","bytes":3259411,"sha256":"d5e430eba7f1a606fb60e3e5de9e8f2f73f2e359e24aab3f2f91e32531e63d8d","blob":"28ea1e39831041af793801888ad920846b203e2e"},"FatBoy/percussive_organ-ogg.js":{"file":"FatBoy/percussive_organ-ogg.js","bytes":3121726,"sha256":"f50ac4c37042bd94cd24140e95eafa12f3fc9d739feb1b91d8626920b1a6e646","blob":"f973d14855d781f1edbe536cfa30452898911b2c"},"FatBoy/piccolo-ogg.js":{"file":"FatBoy/piccolo-ogg.js","bytes":3024813,"sha256":"a03de8694b640965bbfacecbf8e68983cf00047db1a208e2a7d065208236aa6a","blob":"b671d5771da972738c8b4a28cda9e8e5aea4c4ed"},"FluidR3_GM/pizzicato_strings-ogg.js":{"file":"FluidR3_GM/pizzicato_strings-ogg.js","bytes":2180859,"sha256":"c16cf28ae62c10b82be3dbf3eaf409af587da9462184679b39f36904b3760941","blob":"eb8779b53cec46f63bc6754dd8cc85b97112901b"},"FatBoy/recorder-ogg.js":{"file":"FatBoy/recorder-ogg.js","bytes":2483578,"sha256":"124115e955b8fcba1f778a0eec288198968712d0b35125fd9241886d122ffbd4","blob":"e408101a23620f42b8fd3d02f7902c6c619d0ca4"},"FatBoy/reed_organ-ogg.js":{"file":"FatBoy/reed_organ-ogg.js","bytes":2661444,"sha256":"ddd83eb6aa3ab0eb0cba39eda01310307b2d574310b49f4c11f08c9df1974a8f","blob":"5759af4a8683cbc6880b6d46f7a7b275e8131dfa"},"FatBoy/rock_organ-ogg.js":{"file":"FatBoy/rock_organ-ogg.js","bytes":3227408,"sha256":"32cdeba961c8e32c87357f2ad981ba3d8392f1e72e7e1f1c266b1f9104745ba7","blob":"b0a47b416db9f7414bcab2e7a0c138b84286554e"},"FatBoy/shakuhachi-ogg.js":{"file":"FatBoy/shakuhachi-ogg.js","bytes":3128444,"sha256":"8f1bbc5b58a405341fcf26e1881819590a5ca7df956ee55d2415e87b76f380f6","blob":"9bd535f93b72518849e818f50f0229de17cb5c29"},"FatBoy/slap_bass_1-ogg.js":{"file":"FatBoy/slap_bass_1-ogg.js","bytes":2476505,"sha256":"0ac59f8c42061bd369fbe12473b9fdd38ea481a82781ab71ce2365a56282eb68","blob":"aba9ecc2493fe2517f084bfd3afa10132b8f6f7a"},"MusyngKite/slap_bass_2-ogg.js":{"file":"MusyngKite/slap_bass_2-ogg.js","bytes":2263049,"sha256":"ce971556d9c42e5a225748ee39ff784d45c5eafb31d9ef509d35e8c7d3d12b1c","blob":"665b06b4bdbfbdf28688beb6fc91683c4fc7ce15"},"FatBoy/soprano_sax-ogg.js":{"file":"FatBoy/soprano_sax-ogg.js","bytes":2598109,"sha256":"76ab99445a441fbb5fda75c57149337f8b66546b2bf085b2aa11b13caa0bfb1f","blob":"ec7dbda0d112a1ea8aace1269bbe6866f4acd594"},"FatBoy/steel_drums-ogg.js":{"file":"FatBoy/steel_drums-ogg.js","bytes":1940741,"sha256":"918f993424dda6c4b0835956f46061e36691a968cfb66f7ce73b685554d97c64","blob":"3498d8670ba4a657fbf14c183910d5613600ff51"},"MusyngKite/string_ensemble_1-ogg.js":{"file":"MusyngKite/string_ensemble_1-ogg.js","bytes":3410419,"sha256":"11fc6036ea4cdd0d7b665050b42374ef8aee3cbf3f83d26787b171a4b0c1adb0","blob":"5cc3c00ed953d5617380c6c188291ab4c8eaf301"},"MusyngKite/string_ensemble_2-ogg.js":{"file":"MusyngKite/string_ensemble_2-ogg.js","bytes":3744395,"sha256":"3df4564a65f67c22b476b749af58668b62c9b34085bf937f9ed4007cb1c3ae93","blob":"d05b6aa5739ace8bbd55a295425377e7b61f5034"},"MusyngKite/synth_bass_1-ogg.js":{"file":"MusyngKite/synth_bass_1-ogg.js","bytes":2146918,"sha256":"c88660768e50eb8237ecd6a74c296b6689f56a49eced4e6e7c92cb3cf87f7718","blob":"4c009e9aae28315d413091f803fac3c013d51e4a"},"MusyngKite/synth_bass_2-ogg.js":{"file":"MusyngKite/synth_bass_2-ogg.js","bytes":2216482,"sha256":"1579598982d43c5ca773ce4ee0a165c9f1783ede3ca43b6ee84e46110ea6e3a3","blob":"40c1753b400035a7fd0214154053f45a34b9fc02"},"FatBoy/synth_brass_1-ogg.js":{"file":"FatBoy/synth_brass_1-ogg.js","bytes":3938123,"sha256":"dfb57206720d72d1c80cd6c74a3cc5bf154b4e9b8539136dc7cabfceec9ad979","blob":"00a1c6424d9be2ab4d976c6e7662c61740683f8d"},"MusyngKite/synth_brass_2-ogg.js":{"file":"MusyngKite/synth_brass_2-ogg.js","bytes":3030311,"sha256":"f3bd87bbaeb0ba0bbd23c6596f03e6ed121b8aed568af2db90df1ff8f9870ca3","blob":"f1f3f75fe6c8dbe5fd84cdcf72c4fae06499c7d0"},"MusyngKite/synth_choir-ogg.js":{"file":"MusyngKite/synth_choir-ogg.js","bytes":3466337,"sha256":"b4e1f64677220b9e89ddf0bce2caa0b23e5fb8deeb34460543f4919e85898d98","blob":"f500ee7e093c29ce7347e6c0a5a029765ff1577c"},"FluidR3_GM/synth_strings_1-ogg.js":{"file":"FluidR3_GM/synth_strings_1-ogg.js","bytes":2958961,"sha256":"e52159db11bf7e2288f75f1522669a68761b07c6cd9473f140d56ceb4fd1f3bf","blob":"0861f1bfbcafd479b598a93ed4ca4680bdf85e97"},"MusyngKite/synth_strings_2-ogg.js":{"file":"MusyngKite/synth_strings_2-ogg.js","bytes":2673981,"sha256":"03de0e9a3d33ec56b55a63614fb3586384a86a7a07b70147f5641666889169f4","blob":"af3c8cfe1ab721ac0f51f2c303843643b219b0f9"},"FatBoy/taiko_drum-ogg.js":{"file":"FatBoy/taiko_drum-ogg.js","bytes":2128636,"sha256":"4a88dfcd71f3763e6a097cfc5706751793a8dfd329d9145311ce83e2c7ff4e7a","blob":"d90ba81d3c1ce7bd3b93fbb8f5941817b3493fa6"},"FluidR3_GM/tango_accordion-ogg.js":{"file":"FluidR3_GM/tango_accordion-ogg.js","bytes":3319477,"sha256":"32a4c7f65fa0b159d559617f1a58c4d58917b1ce8484e83235338f8fd99f1ddb","blob":"95bda0d4f0b71fad367903c3b30adf240ae31e2a"},"MusyngKite/tenor_sax-ogg.js":{"file":"MusyngKite/tenor_sax-ogg.js","bytes":2932555,"sha256":"110763cc78a1483fb37ea0bf8dfbfe6309d643d35b6fdf1a9fdd6391780df78b","blob":"44e4f5743185af49d088802823b8c2f66ff28502"},"MusyngKite/timpani-ogg.js":{"file":"MusyngKite/timpani-ogg.js","bytes":2684869,"sha256":"8c09e480990b0cbc3299453132550afd0ea0e66c46a8801e53ee8c3cdc2f4164","blob":"87fdd611e0b3b7c35e7ff32d6b07f234e92b89eb"},"FatBoy/tinkle_bell-ogg.js":{"file":"FatBoy/tinkle_bell-ogg.js","bytes":2206593,"sha256":"4929857c671ccd76adc16934533b25f034a98943d04b04b0059e205a395ccd33","blob":"8f189ae47f634a38a6110eefcf7ab0e2430f55d9"},"MusyngKite/tremolo_strings-ogg.js":{"file":"MusyngKite/tremolo_strings-ogg.js","bytes":3262777,"sha256":"4bdb6ade5dd2a49a6dbcb9034bc48a06165ed7f4acc713fcc6d663770d7d4a5c","blob":"cc3f1f2b8f2c43794ef0b901d24c988ee2c6dad3"},"FatBoy/trombone-ogg.js":{"file":"FatBoy/trombone-ogg.js","bytes":3211498,"sha256":"a2964cce1407f13b8520ee8a7b5e31775e708b21f1f61e871f01d67458beb95a","blob":"ed3ed956473a1a45e032f66d59492a91e2d8f7e7"},"FatBoy/trumpet-ogg.js":{"file":"FatBoy/trumpet-ogg.js","bytes":3237937,"sha256":"86f47e913ea0fa5934eac24897461c804eb5f5f7f3cdec2d281c75bb48e5a1ba","blob":"d43fd64820108bccd5fa522ee6210c6c2223160c"},"MusyngKite/tuba-ogg.js":{"file":"MusyngKite/tuba-ogg.js","bytes":2995310,"sha256":"58a7736a7665a2f8ffd9f010581987affe84811bd14ff16911ebaeeaddd89eab","blob":"9010d66737c1c49be0e85b67043105dab3bb4c8f"},"MusyngKite/tubular_bells-ogg.js":{"file":"MusyngKite/tubular_bells-ogg.js","bytes":2365795,"sha256":"a81a7022da57910f01813c4d7f171734bc2c9d78c65e752c811f13c3cc0f6c79","blob":"f15a7e294aa1b5d689f078f0e1fd1d78d03128f7"},"FluidR3_GM/vibraphone-ogg.js":{"file":"FluidR3_GM/vibraphone-ogg.js","bytes":2185704,"sha256":"1ab27587d06adf292d911bce7b5c6782a69cbb49b7e1d1523e4ffb9ac960b3c3","blob":"cf8f7271eea1853dda2d9daeb6d1c08a14d7fb7f"},"FatBoy/viola-ogg.js":{"file":"FatBoy/viola-ogg.js","bytes":3499539,"sha256":"7f5eda54932ae162db714da569c73e5a0af0692b75cbfefdf35b255d7e805b00","blob":"9f37855b02cf282f108e1927fd407fb5dff5b4f1"},"FatBoy/violin-ogg.js":{"file":"FatBoy/violin-ogg.js","bytes":3594104,"sha256":"d290182fb7d879eae13a337f04806cfa93283549ecdccd0368b20a609e5043b8","blob":"34c30f7d2acc44557f504502967e3682cd06048e"},"FatBoy/voice_oohs-ogg.js":{"file":"FatBoy/voice_oohs-ogg.js","bytes":3228064,"sha256":"65ace0d7f8c8af1ca16aa5440cb3e7bb575600fcb430ab8fff1a842aadfd98ff","blob":"08cf7e0db82317c8e46f0618fe5ab7338427cbe2"},"MusyngKite/whistle-ogg.js":{"file":"MusyngKite/whistle-ogg.js","bytes":2426409,"sha256":"eb35cd6bcae4594187716445ca4a0149a15bbe3cb0fbf69324e3747d77754f0a","blob":"30f8ff1d5ac8b35234360ddfb4c7f81b06cb44d8"},"FluidR3_GM/xylophone-ogg.js":{"file":"FluidR3_GM/xylophone-ogg.js","bytes":1768463,"sha256":"aa4b0cc3d35b93d56e0b8b69b5db6fc6ef9be2b1deb5b7432736469799c95a42","blob":"5b05d99e118f22a2e3d054ffd3e8bb45293b9f5b"}},"presets":[{"id":"concert-grand","name":"Concert Grand Piano","short":"Concert Grand","category":"Piano","bank":"FluidR3_GM/acoustic_grand_piano-ogg.js"},{"id":"grand-piano-1","name":"Grand Piano 1","short":"Grand Piano 1","category":"Piano","bank":"FluidR3_GM/acoustic_grand_piano-ogg.js"},{"id":"grand-piano-2","name":"Grand Piano 2","short":"Grand Piano 2","category":"Piano","bank":"MusyngKite/acoustic_grand_piano-ogg.js"},{"id":"grand-piano-3","name":"Grand Piano 3","short":"Grand Piano 3","category":"Piano","bank":"FatBoy/acoustic_grand_piano-ogg.js"},{"id":"grand-piano-4","name":"Grand Piano 4","short":"Grand Piano 4","category":"Piano","bank":"FluidR3_GM/acoustic_grand_piano-ogg.js"},{"id":"bright-piano","name":"Bright Piano","short":"Bright Piano","category":"Piano","bank":"FatBoy/bright_acoustic_piano-ogg.js"},{"id":"honky-tonk","name":"Honky-tonk","short":"Honky-tonk","category":"Piano","bank":"MusyngKite/honkytonk_piano-ogg.js"},{"id":"electric-grand","name":"Electric Grand","short":"Elec. Grand","category":"Electric Piano","bank":"MusyngKite/electric_grand_piano-ogg.js"},{"id":"electric-piano-1","name":"Electric Piano 1","short":"Electric 1","category":"Electric Piano","bank":"FluidR3_GM/electric_piano_1-ogg.js"},{"id":"electric-piano-2","name":"Electric Piano 2","short":"Electric 2","category":"Electric Piano","bank":"MusyngKite/electric_piano_1-ogg.js"},{"id":"electric-piano-3","name":"Electric Piano 3","short":"Electric 3","category":"Electric Piano","bank":"FluidR3_GM/electric_piano_2-ogg.js"},{"id":"electric-piano-4","name":"Electric Piano 4","short":"Electric 4","category":"Electric Piano","bank":"MusyngKite/electric_piano_2-ogg.js"},{"id":"harpsichord","name":"Harpsichord","short":"Harpsi.","category":"Keys","bank":"FluidR3_GM/harpsichord-ogg.js"},{"id":"clavinet","name":"Clavinet","short":"Clavinet","category":"Keys","bank":"MusyngKite/clavinet-ogg.js"},{"id":"celesta","name":"Celesta","short":"Celesta","category":"Keys","bank":"FluidR3_GM/celesta-ogg.js"},{"id":"glockenspiel","name":"Glockenspiel","short":"Glocken.","category":"Keys","bank":"MusyngKite/glockenspiel-ogg.js"},{"id":"music-box","name":"Music Box","short":"Music Box","category":"Keys","bank":"FluidR3_GM/music_box-ogg.js"},{"id":"vibraphone","name":"Vibraphone","short":"Vibraphone","category":"Keys","bank":"FluidR3_GM/vibraphone-ogg.js"},{"id":"marimba","name":"Marimba","short":"Marimba","category":"Keys","bank":"FatBoy/marimba-ogg.js"},{"id":"xylophone","name":"Xylophone","short":"Xylophone","category":"Keys","bank":"FluidR3_GM/xylophone-ogg.js"},{"id":"tubular-bells","name":"Tubular Bells","short":"Tub. Bells","category":"Keys","bank":"MusyngKite/tubular_bells-ogg.js"},{"id":"dulcimer","name":"Dulcimer","short":"Dulcimer","category":"Keys","bank":"FatBoy/dulcimer-ogg.js"},{"id":"drawbar-organ","name":"Drawbar Organ","short":"Organ 1","category":"Organ","bank":"FatBoy/drawbar_organ-ogg.js"},{"id":"percussive-organ","name":"Percussive Organ","short":"Organ 2","category":"Organ","bank":"FatBoy/percussive_organ-ogg.js"},{"id":"rock-organ","name":"Rock Organ","short":"Organ 3","category":"Organ","bank":"FatBoy/rock_organ-ogg.js"},{"id":"church-organ","name":"Church Organ","short":"Organ 4","category":"Organ","bank":"FatBoy/church_organ-ogg.js"},{"id":"reed-organ","name":"Reed Organ","short":"Organ 5","category":"Organ","bank":"FatBoy/reed_organ-ogg.js"},{"id":"accordion","name":"Accordion","short":"Accordion","category":"Organ","bank":"FatBoy/accordion-ogg.js"},{"id":"harmonica","name":"Harmonica","short":"Harmonica","category":"Organ","bank":"FatBoy/harmonica-ogg.js"},{"id":"tango-accordion","name":"Tango Accordion","short":"Tango Acc.","category":"Organ","bank":"FluidR3_GM/tango_accordion-ogg.js"},{"id":"nylon-guitar","name":"Nylon Guitar","short":"Guitar 1","category":"Guitar","bank":"FatBoy/acoustic_guitar_nylon-ogg.js"},{"id":"steel-guitar","name":"Steel Guitar","short":"Guitar 2","category":"Guitar","bank":"FatBoy/acoustic_guitar_steel-ogg.js"},{"id":"jazz-guitar","name":"Jazz Guitar","short":"Guitar 3","category":"Guitar","bank":"FatBoy/electric_guitar_jazz-ogg.js"},{"id":"clean-electric","name":"Clean Electric","short":"Guitar 4","category":"Guitar","bank":"MusyngKite/electric_guitar_clean-ogg.js"},{"id":"muted-guitar","name":"Muted Guitar","short":"Guitar 5","category":"Guitar","bank":"FluidR3_GM/electric_guitar_muted-ogg.js"},{"id":"overdrive-guitar","name":"Overdrive Guitar","short":"Guitar 6","category":"Guitar","bank":"MusyngKite/overdriven_guitar-ogg.js"},{"id":"distortion-guitar","name":"Distortion Guitar","short":"Guitar 7","category":"Guitar","bank":"FatBoy/distortion_guitar-ogg.js"},{"id":"guitar-harmonics","name":"Guitar Harmonics","short":"Guitar 8","category":"Guitar","bank":"FatBoy/guitar_harmonics-ogg.js"},{"id":"banjo","name":"Banjo","short":"Banjo","category":"Guitar","bank":"FluidR3_GM/banjo-mp3.js"},{"id":"acoustic-bass","name":"Acoustic Bass","short":"Bass 1","category":"Bass","bank":"MusyngKite/acoustic_bass-ogg.js"},{"id":"electric-bass","name":"Electric Bass","short":"Bass 2","category":"Bass","bank":"FatBoy/electric_bass_finger-ogg.js"},{"id":"pick-bass","name":"Pick Bass","short":"Bass 3","category":"Bass","bank":"MusyngKite/electric_bass_pick-ogg.js"},{"id":"fretless-bass","name":"Fretless Bass","short":"Bass 4","category":"Bass","bank":"MusyngKite/fretless_bass-ogg.js"},{"id":"slap-bass-1","name":"Slap Bass 1","short":"Slap Bass 1","category":"Bass","bank":"FatBoy/slap_bass_1-ogg.js"},{"id":"slap-bass-2","name":"Slap Bass 2","short":"Slap Bass 2","category":"Bass","bank":"MusyngKite/slap_bass_2-ogg.js"},{"id":"synth-bass-1","name":"Synth Bass 1","short":"Synth Bass 1","category":"Bass","bank":"MusyngKite/synth_bass_1-ogg.js"},{"id":"synth-bass-2","name":"Synth Bass 2","short":"Synth Bass 2","category":"Bass","bank":"MusyngKite/synth_bass_2-ogg.js"},{"id":"violin","name":"Violin","short":"Violin","category":"Strings","bank":"FatBoy/violin-ogg.js"},{"id":"viola","name":"Viola","short":"Viola","category":"Strings","bank":"FatBoy/viola-ogg.js"},{"id":"cello","name":"Cello","short":"Cello","category":"Strings","bank":"FluidR3_GM/cello-ogg.js"},{"id":"contrabass","name":"Contrabass","short":"Contrabass","category":"Strings","bank":"MusyngKite/contrabass-ogg.js"},{"id":"tremolo-strings","name":"Tremolo Strings","short":"Tremolo","category":"Strings","bank":"MusyngKite/tremolo_strings-ogg.js"},{"id":"pizzicato-strings","name":"Pizzicato Strings","short":"Pizzicato","category":"Strings","bank":"FluidR3_GM/pizzicato_strings-ogg.js"},{"id":"orchestral-harp","name":"Orchestral Harp","short":"Harp","category":"Strings","bank":"FatBoy/orchestral_harp-ogg.js"},{"id":"timpani","name":"Timpani","short":"Timpani","category":"Strings","bank":"MusyngKite/timpani-ogg.js"},{"id":"string-ensemble","name":"String Ensemble","short":"Strings","category":"Strings","bank":"MusyngKite/string_ensemble_1-ogg.js"},{"id":"slow-strings","name":"Slow Strings","short":"Slow Strings","category":"Strings","bank":"MusyngKite/string_ensemble_2-ogg.js"},{"id":"synth-strings-1","name":"Synth Strings 1","short":"Syn. Str. 1","category":"Strings","bank":"FluidR3_GM/synth_strings_1-ogg.js"},{"id":"synth-strings-2","name":"Synth Strings 2","short":"Syn. Str. 2","category":"Strings","bank":"MusyngKite/synth_strings_2-ogg.js"},{"id":"sitar","name":"Sitar","short":"Sitar","category":"Strings","bank":"FluidR3_GM/sitar-mp3.js"},{"id":"choir-aahs","name":"Choir Aahs","short":"Choir Aahs","category":"Voice","bank":"MusyngKite/choir_aahs-ogg.js"},{"id":"voice-oohs","name":"Voice Oohs","short":"Voice Oohs","category":"Voice","bank":"FatBoy/voice_oohs-ogg.js"},{"id":"synth-voice","name":"Synth Voice","short":"Synth Voice","category":"Voice","bank":"MusyngKite/synth_choir-ogg.js"},{"id":"orchestra-hit","name":"Orchestra Hit","short":"Orch. Hit","category":"Voice","bank":"MusyngKite/orchestra_hit-ogg.js"},{"id":"trumpet","name":"Trumpet","short":"Trumpet","category":"Brass","bank":"FatBoy/trumpet-ogg.js"},{"id":"trombone","name":"Trombone","short":"Trombone","category":"Brass","bank":"FatBoy/trombone-ogg.js"},{"id":"tuba","name":"Tuba","short":"Tuba","category":"Brass","bank":"MusyngKite/tuba-ogg.js"},{"id":"muted-trumpet","name":"Muted Trumpet","short":"Muted Trpt.","category":"Brass","bank":"FatBoy/muted_trumpet-ogg.js"},{"id":"french-horn","name":"French Horn","short":"Fr. Horn","category":"Brass","bank":"FluidR3_GM/french_horn-ogg.js"},{"id":"brass-section","name":"Brass Section","short":"Brass","category":"Brass","bank":"FatBoy/brass_section-ogg.js"},{"id":"synth-brass-1","name":"Synth Brass 1","short":"Syn. Brass 1","category":"Brass","bank":"FatBoy/synth_brass_1-ogg.js"},{"id":"synth-brass-2","name":"Synth Brass 2","short":"Syn. Brass 2","category":"Brass","bank":"MusyngKite/synth_brass_2-ogg.js"},{"id":"soprano-sax","name":"Soprano Sax","short":"Sop. Sax","category":"Wind","bank":"FatBoy/soprano_sax-ogg.js"},{"id":"alto-saxophone","name":"Alto Saxophone","short":"Alto Sax","category":"Wind","bank":"FatBoy/alto_sax-ogg.js"},{"id":"tenor-saxophone","name":"Tenor Saxophone","short":"Tenor Sax","category":"Wind","bank":"MusyngKite/tenor_sax-ogg.js"},{"id":"baritone-sax","name":"Baritone Sax","short":"Bari. Sax","category":"Wind","bank":"MusyngKite/baritone_sax-ogg.js"},{"id":"oboe","name":"Oboe","short":"Oboe","category":"Wind","bank":"FatBoy/oboe-ogg.js"},{"id":"english-horn","name":"English Horn","short":"Eng. Horn","category":"Wind","bank":"FluidR3_GM/english_horn-ogg.js"},{"id":"bassoon","name":"Bassoon","short":"Bassoon","category":"Wind","bank":"FluidR3_GM/bassoon-ogg.js"},{"id":"clarinet","name":"Clarinet","short":"Clarinet","category":"Wind","bank":"FatBoy/clarinet-ogg.js"},{"id":"piccolo","name":"Piccolo","short":"Piccolo","category":"Wind","bank":"FatBoy/piccolo-ogg.js"},{"id":"flute","name":"Flute","short":"Flute","category":"Wind","bank":"FatBoy/flute-ogg.js"},{"id":"recorder","name":"Recorder","short":"Recorder","category":"Wind","bank":"FatBoy/recorder-ogg.js"},{"id":"pan-flute","name":"Pan Flute","short":"Pan Flute","category":"Wind","bank":"FatBoy/pan_flute-ogg.js"},{"id":"blown-bottle","name":"Blown Bottle","short":"Bottle","category":"Wind","bank":"FatBoy/blown_bottle-ogg.js"},{"id":"shakuhachi","name":"Shakuhachi","short":"Shakuhachi","category":"Wind","bank":"FatBoy/shakuhachi-ogg.js"},{"id":"whistle","name":"Whistle","short":"Whistle","category":"Wind","bank":"MusyngKite/whistle-ogg.js"},{"id":"ocarina","name":"Ocarina","short":"Ocarina","category":"Wind","bank":"FatBoy/ocarina-ogg.js"},{"id":"square-lead","name":"Square Lead","short":"Square Lead","category":"Synth","bank":"FatBoy/lead_1_square-ogg.js"},{"id":"synth-lead","name":"Synth Lead","short":"Synth Lead","category":"Synth","bank":"FatBoy/lead_2_sawtooth-ogg.js"},{"id":"warm-pad","name":"Warm Pad","short":"Warm Pad","category":"Synth","bank":"FatBoy/pad_2_warm-ogg.js"},{"id":"halo-pad","name":"Halo Pad","short":"Halo Pad","category":"Synth","bank":"FatBoy/pad_7_halo-ogg.js"},{"id":"tinkle-bell","name":"Tinkle Bell","short":"Tinkle Bell","category":"Percussion","bank":"FatBoy/tinkle_bell-ogg.js"},{"id":"steel-drums","name":"Steel Drums","short":"Steel Drm","category":"Percussion","bank":"FatBoy/steel_drums-ogg.js"},{"id":"taiko-drum","name":"Taiko Drum","short":"Taiko","category":"Percussion","bank":"FatBoy/taiko_drum-ogg.js"}],"categories":["Piano","Electric Piano","Keys","Organ","Guitar","Bass","Strings","Voice","Brass","Wind","Synth","Percussion"]}</script>
+<script src="sampled-sounds.js"></script>
 <script src="full-score.js"></script>
 <script src="full-player.js"></script>
 <script>
@@ -1145,8 +1268,11 @@ function light(midi,delta){
   key.classList.toggle('active',n>0);
 }
 function press(id,midi,physical=false){
+  if(seekResumePress(id,midi,physical))return;
+  try {
   if(!Number.isInteger(midi)||(!physical&&!keyButtons.has(midi))||active.has(id)||!audio())return;
   const presetId=ui.preset.value, velocity=.88;
+  samplePrepareWorkingSet();
   const out=!recording&&isFull()&&mode!=='Demo'?alongBus:master;
   const v=voice(midi,ctx.currentTime,velocity,presetId,out), item={midi,v,note:null};
   light(midi,1);
@@ -1157,6 +1283,7 @@ function press(id,midi,physical=false){
   active.set(id,item);
   paintManualKey(midi);
   inputLesson(midi,id);
+  } finally {seekResumeAfterPress(id,midi);}
 }
 function finish(item){
   item.v.release();
@@ -1167,8 +1294,9 @@ function paintPedal(midi){
   if([...tails].some(t=>t.midi===midi))key.dataset.pedalHeld='true';else delete key.dataset.pedalHeld;
 }
 function up(id,cancel=false){
+  if(seekResumeRelease(id))return;
   const item=active.get(id); if(!item)return;
-  active.delete(id);light(item.midi,-1);
+  active.delete(id);item.v.cancelPending?.();light(item.midi,-1);
   paintManualKey(item.midi);
   if(isSustain()&&!cancel){tails.add(item);paintPedal(item.midi);}else finish(item);
   endHeldInput(id,cancel);
@@ -1187,6 +1315,125 @@ function releaseLive(reset=false){
   pointers.clear();updatePedal();
   if(gated&&lesson?.mode==='Practice'){drawGuide();practiceCue();}
 }
+/* Only a trusted timebar gesture arms this gate. Query links remain idle links. */
+const seekResumeState={armed:false,gesture:false,pending:null,wake:null,epoch:0};
+const seekResumeNavKeys=new Set(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp']);
+function seekResumeBadge(){
+  guide.seek.dataset.resumeArmed=String(seekResumeState.armed);
+  guide.seek.dataset.resumePending=String(!!seekResumeState.pending);
+}
+function seekResumeClear(){
+  const pending=seekResumeState.pending;
+  seekResumeState.armed=false;seekResumeState.gesture=false;
+  seekResumeState.pending=null;seekResumeState.wake=null;seekResumeState.epoch++;
+  if(pending){backingCancelRequest();globalThis.NocturneSamples?.cancel?.();}
+  seekResumeBadge();
+}
+function seekResumeBegin(){
+  if(seekResumeState.gesture)return;
+  seekResumeClear();backingCancelRequest();globalThis.NocturneSamples?.cancel?.();
+  seekResumeState.gesture=true;seeking=true;
+  if(lesson)pauseLesson();
+  releaseLive(true);
+  $('rhythmHud').dataset.seeking='true';
+}
+function seekResumePreview(){
+  const text=rhythmClock(Number(guide.seek.value));
+  guide.elapsed.textContent=text;guide.seek.setAttribute('aria-valuetext',text);
+  guide.lessonFeedback.textContent='選擇時間 '+text+' · 放手後按任何琴鍵開始';
+}
+function seekResumePark(arm=true){
+  if(!seekResumeState.gesture)return;
+  seekResumeState.gesture=false;
+  // Reuse the native mode-specific reset/seek transaction, not a second clock.
+  // This synthetic change is intentionally NOT an arming gesture itself.
+  guide.seek.dispatchEvent(new Event('change',{bubbles:true}));
+  seeking=false;rhythmSeekGesture=null;$('rhythmHud').dataset.seeking='false';
+  if(lesson)pauseLesson();
+  const seconds=guidePos*(lesson?.length||pausedLesson?.length||60000/tempo())/1000;
+  seekResumeState.armed=!!(arm&&guidePos<totalBeats);
+  seekResumeBadge();
+  guide.lessonFeedback.textContent='已跳至 '+rhythmClock(seconds)+
+    (seekResumeState.armed?' · 按任何琴鍵開始（電腦鍵盤或畫面琴鍵）':' · 已暫停');
+  drawTimeline();
+}
+function seekResumeRelease(id){
+  const strike=seekResumeState.pending?.strikes.get(id);
+  if(!strike)return false;
+  strike.released=true;return true;
+}
+function seekResumeQueue(pending,id,midi,physical){
+  pending.strikes.set(id,{id,midi,physical,released:false});
+}
+function seekResumeAfterPress(id,midi){
+  const wake=seekResumeState.wake;
+  if(wake?.id===id&&wake.midi===midi)seekResumeState.wake=null;
+}
+function seekResumeIgnoreWakeInput(midi,id){
+  const wake=seekResumeState.wake;
+  if(wake?.id!==id||wake.midi!==midi||lesson?.mode!=='Practice'||!lesson.rhythm)return false;
+  const a=lesson;
+  if(a.retryGate)return !a.retryGate.pending.has(midi);
+  const first=a.rhythm.notes.find(note=>!note.result);
+  if(!first)return true;
+  // Waking playback is not an attempt at an unrelated target. Correct wake
+  // pitches still go through the real, unchanged judgment path exactly once.
+  const candidate=a.rhythm.notes.find(note=>!note.result&&Math.abs(note.start-first.start)<1e-8&&note.midi===midi);
+  return !candidate||!NocturneRhythmRules.judge(rhythmTime(a),candidate.start,candidate.end).accepted;
+}
+async function seekResumeFlush(pending){
+  const current=()=>seekResumeState.pending===pending&&pending.epoch===seekResumeState.epoch;
+  try{
+    // Sample preparation starts on the native key gesture. Its continuation
+    // may start the separate recorded-backing loader, so await them in order.
+    for(let round=0;round<8&&current()&&!lesson;round++){
+      const samples=globalThis.NocturneSamples?.pending?.();
+      if(samples)await samples;
+      if(!current())return;
+      const backing=backingState.loading;
+      if(backing)await backing;
+      if(!current())return;
+      if(!lesson&&!samples&&!backing)break;
+      await Promise.resolve();
+    }
+    if(!current())return;
+    seekResumeState.pending=null;seekResumeBadge();
+    if(!lesson)return;
+    for(const strike of pending.strikes.values()){
+      // Releasing before decode/preparation cancels the deferred key sound.
+      // The start gesture may resume transport, but cannot create a late tap.
+      if(strike.released)continue;
+      if(strike.id===pending.wakeId)seekResumeState.wake={id:strike.id,midi:strike.midi};
+      press(strike.id,strike.midi,strike.physical);
+    }
+  }catch(_){
+    if(!current())return;
+    seekResumeState.pending=null;seekResumeState.armed=true;seekResumeBadge();
+    guide.lessonFeedback.textContent='聲音載入失敗 · 按任何琴鍵重試';
+  }
+}
+function seekResumePress(id,midi,physical){
+  if(!Number.isInteger(midi)||midi<0||midi>127||(!physical&&!keyButtons.has(midi))||active.has(id))return false;
+  if(seekResumeState.pending){
+    seekResumeQueue(seekResumeState.pending,id,midi,physical);return true;
+  }
+  if(!seekResumeState.armed)return false;
+  seekResumeState.armed=false;seekResumeBadge();
+  performanceMode(true);startLesson();
+  // Native pointerdown already acquired capture. The transport releases old
+  // gestures; keep this new gesture available for pointerup/glissando.
+  if(id.startsWith('p'))pointers.add(Number(id.slice(1)));
+  if(!lesson&&(backingState.loading||globalThis.NocturneSamples?.pending?.())){
+    const pending={epoch:seekResumeState.epoch,wakeId:id,strikes:new Map()};
+    seekResumeState.pending=pending;seekResumeQueue(pending,id,midi,physical);seekResumeBadge();
+    seekResumeFlush(pending);
+    return true;
+  }
+  if(lesson)seekResumeState.wake={id,midi};
+  return false;
+}
+function seekResumeNative(event){return event.isTrusted&&event.target===guide.seek;}
+
 const typing=el=>el instanceof Element&&(el.closest('textarea,input,select,[role=textbox]')||el.isContentEditable);
 let fullKeyboard=false;
 function performanceMode(enable,returnFocus=false){
@@ -1309,7 +1556,7 @@ let usedFull=false,preFullTempo=100;
 if(!fullScore){guide.song.querySelector('[value=canonFull]').disabled=true;guide.song.value='canon';}
 const fullDesc={Demo:'背景音樂＋自動示範琴鍵。原譜首 4.8 秒休止，第一音 C＝A4。',
 Along:'背景音樂繼續；只有你按下的琴鍵會發聲，不會自動代彈。',
-Practice:'背景＋手彈＋停等助手。錯鍵或 MISS 時，背景與提示一起返回並停住；按對後繼續。長音按一下、前後 0.5 秒內接受。'};
+Practice:'背景＋手彈＋停等助手。錯鍵或 MISS 時，背景與提示一起返回並停住；按對後繼續。長音按一下、最寬前後 1.3 秒；下一組到達即截止。'};
 const songs={
  moon:{score:'C4 E4 G4 A4:2 G4 E4 D4 F4 A4 G4:2 D4 E4 C4+E4:2 D4 E4+G4:2 C4:2',bass:[48,50,48,43,48,45,48,43]},
  ode:{score:'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2',bass:[48,43,48,43,48,43,48,48]},
@@ -1476,6 +1723,7 @@ function notationMark(el,info,start,state,index,midi,current){
   const automatic=!!(!info.rest&&current&&state&&lesson===state&&demo&&state.autoNotes?.some(n=>n.midi===midi));
   const feedback=physical?'holding':retry?'retry':automatic?'auto':!info.rest&&demo&&current?'demo-waiting':!info.rest&&!demo&&seen?'hit':!info.rest&&current?'expected':'none';
   tagValue(el,'feedback',feedback);tagValue(el,'hit',feedback==='hit');
+  tagValue(el,'grade',judgmentGrade(state,index,midi));
 }
 // The blue contact strip is live input only: never infer a press from a score cue
 // or from an automatic voice. Holding a pedal after key-up is not a physical press.
@@ -1717,6 +1965,8 @@ function drawGuide(beat){
   paintTargets(); drawTimeline(beat); syncControls();
 }
 function stopLesson(completed=false){
+  sampleCancel();
+  seekResumeClear();
   if(lesson?.rhythm)return rhythmStop(completed);
   if(!lesson)return;
   clearTimeout(lesson.timer);
@@ -1729,6 +1979,9 @@ function stopLesson(completed=false){
   }else guide.lessonFeedback.textContent='已停止。';
 }
 function selectMode(next){
+  sampleCancel();
+  seekResumeClear();
+  delete guide.lessonFeedback.dataset.grade;
   backingCancelRequest();
   mode=next;$('rhythmHud').hidden=next!=='Practice';
   const opt=isFull()&&mode==='Along';
@@ -1754,6 +2007,7 @@ function guideChange(next=mode){
   usedFull=full;guidePos=0;drawGuide();
 }
 function makeLesson(length,position){
+  delete guide.lessonFeedback.dataset.grade;
   const offset=stepAt(position),audioTimed=!!isFull();
   return {audioTimed,floor:position,autoNotes:[],hold:null,chordKeys:new Map(),retryMidi:null,sliceTick:-1,mode,index:-1,score:modeScore,timer:null,voices:new Set(),fullVoices:new Map(),bassVoice:null,bassPulse:-1,
     got:new Set(),played:new Map(),hit:0,misses:0,practiceDone:0,total:modeScore.slice(offset).reduce((n,s)=>n+s.pitches.length,0),
@@ -1776,7 +2030,38 @@ function pauseLesson(){
   guidePos=a.pos=position;pausedLesson=a;lesson=null;drawGuide();
   guide.lessonFeedback.textContent='已暫停 · 第 '+(a.score[a.index]?.group||1)+' / '+fullScore.leadGroups+' 組';
 }
+
+let sampleToken=0,sampleRequest=null,sampleId=null;
+function sampleCancel(){sampleToken++;sampleRequest=null;sampleId=null;}
+window.NocturneSamples=Object.freeze({pending:()=>sampleRequest,cancel:sampleCancel});
+function sampleWorkingNotes(){
+  const score=isFull()&&typeof sourceNotes!=='undefined'?sourceNotes.map(n=>n.midi):modeScore.flatMap(s=>s.pitches||[]);
+  const notes=[...new Set([...keyButtons.keys(),...score].filter(Number.isInteger))];
+  return notes.length?notes:[60];
+}
+function samplePrepareWorkingSet(){
+  if(!engine?.sampled||!ctx)return;
+  const id=ui.preset.value,work=sampleWorkingNotes();
+  if(!engine.warm(id,work)||!['ready','fallback'].includes(engine.getStatus(id).state))
+    engine.prepare(ctx,id,work).catch(e=>soundWarning(String(e.message||e)));
+}
+function sampleGate(length){
+  if(lesson||!engine?.sampled)return false;
+  if(sampleRequest){sampleCancel();drawGuide();return true;}
+  if(recording||!audio())return true;
+  const id=ui.preset.value;
+  const warmNotes=sampleWorkingNotes();
+  if(engine.warm(id,warmNotes))return false;
+  const ticket=++sampleToken,where=guidePos,which=mode;sampleId=id;
+  guide.lessonAction.textContent='取消載入';guide.lessonFeedback.textContent='正在準備音色；音色就緒後才會開始計時。';
+  sampleRequest=engine.prepare(ctx,id,warmNotes).then(()=>{
+    if(ticket!==sampleToken||lesson||which!==mode||where!==guidePos||id!==ui.preset.value)return;
+    sampleRequest=null;sampleId=null;startLesson(length);
+  }).catch(e=>{if(ticket===sampleToken){sampleRequest=null;sampleId=null;guide.lessonFeedback.textContent='不能準備音色：'+e.message;drawGuide();}});
+  return true;
+}
 function startLesson(length=60000/tempo()){
+  if(sampleGate(length))return;
   if(isFull()&&!lesson&&!backingState.buffer)return backingPrepare(length);
   if(mode==='Practice'&&isFull())return rhythmStart(length);
   if(lesson){pauseLesson();return;}
@@ -1836,8 +2121,10 @@ function endHeldInput(id,cancel){
   else {drawGuide();practiceCue();}
 }
 function inputLesson(midi,id){
+  if(seekResumeIgnoreWakeInput(midi,id))return;
   const a=lesson;if(!a||a.mode==='Demo')return;
   if(a.rhythm)return rhythmInput(a,midi,id);
+  if(a.mode==='Along'&&isFull())return judgmentAlongInput(a,midi,id);
   // Input may arrive before a late timer callback. Never credit the previous beat.
   if(a.mode==='Along'&&(stepAt(transportBeat(a))!==a.index||transportBeat(a)>=totalBeats)){
     queueLesson();if(lesson!==a)return;
@@ -1881,6 +2168,34 @@ $('pocGuideSound').onclick=()=>{
     queueLesson(true); // rejoin at the current beat, without restarting the score
   }
 };
+
+const sampleBadge=document.createElement('span');sampleBadge.id='soundBankStatus';sampleBadge.setAttribute('role','status');
+sampleBadge.textContent='取樣待載入';$('soundsToggle').insertAdjacentElement('afterend',sampleBadge);
+const displaySample=id=>{
+  const s=engine.getStatus(id),chosen=ui.preset.selectedOptions[0]?.textContent||id;
+  const publicAlias=['concert-grand','grand-piano-1'].includes(id)?'（FluidR3 公開鋼琴）':'';
+  sampleBadge.dataset.state=s.state;
+  sampleBadge.textContent=({loading:'音色載入中',ready:'取樣就緒',fallback:'載入失敗 · 合成備用',idle:'取樣待載入'})[s.state]||'取樣待載入';
+  sampleBadge.title=chosen+publicAlias+' · '+(s.message||sampleBadge.textContent);
+  $('sampleNoticeStatus')?.replaceChildren(document.createTextNode(sampleBadge.title));
+};
+function sampleSelect(){sampleCancel();backingCancelRequest();if(lesson)pauseLesson();releaseLive(true);const id=ui.preset.value;displaySample(id);
+  if(audio())samplePrepareWorkingSet();
+}
+if(engine?.sampled){
+  engine.onStatus(s=>{if(s.id===ui.preset.value)displaySample(s.id);});
+  ui.preset.addEventListener('change',sampleSelect);
+  $('keyView').addEventListener('change',()=>{if(ctx)requestAnimationFrame(samplePrepareWorkingSet);});
+  for(const type of ['pointerdown','input','change','keydown'])guide.seek.addEventListener(type,sampleCancel,{capture:true});
+  window.addEventListener('pagehide',sampleCancel);
+  document.addEventListener('DOMContentLoaded',()=>{
+    const bar=document.createElement('p'),info=document.createElement('span'),a=document.createElement('a'),retry=document.createElement('button');
+    info.id='sampleNoticeStatus';retry.textContent='重試取樣';retry.type='button';
+    retry.onclick=()=>{engine.retry(ui.preset.value);sampleSelect();};
+    a.href='SAMPLE-NOTICE.txt';a.target='_blank';a.rel='noopener';a.textContent='取樣來源與授權';
+    bar.className='sounds-foot';bar.append(info,'　',retry,'　',a);$('soundsPanel').append(bar);displaySample(ui.preset.value);
+  },{once:true});
+}
 ui.preset.addEventListener('change',()=>{
   const a=lesson;
   if(!ctx||!a||!isFull()||!scoreSounds(a))return;
@@ -1917,6 +2232,7 @@ function queueLesson(resume=false,sample){
   const a=lesson;if(!a||a.mode==='Practice')return;
   clearTimeout(a.timer);
   const beat=typeof sample==='number'?sample:transportBeat(a);
+  if(a.mode==='Along'&&isFull())judgmentAlongTick(a,beat);
   if(beat>=totalBeats){stopLesson(true);return;}
   const index=stepAt(beat),changed=a.index!==index,step=a.score[index];
   if(changed||resume){
@@ -2120,6 +2436,55 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){if(fullKey
 // Pick the spacious default once; resizing must never change a musician's view.
 ui.keyView.value='34';
 
+guide.seek.addEventListener('pointerdown',event=>{
+  if(!seekResumeNative(event)||event.button!==0)return;
+  event.stopImmediatePropagation();seekResumeBegin();
+},true);
+guide.seek.addEventListener('input',event=>{
+  if(!seekResumeNative(event))return;
+  event.stopImmediatePropagation();seekResumeBegin();seekResumePreview();
+},true);
+guide.seek.addEventListener('change',event=>{
+  if(!seekResumeNative(event))return;
+  event.stopImmediatePropagation();seekResumeBegin();seekResumePark();
+},true);
+guide.seek.addEventListener('pointerup',event=>{
+  if(!seekResumeNative(event))return;
+  event.stopImmediatePropagation();setTimeout(()=>seekResumePark(),0);
+},true);
+guide.seek.addEventListener('pointercancel',event=>{
+  if(!seekResumeNative(event))return;
+  event.stopImmediatePropagation();seekResumePark(false);
+},true);
+guide.seek.addEventListener('keydown',event=>{
+  if(!seekResumeNative(event)||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.isComposing)return;
+  if(!seekResumeNavKeys.has(event.key))return;
+  event.stopImmediatePropagation();seekResumeBegin();
+},true);
+document.addEventListener('keydown',event=>{
+  if(!event.isTrusted||!seekResumeState.armed||event.defaultPrevented)return;
+  const rangeFocus=event.target===guide.seek&&document.activeElement===guide.seek;
+  if(rangeFocus&&seekResumeNavKeys.has(event.key))return;
+  const editing=(typing(event.target)||typing(document.activeElement))&&!rangeFocus;
+  if(editing)return;
+  const binding=layout().byCode.get(event.code);
+  const selfShift=fullKeyboard&&!!binding&&(event.code==='ShiftLeft'||event.code==='ShiftRight');
+  if(event.repeat||event.altKey||event.ctrlKey||event.metaKey||(event.shiftKey&&!selfShift)||event.isComposing){
+    event.stopImmediatePropagation();return;
+  }
+  if(!binding)return;
+  const midi=binding.pitch+mappingOffset();if(!Number.isInteger(midi)||midi<0||midi>127)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  revealKey(midi);press('k'+event.code,midi,true);
+},true);
+for(const control of [guide.lessonAction,guide.restart,ui.stop])
+  control?.addEventListener('click',seekResumeClear,true);
+for(const control of [ui.preset,guide.song])
+  control?.addEventListener('change',seekResumeClear,true);
+window.addEventListener('blur',seekResumeClear);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)seekResumeClear();});
+seekResumeBadge();
+
 updateOctaveChoices();render();guideChange();drawTracks();
 {
   const requestedView=new URLSearchParams(location.search).get('view');
@@ -2142,7 +2507,7 @@ updateOctaveChoices();render();guideChange();drawTracks();
   const families=[...select.querySelectorAll('optgroup')].filter(g=>g.children.length);
   if(!families.length){toggle.disabled=true;return;}
   const titles={
-    'Piano & Keys':'鋼琴與鍵盤','Organs':'風琴','Guitars':'結他','Basses':'低音結他',
+    'Piano':'鋼琴','Electric Piano':'電鋼琴','Keys':'鍵盤','Organ':'風琴','Guitar':'結他','Bass':'低音結他','Strings':'弦樂','Voice':'人聲','Wind':'管樂','Synth':'合成器','Percussion':'敲擊樂','Piano & Keys':'鋼琴與鍵盤','Organs':'風琴','Guitars':'結他','Basses':'低音結他',
     'Bowed Strings':'弓弦樂','Brass':'銅管樂','Woodwinds':'木管樂','World & Plucked':'民族與撥弦',
     'Mallets & Bells':'音槌與鐘','Synth Leads':'合成主音','Pads & Atmosphere':'音墊與氛圍','Electronic Percussion':'電子敲擊'
   };

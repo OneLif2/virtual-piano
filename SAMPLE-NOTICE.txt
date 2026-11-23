@@ -1,0 +1,37 @@
+Nocturne Virtual Piano — instrument sample credits
+
+The 95 instrument choices use 93 distinct public General MIDI banks from
+Benjamin Gleitzman's MIDI.js Soundfonts project. Two piano alias choices and
+the FluidR3 acoustic grand share one bank. “Concert Grand Piano” and “Grand
+Piano 1” use this public replacement; neither contains OnlinePianist's custom
+piano recordings. The labels do not imply endorsement.
+
+Exact upstream release:
+https://github.com/gleitz/midi-js-soundfonts/tree/044fab8e1456bfafc5776e86dfd6bb8697149aef
+Upstream author, instrument origins and bank-specific license declarations:
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/README.md
+
+  FluidR3_GM (18 banks), FluidR3 GM by Frank Wen:
+  Creative Commons Attribution 3.0 United States
+  https://creativecommons.org/licenses/by/3.0/us/
+
+  Musyng Kite (30 banks), the Musyng Kite soundfont distributed via SynthFont:
+  Creative Commons Attribution-ShareAlike 3.0 Unported
+  https://creativecommons.org/licenses/by-sa/3.0/
+
+  FatBoy (45 banks), the FatBoy SoundFont:
+  Creative Commons Attribution-ShareAlike 3.0 Unported
+  https://creativecommons.org/licenses/by-sa/3.0/
+
+Pre-rendered Ogg/MP3 MIDI.js conversion: Benjamin Gleitzman's MIDI.js
+Soundfonts. Nocturne fetches pinned, unmodified upstream data on demand,
+checks the recorded byte count and SHA-256, parses only its note/audio-data
+map (never executes the fetched JavaScript), then decodes the selected samples
+locally for playback with a gain envelope. Nocturne does not assert ownership
+of the recordings. The above credit, terms and applicable share-alike license
+remain attached to those sounds and adaptations of those sounds. The separate
+MIT license for upstream software is not a replacement for the sample licenses.
+
+If a sample cannot be loaded or verified, the interface identifies the
+fallback explicitly: the existing locally synthesized instrument is used,
+not a substitute recording silently described as the named sample.
