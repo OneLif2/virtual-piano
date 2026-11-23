@@ -268,6 +268,8 @@ html[data-score-view=falling] #readingLane,html[data-score-view=falling] .deskto
 }
 /* Distinguish an expected score pitch, the automatic voices, the player and a pedal tail. */
 #keybed .key.auto-backing:not(.active){box-shadow:inset 0 6px #4e83b5,inset 0 -4px #6283a2}
+#keybed .key.white.auto-backing:not(.active){background:linear-gradient(#719fc6,#d2e8f8 32%,#aacde9);box-shadow:inset 0 6px #4e83b5,inset 0 -4px #6283a2}
+#keybed .key.black.auto-backing:not(.active){background:linear-gradient(115deg,#254862,#4a7fa9 70%);box-shadow:inset 0 6px #8bc8f2}
 #keybed .key.white.auto-lead:not(.active){background:linear-gradient(#b9a067,#f5eccb 32%,#eee5c9);box-shadow:inset 0 6px #9d782e,inset 0 -4px #ad9259}
 #keybed .key.black.auto-lead:not(.active){background:linear-gradient(115deg,#4c4529,#605337 70%);box-shadow:inset 0 6px #ecc973}
 #keybed .key[data-auto=both]:not(.active){border-inline-start:4px solid #537eaa}
@@ -392,10 +394,10 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
           <div class="controls">
             <label class="field">音色 <select id="preset"><option value="">夜曲原聲</option></select></label>
             
-            <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
+            <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="100"></label>
             <label class="field">琴鍵加強（自動＋手動）
-              <input id="pianoBoost" aria-label="琴鍵加強（自動及手動）" aria-valuetext="+3 dB · 141%" type="range" min="0" max="6" step="1" value="3">
-              <output id="pianoBoostReadout" for="pianoBoost">+3 dB · 141%</output></label>
+              <input id="pianoBoost" aria-label="琴鍵加強（自動及手動）" aria-valuetext="+5 dB · 178%" type="range" min="0" max="6" step="1" value="5">
+              <output id="pianoBoostReadout" for="pianoBoost">+5 dB · 178%</output></label>
             <label class="field">背景音量 <input id="backingVolume" type="range" min="0" max="100" value="50" aria-label="背景音量"><output id="backingVolumeLabel" for="backingVolume">50%</output></label>
             <label id="alongBoostField" class="field" hidden>手彈音量加強
               <input id="alongBoost" aria-label="手彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
@@ -403,7 +405,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
             <label class="field">電腦鍵配置 <select id="keyLayout" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="reference" selected>參考配置 · 42 鍵</option><option value="compact">精簡配置 · 25 鍵</option></select></label>
             <label class="field">實體鍵盤音域 <select id="octave" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
             <label class="field">移調 <select id="transpose" disabled title="全曲試奏版固定原譜速度及截圖鍵位"></select></label>
-            <label class="field">琴鍵標籤 <select id="labels"><option value="en">C D E</option><option value="sol">Do Re Mi</option><option value="off">不顯示</option></select></label>
+            <label class="field">琴鍵標籤 <select id="labels"><option value="en">C D E</option><option value="sol">Do Re Mi</option><option value="off" selected>不顯示</option></select></label>
             <button id="sustain" aria-pressed="false" type="button">延音 · Space</button>
             <button id="labelToggle" type="button" aria-label="切換實體鍵盤字母提示">QWERTY / CDE</button>
           </div>
@@ -1398,8 +1400,8 @@ function paintTargets(){
   pocDisplay();
   for(const [midi,key] of keyButtons){
     const target=pitches.includes(midi), hit=!!(target&&a.got.has(midi));
-    key.classList.toggle('target',target&&!hit);
-    key.classList.toggle('target-hit',hit);
+    key.classList.toggle('target',mode!=='Along'&&target&&!hit);
+    key.classList.toggle('target-hit',mode!=='Along'&&hit);
     key.classList.toggle('hold-pending',!!a?.chordKeys.has(midi));key.classList.toggle('retry',a?.retryMidi===midi);
   }
   const next=pitches.find(p=>!a.got.has(p));
