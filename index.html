@@ -78,7 +78,7 @@ progress{display:block;width:48px;height:5px;border:0;border-radius:4px;overflow
 progress::-webkit-progress-bar{background:#33404a}progress::-webkit-progress-value{background:var(--mint)}progress::-moz-progress-bar{background:var(--mint)}
 .cue-line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px var(--gutter);min-height:34px;color:#c5d2da;background:#141b24;border-bottom:1px solid #ffffff0c}
 .cue-copy{min-width:0}.cue-copy p{font-size:.78rem;line-height:1.3;margin:0}
-.cue-copy:has(#lessonFeedback:not(:empty)) #lessonHelp,.cue-copy #lessonFeedback:empty{display:none}
+.cue-copy:has(#lessonFeedbackText:not(:empty)) #lessonHelp,.cue-copy:has(#lessonFeedback[data-inline-visible=true]) #lessonHelp,.cue-copy #lessonFeedback:has(#lessonFeedbackText:empty):not([data-inline-visible=true]){display:none}
 #lessonFeedback{color:var(--mint);font-weight:650}
 .range-group{display:flex;align-items:center;gap:8px;flex:none}
 #range{font-size:.67rem;color:#a7b8c4;font-variant-numeric:tabular-nums}.key-nav{gap:3px}.key-nav button{min-height:25px;border-radius:5px;padding:1px 6px;font-size:.7rem}
@@ -383,7 +383,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 
 </style>
 <style>
-/* Unjudged manual targets are neutral. Red means an actual POOR or MISS only. */
+/* Unjudged targets are neutral. Red means a provisional or finalized MISS. */
 .read-pitch[data-grade=none]{color:#cbd3da!important}
 .read-pitch[data-grade=PERFECT]{color:#ffb36b!important}
 .read-pitch[data-grade=GREAT]{color:#c6a0ff!important}
@@ -419,6 +419,12 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 .mast-tools{flex-wrap:wrap}
 </style><link rel="stylesheet" href="sounds-layout.css">
 <link rel="stylesheet" href="volume-controls.css">
+<style id="inlineJudgmentStyles">
+#inlineJudgeBadge[hidden],#inlineComboBadge[hidden]{display:none!important}#inlineJudgeBadge,#inlineComboBadge{display:inline-block;height:1em;line-height:1;vertical-align:-.08em;margin-inline-end:.5em;font-family:Impact,"Arial Black",ui-sans-serif,sans-serif;font-size:1em;font-weight:900;font-style:italic;letter-spacing:.015em;white-space:nowrap}#inlineJudgeBadge[data-grade=PERFECT]{color:#ffd46a;-webkit-text-stroke:.025em #8a451c;text-shadow:.045em .045em 0 #593016}#inlineJudgeBadge[data-grade=GREAT]{color:#dcb9ff;-webkit-text-stroke:.025em #62318c;text-shadow:.045em .045em 0 #402353}#inlineJudgeBadge[data-grade=GOOD]{color:#97dfff;-webkit-text-stroke:.025em #285e8e;text-shadow:.045em .045em 0 #213c59}#inlineJudgeBadge[data-grade=POOR],#inlineJudgeBadge[data-grade=MISS]{color:#ff929c;-webkit-text-stroke:.025em #932c43;text-shadow:.045em .045em 0 #592937}#inlineComboBadge{color:#ffe4f3;-webkit-text-stroke:.025em #b52f7c;text-shadow:.045em .045em 0 #72294f}#inlineComboValue{font:inherit}#inlineComboWord{font-size:.56em;line-height:1;margin-inline-start:.12em;color:#ffc6e6}#lessonFeedbackText{font:inherit}
+</style>
+<style id="endStatsStyles">
+#endStatsCard[hidden]{display:none!important}#endStatsCard{margin-top:12px;padding:12px 14px;border:1px solid #41665f;border-radius:10px;background:#18262e;color:#e7f1f2;font-size:14px;line-height:1.5}#endStatsCard h3{font-size:16px;margin:0 0 8px;line-height:1.4}#endStatsCounts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}#endStatsCounts>div{min-width:0;padding:6px 4px;text-align:center;border-radius:6px;background:#101b22}#endStatsCounts span{display:block;font-size:14px}#endStatsCounts strong{display:block;font-size:22px;font-variant-numeric:tabular-nums}#endStatsCard p{font-size:14px!important;line-height:1.5!important;margin:7px 0 0!important}#endStatsCard [data-end-grade=PERFECT]{color:#ffb36b}#endStatsCard [data-end-grade=GREAT]{color:#c6a0ff}#endStatsCard [data-end-grade=GOOD]{color:#8dd2ff}#endStatsCard [data-end-grade=POOR],#endStatsCard [data-end-grade=MISS]{color:#ff9da4}@media(max-width:600px){#endStatsCounts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
 <style id="homeCleanupStyles">#localDiagnostics{margin:12px 0}#localDiagnostics>summary{cursor:pointer;font-size:14px;color:#bceade}#localDiagnostics[open]>summary{margin-bottom:10px}.tools-panel #originalAbControls{flex-wrap:wrap;white-space:normal}.tools-panel #fullScoreLinks{position:static;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:14px}#sampleBankStatusHost #soundBankStatus{position:static;display:block;max-width:none;margin:6px 0;font-size:14px;white-space:normal}</style>
 <style id="readerOnsetTickStyles">
 .notation-letter{display:inline-block;flex:none}.notation-tick{display:none;position:absolute;left:var(--letter-attack,0px);width:1px;height:7px;background:currentColor;transform:translateX(-50%);pointer-events:none}.notation-tick-top{top:var(--tick-top,-9px)}.notation-tick-bottom{top:var(--tick-bottom,100%)}
@@ -514,17 +520,17 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
       <span data-stat>達成率 <b id="rhythmAccuracy">0.00%</b></span>
       <span data-stat>Combo <b id="rhythmCombo">0</b>／最高 <b id="rhythmMaxCombo">0</b></span>
       <label data-stat>血量 <meter id="rhythmGauge" min="0" max="100" value="100" aria-label="練習血量"></meter><b id="rhythmGaugeText">100</b></label>
-      <span id="rhythmCounts">只判定起音；最多提前 1000ms／延後 1000ms，下一組到達即截止。</span>
+      <span id="rhythmCounts">只判定起音；最多提前 500ms／延後 1200ms，下一組到達即截止。</span>
       <details class="rhythm-help"><summary>判定及計分規則</summary><div>
       本頁自訂起音判定，並非 Konami 官方數值。以音符起音為 0ms，只計新的按下事件；長按時值不會延長判定或自動取分。過早按下不會取分；需在窗口內放開再重新按下。<br>
-      優先取最高級：PERFECT 提前≤10ms／延後≤30ms：1000分；GREAT 提前≤50ms／延後≤100ms：700分；GOOD 提前≤100ms／延後≤500ms：300分；POOR 提前≤1000ms／延後≤1000ms：100分。起音後逾1秒未命中或下一組不同起音到達：MISS／0；以較早者為準，同時和弦不互相截止。<br>
-      PERFECT、GREAT、GOOD 均 Combo +1；POOR、MISS 歸零。錯鍵是 POOR／0 分，不取代目標音。<br>
-      每個音只計一次；每個和弦音分開計，可分別點按。總分＝累積分 ÷（本次音數 ×1000）×1,000,000。<br>
+      優先取最高級：PERFECT 提前≤20ms／延後≤40ms：1000分；GREAT 提前≤50ms／延後≤100ms：700分；GOOD 提前≤100ms／延後≤500ms：300分；POOR 提前≤400ms／延後≤800ms：100分；其餘提前≤500ms／延後≤1200ms：MISS／0分。超出此範圍為 INVALID，不作輸入判定。起音後逾1.2秒未命中或下一組不同起音到達：MISS／0；以較早者為準，同時和弦不互相截止。<br>
+      PERFECT、GREAT、GOOD 均 Combo +1；POOR、MISS 歸零。Practice 錯鍵是 MISS／0 分；Play Along 錯鍵只暫記下一組其中一個音為 MISS，可在截止前重試。<br>
+      每個音只入帳一次；每個和弦音分開計，可分別點按。Play Along 截止前採最後一次新按下，判定可升可降；截止時才入帳。總分＝累積分 ÷（本次音數 ×1000）×1,000,000。<br>
       血量由100開始；PERFECT +2、GREAT +1、GOOD 0、POOR −5、MISS −10。降至0仍可繼續練習。暫停不扣分。<br>
       達成率以本次最大分數計：SS≥95%、S≥80%、A≥73%、B≥63%，其餘C；示範播放不會代你得分。
-      <br>Play Along 重複同音按最近起音配對（同距離取較後音）；若交給下一同音，較早未判定同音只記一次 MISS。沒有可命中的待彈同音時，可於舊音截止後1秒內補彈 MISS／POOR，只改為藍字，原判定、分數、Combo 及血量不變。<br>Practice 按錯或 MISS 會返回該音並停住；補彈正確以 RECOVERED 中性解決，不計分、不加 Combo 或血量，亦不增加 PERFECT；原有錯鍵及 MISS 保留。補彈由更正音符按原時值繼續，不跳到下一音。時間條可重練任何段落，跳時間會重置本次成績，按任何琴鍵再開始。
+      <br>Play Along 每次按下只改一個目標的判定，截止前可不限次重試，最後一次取代前次，輸入當下不入帳。只在排程時鐘到達下一組起音或逾起音1.2秒時才結算一次；不會因按下一個鍵同時結算舊音。只可預先命中緊接的下一組，不能跳過下一組去彈更後的音。同音先看最近已過的一音：未曾按過且仍在 GOOD 延後窗口內，優先該音；已按過或超出 GOOD 延後窗口，則優先緊接下一組的可命中同音。下一音起音前的重試仍取代同一音；若下一組沒有同音，保留既有補彈／重試規則。截止後判定及分數鎖定；近期 POOR／MISS 補彈只改為藍字，原分數、Combo、血量不變。<br>Practice 按錯或 MISS 會返回該音並停住；補彈正確以 RECOVERED 中性解決，不計分、不加 Combo 或血量，亦不增加 PERFECT；原有錯鍵及 MISS 保留。補彈由更正音符按原時值繼續，不跳到下一音。時間條可重練任何段落，跳時間會重置本次成績，按任何琴鍵再開始。
       </div></details>
-    </section><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status"></p></div>
+    </section><p id="lessonHelp">先聽完整示範，跟著高亮琴鍵看音符。</p><p id="lessonFeedback" role="status" data-inline-visible="false"><span id="inlineJudgeBadge" hidden></span><span id="inlineComboBadge" hidden><strong id="inlineComboValue"></strong><span id="inlineComboWord">COMBO</span></span><span id="lessonFeedbackText"></span></p><p id="alongAttemptStatus" class="hint" role="status" hidden style="font-size:14px"></p><section id="endStatsCard" role="status" aria-live="polite" aria-atomic="true" aria-labelledby="endStatsTitle" hidden><h3 id="endStatsTitle">演奏完成</h3><div id="endStatsCounts" aria-label="最終音符判定次數"></div><p id="endStatsMeta"></p><p id="endStatsNotes"></p></section></div>
     <div class="range-group"><button id="pocGuideSound" type="button" aria-pressed="false" hidden disabled>譜音：開</button><span id="alongMix" hidden>只聽按鍵</span><span id="backingStatus" role="status" style="font-size:.7rem;white-space:nowrap">背景：待載入</span><label class="hint-view" for="scoreView"><span>提示</span><select id="scoreView" aria-label="按鍵提示模式"><option value="falling">直向落鍵 ↓</option><option value="horizontal" selected>橫向單行 →</option><option value="auto">自動（按螢幕）</option></select></label><button id="performanceFocus" type="button" aria-controls="keybed" aria-pressed="false" aria-describedby="performanceHelp" title="啟用全鍵演奏；Esc 離開">全鍵演奏</button><span id="range">C3–C5</span><div id="keyNav" class="key-nav" hidden>
       <button id="scrollLow" type="button" aria-label="向低音移動琴鍵">← 低音</button><button id="scrollHigh" type="button" aria-label="向高音移動琴鍵">高音 →</button>
     </div></div>
@@ -534,21 +540,128 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
 <section class="piano-dock" aria-label="底部琴鍵"><div id="keyboardViewport"><div id="keybed" role="group" tabindex="-1" data-performance="false" aria-describedby="performanceHelp" aria-label="虛擬鋼琴琴鍵"></div></div></section>
 </main>
 <script>
+/* Compact projection only: Combo is read from the settled ledger, never incremented here. */
+const feedbackText=document.getElementById('lessonFeedbackText');
+const inlineFeedbackState={grade:null,active:false};
+function resetInlineFeedback(){
+  inlineFeedbackState.grade=null;inlineFeedbackState.active=false;
+  const judge=document.getElementById('inlineJudgeBadge'),combo=document.getElementById('inlineComboBadge');
+  judge.hidden=true;combo.hidden=true;judge.textContent='';document.getElementById('inlineComboValue').textContent='';
+  delete judge.dataset.grade;delete combo.dataset.combo;delete combo.dataset.source;document.getElementById('lessonFeedback').dataset.inlineVisible='false';
+}
+function paintInlineFeedback(a=lesson||pausedLesson){
+  const judge=document.getElementById('inlineJudgeBadge'),combo=document.getElementById('inlineComboBadge'),paragraph=document.getElementById('lessonFeedback');
+  const labels=['PERFECT','GREAT','GOOD','POOR','MISS'];let summary=null,grade=null,source='',acted=false;
+  if(a?.rhythm){summary=NocturneRhythmRules.summary(a.rhythm);grade=document.getElementById('rhythmJudge').dataset.grade;source='practice-settled';acted=summary.judged>0||summary.wrong>0||summary.neutralResolved>0;}
+  else if(a?.mode==='Along'&&a.alongJudgments){summary=NocturneRhythmRules.summary(a.alongJudgments);grade=a.alongFeedback?.label;source='along-settled';acted=summary.judged>0||summary.wrong>0||!!a.alongFeedback;}
+  else if(!a&&endStatsSnapshot?.mode===mode&&Number.isFinite(endStatsSnapshot.combo)){summary=endStatsSnapshot;grade=inlineFeedbackState.grade;source='completed-settled';acted=summary.judged>0||summary.wrong>0||summary.neutralResolved>0;}
+  else if(!a&&mode==='Practice'&&rhythmLast&&inlineFeedbackState.active){summary=rhythmLast;grade=document.getElementById('rhythmJudge').dataset.grade;source='practice-completed';acted=true;}
+  else if(!a&&mode==='Along'&&alongLedgerLast&&inlineFeedbackState.active){const value=Number(alongLedgerLast.data.combo);if(Number.isFinite(value)){summary={combo:value};grade=inlineFeedbackState.grade;source='along-completed';acted=true;}}
+  if(mode==='Demo'||!summary||!acted){judge.hidden=true;combo.hidden=true;paragraph.dataset.inlineVisible='false';return;}
+  inlineFeedbackState.active=true;inlineFeedbackState.grade=labels.includes(grade)?grade:null;
+  judge.hidden=!inlineFeedbackState.grade;
+  if(!judge.hidden){if(judge.textContent!==grade)judge.textContent=grade;judge.dataset.grade=grade;}
+  const value=String(summary.combo),number=document.getElementById('inlineComboValue');if(number.textContent!==value)number.textContent=value;
+  combo.dataset.combo=value;combo.dataset.source=source;combo.hidden=false;paragraph.dataset.inlineVisible='true';
+  // The graphic replaces only a repeated leading grade word, not helper instructions.
+  if(!judge.hidden){const pattern=new RegExp('^(已入帳\\s+)?'+grade+'\\s*·\\s*');const text=feedbackText.textContent;if(pattern.test(text))feedbackText.textContent=text.replace(pattern,(_,settled)=>settled?'已入帳 · ':'');}
+}
+</script>
+<script>
+/* End summaries are immutable note-ledger snapshots, never attempt counters. */
+const END_STATS_GRADES=Object.freeze(['PERFECT','GREAT','GOOD','POOR','MISS']);
+let endStatsSnapshot=null;
+function clearEndStats(){
+  resetInlineFeedback();
+  endStatsSnapshot=null;const card=document.getElementById('endStatsCard');if(!card)return;card.hidden=true;
+  for(const key of Object.keys(card.dataset))delete card.dataset[key];
+  document.getElementById('endStatsCounts').replaceChildren();document.getElementById('endStatsMeta').textContent='';document.getElementById('endStatsNotes').textContent='';
+}
+function endStatsDeadline(chart,endpoint){
+  return chart.notes.reduce((time,n)=>!n.result?Math.max(time,n.deadline+1e-6):time,endpoint+1e-6);
+}
+function showEndStats(summary,completedMode){
+  const counts=Object.freeze(Object.fromEntries(END_STATS_GRADES.map(grade=>[grade,summary.noteCounts[grade]||0])));
+  endStatsSnapshot=Object.freeze({mode:completedMode,noteCounts:counts,total:summary.total,judged:summary.judged,neutralResolved:summary.neutralResolved,remaining:summary.remaining,wrong:summary.wrong,score:summary.score,accuracy:summary.accuracy,combo:summary.combo,maxCombo:summary.maxCombo});
+  const card=document.getElementById('endStatsCard'),list=document.getElementById('endStatsCounts'),snapshot=endStatsSnapshot;
+  document.getElementById('endStatsTitle').textContent=completedMode==='Practice'?'Practice · 練習完成':'Play Along · 演奏完成';
+  list.replaceChildren(...END_STATS_GRADES.map(grade=>{const cell=document.createElement('div');cell.dataset.endGrade=grade;cell.dataset.count=String(counts[grade]);const label=document.createElement('span'),value=document.createElement('strong');label.textContent=grade;value.textContent=String(counts[grade]);cell.append(label,value);return cell;}));
+  for(const key of ['mode','total','judged','neutralResolved','remaining','wrong','score','maxCombo'])card.dataset[key]=String(snapshot[key]);
+  document.getElementById('endStatsMeta').textContent='已判定 '+snapshot.judged+' / '+snapshot.total+' 音符 · 分數 '+snapshot.score.toLocaleString('en-US')+' · 達成率 '+snapshot.accuracy.toFixed(2)+'%';
+  document.getElementById('endStatsNotes').textContent='五項合計 '+END_STATS_GRADES.reduce((n,g)=>n+counts[g],0)+' 音'+(snapshot.neutralResolved?' · 中性解決 '+snapshot.neutralResolved+' 音（不加入五項）':'')+' · 待判 '+snapshot.remaining+' 音'+(snapshot.wrong?' · 錯鍵記錄 '+snapshot.wrong+'（另列，不再加入音符總數）':'');
+  card.hidden=false;paintInlineFeedback();
+}
+</script>
+<style id="pianoLoadingStyles">
+#pianoLoadingDialog{box-sizing:border-box;width:min(440px,calc(100vw - 36px));max-height:calc(100dvh - 36px);padding:32px 28px 24px;border:1px solid #365451;border-radius:18px;background:#171f27;color:#edf3f4;text-align:center;box-shadow:0 24px 90px #0009;overflow:auto;font-family:inherit}
+#pianoLoadingDialog::backdrop{background:#070b11c9;backdrop-filter:blur(3px)}#pianoLoadingDialog h2{margin:22px 0 13px;font-size:19px;line-height:1.4;letter-spacing:.12em;font-weight:750}#pianoLoadingDialog p{font-size:14px;line-height:1.65;margin:8px 0;color:#bdcdd3;overflow-wrap:anywhere}#pianoLoadingPhase{color:#9cead5!important;font-weight:650}#pianoLoadingDialog .loading-actions{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}#pianoLoadingDialog button{min-height:42px;padding:9px 24px;font:inherit;font-size:14px;border:1px solid #49636c;border-radius:8px;color:#e6f1f4;background:#26343e;cursor:pointer}#pianoLoadingDialog button:focus-visible{outline:3px solid #ffe1a4;outline-offset:3px}#pianoLoadingRetry{background:#9cead5!important;color:#122b2c!important;border-color:#9cead5!important}#pianoLoadingRetry[hidden]{display:none!important}#pianoLoadingDialog[data-state=error] #pianoLoadingPhase{color:#ffb6ae!important}
+.piano-warming-icon{position:relative;display:flex;gap:3px;width:112px;height:62px;margin:0 auto;padding:7px 7px 8px;border:1px solid #5f8a82;border-radius:9px;background:#263b3d;box-sizing:border-box;animation:pianoWarmingPulse 1.6s ease-in-out infinite}.piano-warming-icon i{flex:1;background:#e0ece9;border-radius:1px 1px 3px 3px}.piano-warming-icon b{position:absolute;top:7px;width:8px;height:30px;background:#17252c;border-radius:0 0 2px 2px}.piano-warming-icon b:nth-of-type(1){left:18px}.piano-warming-icon b:nth-of-type(2){left:32px}.piano-warming-icon b:nth-of-type(3){left:60px}.piano-warming-icon b:nth-of-type(4){left:74px}.piano-warming-icon b:nth-of-type(5){left:88px}#pianoLoadingDialog[data-state=error] .piano-warming-icon{animation:none}@keyframes pianoWarmingPulse{50%{opacity:.55}}@media(prefers-reduced-motion:reduce){.piano-warming-icon{animation:none}}
+</style>
+<dialog id="pianoLoadingDialog" aria-modal="true" aria-labelledby="pianoLoadingTitle" aria-describedby="pianoLoadingPhase pianoLoadingDetail">
+<div class="piano-warming-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b><b></b><b></b><b></b><b></b></div><h2 id="pianoLoadingTitle">WARMING UP PIANO…</h2>
+<p id="pianoLoadingPhase" role="status" aria-live="polite"></p><p id="pianoLoadingDetail">準備好後才會開始計時。您可以取消，稍後再試。</p>
+<div class="loading-actions"><button id="pianoLoadingRetry" type="button" hidden>重試載入</button><button id="pianoLoadingCancel" type="button" autofocus>取消</button></div>
+</dialog>
+<script>
+/* A requested start owns one real preparation transaction, not a fake timer. */
+const pianoLoading=(()=>{
+const dialog=document.getElementById('pianoLoadingDialog'),title=document.getElementById('pianoLoadingTitle'),phase=document.getElementById('pianoLoadingPhase'),detail=document.getElementById('pianoLoadingDetail'),retry=document.getElementById('pianoLoadingRetry'),cancelButton=document.getElementById('pianoLoadingCancel');
+let active=null,serial=0,stageSerial=0,returnFocus=null;
+const same=(a,b)=>a.mode===b.mode&&a.preset===b.preset&&Math.abs(a.position-b.position)<1e-6&&a.length===b.length;
+const owns=lease=>!!active&&active.id===lease?.operationId&&active.stageId===lease.stageId;
+function close(){if(dialog.open)dialog.close();const target=returnFocus;returnFocus=null;if(target?.isConnected&&!target.disabled)target.focus({preventScroll:true});}
+function begin(kind,context){
+ if(!active||!same(active.context,context)){active={id:++serial,context:Object.freeze({...context})};if(!dialog.open)returnFocus=document.activeElement;}
+ Object.assign(active,{phase:kind,state:'loading',stageId:++stageSerial});
+ dialog.dataset.state='loading';dialog.dataset.phase=kind;dialog.dataset.operationId=active.id;dialog.dataset.stageId=active.stageId;dialog.setAttribute('aria-busy','true');
+ title.textContent='WARMING UP PIANO…';phase.textContent=kind==='samples'?'正在準備琴鍵音色…':'正在載入及解碼背景音樂…';detail.textContent='準備好後才會開始計時。您可以取消，稍後再試。';retry.hidden=true;
+ releaseLive(true);if(!dialog.open)dialog.showModal();cancelButton.focus({preventScroll:true});
+ return Object.freeze({operationId:active.id,stageId:active.stageId});
+}
+function ready(lease){if(!owns(lease))return;active=null;dialog.setAttribute('aria-busy','false');close();}
+function error(lease,message){
+ if(!owns(lease))return;active.state='error';dialog.dataset.state='error';dialog.setAttribute('aria-busy','false');title.textContent='載入未完成';phase.textContent=active.phase==='samples'?'琴鍵音色未能準備好':'背景音樂未能載入';detail.textContent=String(message||'請檢查連線後重試，或取消返回鋼琴。');retry.hidden=false;retry.focus({preventScroll:true});
+}
+function cancel(reason='cancel'){
+ if(!active&&!dialog.open)return false;active=null;dialog.setAttribute('aria-busy','false');close();
+ // Clear ownership before the existing invalidators re-enter cancel().
+ sampleCancel();backingCancelRequest();seekResumeClear();releaseLive(true);syncControls();drawGuide(guidePos);feedbackText.textContent=reason==='hidden'?'已暫停載入；返回後請按開始。':'已取消載入；按開始可重試。';return true;
+}
+retry.addEventListener('click',()=>{
+ if(active?.state!=='error')return;const context=active.context;cancel('retry');
+ if(context.mode!==mode||context.preset!==(ui.preset.value||DEFAULT_SOUND)||Math.abs(context.position-guidePos)>1e-6)return;
+ engine?.retry?.(context.preset);startLesson(context.length);
+});
+cancelButton.addEventListener('click',()=>cancel());dialog.addEventListener('cancel',event=>{event.preventDefault();cancel();});dialog.addEventListener('close',()=>{if(!dialog.open&&active)cancel('closed');});
+document.addEventListener('keydown',event=>{
+ if(!dialog.open)return;
+ if(event.ctrlKey||event.metaKey||event.altKey||event.key==='F5'){event.stopImmediatePropagation();return;}
+ if(event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();cancel();return;}
+ if(event.key==='Tab'||((event.key==='Enter'||event.key===' ')&&event.target.closest?.('#pianoLoadingDialog button'))){event.stopImmediatePropagation();return;}
+ event.preventDefault();event.stopImmediatePropagation();
+},true);
+window.addEventListener('pagehide',()=>cancel('hidden'));document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel('hidden');});
+return Object.freeze({begin,ready,error,cancel,isBlocking:()=>dialog.open,snapshot:()=>Object.freeze({open:dialog.open,state:active?.state||'idle',phase:active?.phase||null,operationId:active?.id||null,stageId:active?.stageId||null})});
+})();
+window.NocturneLoading=Object.freeze({snapshot:pianoLoading.snapshot});
+</script>
+<script>
 /* Pure beginner-practice judgments. These are Nocturne's rules, not Konami's.
  * Grade only a fresh attack relative to note.start, never the held interval.
- * Explicit early/late windows differ by grade; the widest is -1..+1s.
+ * Explicit early/late windows differ by grade; the widest is -.5..+1.2s.
  * Simultaneous chord pitches share one onset; a future group cannot steal a hit.
  * Stop-helper corrections are neutral RECOVERED resolutions, never free PERFECTs.
  */
 (function (root) {
   'use strict';
-  const EPS=1e-9, WINDOW=1.0, EARLY_WINDOW=WINDOW;
+  const EPS=1e-9, WINDOW=1.2, EARLY_WINDOW=.5;
   const LABELS=['PERFECT','GREAT','GOOD','POOR','MISS'];
   const WINDOWS=Object.freeze([
-    {label:'PERFECT',early:.010,late:.030},
+    {label:'PERFECT',early:.020,late:.040},
     {label:'GREAT',early:.050,late:.100},
     {label:'GOOD',early:.100,late:.500},
-    {label:'POOR',early:WINDOW,late:WINDOW}
+    {label:'POOR',early:.400,late:.800},
+    {label:'MISS',early:EARLY_WINDOW,late:WINDOW}
   ].map(Object.freeze));
   const POINTS=Object.freeze({PERFECT:1000,GREAT:700,GOOD:300,POOR:100,MISS:0});
   const GAUGE=Object.freeze({PERFECT:2,GREAT:1,GOOD:0,POOR:-5,MISS:-10});
@@ -563,8 +676,8 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
     // Strict attack timing: duration affects playback/notation, never grading.
     const errorSeconds=time-start;
     const grade=WINDOWS.find(w=>errorSeconds>=-w.early-EPS&&errorSeconds<=w.late+EPS);
-    const label=grade?grade.label:'MISS';
-    return {label,errorSeconds,points:POINTS[label],accepted:label!=='MISS'};
+    const label=grade?grade.label:null,withinWindow=!!grade;
+    return {label,errorSeconds,points:withinWindow?POINTS[label]:0,accepted:withinWindow&&label!=='MISS',withinWindow,valid:withinWindow,invalid:!withinWindow};
   }
   function create(notes,startAtSeconds=0){
     if(!Array.isArray(notes))throw new TypeError('notes must be an array');finite(startAtSeconds,'startAtSeconds');
@@ -607,8 +720,8 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
     }return results;
   }
   function penalizeWrong(state){
-    valid(state);apply(state,'POOR',0,false);
-    return {note:null,index:-1,label:'POOR',errorSeconds:null,points:0,accepted:false,wrong:true,duplicate:false,expired:[]};
+    valid(state);apply(state,'MISS',0,false);
+    return {note:null,index:-1,label:'MISS',errorSeconds:null,points:0,accepted:false,wrong:true,duplicate:false,expired:[]};
   }
   function idle(extra={}){return {note:null,index:-1,label:null,errorSeconds:null,points:0,accepted:false,wrong:false,duplicate:false,expired:[],...extra};}
   function hit(state,midi,time){
@@ -624,43 +737,71 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
     const duplicate=state.notes.some(note=>note.result&&note.result.label!=='MISS'&&(!earliest||Math.abs(note.start-earliest.start)<=EPS)&&note.midi===midi&&time>=note.start-EARLY_WINDOW-EPS&&time<=note.start+WINDOW+EPS);
     if(duplicate)return idle({duplicate:true});
     // Too-early input is ignored, not a wrong-key penalty or an automatic held hit.
-    if(!eligible)return idle({outsideWindow:true});
+    if(!eligible)return idle({outsideWindow:true,invalid:true});
     return {...penalizeWrong(state),expired};
   }
-  // Play Along alone may hand a fresh press to the closer repeated-pitch onset.
-  // Practice keeps hit()'s earliest-group and stop-helper contract unchanged.
+  // Along inputs are provisional attempts only. The scheduler alone commits
+  // one final result at the deadline; Practice hit()/expire() stay unchanged.
+  function alongClosed(note,time){
+    return note.nextOnset!==null&&time>=note.nextOnset-EPS||time>note.start+WINDOW+EPS;
+  }
+  function expireAlong(state,time){
+    valid(state);finite(time,'time');const results=[];
+    for(let i=0;i<state.notes.length;i++){
+      const note=state.notes[i];if(note.result||!alongClosed(note,time))continue;
+      const attempt=note.attempt,label=attempt?.label||'MISS';
+      const reason=label==='MISS'?(attempt?.wrong?'WRONG_ATTEMPT':attempt?'TIMING_MISS':note.nextOnset!==null&&note.nextOnset<=note.start+WINDOW+EPS?'NEXT_NOTE':'TIMEOUT'):undefined;
+      const result=resultFor(state,i,label,attempt?attempt.errorSeconds:time-note.start,reason);
+      result.finalized=true;result.finalizedAt=time;result.wrong=!!attempt?.wrong;
+      if(attempt){result.attemptTime=attempt.time;result.attemptMidi=attempt.midi;}
+      if(result.wrong)state.wrong++; // One diagnostic per final wrong note; no extra penalty.
+      results.push(result);
+    }
+    return results;
+  }
   function hitAlong(state,midi,time){
-    valid(state);pitch(midi);finite(time,'time');const expired=expire(state,time);
-    const candidates=state.notes.map((note,index)=>({note,index}))
-      .filter(({note})=>!note.result&&note.midi===midi&&judge(time,note.start,note.end).accepted);
-    const first=candidates[0];
-    if(first){
-      let selected=first;
-      if(time>first.note.start+EPS){
-        for(const candidate of candidates){
-          if(candidate.note.start<first.note.start-EPS)continue;
-          const delta=Math.abs(time-candidate.note.start),best=Math.abs(time-selected.note.start);
-          if(delta<best-EPS||(Math.abs(delta-best)<=EPS&&candidate.note.start>selected.note.start+EPS))selected=candidate;
-        }
-      }
-      if(selected.note.start>first.note.start+EPS){
-        for(let i=0;i<state.notes.length;i++){
-          const note=state.notes[i];
-          if(!note.result&&note.midi===midi&&note.start<selected.note.start-EPS&&note.start<time-EPS)
-            expired.push(resultFor(state,i,'MISS',time-note.start,'NEXT_TARGET_PRIORITY'));
-        }
-      }
-      const j=judge(time,selected.note.start,selected.note.end);
-      return {...resultFor(state,selected.index,j.label,j.errorSeconds),expired};
+    valid(state);pitch(midi);finite(time,'time');
+    // A later future pitch is not a shortcut: only the immediate upcoming
+    // onset group can own a future attempt, alongside recent passed matches.
+    const upcoming=state.notes.filter(note=>!note.result&&!alongClosed(note,time)&&note.start>=time-EPS&&time>=note.start-EARLY_WINDOW-EPS);
+    const upcomingStart=upcoming[0]?.start;
+    const group=upcoming.filter(note=>Math.abs(note.start-upcomingStart)<=EPS);
+    const candidates=[];
+    for(let index=0;index<state.notes.length;index++){
+      const note=state.notes[index];if(note.midi!==midi)continue;
+      const closed=!!note.result||alongClosed(note,time);
+      if(!closed&&judge(time,note.start,note.end).withinWindow&&(note.start<time-EPS||Math.abs(note.start-upcomingStart)<=EPS))candidates.push({note,index,closed:false});
+      else if(closed&&time>=note.start-EPS&&time<=note.deadline+WINDOW+EPS)candidates.push({note,index,closed:true});
     }
-    // A pending eligible target always outranks old ink correction. Corrections
-    // are bounded to one second after the old deadline and never touch scoring.
-    if(!candidates.length){
-      const old=state.notes.map((note,index)=>({note,index})).reverse().find(({note})=>
-        note.midi===midi&&['MISS','POOR'].includes(note.result?.label)&&time>=note.start-EPS&&time<=note.deadline+WINDOW+EPS);
-      if(old)return idle({note:metadata(old.note),index:old.index,label:'RECOVERED',neutral:true,visualOnly:true,originalLabel:old.note.result.label,expired});
+    let selected=null;
+    for(const candidate of candidates){
+      const delta=Math.abs(time-candidate.note.start),best=selected?Math.abs(time-selected.note.start):Infinity;
+      if(delta<best-EPS||(Math.abs(delta-best)<=EPS&&candidate.note.start>selected.note.start+EPS))selected=candidate;
     }
-    const result=hit(state,midi,time);return {...result,expired:[...expired,...(result.expired||[])]};
+    // A fresh, unattempted passed note keeps its GOOD-or-better late window.
+    // Once attempted, a same-pitch press belongs to the immediate coming note;
+    // before that coming onset, fresh retries still replace that same note.
+    const passed=candidates.filter(candidate=>candidate.note.start<time-EPS).at(-1);
+    const coming=candidates.find(candidate=>!candidate.closed&&candidate.note.start>=time-EPS);
+    if(passed&&coming){
+      const old=passed.note,goodLate=WINDOWS.find(w=>w.label==='GOOD').late;
+      selected=!passed.closed&&!old.result&&!old.attempt&&time-old.start<=goodLate+EPS?passed:coming;
+    }
+    if(selected?.closed){
+      const old=selected.note,label=old.result?.label||old.attempt?.label||'MISS';
+      if(['MISS','POOR'].includes(label))return idle({note:metadata(old),index:selected.index,label:'RECOVERED',neutral:true,visualOnly:true,originalLabel:label});
+      return idle({note:metadata(old),index:selected.index,duplicate:true,neutral:true,originalLabel:label});
+    }
+    let wrong=false;
+    if(!selected){
+      const note=group[0];if(!note)return idle({outsideWindow:true,invalid:true});
+      selected={note,index:state.notes.indexOf(note),closed:false};wrong=true;
+    }
+    const note=selected.note,j=judge(time,note.start,note.end),label=wrong?'MISS':j.label;
+    // LAST attempt wins, even if worse. No score, Combo, gauge or wrong-key
+    // count is changed by input; an unlimited fresh retry replaces this object.
+    note.attempt=Object.freeze({time,midi,wrong,label,errorSeconds:j.errorSeconds,rawPoints:POINTS[label]});
+    return idle({note:metadata(note),index:selected.index,label,errorSeconds:j.errorSeconds,rawPoints:POINTS[label],accepted:!wrong&&j.accepted,wrong,provisional:true,attemptPolicy:'LAST'});
   }
   function recover(state,id){
     valid(state);const index=state.notes.findIndex(note=>note.id===id);
@@ -680,7 +821,7 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
       hits:state.hits,misses:state.misses,wrong:state.wrong,combo:state.combo,maxCombo:state.maxCombo,gauge:state.gauge,
       recovered:state.recovered,neutralResolved:state.neutralResolved,counts:{...state.counts},noteCounts:{...state.noteCounts}};
   }
-  const api=Object.freeze({judge,create,hit,hitAlong,expire,penalizeWrong,recover,summary,WINDOW,EARLY_WINDOW,WINDOWS,POINTS,GAUGE,LABELS:Object.freeze(LABELS.slice())});
+  const api=Object.freeze({judge,create,hit,hitAlong,expire,expireAlong,penalizeWrong,recover,summary,WINDOW,EARLY_WINDOW,WINDOWS,POINTS,GAUGE,LABELS:Object.freeze(LABELS.slice())});
   root.NocturneRhythmRules=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof globalThis !== 'undefined' ? globalThis : window);
 
@@ -702,6 +843,7 @@ function rhythmPaint(a=lesson||pausedLesson){
   $('rhythmGaugeText').textContent=s.gauge;
   $('rhythmCounts').textContent=Object.entries(s.counts).map(([key,n])=>key+' '+n).join(' · ')+
     ' · 已判定 '+s.judged+'/'+s.total+' 音 · 補彈 '+s.recovered+'（中性解決 '+s.neutralResolved+'） · 待判 '+s.remaining+(s.wrong?' · 錯鍵 '+s.wrong:'');
+  paintInlineFeedback(a);
 }
 function rhythmAttach(a,position){
   const notes=sourceNotes.filter(n=>window.NocturneFullScore.practiceTracks.includes(n.track)).map(n=>({
@@ -724,8 +866,9 @@ function rhythmResult(a,r){
   const offset=r.errorSeconds,when=r.missReason==='NEXT_NOTE'?'下一組音符已到達':offset==null?'錯鍵':Math.abs(offset)<1e-8?'正中起音':
     (offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
   const key=r.note?(bindingFor(r.note.midi)?.label||name(r.note.midi)):'';
-  guide.lessonFeedback.textContent=r.label+' · '+key+' '+when+
+  feedbackText.textContent=r.label+' · '+key+' '+when+
     (r.wrong?' · 按錯，返回目標重試':r.label==='MISS'?' · 漏彈，返回目標重試':' · 已合格，唔使長按');
+  paintInlineFeedback(a);
 }
 function rhythmSync(a,beat){
   a.index=stepAt(beat);a.got=new Set(a.played.get(a.index)||[]);
@@ -734,8 +877,8 @@ function rhythmSync(a,beat){
 function rhythmCue(a){
   if(a.retryGate){rhythmRetryCue(a);return;}
   const pending=remaining(a,a.score[a.index]);
-  guide.lessonFeedback.textContent=pending.length?'節奏練習中 · '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+
-    ' · 只判定起音的新按下；最多提前 1000ms／延後 1000ms，下一組到達即截止':'節奏練習中 · 等候下一音；未按鍵不會發聲';
+  feedbackText.textContent=pending.length?'節奏練習中 · '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+
+    ' · 只判定起音的新按下；最多提前 500ms／延後 1200ms，下一組到達即截止':'節奏練習中 · 等候下一音；未按鍵不會發聲';
 }
 function rhythmTick(){
   const a=lesson;if(!a?.rhythm)return;
@@ -772,18 +915,20 @@ function rhythmPause(){
   const beat=transportBeat(a);clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
   releaseLive(true);clearGate(a);silenceLesson(a);
   a.pos=guidePos=beat;lesson=null;pausedLesson=a;drawGuide(beat);rhythmPaint(a);
-  guide.lessonFeedback.textContent='已暫停練習 · 時間及判定已凍結；按「繼續練習」接返';
+  feedbackText.textContent='已暫停練習 · 時間及判定已凍結；按「繼續練習」接返';
 }
 function rhythmStop(completed){
+  if(!completed)clearEndStats();
   const a=lesson;if(!a?.rhythm)return;
   clearTimeout(a.timer);cancelAnimationFrame(guideRaf);
-  if(completed)for(const r of NocturneRhythmRules.expire(a.rhythm,totalBeats*a.length/1000+1e-6))rhythmResult(a,r);
+  if(completed)for(const r of NocturneRhythmRules.expire(a.rhythm,endStatsDeadline(a.rhythm,totalBeats*a.length/1000)))rhythmResult(a,r);
   releaseLive(true);clearGate(a);silenceLesson(a);
   rhythmLast=NocturneRhythmRules.summary(a.rhythm);
   lesson=null;pausedLesson=null;guidePos=completed?totalBeats:0;drawGuide();rhythmPaint(null);
   const s=rhythmLast,rank=s.accuracy>=95?'SS':s.accuracy>=80?'S':s.accuracy>=73?'A':s.accuracy>=63?'B':'C';
-  guide.lessonFeedback.textContent=completed?'練習完成！ '+rank+' · '+s.score.toLocaleString('en-US')+
+  feedbackText.textContent=completed?'練習完成！ '+rank+' · '+s.score.toLocaleString('en-US')+
     ' 分 · 計時命中 '+s.hits+'/'+s.total+' 音 · 補彈 '+s.recovered+'（不計分） · 最大 Combo '+s.maxCombo:'已停止練習';
+  if(completed)showEndStats(s,'Practice');
 }
 function rhythmInput(a,midi,id){
   if(a.retryGate){rhythmRetryInput(a,midi,id);return;}
@@ -792,6 +937,7 @@ function rhythmInput(a,midi,id){
   rhythmResult(a,r);
   if(r.accepted)a.chordKeys.set(midi,id);
   if(r.expired.length){rhythmBlock(a,r.expired.map(m=>m.note),'MISS');return;}
+  if(r.label==='MISS'&&r.note){rhythmBlock(a,[r.note],'MISS');return;}
   if(r.wrong){
     const target=rhythmPendingTarget(a,time);
     if(target){rhythmBlock(a,[target],'WRONG');return;}
@@ -820,7 +966,7 @@ function rhythmSeekPreview(){
   if(mode!=='Practice'||!isFull())return;
   const text=rhythmClock(Number(guide.seek.value));
   guide.elapsed.textContent=text;guide.seek.setAttribute('aria-valuetext',text);
-  guide.lessonFeedback.textContent='選擇時間 '+text+' · 放手後由此重練，本次成績會重置';
+  feedbackText.textContent='選擇時間 '+text+' · 放手後由此重練，本次成績會重置';
 }
 function rhythmSeekFinish(){
   if(rhythmSeekGesture){rhythmSeekCommit(Number(guide.seek.value));return;}
@@ -849,7 +995,7 @@ function rhythmSeekCommit(seconds){
     const a=makeLesson(length,guidePos);a.seekReset=true;rhythmAttach(a,guidePos);pausedLesson=a;
     if(state.running)rhythmStart(length);else{drawGuide();rhythmPaint(a);}
   }else{drawGuide();rhythmPaint(null);}
-  guide.lessonFeedback.textContent='已跳至 '+rhythmClock(target)+' · 本次成績已重置'+
+  feedbackText.textContent='已跳至 '+rhythmClock(target)+' · 本次成績已重置'+
     (guidePos>=totalBeats?' · 已到結尾':state.running?' · 繼續練習':state.paused?' · 按「繼續練習」開始':' · 按「開始練習」開始');
 }
 function rhythmPendingTarget(a,time){
@@ -874,7 +1020,7 @@ function rhythmOpenRetry(a,notes,reason){
 }
 function rhythmRetryCue(a){
   const g=a.retryGate,keys=[...g.pending.keys()].map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）');
-  guide.lessonFeedback.textContent=(g.reason==='MISS'?'MISS':'按錯')+' · 已返回並停在目標 · 等你按 '+keys.join(' + ')+
+  feedbackText.textContent=(g.reason==='MISS'?'MISS':'按錯')+' · 已返回並停在目標 · 等你按 '+keys.join(' + ')+
     ' · 按對才會繼續；原有扣分保留';
 }
 function rhythmRetryInput(a,midi,id){
@@ -893,14 +1039,14 @@ function rhythmRetryInput(a,midi,id){
   const resumeBeat=g.beat;delete a.retryGate;a.retryMidi=null;
   a.floor=a.pos=guidePos=resumeBeat;a.started=renderMs(a)-guidePos*a.length;
   backingStart(a);rhythmSync(a,guidePos);drawGuide(guidePos);rhythmPaint(a);
-  guide.lessonFeedback.textContent='補彈正確 · 不計分、不加 Combo 或血量；由更正音符繼續，原有錯鍵及 MISS 保留';
+  feedbackText.textContent='補彈正確 · 不計分、不加 Combo 或血量；由更正音符繼續，原有錯鍵及 MISS 保留';
   rhythmTick();
 }
 
 </script>
 <script>
 /* Shared Web Audio clock: recorded backing is separate from piano key voices. */
-const backingState={buffer:null,loading:null,current:null,gain:null,generation:0,lastOffset:0,error:null};
+const backingState={buffer:null,loading:null,controller:null,current:null,gain:null,generation:0,lastOffset:0,error:null};
 function backingSnapshot(){
   const v=backingState.current;
   return {loaded:!!backingState.buffer,loading:!!backingState.loading,playing:!!v,
@@ -917,35 +1063,33 @@ function backingVolume(){
   $('backingVolumeLabel').value=Math.round(v*100)+'%';
   if(backingState.gain)backingState.gain.gain.setTargetAtTime(v,ctx.currentTime,.02);
 }
-function backingCancelRequest(){backingState.generation++;}
+function backingCancelRequest(){const wasPending=!!backingState.loading;backingState.generation++;const request=backingState.controller;backingState.controller=null;backingState.loading=null;request?.abort();if(wasPending&&!backingState.current)backingStatus('背景：已取消載入');pianoLoading.cancel('superseded');syncControls();}
 function backingPrepare(length){
   if(recording||!audio())return;
   const token=++backingState.generation,selected=mode,position=guidePos;
-  backingStatus('背景：載入中…');guide.lessonFeedback.textContent='正在載入背景音樂，準備好後才會開始計時…';
+  const loading=pianoLoading.begin('backing',{length,mode:selected,position,preset:ui.preset.value||DEFAULT_SOUND});
+  backingStatus('背景：載入中…');feedbackText.textContent='正在載入背景音樂，準備好後才會開始計時…';
   if(!backingState.loading){
-    backingState.error=null;
-    backingState.loading=fetch('scores/media/canon-practice.m4a').then(r=>{
+    backingState.error=null;const request=new AbortController();backingState.controller=request;
+    backingState.loading=fetch('scores/media/canon-practice.m4a',{signal:request.signal}).then(r=>{
       if(!r.ok)throw Error('背景音軌 HTTP '+r.status);return r.arrayBuffer();
     }).then(bytes=>ctx.decodeAudioData(bytes)).then(buffer=>{
       backingState.buffer=buffer;
-      if(!backingState.gain){
-        backingState.gain=ctx.createGain();
-        backingState.gain.gain.value=Number($('backingVolume').value)/100;
-        backingState.gain.connect(master);
-      }
+      if(!backingState.gain){backingState.gain=ctx.createGain();backingState.gain.gain.value=Number($('backingVolume').value)/100;backingState.gain.connect(master);}
       return buffer;
     });
   }
-  syncControls();
-  backingState.loading.then(()=>{
-    if(token!==backingState.generation||mode!==selected||lesson||Math.abs(guidePos-position)>1e-6)return;
-    backingStatus('背景：已準備');startLesson(length);
+  const work=backingState.loading,request=backingState.controller;syncControls();
+  work.then(()=>{
+    if(token!==backingState.generation||mode!==selected||lesson||Math.abs(guidePos-position)>1e-6){pianoLoading.ready(loading);return;}
+    backingStatus('背景：已準備');startLesson(length);pianoLoading.ready(loading);
   }).catch(e=>{
     if(token!==backingState.generation)return;
     backingState.error=String(e);backingStatus('背景：載入失敗');
-    guide.lessonFeedback.textContent='背景音樂載入失敗，請按開始重試。'+(location.protocol==='file:'?' 本機請用 HTTP 伺服器開啟。':'');
-  }).finally(()=>{backingState.loading=null;syncControls();});
+    feedbackText.textContent='背景音樂載入失敗，請重試。';pianoLoading.error(loading,String(e.message||e)+(location.protocol==='file:'?' 本機請用 HTTP 伺服器開啟。':''));
+  }).finally(()=>{if(backingState.loading===work)backingState.loading=null;if(backingState.controller===request)backingState.controller=null;syncControls();});
 }
+
 function backingStop(owner){
   const v=backingState.current;if(!v||owner&&v.owner!==owner)return;
   backingState.lastOffset=v.offset+Math.max(0,ctx.currentTime-v.when);
@@ -982,10 +1126,15 @@ function judgmentGrade(a,index,midi){
   if(midi==null)return 'none';
   const key=judgmentKey(index,midi);
   if(a?.judgmentVisualRecovered?.has(key))return 'RECOVERED';
-  return a?.judgmentGrades?.get(key)||'none';
+  return a?.judgmentAttemptGrades?.get(key)||a?.judgmentGrades?.get(key)||'none';
 }
 function judgmentRemember(a,r){
   if(!a||a.mode==='Demo'||!r||!judgmentLabels.has(r.label))return;
+  if(r.provisional&&r.note){
+    a.judgmentAttemptGrades??=new Map();a.judgmentAttemptGrades.set(judgmentKey(r.note.stepIndex,r.note.midi),r.label);
+    if(guide?.lessonFeedback)guide.lessonFeedback.dataset.grade=r.label;return;
+  }
+  if(r.note)a.judgmentAttemptGrades?.delete(judgmentKey(r.note.stepIndex,r.note.midi));
   a.judgmentGrades??=new Map();
   const put=(index,midi,label)=>{
     if(index==null||index<0||midi==null)return;
@@ -997,13 +1146,13 @@ function judgmentRemember(a,r){
   else if(r.wrong){
     const chart=a.rhythm||a.alongJudgments;
     if(a.retryGate){
-      for(const midi of a.retryGate.pending.keys())put(a.retryGate.index,midi,'POOR');
+      for(const midi of a.retryGate.pending.keys())put(a.retryGate.index,midi,'MISS');
     }else{
       const unresolved=chart?.notes.filter(n=>!n.result)||[],first=unresolved[0];
-      if(first)for(const n of unresolved)if(n.start===first.start)put(n.stepIndex,n.midi,'POOR');
+      if(first)for(const n of unresolved)if(n.start===first.start)put(n.stepIndex,n.midi,'MISS');
     }
   }
-  if(guide?.lessonFeedback)guide.lessonFeedback.dataset.grade=r.label;
+  if(guide?.lessonFeedback&&!(a.mode==='Along'&&r.finalized))guide.lessonFeedback.dataset.grade=r.label;
 }
 function judgmentAlongState(a){
   if(!a.alongJudgments){
@@ -1011,35 +1160,64 @@ function judgmentAlongState(a){
       id:n.id,midi:n.midi,start:n.start*a.length/1000,end:n.end*a.length/1000,
       stepIndex:a.score.findIndex(s=>s.tick===Math.round(n.start*fullScore.ppq)&&s.pitches.includes(n.midi))
     }));
-    a.alongJudgments=NocturneRhythmRules.create(notes,a.floor*a.length/1000);
+    a.alongJudgments=NocturneRhythmRules.create(notes,a.floor*a.length/1000);alongLedgerLast=null;
   }
+  a.total=a.alongJudgments.total;
   return a.alongJudgments;
+}
+let alongLedgerLast=null;
+function paintAlongFeedback(a){
+  const f=a.alongFeedback;if(!f)return;
+  const target=bindingFor(f.midi)?.label||name(f.midi),input=bindingFor(f.inputMidi)?.label||name(f.inputMidi);
+  const offset=f.errorSeconds,when=offset==null?'':Math.abs(offset)<1e-8?'正中起音':(offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
+  guide.lessonFeedback.dataset.grade=f.label;guide.lessonFeedback.dataset.provisional=String(!!f.provisional);guide.lessonFeedback.dataset.targetId=String(f.noteId);
+  feedbackText.textContent=f.visualOnly?'RECOVERED · '+target+' · 只更正顏色，原判定及分數保留 · 背景繼續，手動跟彈':
+    f.duplicate?f.label+' · '+target+' · 已結算，沒有重複記分':
+    (f.provisional?'':'已入帳 ')+f.label+' · '+(f.wrong?'目標 '+target+'／輸入 '+input:target)+' '+when+
+    (f.provisional?' · 本次原始分 '+f.rawPoints+'（未入帳） · 截止前可重試，最後一次取代前次':' · 原始分 '+f.rawPoints+' · 判定已鎖定')+' · 背景繼續，手動跟彈';
+}
+function paintAlongLedger(a){
+  const out=$('alongAttemptStatus');if(!out)return;
+  if(!a||a.mode!=='Along'||!isFull()){
+    if(!a&&mode==='Along'&&alongLedgerLast&&alongLedgerLast.song===guide.song.value){out.hidden=false;out.textContent=alongLedgerLast.text;Object.assign(out.dataset,alongLedgerLast.data);return;}
+    out.hidden=true;if(mode!=='Along'||alongLedgerLast?.song!==guide.song.value)alongLedgerLast=null;return;
+  }
+  out.hidden=false;
+  const state=judgmentAlongState(a),summary=NocturneRhythmRules.summary(state),f=a.alongFeedback;
+  out.dataset.committedPoints=state.points;out.dataset.provisionalPoints=f?.provisional?f.rawPoints:0;
+  out.dataset.pendingAttempts=state.notes.filter(n=>!n.result&&n.attempt).length;
+  out.dataset.judged=summary.judged;out.dataset.combo=summary.combo;out.dataset.gauge=summary.gauge;out.dataset.wrong=summary.wrong;
+  out.textContent='已入帳原始分 '+state.points.toLocaleString('en-US')+' · Combo '+summary.combo+' · 血量 '+summary.gauge+' · 已判 '+summary.judged+'/'+summary.total+
+    (summary.wrong?' · 錯鍵（已入帳）'+summary.wrong:'')+(f?'　｜　本次目標 '+(bindingFor(f.midi)?.label||name(f.midi))+' · '+(f.provisional?'':'')+f.label+' · '+(f.provisional?'原始分 '+f.rawPoints+'（未入帳；截止前可重試）':f.visualOnly||f.duplicate?'只更新提示，不重複記分':'原始分 '+f.rawPoints+'（已入帳）'):'　｜　等待新的按下；截止時才入帳');
+  paintAlongFeedback(a);paintInlineFeedback(a);
+}
+function freezeAlongLedger(a){
+  paintAlongLedger(a);const out=$('alongAttemptStatus');if(out&&!out.hidden)alongLedgerLast={song:guide.song.value,text:out.textContent,data:{...out.dataset}};
 }
 function judgmentAlongTick(a,beat){
   const state=judgmentAlongState(a),seconds=Math.max(a.floor*a.length/1000,beat*a.length/1000);
-  for(const r of NocturneRhythmRules.expire(state,seconds))judgmentRemember(a,r);
+  for(const r of NocturneRhythmRules.expireAlong(state,seconds)){
+    judgmentRemember(a,r);
+    if(a.alongFeedback?.provisional&&a.alongFeedback.noteId===r.note.id)a.alongFeedback={...a.alongFeedback,label:r.label,rawPoints:r.points,wrong:r.wrong,errorSeconds:r.errorSeconds,provisional:false,finalized:true};
+  }
+  const summary=NocturneRhythmRules.summary(state);a.hit=summary.hits;a.misses=summary.misses;
+  paintAlongLedger(a);
 }
 function judgmentAlongInput(a,midi,id){
   const state=judgmentAlongState(a),time=rhythmTime(a);
-  // Along never rewinds/stops: close previous windows, then grade this input.
-  for(const r of NocturneRhythmRules.expire(state,time))judgmentRemember(a,r);
+  // One physical keydown owns one target only. Never expire or commit here.
   const r=NocturneRhythmRules.hitAlong(state,midi,time);
-  for(const expired of r.expired||[])judgmentRemember(a,expired);
   if(r.visualOnly&&r.note){a.judgmentVisualRecovered??=new Set();a.judgmentVisualRecovered.add(judgmentKey(r.note.stepIndex,r.note.midi));}
   judgmentRemember(a,r);
-  if(r.accepted){
+  if(r.provisional&&r.note){
     const index=r.note.stepIndex,played=a.played.get(index)||new Set();
-    played.add(midi);a.played.set(index,played);
+    if(r.accepted)played.add(r.note.midi);else played.delete(r.note.midi);a.played.set(index,played);
   }
-  a.index=stepAt(transportBeat(a));a.got=new Set(a.played.get(a.index)||[]);
-  const summary=NocturneRhythmRules.summary(state);a.hit=summary.hits;a.misses=summary.misses+summary.wrong;
-  paintTargets();drawGuide();
-  if(r.label){
-    const offset=r.errorSeconds,when=r.visualOnly?'只更正顏色，原判定及分數保留':offset==null?'錯鍵':Math.abs(offset)<1e-8?'正中起音':
-      (offset<0?'EARLY ':'LATE ')+Math.round(Math.abs(offset)*1000)+' ms';
-    guide.lessonFeedback.dataset.grade=r.label;
-    guide.lessonFeedback.textContent=r.label+' · '+(bindingFor(midi)?.label||name(midi))+' '+when+' · 背景繼續，手動跟彈';
-  }
+  if(r.note&&(r.provisional||r.visualOnly||r.duplicate))a.alongFeedback={noteId:r.note.id,index:r.note.stepIndex,midi:r.note.midi,inputMidi:midi,label:r.label||r.originalLabel||'READY',rawPoints:r.rawPoints||0,errorSeconds:r.errorSeconds,wrong:r.wrong,provisional:!!r.provisional,visualOnly:!!r.visualOnly,duplicate:!!r.duplicate};
+  const beat=transportBeat(a);a.index=stepAt(beat);a.got=new Set(a.played.get(a.index)||[]);
+  const summary=NocturneRhythmRules.summary(state);a.hit=summary.hits;a.misses=summary.misses;
+  // Explicit numeric redraw must not synchronously queue a scheduler expiry.
+  paintTargets();drawGuide(beat);paintAlongLedger(a);
 }
 
 </script>
@@ -1106,7 +1284,7 @@ let metroEpoch=0, ticking=new Set();
 const isSustain=()=>pedalHold||pedalLatch;
 const status=s=>{ui.status.textContent=s};
 function soundWarning(message){
-  status(message);guide.lessonFeedback.textContent=message;
+  status(message);feedbackText.textContent=message;
 }
 let pianoBus=null, alongBus=null, outputGuard=null;
 // The existing compressor has a finite attack. Only round exceptionally high
@@ -1287,6 +1465,7 @@ function light(midi,delta){
   key.classList.toggle('active',n>0);
 }
 function press(id,midi,physical=false){
+  if(pianoLoading.isBlocking())return;
   if(seekResumePress(id,midi,physical))return;
   try {
   if(!Number.isInteger(midi)||(!physical&&!keyButtons.has(midi))||active.has(id)||!audio())return;
@@ -1360,7 +1539,7 @@ function seekResumeBegin(){
 function seekResumePreview(){
   const text=rhythmClock(Number(guide.seek.value));
   guide.elapsed.textContent=text;guide.seek.setAttribute('aria-valuetext',text);
-  guide.lessonFeedback.textContent='選擇時間 '+text+' · 放手後按任何琴鍵開始';
+  feedbackText.textContent='選擇時間 '+text+' · 放手後按任何琴鍵開始';
 }
 function seekResumePark(arm=true){
   if(!seekResumeState.gesture)return;
@@ -1373,7 +1552,7 @@ function seekResumePark(arm=true){
   const seconds=guidePos*(lesson?.length||pausedLesson?.length||60000/tempo())/1000;
   seekResumeState.armed=!!(arm&&guidePos<totalBeats);
   seekResumeBadge();
-  guide.lessonFeedback.textContent='已跳至 '+rhythmClock(seconds)+
+  feedbackText.textContent='已跳至 '+rhythmClock(seconds)+
     (seekResumeState.armed?' · 按任何琴鍵開始（電腦鍵盤或畫面琴鍵）':' · 已暫停');
   drawTimeline();
 }
@@ -1429,7 +1608,7 @@ async function seekResumeFlush(pending){
   }catch(_){
     if(!current())return;
     seekResumeState.pending=null;seekResumeState.armed=true;seekResumeBadge();
-    guide.lessonFeedback.textContent='聲音載入失敗 · 按任何琴鍵重試';
+    feedbackText.textContent='聲音載入失敗 · 按任何琴鍵重試';
   }
 }
 function seekResumePress(id,midi,physical){
@@ -1575,8 +1754,8 @@ const fullScore=window.NocturneScorePlayer,isFull=()=>guide.song.value==='canonF
 let usedFull=false,preFullTempo=100;
 if(!fullScore){guide.song.querySelector('[value=canonFull]').disabled=true;guide.song.value='canon';}
 const fullDesc={Demo:'背景音樂＋自動示範琴鍵。原譜首 4.8 秒休止，第一音 C＝A4。',
-Along:'背景音樂繼續；只有你按下的琴鍵會發聲，不會自動代彈。',
-Practice:'背景＋手彈＋停等助手。只判定起音的新按下；最多提前 1000ms／延後 1000ms，下一組到達即截止。錯鍵或 MISS 返回停住；補彈 RECOVERED 不計分、不加 Combo 或血量，原有扣分保留。'};
+Along:'背景音樂繼續；只有你按下的琴鍵會發聲。每次按下只暫記一個音；截止前可重試，以最後一次為準，截止時才入帳。',
+Practice:'背景＋手彈＋停等助手。只判定起音的新按下；最多提前 500ms／延後 1200ms，下一組到達即截止。錯鍵或 MISS 返回停住；補彈 RECOVERED 不計分、不加 Combo 或血量，原有扣分保留。'};
 const songs={
  moon:{score:'C4 E4 G4 A4:2 G4 E4 D4 F4 A4 G4:2 D4 E4 C4+E4:2 D4 E4+G4:2 C4:2',bass:[48,50,48,43,48,45,48,43]},
  ode:{score:'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2',bass:[48,43,48,43,48,43,48,48]},
@@ -1998,12 +2177,13 @@ function drawTimeline(sample){
   guide.seek.setAttribute('aria-valuetext',guide.elapsed.textContent);
   guide.paintLane?.(beat);
   if(a?.hold&&!a.hold.ready&&renderMs(a)-a.hold.startedMs>=a.hold.durationBeats*a.length){
-    a.hold.ready=true;guide.lessonFeedback.textContent=a.hold.midis.map(name).join(' + ')+' · 時值已足，放鍵進入下一音';
+    a.hold.ready=true;feedbackText.textContent=a.hold.midis.map(name).join(' + ')+' · 時值已足，放鍵進入下一音';
   }
   if(a&&(a.mode!=='Practice'||(a.rhythm&&!a.retryGate)||a.hold))guideRaf=requestAnimationFrame(()=>drawTimeline());
 }
 function drawGuide(beat){
   const state=lesson||pausedLesson,s=state?.score||modeScore,i=state?.index??-1;
+  paintAlongLedger(state);
   const notes=s.filter(item=>item.pitches.length);
   guide.progress.max=notes.length;guide.progress.value=state?(s[i]?.group||0):guidePos>=totalBeats?notes.length:0;
   const first=Math.max(0,Math.min(notes.length-7,(s[i]?.group||1)-3));
@@ -2016,23 +2196,29 @@ function drawGuide(beat){
   guide.lessonAction.textContent=mode==='Practice'?
     (lesson?'Ⅱ 暫停練習':pausedLesson?'繼續練習':'開始練習'):
     (lesson?'Ⅱ 暫停':pausedLesson?'▶ 繼續':'▶ 開始');
-  paintTargets(); drawTimeline(beat); syncControls();
+  paintTargets(); drawTimeline(beat); syncControls();paintInlineFeedback(state);
 }
 function stopLesson(completed=false){
+  if(!completed){alongLedgerLast=null;clearEndStats();}
   sampleCancel();
   seekResumeClear();
   if(lesson?.rhythm)return rhythmStop(completed);
   if(!lesson)return;
   clearTimeout(lesson.timer);
   const old=lesson;
+  if(completed&&old.mode==='Along'&&isFull()){
+    const chart=judgmentAlongState(old);judgmentAlongTick(old,endStatsDeadline(chart,totalBeats*old.length/1000)*1000/old.length);freezeAlongLedger(old);
+  }
   clearGate(old);if(!completed||old.mode!=='Practice')releaseLive(true);silenceLesson(old);
   lesson=null;guidePos=completed?totalBeats:0;drawGuide();
   if(completed){
     guide.progress.value=old.score.length;
-    guide.lessonFeedback.textContent=old.mode==='Along'?'完成！彈對 '+old.hit+' / '+old.total+' 個音符，漏彈 '+(old.total-old.hit)+' 個。':old.mode==='Practice'?'練習完成！ '+(isFull()?old.practiceDone:old.score.length)+' 組音符，'+old.misses+' 次彈錯。':'示範完成。';
-  }else guide.lessonFeedback.textContent='已停止。';
+    feedbackText.textContent=old.mode==='Along'?'完成！彈對 '+old.hit+' / '+old.total+' 個音符，漏彈 '+(old.total-old.hit)+' 個。':old.mode==='Practice'?'練習完成！ '+(isFull()?old.practiceDone:old.score.length)+' 組音符，'+old.misses+' 次彈錯。':'示範完成，不評分。';
+    if(old.mode==='Along'&&isFull())showEndStats(NocturneRhythmRules.summary(old.alongJudgments),'Along');
+  }else feedbackText.textContent='已停止。';
 }
 function selectMode(next){
+  clearEndStats();
   sampleCancel();
   seekResumeClear();
   delete guide.lessonFeedback.dataset.grade;
@@ -2043,7 +2229,7 @@ function selectMode(next){
   $('alongMix').hidden=mode==='Demo';$('alongMix').textContent='背景＋手彈';
   if(mode!=='Demo'&&metroTimer)stopMetro();
   for(const m of ['Demo','Along','Practice'])guide['mode'+m].setAttribute('aria-pressed',String(m===mode));
-  guide.lessonHelp.textContent=(isFull()?fullDesc:desc)[mode];guide.lessonFeedback.textContent='';
+  guide.lessonHelp.textContent=(isFull()?fullDesc:desc)[mode];feedbackText.textContent='';
 }
 function guideChange(next=mode){
   stopLesson();pausedLesson=null;selectMode(next);
@@ -2061,6 +2247,7 @@ function guideChange(next=mode){
   usedFull=full;guidePos=0;drawGuide();
 }
 function makeLesson(length,position){
+  clearEndStats();
   delete guide.lessonFeedback.dataset.grade;
   const offset=stepAt(position),audioTimed=!!isFull();
   return {audioTimed,floor:position,autoNotes:[],hold:null,chordKeys:new Map(),retryMidi:null,sliceTick:-1,mode,index:-1,score:modeScore,timer:null,voices:new Set(),fullVoices:new Map(),bassVoice:null,bassPulse:-1,
@@ -2082,11 +2269,11 @@ function pauseLesson(){
   clearTimeout(a.timer);clearGate(a);releaseLive(true);silenceLesson(a);
   if(a.mode!=='Practice'&&stepAt(position)!==a.index){a.index=stepAt(position);a.got.clear();}
   guidePos=a.pos=position;pausedLesson=a;lesson=null;drawGuide();
-  guide.lessonFeedback.textContent='已暫停 · 第 '+(a.score[a.index]?.group||1)+' / '+fullScore.leadGroups+' 組';
+  feedbackText.textContent='已暫停 · 第 '+(a.score[a.index]?.group||1)+' / '+fullScore.leadGroups+' 組';
 }
 
 let sampleToken=0,sampleRequest=null,sampleId=null;
-function sampleCancel(){sampleToken++;sampleRequest=null;sampleId=null;}
+function sampleCancel(){sampleToken++;sampleRequest=null;sampleId=null;pianoLoading.cancel('superseded');}
 window.NocturneSamples=Object.freeze({pending:()=>sampleRequest,cancel:sampleCancel});
 function sampleWorkingNotes(){
   const score=isFull()&&typeof sourceNotes!=='undefined'?sourceNotes.map(n=>n.midi):modeScore.flatMap(s=>s.pitches||[]);
@@ -2103,18 +2290,25 @@ function sampleGate(length){
   if(lesson||!engine?.sampled)return false;
   if(sampleRequest){sampleCancel();drawGuide();return true;}
   if(recording||!audio())return true;
-  const id=ui.preset.value;
-  const warmNotes=sampleWorkingNotes();
+  const id=ui.preset.value,warmNotes=sampleWorkingNotes();
   if(engine.warm(id,warmNotes))return false;
   const ticket=++sampleToken,where=guidePos,which=mode;sampleId=id;
-  guide.lessonAction.textContent='取消載入';guide.lessonFeedback.textContent='正在準備音色；音色就緒後才會開始計時。';
+  const loading=pianoLoading.begin('samples',{length,mode:which,position:where,preset:id});
+  guide.lessonAction.textContent='取消載入';feedbackText.textContent='正在準備音色；音色就緒後才會開始計時。';
   sampleRequest=engine.prepare(ctx,id,warmNotes).then(()=>{
-    if(ticket!==sampleToken||lesson||which!==mode||where!==guidePos||id!==ui.preset.value)return;
-    sampleRequest=null;sampleId=null;startLesson(length);
-  }).catch(e=>{if(ticket===sampleToken){sampleRequest=null;sampleId=null;guide.lessonFeedback.textContent='不能準備音色：'+e.message;drawGuide();}});
+    if(ticket!==sampleToken)return;
+    sampleRequest=null;sampleId=null;
+    if(lesson||which!==mode||where!==guidePos||id!==ui.preset.value){pianoLoading.ready(loading);return;}
+    startLesson(length);pianoLoading.ready(loading);
+  }).catch(e=>{
+    if(ticket!==sampleToken)return;sampleRequest=null;sampleId=null;feedbackText.textContent='不能準備音色：'+e.message;
+    drawGuide(guidePos);pianoLoading.error(loading,String(e.message||e));
+  });
   return true;
 }
+
 function startLesson(length=60000/tempo()){
+  if(!lesson&&!pausedLesson)clearEndStats();
   if(sampleGate(length))return;
   if(isFull()&&!lesson&&!backingState.buffer)return backingPrepare(length);
   if(mode==='Practice'&&isFull())return rhythmStart(length);
@@ -2141,7 +2335,7 @@ function practiceCue(){
   const pending=remaining(a,a.score[a.index]);
   const held=pending.length>0&&isLongNote(a.score[a.index],pending[0]);
   const special=isFull()&&!fullKeyboard&&pending.some(m=>specialNames[bindingFor(m)?.code]);
-  guide.lessonFeedback.textContent='已開始 · 等你按 '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+' · '+label+' 組'+(held?(pending.length>1?' · 一齊按住 ':' · 按住 ')+quarterGlyph(noteBeats(a.score[a.index],pending[0]))+' 再放鍵':'')+(special?' · 點琴鍵，或開「全鍵演奏」使用特殊鍵':'');
+  feedbackText.textContent='已開始 · 等你按 '+pending.map(m=>(bindingFor(m)?.label||name(m))+'（'+name(m)+'）').join(' + ')+' · '+label+' 組'+(held?(pending.length>1?' · 一齊按住 ':' · 按住 ')+quarterGlyph(noteBeats(a.score[a.index],pending[0]))+' 再放鍵':'')+(special?' · 點琴鍵，或開「全鍵演奏」使用特殊鍵':'');
 }
 function advancePractice(){
   const a=lesson;
@@ -2160,14 +2354,14 @@ function endHeldInput(id,cancel){
   const enough=(isFull()&&!isLongNote(a.score[a.index],midi))||renderMs(a)-h.startedMs>=h.durationBeats*a.length-1e-6;
   if(!cancel&&enough&&a.chordKeys.size){
     h.ready=true;drawGuide();
-    guide.lessonFeedback.textContent='時值已足 · 放開餘下琴鍵：'+[...a.chordKeys.keys()].map(name).join(' + ');return;
+    feedbackText.textContent='時值已足 · 放開餘下琴鍵：'+[...a.chordKeys.keys()].map(name).join(' + ');return;
   }
   a.hold=null;guidePos=h.startBeat;a.chordKeys.clear();
   if(cancel){a.retryMidi=null;drawGuide();practiceCue();return;}
   if(!enough){
     a.retryMidi=midi;drawGuide();
     const action=h.midis.length>1?'全部放鍵，再一齊按住 ':'再按住 ';
-    guide.lessonFeedback.textContent='放鍵太早 · '+action+h.midis.map(name).join(' + ')+' '+quarterGlyph(h.durationBeats)+'；延音踏板不代替手指。';return;
+    feedbackText.textContent='放鍵太早 · '+action+h.midis.map(name).join(' + ')+' '+quarterGlyph(h.durationBeats)+'；延音踏板不代替手指。';return;
   }
   a.retryMidi=null;for(const pitch of h.midis){a.got.add(pitch);a.hit++;}
   a.played.set(a.index,new Set(a.got));
@@ -2193,22 +2387,22 @@ function inputLesson(midi,id){
       a.retryMidi=null;guidePos=stepStarts[a.index];
       const midis=step.pitches,missing=midis.filter(p=>!a.chordKeys.has(p));
       if(missing.length){
-        drawGuide();guide.lessonFeedback.textContent='保持已按和弦音，再按：'+missing.map(name).join(' + ');return;
+        drawGuide();feedbackText.textContent='保持已按和弦音，再按：'+missing.map(name).join(' + ');return;
       }
       a.hold={midi,midis,index:a.index,inputId:id,startBeat:guidePos,durationBeats:noteBeats(step,midi),startedMs:renderMs(a),ready:false};
-      drawGuide();guide.lessonFeedback.textContent='已按準 '+midis.map(name).join(' + ')+(isLongNote(step,midi)?' · 按足 '+quarterGlyph(noteBeats(step,midi))+' 再放':' · 放鍵進入下一組');return;
+      drawGuide();feedbackText.textContent='已按準 '+midis.map(name).join(' + ')+(isLongNote(step,midi)?' · 按足 '+quarterGlyph(noteBeats(step,midi))+' 再放':' · 放鍵進入下一組');return;
     }
     a.got.add(midi);a.hit++;a.played.set(a.index,new Set(a.got));
     if(a.mode==='Practice'&&a.got.size===step.pitches.length){a.practiceDone++;advancePractice();return;}
     paintTargets();drawTimeline();
-    guide.lessonFeedback.textContent=a.mode==='Practice'
+    feedbackText.textContent=a.mode==='Practice'
       ?'正確。接着彈：'+remaining(a,step).map(name).join(' + ')
       :'跟彈中 · 已彈對 '+a.hit+' 個音符';
   }else if(a.mode==='Practice'){
-    a.misses++;if(!a.hold)a.retryMidi=remaining(a,step)[0]??null;drawGuide();guide.lessonFeedback.textContent='再試一次。目標：'+remaining(a,step).map(name).join(' + ');
+    a.misses++;if(!a.hold)a.retryMidi=remaining(a,step)[0]??null;drawGuide();feedbackText.textContent='再試一次。目標：'+remaining(a,step).map(name).join(' + ');
   }else{
     const left=remaining(a,step);
-    if(left.length)guide.lessonFeedback.textContent='跟住節拍 · 目標：'+left.map(name).join(' + ');
+    if(left.length)feedbackText.textContent='跟住節拍 · 目標：'+left.map(name).join(' + ');
   }
 }
 // Demo plays the entire source. The optional Along guide sounds only the selected
@@ -2308,10 +2502,11 @@ function queueLesson(resume=false,sample){
   let next=stepStarts[index]+step.beats;
   if(isFull()&&scoreSounds(a))next=Math.min(next,syncFullAudio(a,beat));
   if(changed||resume){
-    drawGuide(beat);guide.lessonFeedback.textContent=isFull()&&!step.pitches.length?
+    drawGuide(beat);feedbackText.textContent=isFull()&&!step.pitches.length?
       (beat<sourceNotes[0].start?'前奏休止 · 0:04.800 第一音 C（A4）':beat>=sourceNotes[sourceNotes.length-1].end?'尾奏休止 · 等候全曲完結':'休止'):
       a.mode==='Along'?'跟彈中'+(isFull()&&scoreSounds(a)?' · 自動示範':' · 背景＋手彈')+' · 已彈對 '+a.hit+' 個音符':'第 '+step.group+' / '+fullScore.leadGroups+' 組';
   }else drawTimeline(beat);
+  if(a.mode==='Along')paintAlongLedger(a);
   const wait=Math.max(1,(next-beat)*a.length);
   a.timer=setTimeout(()=>{if(lesson===a)queueLesson();},isFull()?Math.min(25,wait):wait);
 }
@@ -2328,14 +2523,14 @@ function switchMode(next){
   if(next==='Practice'&&isFull()){
     rhythmAttach(a,guidePos);
     if(running){lesson=a;performanceMode(true);backingStart(a);drawGuide();rhythmCue(a);rhythmTick();}
-    else{pausedLesson=a;drawGuide();rhythmPaint(a);guide.lessonFeedback.textContent='已暫停 · 繼續後按一下即可判定';}
+    else{pausedLesson=a;drawGuide();rhythmPaint(a);feedbackText.textContent='已暫停 · 繼續後按一下即可判定';}
     return;
   }
   if(next==='Practice'||!running)a.index=stepAt(guidePos);
   if(next==='Practice'&&!a.score[a.index].pitches.length){
     const nextInput=a.score.findIndex((step,i)=>i>a.index&&step.pitches.length);
     if(nextInput<0){
-      guidePos=totalBeats;drawGuide();guide.lessonFeedback.textContent='後面已沒有主旋律音符。「重來」可由第一組開始。';return;
+      guidePos=totalBeats;drawGuide();feedbackText.textContent='後面已沒有主旋律音符。「重來」可由第一組開始。';return;
     }
     a.index=nextInput;guidePos=a.pos=stepStarts[nextInput];
   }
@@ -2344,7 +2539,7 @@ function switchMode(next){
     if(next!=='Demo')performanceMode(true);
     if(next==='Practice'){drawGuide();practiceCue();}else queueLesson();
   }else{
-    pausedLesson=a;drawGuide();guide.lessonFeedback.textContent='已暫停 · 由此處繼續';
+    pausedLesson=a;drawGuide();feedbackText.textContent='已暫停 · 由此處繼續';
   }
 }
 for(const m of ['Demo','Along','Practice'])guide['mode'+m].onclick=()=>switchMode(m);
@@ -2359,6 +2554,8 @@ guide.seek.addEventListener('input',rhythmSeekPreview);
 guide.seek.addEventListener('pointercancel',rhythmSeekCancel);
 guide.seek.addEventListener('keydown',e=>{if(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)){rhythmSeekBegin();seeking=true;setTimeout(rhythmSeekFinish,0)}});
 guide.seek.addEventListener('change',()=>{
+  clearEndStats();
+  alongLedgerLast=null;
   if(mode==='Practice'&&isFull())return rhythmSeekCommit(Number(guide.seek.value));
   seeking=false;
   const seconds=Number(guide.seek.value), wasPlaying=!!lesson, wasPaused=!!pausedLesson;
@@ -2369,7 +2566,7 @@ guide.seek.addEventListener('change',()=>{
   if(wasPlaying&&guidePos<totalBeats){startLesson(length);return;}
   if(wasPaused&&guidePos<totalBeats){
     pausedLesson=makeLesson(length,guidePos);pausedLesson.index=stepAt(guidePos);
-    guide.lessonFeedback.textContent='已暫停 · 由此處繼續';
+    feedbackText.textContent='已暫停 · 由此處繼續';
   }
   drawGuide();
 });
@@ -2728,7 +2925,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(lesson)pauseLesson();if(pausedLesson)silenceLesson(pausedLesson);
     stopPlayback();releaseLive(true);refreshReleaseTools();
     status('琴鍵尾音設定已更新，演奏已暫停；請自行按開始或琴鍵繼續。');
-    guide.lessonFeedback.textContent='尾音設定已更新 · 演奏已暫停，不會自動繼續。';
+    feedbackText.textContent='尾音設定已更新 · 演奏已暫停，不會自動繼續。';
   });
   ui.preset.addEventListener('change',refreshReleaseTools);refreshReleaseTools();
 })();
