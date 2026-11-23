@@ -506,7 +506,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
       <span id="rhythmCounts">每個長音按一下即可；最寬前後 1 秒，下一組到達即截止。</span>
       <details class="rhythm-help"><summary>判定及計分規則</summary><div>
       本頁自訂寬鬆練習規則，並非 Konami 官方數值。以音符開始至結束為有效時段：時段內任一點按均為 PERFECT，不需維持長按。<br>
-      距有效時段 ≤80ms：PERFECT／1000；≤300ms：GREAT／700；≤600ms：GOOD／300；≤1000ms：POOR／100。超時未命中或下一組不同開始時間的音符到達：MISS／0；以較早者為準。同時和弦不會互相截止。<br>
+      距有效時段 ≤40ms：PERFECT／1000；≤200ms：GREAT／700；≤600ms：GOOD／300；≤1000ms：POOR／100。超時未命中或下一組不同開始時間的音符到達：MISS／0；以較早者為準。同時和弦不會互相截止。<br>
       PERFECT、GREAT、GOOD 均 Combo +1；POOR、MISS 歸零。錯鍵是 POOR／0 分，不取代目標音。<br>
       每個音只計一次；每個和弦音分開計，可分別點按。總分＝累積分 ÷（本次音數 ×1000）×1,000,000。<br>
       血量由100開始；PERFECT +2、GREAT +1、GOOD 0、POOR −5、MISS −10。降至0仍可繼續練習。暫停不扣分。<br>
@@ -557,7 +557,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
     finite(time, 'time'); interval(start, end);
     const errorSeconds = time < start ? time - start : time > end ? time - end : 0;
     const error = Math.abs(errorSeconds);
-    const label = error <= .08 + EPS ? 'PERFECT' : error <= .30 + EPS ? 'GREAT' :
+    const label = error <= .04 + EPS ? 'PERFECT' : error <= .20 + EPS ? 'GREAT' :
       error <= .60 + EPS ? 'GOOD' : error <= WINDOW + EPS ? 'POOR' : 'MISS';
     return {label, errorSeconds, points:POINTS[label], accepted:label !== 'MISS'};
   }
