@@ -1,0 +1,3159 @@
+{
+  "revision": "local-sounds-yamaha-v1",
+  "categories": [
+    "Piano",
+    "Electric Piano",
+    "Keys",
+    "Organ",
+    "Guitar",
+    "Bass",
+    "Strings",
+    "Voice",
+    "Brass",
+    "Wind",
+    "Synth",
+    "Percussion"
+  ],
+  "presets": [
+    {
+      "id": "yamaha-c5-accurate-z",
+      "name": "Accurate Grand",
+      "short": "Accurate Grand",
+      "category": "Piano",
+      "kind": "samples",
+      "bank": "yamaha-a9f2ce293e0cd642c6b9",
+      "assets": [
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-42.wav",
+          "midi": 42,
+          "bytes": 617444,
+          "sha256": "abce5c804e5e08c78e711cb3dc2485cc026c7d52fd7b94cd85c29d43be233630",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-48.wav",
+          "midi": 48,
+          "bytes": 617444,
+          "sha256": "6f94cd86880065ed013fb209a695237c4e41611d85812e1e4fbd1dabbeb92920",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-54.wav",
+          "midi": 54,
+          "bytes": 617444,
+          "sha256": "d079b3f18f2a80f8deedf99d5f0026e4fd5cfabb33eb1616ce3416da2a648476",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-60.wav",
+          "midi": 60,
+          "bytes": 617444,
+          "sha256": "dc39c9619a56c09f72270b2ec2e5f4a09e16c13a0b654fcb46b67685bad1f800",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-66.wav",
+          "midi": 66,
+          "bytes": 617444,
+          "sha256": "1ee41e107bbf53a517adf6e635363366a7ff5432a7c126e9cb98018f118b738a",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-72.wav",
+          "midi": 72,
+          "bytes": 617444,
+          "sha256": "9948fd363e5f8e3ce0362dd4effd4ce96cea29ede9f8cd0e8472d116a442ff57",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/yamaha-c5-accurate-z/midi-75.wav",
+          "midi": 75,
+          "bytes": 617444,
+          "sha256": "f0314fc9e780cd36ae172be31b99700305d8e30304b04a566b7836d93353e7ac",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        }
+      ],
+      "license": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+      "author": "Alexander Holm / Chisato Yamauchi / Hiroharu Narikawa / Jeff Learman",
+      "source": "[private source path omitted]",
+      "notes": "Actual Accurate6.2beta2 live-flat derivative, normalized16bit FLAC v08 layer at7roots, baked source SFZ root tuning; not latest6.2e, not full88-note individualized tuning/16layers/pedal/release implementation. Same physical YamahaC5 as original Salamander, processed variant—not a new piano model. A calibration replaces SFZ nominal level curve. Compact34key audition: selected actualroots,22050HzPCM16,max7s; notlossless/full88keys.",
+      "compactPreview": true,
+      "localOnly": true,
+      "limitations": [
+        "Compact22050Hz bandlimit; selected-root nearestpitch playback overMIDI43..76, notfull88note/velocity fidelity.",
+        "Sourcecopyright/model/redistribution restrictions unchanged; localtestonly."
+      ],
+      "compactBankPayloadBytes": 4322108,
+      "available": true
+    },
+    {
+      "id": "freepats-ydp-grand",
+      "name": "Player Grand",
+      "short": "Player Grand",
+      "category": "Piano",
+      "kind": "samples",
+      "bank": "yamaha-c1d2e85d41bab3cd71b7",
+      "assets": [
+        {
+          "file": "pianos/freepats-ydp-grand/midi-43.wav",
+          "midi": 43,
+          "bytes": 617444,
+          "sha256": "9c85ddfad3382ebc551c027eb968ae31431463828ea34bbca7ad93f32efff826",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-48.wav",
+          "midi": 48,
+          "bytes": 617444,
+          "sha256": "304c7126e9ae723ff13f87b9154845180917d962ec4e3bdc4710429df9fe7cfc",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-54.wav",
+          "midi": 54,
+          "bytes": 617444,
+          "sha256": "8e9de5262eafccd67445e6b27f7361cfa99659a0c4e062f14e685f6bd12437b7",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-60.wav",
+          "midi": 60,
+          "bytes": 617444,
+          "sha256": "6c366ad50e103c26d35c3142be745b1427f87481f27b7f4039c970f2746ca53c",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-66.wav",
+          "midi": 66,
+          "bytes": 617444,
+          "sha256": "5efd4e3ac124b8e2ef35d5c6a5b2ebd9e7f0bc65e273af52ba4c59285199a077",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-72.wav",
+          "midi": 72,
+          "bytes": 617444,
+          "sha256": "239868cca2887ed8bb6699c4475390789f8454bf4aa376c9d78dab8fdc2c9f55",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        },
+        {
+          "file": "pianos/freepats-ydp-grand/midi-76.wav",
+          "midi": 76,
+          "bytes": 617444,
+          "sha256": "46fbfff82ae2eeb47ea70c68d9c4cb5f8c3d01505d3cc8b32e61cdd125f3c8b6",
+          "sampleRate": 22050,
+          "channels": 2,
+          "duration": 7,
+          "sourceLicense": "CC-BY-3.0",
+          "compactProcessing": "NativeChrome OfflineAudioContextanti-aliasedsample-rateconversion,playbackRate1,PCM16,20mstailfade. ActualsourceMIDIroot unchanged; not relabeled/pitch-shifted."
+        }
+      ],
+      "license": "CC-BY-3.0",
+      "author": "Zenph Studios / Dr. Mikhail Krishtal; FreePats / Roberto",
+      "source": "[private source path omitted]",
+      "sourceFont": "YDP-GrandPiano-20160804.sf2",
+      "sourceFontSha256": "8757076aecf80abdad1e8f8f6168370399b06f94481796986e6e75ceca09ad21",
+      "sourceBank": 0,
+      "sourceProgram": 0,
+      "sourceVelocity": 100,
+      "preview": true,
+      "notes": "Official YDP SF2 fixed-velocity lightweight browser preview; not a full dynamic engine. Compact34key audition: selected actualroots,22050HzPCM16,max7s; notlossless/full88keys.",
+      "limitations": [
+        "Fixedvelocity100 only; original SF2 multiple layers are not dynamically switched.",
+        "Nominal tuning,pan,envelopes,filter reconstructed using WebAudio; not FluidSynth-bit-exact.",
+        "7s maximum held sample plus20ms fade; host key-up release.",
+        "Other modulators,CC,reverb,chorus,pedal and full SF2 release behavior not reproduced.",
+        "Compact22050Hz bandlimit; selected-root nearestpitch playback overMIDI43..76, notfull88note/velocity fidelity.",
+        "Sourcecopyright/model/redistribution restrictions unchanged; localtestonly."
+      ],
+      "compactPreview": true,
+      "localOnly": true,
+      "compactBankPayloadBytes": 4322108,
+      "available": true
+    },
+    {
+      "id": "concert-grand",
+      "name": "Concert Grand",
+      "short": "Concert Grand",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "openpiano-default",
+      "name": "Classic Grand",
+      "short": "Classic Grand",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "openpiano-grand",
+      "name": "Studio Grand",
+      "short": "Studio Grand",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "concert-grand-fluid-ab",
+      "name": "Acoustic Grand",
+      "short": "Acoustic Grand",
+      "category": "Piano",
+      "bank": "local-5ec89074f3bcb98ebae4",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_grand_piano_fl-ogg.js",
+          "bytes": 2657542,
+          "sha256": "4e9fd0caea2b98b2260e7d6aba5db7dc7c558ec1438c8beaf6b808240c8e8e8d"
+        }
+      ],
+      "available": true
+    },
+    {
+      "id": "salamander-grand",
+      "name": "Sampled Grand",
+      "short": "Sampled Grand",
+      "category": "Piano",
+      "bank": "local-e3a68c4db35d690667ec",
+      "kind": "samples",
+      "assets": [
+        {
+          "midi": 21,
+          "file": "pianos/salamander/midi-21.mp3",
+          "bytes": 113969,
+          "sha256": "f62d50bd977679e1316063866ece754604b8c214d73b7e3033372c75d9064c03",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A0.mp3",
+          "source_bytes": 113969,
+          "source_sha256": "f62d50bd977679e1316063866ece754604b8c214d73b7e3033372c75d9064c03",
+          "source_git_blob_sha1": "0f8ccd9719dcad3fc5999b8cb3fd21486dfafd6a",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 24,
+          "file": "pianos/salamander/midi-24.mp3",
+          "bytes": 110199,
+          "sha256": "caba05f0be4d9f6030adcc033208b49ac54e47d58edc57b743085b095b4ea395",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C1.mp3",
+          "source_bytes": 110199,
+          "source_sha256": "caba05f0be4d9f6030adcc033208b49ac54e47d58edc57b743085b095b4ea395",
+          "source_git_blob_sha1": "2b840fc55266201f40769bbfb3c721c7f6ed55fc",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 27,
+          "file": "pianos/salamander/midi-27.mp3",
+          "bytes": 120625,
+          "sha256": "1c02b816b85d2fa938815fdf04d7d327ff20068f1aadc3c97052144c735afa0c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds1.mp3",
+          "source_bytes": 120625,
+          "source_sha256": "1c02b816b85d2fa938815fdf04d7d327ff20068f1aadc3c97052144c735afa0c",
+          "source_git_blob_sha1": "a5d68f53d927dfdd405828984bd65dd6792c36d7",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 30,
+          "file": "pianos/salamander/midi-30.mp3",
+          "bytes": 115010,
+          "sha256": "5cbb51d2a0a55a9ef3656671ca72e336856813949055bb6c189cf990655335cf",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs1.mp3",
+          "source_bytes": 115010,
+          "source_sha256": "5cbb51d2a0a55a9ef3656671ca72e336856813949055bb6c189cf990655335cf",
+          "source_git_blob_sha1": "254ecc45bc5d91d6667095e9aa8f29e05b4a3fac",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 33,
+          "file": "pianos/salamander/midi-33.mp3",
+          "bytes": 115061,
+          "sha256": "17fa1e363f9fad67c3357be54a6defc4fca5a5c2aada21de84b30254f9cb2f5b",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A1.mp3",
+          "source_bytes": 115061,
+          "source_sha256": "17fa1e363f9fad67c3357be54a6defc4fca5a5c2aada21de84b30254f9cb2f5b",
+          "source_git_blob_sha1": "0b2ff3a2688c890f3aaa6b98805cb8959d997890",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 36,
+          "file": "pianos/salamander/midi-36.mp3",
+          "bytes": 110357,
+          "sha256": "7029a9e84f748433bc33d067ee13d37d0b866768f09ae6c7dac8e2e98e1e53ca",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C2.mp3",
+          "source_bytes": 110357,
+          "source_sha256": "7029a9e84f748433bc33d067ee13d37d0b866768f09ae6c7dac8e2e98e1e53ca",
+          "source_git_blob_sha1": "3fca8d06f2544e9203439b83fc609ffdf7ff7174",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 39,
+          "file": "pianos/salamander/midi-39.mp3",
+          "bytes": 110796,
+          "sha256": "a106cdec93aa4e767e36809fc9cdaa6b92453fb9f18d5fc28ac4eb0f9f239ecd",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds2.mp3",
+          "source_bytes": 110796,
+          "source_sha256": "a106cdec93aa4e767e36809fc9cdaa6b92453fb9f18d5fc28ac4eb0f9f239ecd",
+          "source_git_blob_sha1": "9e7cf544f0656a3cb9fcebd2c6e9d4da4efb8eda",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 42,
+          "file": "pianos/salamander/midi-42.mp3",
+          "bytes": 102320,
+          "sha256": "dd34c708274eeba35da1fd99fc31ef904e390ff02f6864aefe8a13261f8a8327",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs2.mp3",
+          "source_bytes": 102320,
+          "source_sha256": "dd34c708274eeba35da1fd99fc31ef904e390ff02f6864aefe8a13261f8a8327",
+          "source_git_blob_sha1": "3d1de69b4a8c8644512c775360561c0db6b6db35",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 45,
+          "file": "pianos/salamander/midi-45.mp3",
+          "bytes": 81678,
+          "sha256": "20601d890f44a3c22499c7b61f52e571795df1fe5a01fac553dded7b6379e1d4",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A2.mp3",
+          "source_bytes": 81678,
+          "source_sha256": "20601d890f44a3c22499c7b61f52e571795df1fe5a01fac553dded7b6379e1d4",
+          "source_git_blob_sha1": "c46996922c542f7a2ccf881a268e7a1ce008458b",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 48,
+          "file": "pianos/salamander/midi-48.mp3",
+          "bytes": 78036,
+          "sha256": "bb70dd921d81b3dda561c19b5c029292ae5a6fba1947e364bf274218ce19a9d1",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C3.mp3",
+          "source_bytes": 78036,
+          "source_sha256": "bb70dd921d81b3dda561c19b5c029292ae5a6fba1947e364bf274218ce19a9d1",
+          "source_git_blob_sha1": "14daa30a2a796149883396b60ef84a3e16e48206",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 51,
+          "file": "pianos/salamander/midi-51.mp3",
+          "bytes": 78717,
+          "sha256": "4fe73ea3f2c59a1dbfb35cff1d9d8a9e38cb12ef39a91a13083729544cdafed5",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds3.mp3",
+          "source_bytes": 78717,
+          "source_sha256": "4fe73ea3f2c59a1dbfb35cff1d9d8a9e38cb12ef39a91a13083729544cdafed5",
+          "source_git_blob_sha1": "ba3cc489b1fbde1fc14b5f5d6001bf76a3845721",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 54,
+          "file": "pianos/salamander/midi-54.mp3",
+          "bytes": 77933,
+          "sha256": "960fefd90f56608b7edf958dadfeca893cff5744ab9034d61e419401fe45ce9c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs3.mp3",
+          "source_bytes": 77933,
+          "source_sha256": "960fefd90f56608b7edf958dadfeca893cff5744ab9034d61e419401fe45ce9c",
+          "source_git_blob_sha1": "c0971905449a89cab35ec7c5d654ea344a9cb90b",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 57,
+          "file": "pianos/salamander/midi-57.mp3",
+          "bytes": 74526,
+          "sha256": "8e108fe228e34e32f6b4e61efff732eec53058a9e6f05a8d8e719598b132c4f9",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A3.mp3",
+          "source_bytes": 74526,
+          "source_sha256": "8e108fe228e34e32f6b4e61efff732eec53058a9e6f05a8d8e719598b132c4f9",
+          "source_git_blob_sha1": "57924c5572fd136eca8e4dad444a8d8e22b7bbc5",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 60,
+          "file": "pianos/salamander/midi-60.mp3",
+          "bytes": 78718,
+          "sha256": "689eaa4c2fd7f29a2cc0e386eec462156d523a87d701269e5e2458e66056f4f6",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C4.mp3",
+          "source_bytes": 78718,
+          "source_sha256": "689eaa4c2fd7f29a2cc0e386eec462156d523a87d701269e5e2458e66056f4f6",
+          "source_git_blob_sha1": "d5f5819d32641247e33a452df3c81bd3f71422e8",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 63,
+          "file": "pianos/salamander/midi-63.mp3",
+          "bytes": 73519,
+          "sha256": "663e8bb3e2d0fa23a30526dcd7ab0e42609c193c07025647ef46badcf81ec211",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds4.mp3",
+          "source_bytes": 73519,
+          "source_sha256": "663e8bb3e2d0fa23a30526dcd7ab0e42609c193c07025647ef46badcf81ec211",
+          "source_git_blob_sha1": "f13123332b689eaa5af6e15e8522c09b6823aeb0",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 66,
+          "file": "pianos/salamander/midi-66.mp3",
+          "bytes": 68219,
+          "sha256": "613652f5c96e35736ce6a46bc4ddb6ba1076d1fb16a35a4c22c14e67efdde57c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs4.mp3",
+          "source_bytes": 68219,
+          "source_sha256": "613652f5c96e35736ce6a46bc4ddb6ba1076d1fb16a35a4c22c14e67efdde57c",
+          "source_git_blob_sha1": "780ba594653d6774b55ef1bcdc3d7513156b269d",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 69,
+          "file": "pianos/salamander/midi-69.mp3",
+          "bytes": 61148,
+          "sha256": "a62df24a2c84cea8d18c1fa8aca7c18c877ba2b76a00a591256fa74d3ce54ac3",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A4.mp3",
+          "source_bytes": 61148,
+          "source_sha256": "a62df24a2c84cea8d18c1fa8aca7c18c877ba2b76a00a591256fa74d3ce54ac3",
+          "source_git_blob_sha1": "3b19af879f0e0bc07a02cff767b3ff4e95400884",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 72,
+          "file": "pianos/salamander/midi-72.mp3",
+          "bytes": 68920,
+          "sha256": "2f5b0f7422063010fb379e684bfdf2daa3911dcd2251413d79fa2a53029fdc30",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C5.mp3",
+          "source_bytes": 68920,
+          "source_sha256": "2f5b0f7422063010fb379e684bfdf2daa3911dcd2251413d79fa2a53029fdc30",
+          "source_git_blob_sha1": "7064bc84bf13b14f2d8e7ec2dcfa69b2c80a8c06",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 75,
+          "file": "pianos/salamander/midi-75.mp3",
+          "bytes": 58179,
+          "sha256": "bf71096e653ab7ceca3914b9fd44d8c27fe83c162564c5db34bd06b94eb14b8c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds5.mp3",
+          "source_bytes": 58179,
+          "source_sha256": "bf71096e653ab7ceca3914b9fd44d8c27fe83c162564c5db34bd06b94eb14b8c",
+          "source_git_blob_sha1": "9a6a24b7076dbdf922a6540896dd058ab56841ec",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 78,
+          "file": "pianos/salamander/midi-78.mp3",
+          "bytes": 51597,
+          "sha256": "ed2fdf543274ea72ddd4eb634a16356531a5f4040b2a60d34fb12a5c72cbf22f",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs5.mp3",
+          "source_bytes": 51597,
+          "source_sha256": "ed2fdf543274ea72ddd4eb634a16356531a5f4040b2a60d34fb12a5c72cbf22f",
+          "source_git_blob_sha1": "5d4fcac5facadbe2a449af7a066fe24fb6dea782",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 81,
+          "file": "pianos/salamander/midi-81.mp3",
+          "bytes": 45747,
+          "sha256": "9e5cee1fe9cf68b7193623d46a27c8956e572c1ff234ca0e11599b556050dec6",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A5.mp3",
+          "source_bytes": 45747,
+          "source_sha256": "9e5cee1fe9cf68b7193623d46a27c8956e572c1ff234ca0e11599b556050dec6",
+          "source_git_blob_sha1": "d17d5532527d4af7fccfbc7638af3dbc1ec5e9f3",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 84,
+          "file": "pianos/salamander/midi-84.mp3",
+          "bytes": 28065,
+          "sha256": "0d3232edd13ba69fd5caf4a295060ae0fd533b8a1433ae0a038644d70715c907",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C6.mp3",
+          "source_bytes": 28065,
+          "source_sha256": "0d3232edd13ba69fd5caf4a295060ae0fd533b8a1433ae0a038644d70715c907",
+          "source_git_blob_sha1": "c8e20f649bc1ab5d91803c2d97e4c279553496cc",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 87,
+          "file": "pianos/salamander/midi-87.mp3",
+          "bytes": 31395,
+          "sha256": "eb643014d9f926f1a5f9f51fc4a1ed8c07c6da36ce164d5b221d7b878a53f142",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds6.mp3",
+          "source_bytes": 31395,
+          "source_sha256": "eb643014d9f926f1a5f9f51fc4a1ed8c07c6da36ce164d5b221d7b878a53f142",
+          "source_git_blob_sha1": "14b38cd4717f5f7cfa1c4748341dcf7de3fd294b",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 90,
+          "file": "pianos/salamander/midi-90.mp3",
+          "bytes": 26478,
+          "sha256": "c584d2b4e96a37b12c920ed3212d149abedf25342389bfdc557b2fac847ab11c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs6.mp3",
+          "source_bytes": 26478,
+          "source_sha256": "c584d2b4e96a37b12c920ed3212d149abedf25342389bfdc557b2fac847ab11c",
+          "source_git_blob_sha1": "ba3e062847ff431b0f9cafdcff6ce7f6ee5a46f2",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 93,
+          "file": "pianos/salamander/midi-93.mp3",
+          "bytes": 30013,
+          "sha256": "b6064a657592c63c03561d2ce1092607c14e1d8091445d50065d0ec819ff6fbc",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A6.mp3",
+          "source_bytes": 30013,
+          "source_sha256": "b6064a657592c63c03561d2ce1092607c14e1d8091445d50065d0ec819ff6fbc",
+          "source_git_blob_sha1": "8464e29082f6ecff0491759b7c98ec424df60fda",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 96,
+          "file": "pianos/salamander/midi-96.mp3",
+          "bytes": 18963,
+          "sha256": "694b512fac99ba7f7290c045d9c18e94724a7ebcc319b937baabc62125814283",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C7.mp3",
+          "source_bytes": 18963,
+          "source_sha256": "694b512fac99ba7f7290c045d9c18e94724a7ebcc319b937baabc62125814283",
+          "source_git_blob_sha1": "4cf780bba322f85942dadfeb08f55693028569c0",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 99,
+          "file": "pianos/salamander/midi-99.mp3",
+          "bytes": 22136,
+          "sha256": "d51f4c51bed719f51e75ad22d5b9ac4b4d1a4749d02ef31ea03696de46fa5e77",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Ds7.mp3",
+          "source_bytes": 22136,
+          "source_sha256": "d51f4c51bed719f51e75ad22d5b9ac4b4d1a4749d02ef31ea03696de46fa5e77",
+          "source_git_blob_sha1": "ea3e885f21f330c7313350f74fd58911b5948777",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 102,
+          "file": "pianos/salamander/midi-102.mp3",
+          "bytes": 22709,
+          "sha256": "e9ce71e0f7dc39c1d0033d656cf57e3aa8b303127147f194cc92b04e2b648a9f",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/Fs7.mp3",
+          "source_bytes": 22709,
+          "source_sha256": "e9ce71e0f7dc39c1d0033d656cf57e3aa8b303127147f194cc92b04e2b648a9f",
+          "source_git_blob_sha1": "431195300fbb91e9dbc3332b48063e17d35d9066",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 105,
+          "file": "pianos/salamander/midi-105.mp3",
+          "bytes": 18730,
+          "sha256": "751c0a0acd00bad6e52749063dac56a0def9870242b053c68ab45cbe8d083fc1",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/A7.mp3",
+          "source_bytes": 18730,
+          "source_sha256": "751c0a0acd00bad6e52749063dac56a0def9870242b053c68ab45cbe8d083fc1",
+          "source_git_blob_sha1": "5e5aa4dc53b2825684740467a194ee9ac6fd76b8",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        },
+        {
+          "midi": 108,
+          "file": "pianos/salamander/midi-108.mp3",
+          "bytes": 18914,
+          "sha256": "b4b5f321751b544ee7f0d6d3e3f1ef52873dd4a6aee91ba41e6c8e61e17a084c",
+          "url": "[private source path omitted]",
+          "source_path": "salamander/C8.mp3",
+          "source_bytes": 18914,
+          "source_sha256": "b4b5f321751b544ee7f0d6d3e3f1ef52873dd4a6aee91ba41e6c8e61e17a084c",
+          "source_git_blob_sha1": "9297538c383fddc416b618a37697180e302d5b14",
+          "processing": "Unmodified Tonejs/audio MP3 preview, one sample per root. Not the full16-layer SFZ."
+        }
+      ],
+      "license": "CC-BY-3.0",
+      "author": "Alexander Holm",
+      "source": "[private source path omitted]",
+      "notes": "30 unmodified MP3 roots21..108; one velocity layer, not fullSFZ.",
+      "available": true
+    },
+    {
+      "id": "vcsl-steinway",
+      "name": "Chamber Grand",
+      "short": "Chamber Grand",
+      "category": "Piano",
+      "bank": "local-3488ec4a821aa2d0c505",
+      "kind": "samples",
+      "assets": [
+        {
+          "midi": 24,
+          "file": "pianos/vcsl-steinway/midi-24.wav",
+          "bytes": 1411244,
+          "sha256": "1a6c2fa24b776b99fe1919f836e1f5c3753d4c1c6c5336e951664215bb17bc5f",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C1_vl2_rr1.wav",
+          "source_bytes": 3780478,
+          "source_sha256": "8c59a38845e99ff0bc3a3ed2674191003f281d7a72f2dbcfa773dc169c87dcae",
+          "source_git_blob_sha1": "e6a9c3b244c84d465c9e0a6fbf134d76848963b2",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 630072,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 36,
+          "file": "pianos/vcsl-steinway/midi-36.wav",
+          "bytes": 1411244,
+          "sha256": "21dca80ae43a20b1d92ef630d4a49cc45954ec3943b11264e877543331295ad2",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C2_vl2_rr1.wav",
+          "source_bytes": 7368994,
+          "source_sha256": "8efd86d8a58e6334dea0c34c53872e67baa27e3982b5708b844c937bfb5fd5be",
+          "source_git_blob_sha1": "f341a21eec0e406b32de9ba94e2845991aa2536f",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 1228158,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 42,
+          "file": "pianos/vcsl-steinway/midi-42.wav",
+          "bytes": 1411244,
+          "sha256": "b9c310fd52bb15f02610a8d4300252eee82ba908e9259697ab6e09f70d7a08d4",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_F#2_vl2_rr1.wav",
+          "source_bytes": 4332820,
+          "source_sha256": "3b4c07adb641f09d9fa2630c61c65e17ac7e6fa383661892464957138d03f7b8",
+          "source_git_blob_sha1": "3002bfd9d03cdd80242e8d28db7de6f1534cd376",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 722129,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 48,
+          "file": "pianos/vcsl-steinway/midi-48.wav",
+          "bytes": 1411244,
+          "sha256": "20ef90356a320ecec4f50b89adc683be97fc090845a41bdefa8b5ba5fe3f3820",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C3_vl2_rr1.wav",
+          "source_bytes": 5150932,
+          "source_sha256": "53c2cf94051119d240c8ccd4b9a91f07aa07333d845515c1ea1276daa775549e",
+          "source_git_blob_sha1": "8ef76a88e25aebe3d1f3dc26099289900b3650d8",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 858481,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 54,
+          "file": "pianos/vcsl-steinway/midi-54.wav",
+          "bytes": 1411244,
+          "sha256": "f8ba1bd3bea3cd2a2969641caa58933512d3dbe45df6ddf7af47e161178f6256",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_F#3_vl2_rr1.wav",
+          "source_bytes": 3541834,
+          "source_sha256": "4a2b66d066aba3a0688421cdf3d168fa13fe91c62a42d7159f8084c8f1c99fd1",
+          "source_git_blob_sha1": "53134a84b09d23c541862b975a7f34758810e3b5",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 590298,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 60,
+          "file": "pianos/vcsl-steinway/midi-60.wav",
+          "bytes": 1411244,
+          "sha256": "f2b672af35fe7f75f8c1d5ce89f4460e23d2de30e882b99d685aff4f353a0954",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C4_vl2_rr1.wav",
+          "source_bytes": 2260822,
+          "source_sha256": "9c2020587943a86dec7a8b7178cdac1c254c4f3dfc016bb27acdef1af292827f",
+          "source_git_blob_sha1": "5f80e0d82e670ab294d58ac9373b4156f2b6d611",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 376796,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 66,
+          "file": "pianos/vcsl-steinway/midi-66.wav",
+          "bytes": 1411244,
+          "sha256": "dc733799c89e89ad699805b88d51b55e0da6280387287f7b05371f5cb2a60d1d",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_F#4_vl2_rr1.wav",
+          "source_bytes": 2991538,
+          "source_sha256": "c296451071e80e936f4b582cd5e1133fe617f7f9a5ca396ad0144d72a3f6f2f5",
+          "source_git_blob_sha1": "aacdd412d3ae2af135234ee84ac65dc8e2d90cb6",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 498582,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 72,
+          "file": "pianos/vcsl-steinway/midi-72.wav",
+          "bytes": 1411244,
+          "sha256": "f8d0ae4e96393be14cf03658f334328e57c1d4656b8023fbc33f3fa74a0ec854",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C5_vl2_rr1.wav",
+          "source_bytes": 3389992,
+          "source_sha256": "167d625aeb78f0d64491d6cb8b0436302f63bd0dd4c2e21180460ef568e4faea",
+          "source_git_blob_sha1": "d4e3e6c40762d902e249fe93aa4bd492962fb40c",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 564991,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 78,
+          "file": "pianos/vcsl-steinway/midi-78.wav",
+          "bytes": 1411244,
+          "sha256": "7ac06283fadad1e52798627a5d6d963c8d921cf01559d76ca3aace7c5732ecce",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_F#5_vl2_rr1.wav",
+          "source_bytes": 3119662,
+          "source_sha256": "2f0eaf6a898a33576c3697bd52c6590be1715675a177556ed8d9ca6f2142e970",
+          "source_git_blob_sha1": "ad21826f6d55fedc52b406bad4137d93f9c32e41",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 519936,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 84,
+          "file": "pianos/vcsl-steinway/midi-84.wav",
+          "bytes": 1411244,
+          "sha256": "0efe3722155f72d37b9dee9a00ace848912f2f8fb0740e38f79538b06aa09981",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C6_vl2_rr1.wav",
+          "source_bytes": 2162200,
+          "source_sha256": "9feff6271739e80f80b1fdaa450fee2d9c76ccf0c5bbeb89bb73f78fcd8d309f",
+          "source_git_blob_sha1": "f26dc99b20c0baf1620a748c68ea00909e8cef3f",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 360359,
+          "trimmed_leading_frames": 0,
+          "output_frames": 352800,
+          "output_sample_width": 2,
+          "tail_fade_frames": 882,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 96,
+          "file": "pianos/vcsl-steinway/midi-96.wav",
+          "bytes": 632980,
+          "sha256": "90a3f29965bc4eb74311c1d40f645a39c458e70fc5e8076479cf8d5fae27ea30",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_C7_vl2_rr1.wav",
+          "source_bytes": 949450,
+          "source_sha256": "23d50d834b7e6780899d5e2a62c4c2ba425ac129ef80a3b3bc066038ba2ee755",
+          "source_git_blob_sha1": "5a29bd68c1d245478f05fbcb4c18626cc672c4fe",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 158234,
+          "trimmed_leading_frames": 0,
+          "output_frames": 158234,
+          "output_sample_width": 2,
+          "tail_fade_frames": 0,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        },
+        {
+          "midi": 104,
+          "file": "pianos/vcsl-steinway/midi-104.wav",
+          "bytes": 260368,
+          "sha256": "3347e1c8d8ee181f3a6c67eb385d7aadf9a73b5e36b3d771f3c6f6f05af59089",
+          "url": "[private source path omitted]",
+          "source_path": "Chordophones/Zithers/Grand Piano, Steinway B/NoSus/JHPiano_NoSus_Close_G#7_vl2_rr1.wav",
+          "source_bytes": 390532,
+          "source_sha256": "8bafd6bb2f82a035577ba1937306bb37201fb51b31ae54b553540aa4af9aef09",
+          "source_git_blob_sha1": "cc6dbcdac8c3fa3b1401633ead325697305a0c47",
+          "channels": 2,
+          "sample_width": 3,
+          "sample_rate": 44100,
+          "frames": 65081,
+          "trimmed_leading_frames": 0,
+          "output_frames": 65081,
+          "output_sample_width": 2,
+          "tail_fade_frames": 0,
+          "processing": "Native-rate stereo PCM16; trim pre-onset below -50dB relative peak, retaining1ms; cap8s with20ms fade if capped; no gain normalization"
+        }
+      ],
+      "license": "CC0-1.0",
+      "author": "Versilian Studios / Joachim’s Piano",
+      "source": "[private source path omitted]",
+      "notes": "12 no-sustain vl2 roots24..104. Lightweight8s PCM16 audition subset; not fullSFZ/sustain/release layers.",
+      "available": true
+    },
+    {
+      "id": "op-piano",
+      "name": "Grand Piano 1",
+      "short": "Grand Piano 1",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "op-grand-piano2-mk",
+      "name": "Grand Piano 2",
+      "short": "Grand Piano 2",
+      "category": "Piano",
+      "sourceId": "grand_piano2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_grand_piano_mk-ogg.js",
+          "bytes": 2340030,
+          "sha256": "54680c0289541f06932b77d1fbdd52e362c3518bbda8b1e2233e051d667d2767"
+        }
+      ],
+      "bank": "local-bde34b40726ec1eab9f1",
+      "available": true
+    },
+    {
+      "id": "op-grand-piano2-fb",
+      "name": "Grand Piano 3",
+      "short": "Grand Piano 3",
+      "category": "Piano",
+      "sourceId": "grand_piano2_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_grand_piano_fb-ogg.js",
+          "bytes": 2484530,
+          "sha256": "99215bad2c8ed03d24426d46a5dd05020796ac7336e82ac7ed6dd3f9d1291f90"
+        }
+      ],
+      "bank": "local-bf619d7ddd8520cd4410",
+      "available": true
+    },
+    {
+      "id": "op-grand-piano2",
+      "name": "Grand Piano 4",
+      "short": "Grand Piano 4",
+      "category": "Piano",
+      "sourceId": "grand_piano2",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_grand_piano_fl-ogg.js",
+          "bytes": 2657542,
+          "sha256": "4e9fd0caea2b98b2260e7d6aba5db7dc7c558ec1438c8beaf6b808240c8e8e8d"
+        }
+      ],
+      "bank": "local-5ec89074f3bcb98ebae4",
+      "available": true
+    },
+    {
+      "id": "op-bright-acoustic-piano-fb",
+      "name": "Bright Piano",
+      "short": "Bright Piano",
+      "category": "Piano",
+      "sourceId": "bright_acoustic_piano_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/bright_acoustic_piano_fb-ogg.js",
+          "bytes": 2577387,
+          "sha256": "213bbdc2bfbe9e3b7a8691938b6f20eb6557c3bf529966169fec902dac038aa1"
+        }
+      ],
+      "bank": "local-f7095cb6ae994efbfded",
+      "available": true
+    },
+    {
+      "id": "op-honkytonk-mk",
+      "name": "Honky-tonk",
+      "short": "Honky-tonk",
+      "category": "Piano",
+      "sourceId": "honkytonk_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/honkytonk_piano_mk-ogg.js",
+          "bytes": 2442053,
+          "sha256": "ee202c6e7d9d1e32df3e8f9ef207840d948ed6666f73c876a0ba968d5b194606"
+        }
+      ],
+      "bank": "local-0f57cf3a2a07133f631d",
+      "available": true
+    },
+    {
+      "id": "vcsl-kawai-grand",
+      "name": "Mellow Grand",
+      "short": "Mellow Grand",
+      "category": "Piano",
+      "kind": "samples",
+      "bank": "piano-9ecda83279e4ffc8a85f",
+      "assets": [
+        {
+          "midi": 42,
+          "file": "pianos/vcsl-kawai-grand/midi-42.wav",
+          "bytes": 1234844,
+          "sha256": "a633c3eb36708933412be81dc946d429829b6c8deca42cc5cacaa806bf0885fc",
+          "sourceLabel": "F#1",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_F#1_v2_rr1_Player.wav",
+          "sourceBytes": 4547640,
+          "sourceSha256": "c26ac28fca64b6aaa3e2733673e9217ca378652999e2621cabbb1bcb53254500",
+          "sourceGitBlobSha1": "20ee51644ca058d030d738933feffcaa898a7e9a",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 31,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 42,
+            "targetHz": 92.4986056779086,
+            "estimatedFundamentalHz": 92.08784044196408,
+            "errorCents": -7.705137093769448,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 48,
+          "file": "pianos/vcsl-kawai-grand/midi-48.wav",
+          "bytes": 1234844,
+          "sha256": "ebc2868955fd7d16d5c662b00858f4abe1dddac7ab5b9da6624394b7ca4ee590",
+          "sourceLabel": "C2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C2_v2_rr1_Player.wav",
+          "sourceBytes": 4116252,
+          "sourceSha256": "00838dbdbcb0dffd02529c38fa84bc514931634b485fc2ad6ecc62fe98d27a62",
+          "sourceGitBlobSha1": "3e64901412fe7935e3a1152b0b7a2d93645e53ef",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 36,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 48,
+            "targetHz": 130.8127826502993,
+            "estimatedFundamentalHz": 130.053359746262,
+            "errorCents": -10.079824780032476,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 54,
+          "file": "pianos/vcsl-kawai-grand/midi-54.wav",
+          "bytes": 1234844,
+          "sha256": "d08d7b10ebc38572cef0baed4f30d26115d5f1d65c1d2017e765b241852c34c3",
+          "sourceLabel": "F#2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_F#2_v2_rr1_Player.wav",
+          "sourceBytes": 4180040,
+          "sourceSha256": "45be0b87b88a6789550f849da90c2b085bd7976e183850f5f359bbc843c41d64",
+          "sourceGitBlobSha1": "0823d5cf46ba400c46f09df044cad831682bc872",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 8,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 54,
+            "targetHz": 184.9972113558172,
+            "estimatedFundamentalHz": 184.59418450809693,
+            "errorCents": -3.7757052021883935,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 60,
+          "file": "pianos/vcsl-kawai-grand/midi-60.wav",
+          "bytes": 1234844,
+          "sha256": "2b6d63eec4a663ceb17eaf1c7b7c34099cecd2e3b06f31e6c894ac16cf9358c1",
+          "sourceLabel": "C3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C3_v2_rr1_Player.wav",
+          "sourceBytes": 4283328,
+          "sourceSha256": "fce33012fe900309abafd1a4d6d254d142b0cbf33834c7a72c2fd1ada4e746e1",
+          "sourceGitBlobSha1": "2449d26c97873705e234ad85b94e0c651018d4a5",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 60,
+            "targetHz": 261.6255653005986,
+            "estimatedFundamentalHz": 260.17584255576264,
+            "errorCents": -9.619812432559394,
+            "fundamentalRelativePeak": 0.5644043345658575,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 66,
+          "file": "pianos/vcsl-kawai-grand/midi-66.wav",
+          "bytes": 1234844,
+          "sha256": "8eabd4d46e16d0fb072f388af689199fb27cd7809f3b16c5b905c1fa42541016",
+          "sourceLabel": "F#3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_F#3_v2_rr1_Player.wav",
+          "sourceBytes": 3897540,
+          "sourceSha256": "85d36c877c730b1a20ac487c598475cf9d50d2a710abef19ab1d9f45ab4c3cae",
+          "sourceGitBlobSha1": "a9f07856dd1e3e3fa938a22d3453165fb9fdf089",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 14,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 66,
+            "targetHz": 369.9944227116344,
+            "estimatedFundamentalHz": 368.0766331597624,
+            "errorCents": -8.996830364326538,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 72,
+          "file": "pianos/vcsl-kawai-grand/midi-72.wav",
+          "bytes": 1234844,
+          "sha256": "e5c6a16f21e39fbd88357d14d361c8c9124332a86584f5d63115ab6693413144",
+          "sourceLabel": "C4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_C4_v2_rr1_Player.wav",
+          "sourceBytes": 2613976,
+          "sourceSha256": "69845de40a38ed6501746520f9f385ae56200a4372faed48178e64a32a75e58c",
+          "sourceGitBlobSha1": "09dfd90293a537066bd825dac73f823bf46d0aa9",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 22,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 72,
+            "targetHz": 523.2511306011972,
+            "estimatedFundamentalHz": 522.1543812546953,
+            "errorCents": -3.632524387960009,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 76,
+          "file": "pianos/vcsl-kawai-grand/midi-76.wav",
+          "bytes": 1234844,
+          "sha256": "ac9f439cee7d9e2f7b2b0e16cf95e66f70fc683af9a3525ef6bd686b9912006f",
+          "sourceLabel": "E4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Grand Piano, Kawai/Sustains/GPiano_sus_E4_v2_rr1_Player.wav",
+          "sourceBytes": 2139416,
+          "sourceSha256": "0b3357ea1c4313d196defebd8d1f02291889c6d1484f94652fa68b82768315c8",
+          "sourceGitBlobSha1": "0727f2fc450bdf059038fbd39ee4e8e194f574ad",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 2,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 47,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 76,
+            "targetHz": 659.2551138257398,
+            "estimatedFundamentalHz": 658.74505241444,
+            "errorCents": -1.339962997059795,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        }
+      ],
+      "license": "CC0-1.0",
+      "author": "Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)",
+      "source": "[private source path omitted]",
+      "notes": "Seven native roots, velocity2/rr1 player perspective, nearest-root pitch shift; 7s PCM16 audition subset, not full velocity/SFZ/pedal/release instrument. Legacy C3=middle C mapping independently FFT-checked.",
+      "available": true
+    },
+    {
+      "id": "vcsl-knight-upright",
+      "name": "Upright Piano 1",
+      "short": "Upright Piano 1",
+      "category": "Piano",
+      "kind": "samples",
+      "bank": "piano-6e4aeba633b0916c0e34",
+      "assets": [
+        {
+          "midi": 43,
+          "file": "pianos/vcsl-knight-upright/midi-43.wav",
+          "bytes": 1234844,
+          "sha256": "0ec2993d9e5295ba108ae35ea182c35c17a23460b63cafd5c9c5d4f3d21ca956",
+          "sourceLabel": "G1",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_G1.wav",
+          "sourceBytes": 5147950,
+          "sourceSha256": "b994aef0d7357e35f32139f1d2392692e70057e595be4461455d18a501e63cde",
+          "sourceGitBlobSha1": "32be93b2bc82f4eb3edc9ac9917f057740b42919",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 49,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 43,
+            "targetHz": 97.99885899543733,
+            "estimatedFundamentalHz": 97.51770274420453,
+            "errorCents": -8.520973970307562,
+            "fundamentalRelativePeak": 0.7407934251490293,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 49,
+          "file": "pianos/vcsl-knight-upright/midi-49.wav",
+          "bytes": 1234844,
+          "sha256": "9d1ec0e8767c8892218a706ab4df22af713112132cb8cf993d001a27593d7061",
+          "sourceLabel": "C#2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_C#2.wav",
+          "sourceBytes": 5030746,
+          "sourceSha256": "d1d7318686f6a5ae0e78560c171bb8f9cb4bffa3d2115f6e1ed32b5d4d07f81b",
+          "sourceGitBlobSha1": "8a860137884587939f37e8ee874081b0f535b155",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 26,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 49,
+            "targetHz": 138.59131548843604,
+            "estimatedFundamentalHz": 138.42837182339034,
+            "errorCents": -2.0366325316253575,
+            "fundamentalRelativePeak": 0.5801515239672288,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 55,
+          "file": "pianos/vcsl-knight-upright/midi-55.wav",
+          "bytes": 1234844,
+          "sha256": "b2ee28f8b80911d90fc3fd8c5e54ce3dab5f573c97b9c5664109a557c6d40a0a",
+          "sourceLabel": "G2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_G2.wav",
+          "sourceBytes": 4994812,
+          "sourceSha256": "078fe4f27f986b50e6bf39e8f637ff0efb9f4d2fb808e4b4fce54e6275d43fff",
+          "sourceGitBlobSha1": "5a8f55842dcc969bd1db83f39fe407b2fb42a787",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 95,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 55,
+            "targetHz": 195.99771799087463,
+            "estimatedFundamentalHz": 195.9020601498116,
+            "errorCents": -0.8451452337284254,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 61,
+          "file": "pianos/vcsl-knight-upright/midi-61.wav",
+          "bytes": 1234844,
+          "sha256": "c89e65e647fcf999198f07d08ca1f6d96af3348372ebf027d341d8b0460bb0f2",
+          "sourceLabel": "C#3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_C#3.wav",
+          "sourceBytes": 5212972,
+          "sourceSha256": "515e6d85e51050867174eb901dd2fdc8018e7be0e8f320d23cdeb854531ea4c8",
+          "sourceGitBlobSha1": "ce3179aa6ec23de9ecd80dc5cffe2a2519ed916b",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 74,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 61,
+            "targetHz": 277.1826309768721,
+            "estimatedFundamentalHz": 277.32330714261667,
+            "errorCents": 0.8784157445819266,
+            "fundamentalRelativePeak": 0.5141053245187893,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 67,
+          "file": "pianos/vcsl-knight-upright/midi-67.wav",
+          "bytes": 1234844,
+          "sha256": "b5cd427210d64fb7f0194d18206c871446f9c08486a02abff995f456a4ede930",
+          "sourceLabel": "G3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_G3.wav",
+          "sourceBytes": 5290522,
+          "sourceSha256": "8d1345c342f27dba3c8083fbd7f918ab3e9de4b2de6a7b2ca97aaa69ba7f53c0",
+          "sourceGitBlobSha1": "cec6b61e89cb80e078e76f3a4e34f68c7fdfa645",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 55,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 67,
+            "targetHz": 391.99543598174927,
+            "estimatedFundamentalHz": 392.88047774833075,
+            "errorCents": 3.9043498819781655,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 73,
+          "file": "pianos/vcsl-knight-upright/midi-73.wav",
+          "bytes": 1234844,
+          "sha256": "3d6103ecb26d0111100f78e8b39aa3038dfb21be9ea2dcad946cb3a2648d8cec",
+          "sourceLabel": "C#4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_C#4.wav",
+          "sourceBytes": 3849658,
+          "sourceSha256": "d89966bb53c4bdabdfe453c15d9779cf1eebae10069aaa7f78bd8074bad98b1a",
+          "sourceGitBlobSha1": "09d29d228fdd4b1761a82f31f303e31e846bc8b0",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 31,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 73,
+            "targetHz": 554.3652619537442,
+            "estimatedFundamentalHz": 555.9466760235321,
+            "errorCents": 4.931586594662841,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 75,
+          "file": "pianos/vcsl-knight-upright/midi-75.wav",
+          "bytes": 1234844,
+          "sha256": "6e68814fc343e40733ad445ce7fd8c8cb771e1ef689492ffae11cff366002b66",
+          "sourceLabel": "D#4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Knight/Sustains/Player_vl2_rr1_D#4.wav",
+          "sourceBytes": 4744456,
+          "sourceSha256": "ca5d5af0846882aa7c838a167e7d20f07dc1be468f0ca27f44553a4648cccb49",
+          "sourceGitBlobSha1": "673014ed3f892bf60ea9a47af72d34ce1c35e5e2",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 125,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 75,
+            "targetHz": 622.2539674441618,
+            "estimatedFundamentalHz": 622.9483515360184,
+            "errorCents": 1.9308372450626998,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        }
+      ],
+      "license": "CC0-1.0",
+      "author": "Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)",
+      "source": "[private source path omitted]",
+      "notes": "Seven native roots, velocity2/rr1 player perspective, nearest-root pitch shift; 7s PCM16 audition subset, not full velocity/SFZ/pedal/release instrument. Legacy C3=middle C mapping independently FFT-checked.",
+      "available": true
+    },
+    {
+      "id": "vcsl-yamaha-upright",
+      "name": "Upright Piano 2",
+      "short": "Upright Piano 2",
+      "category": "Piano",
+      "kind": "samples",
+      "bank": "piano-2db6bc134e0553e1d5e8",
+      "assets": [
+        {
+          "midi": 43,
+          "file": "pianos/vcsl-yamaha-upright/midi-43.wav",
+          "bytes": 1234844,
+          "sha256": "c563ecb900cc5609813fb931e9d078acf73bc2b635ed45d858144157fafcd336",
+          "sourceLabel": "G1",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_G1_vl2_rr1.wav",
+          "sourceBytes": 4690370,
+          "sourceSha256": "519df94cc97f304bd307d31400f3c29ef98cbd6768bf6cf5162ecb9f97734151",
+          "sourceGitBlobSha1": "125e63e8fb8f68022ef6c4fe2914c2747672943d",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 43,
+            "targetHz": 97.99885899543733,
+            "estimatedFundamentalHz": 97.42799158353984,
+            "errorCents": -10.114351320066856,
+            "fundamentalRelativePeak": 0.20593790264936038,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 48,
+          "file": "pianos/vcsl-yamaha-upright/midi-48.wav",
+          "bytes": 1234844,
+          "sha256": "b58bd8173b6abcedf85188bb8b0f4d49c9131a52e6d0c24177e6e134eb671d95",
+          "sourceLabel": "C2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_C2_vl2_rr1.wav",
+          "sourceBytes": 3709418,
+          "sourceSha256": "d2dee43a796d36a1e58d958ba850ed2db87080ca86c0b7c584c2ff00eaf8a449",
+          "sourceGitBlobSha1": "9fecf62a05d67aa3f65d81daaa7e30aaf48d3803",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 48,
+            "targetHz": 130.8127826502993,
+            "estimatedFundamentalHz": 130.2399577445364,
+            "errorCents": -7.597664526721001,
+            "fundamentalRelativePeak": 0.6919315879214727,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 55,
+          "file": "pianos/vcsl-yamaha-upright/midi-55.wav",
+          "bytes": 1234844,
+          "sha256": "52fc79cd1de5a63a139103f748f697f725d405487a5fe02a8e73b40ab5a566eb",
+          "sourceLabel": "G2",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_G2_vl2_rr1.wav",
+          "sourceBytes": 4884824,
+          "sourceSha256": "31a9a00b88d9c4d07e59356942d3e9ed83cef4fba37039c10d493baabfa6b94b",
+          "sourceGitBlobSha1": "ff8ca1c130c92e3a2282546cafaa7f07212d9bac",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 55,
+            "targetHz": 195.99771799087463,
+            "estimatedFundamentalHz": 195.60437665607594,
+            "errorCents": -3.477847284408948,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 60,
+          "file": "pianos/vcsl-yamaha-upright/midi-60.wav",
+          "bytes": 1234844,
+          "sha256": "a61d058dea6b7c506e998a9af9202a038766b771cde576be649d61ffa590593e",
+          "sourceLabel": "C3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_C3_vl2_rr1.wav",
+          "sourceBytes": 4257218,
+          "sourceSha256": "d55c119de6e7d92bcdfe94ceb9237eeb2eb06d8103b574ac80a53d871af3e526",
+          "sourceGitBlobSha1": "0589ead107b5e77b546d801e4bf2900633794879",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 60,
+            "targetHz": 261.6255653005986,
+            "estimatedFundamentalHz": 261.6819595285047,
+            "errorCents": 0.37313282636879636,
+            "fundamentalRelativePeak": 0.2769144969013157,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 67,
+          "file": "pianos/vcsl-yamaha-upright/midi-67.wav",
+          "bytes": 1234844,
+          "sha256": "2cb1915183ffc1152378653abbe04b0dc5483ea842707e4256b95c1ed1ebe89a",
+          "sourceLabel": "G3",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_G3_vl2_rr1.wav",
+          "sourceBytes": 3013760,
+          "sourceSha256": "482ed7d196fbcc7d7e5cdd35163b1a65ea8ad9809ea6c286a6aabad66a1bd3a2",
+          "sourceGitBlobSha1": "a1043e3a993664da2ecb4e8449f056a1f73244cd",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 67,
+            "targetHz": 391.99543598174927,
+            "estimatedFundamentalHz": 391.49138505006516,
+            "errorCents": -2.2275556712933255,
+            "fundamentalRelativePeak": 0.3030189881920754,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 72,
+          "file": "pianos/vcsl-yamaha-upright/midi-72.wav",
+          "bytes": 1234844,
+          "sha256": "41d0990971bc8e2ed089c993e9dede0352acf76abf312391be8bbc6981e57ec1",
+          "sourceLabel": "C4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_C4_vl2_rr1.wav",
+          "sourceBytes": 2964236,
+          "sourceSha256": "39fdc55747ce7c0bd09215a357b577274c4c02928bf48972441ba6f47ec6e0a4",
+          "sourceGitBlobSha1": "29efe51f08dcca83c476139a97fdc49aec6a9471",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 7.0,
+          "tailFadeApplied": true,
+          "pitchCheck": {
+            "expectedMidi": 72,
+            "targetHz": 523.2511306011972,
+            "estimatedFundamentalHz": 522.3608755281243,
+            "errorCents": -2.94801562768413,
+            "fundamentalRelativePeak": 0.8352555896204399,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        },
+        {
+          "midi": 79,
+          "file": "pianos/vcsl-yamaha-upright/midi-79.wav",
+          "bytes": 1126112,
+          "sha256": "e67be6007c45784b41e54d3e7a43ebd72ea8a1c9ead773d39bb69a2f4f4bc1e3",
+          "sourceLabel": "G4",
+          "url": "[private source path omitted]",
+          "sourcePath": "Chordophones/Zithers/Upright Piano, Yamaha/Sustains/Upright1_Sus_G4_vl2_rr1.wav",
+          "sourceBytes": 1689146,
+          "sourceSha256": "f6a8647d92a28553b596b7f072b1e4c2d79b5ecccbfd8a62dd20fdfce2490c16",
+          "sourceGitBlobSha1": "5cdec52d39898e6ebbcc5d32c71ba041ed524ff0",
+          "sampleRate": 44100,
+          "channels": 2,
+          "sourceSampleWidth": 3,
+          "outputSampleWidth": 2,
+          "trimmedLeadingFrames": 0,
+          "duration": 6.38360544217687,
+          "tailFadeApplied": false,
+          "pitchCheck": {
+            "expectedMidi": 79,
+            "targetHz": 783.9908719634985,
+            "estimatedFundamentalHz": 782.0478725101002,
+            "errorCents": -4.295919943156375,
+            "fundamentalRelativePeak": 1.0,
+            "method": "1s Hann FFT, guided fundamental ±50c and relative energy gate; legacy filename offset+12 semitones explicitly applied"
+          },
+          "processing": "Native-rate stereo PCM16, trim below -50dB retaining1ms, cap7s with20ms fade; no gain normalization"
+        }
+      ],
+      "license": "CC0-1.0",
+      "author": "Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)",
+      "source": "[private source path omitted]",
+      "notes": "Seven native roots, velocity2/rr1 player perspective, nearest-root pitch shift; 7s PCM16 audition subset, not full velocity/SFZ/pedal/release instrument. Legacy C3=middle C mapping independently FFT-checked.",
+      "available": true
+    },
+    {
+      "id": "yamaha-cf3-maestro",
+      "name": "Concert Grand 2",
+      "short": "Concert Grand 2",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "yamaha-c7-pianobook",
+      "name": "Studio Grand 2",
+      "short": "Studio Grand 2",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "yamaha-cfx-local-sf2",
+      "name": "Grand Piano 5",
+      "short": "Grand Piano 5",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "yamaha-polyphone-grand",
+      "name": "Grand Piano 6",
+      "short": "Grand Piano 6",
+      "category": "Piano",
+      "available": false,
+      "assets": [],
+      "unavailableReason": "此音色未於公開版提供；來源授權待確認。"
+    },
+    {
+      "id": "op-electric-grand-mk",
+      "name": "Electric Grand",
+      "short": "Elec. Grand",
+      "category": "Electric Piano",
+      "sourceId": "electric_grand_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_grand_piano_mk-ogg.js",
+          "bytes": 2644866,
+          "sha256": "161bcf6d82149f5cf919f7f39997c3fb05862a13aad51a09b6926487b6305be1"
+        }
+      ],
+      "bank": "local-d7daa52bfa2a87543446",
+      "available": true
+    },
+    {
+      "id": "op-electric1",
+      "name": "Electric Piano 1",
+      "short": "Electric 1",
+      "category": "Electric Piano",
+      "sourceId": "electric1",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_piano_1_fl-ogg.js",
+          "bytes": 2091134,
+          "sha256": "c2336734ad03ec66a8a736cda2249aa306d1963bbe5153da1fb084e56cc88df3"
+        }
+      ],
+      "bank": "local-21407f0e439804d1a1df",
+      "available": true
+    },
+    {
+      "id": "op-electric1-mk",
+      "name": "Electric Piano 2",
+      "short": "Electric 2",
+      "category": "Electric Piano",
+      "sourceId": "electric1_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_piano_1_mk-ogg.js",
+          "bytes": 2135206,
+          "sha256": "6718b5380e9e4532b2a30b9d9696fb6e1b3b6e210947c28acf263f78e13d0857"
+        }
+      ],
+      "bank": "local-f8cd29b7907ef2655dcd",
+      "available": true
+    },
+    {
+      "id": "op-electric2",
+      "name": "Electric Piano 3",
+      "short": "Electric 3",
+      "category": "Electric Piano",
+      "sourceId": "electric2",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_piano_2_fl-ogg.js",
+          "bytes": 2349410,
+          "sha256": "bbd68906abb854f1733f3d4169f1a5d8e817a3db54fe528ea0f089ddc97afe2a"
+        }
+      ],
+      "bank": "local-4a12a7b78926f3dd7492",
+      "available": true
+    },
+    {
+      "id": "op-electric2-mk",
+      "name": "Electric Piano 4",
+      "short": "Electric 4",
+      "category": "Electric Piano",
+      "sourceId": "electric2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_piano_2_mk-ogg.js",
+          "bytes": 2411990,
+          "sha256": "3e07db26c66cba14d0a64ccfc67f3d0b9fd0ef93cb2f06a9d644e736d9e6fff6"
+        }
+      ],
+      "bank": "local-ac1ab788a0b43bacc755",
+      "available": true
+    },
+    {
+      "id": "op-harpsichord",
+      "name": "Harpsichord",
+      "short": "Harpsi.",
+      "category": "Keys",
+      "sourceId": "harpsichord",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/harpsichord_fl-ogg.js",
+          "bytes": 2488213,
+          "sha256": "183cd6300e043069d388b36a748daf1f6b36050fcb98ac93e68d5eadf10e3d65"
+        }
+      ],
+      "bank": "local-d9bff75cbb577aea8cd8",
+      "available": true
+    },
+    {
+      "id": "op-clavinet-mk",
+      "name": "Clavinet",
+      "short": "Clavinet",
+      "category": "Keys",
+      "sourceId": "clavinet_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/clavinet_mk-ogg.js",
+          "bytes": 2635914,
+          "sha256": "fa47bd5b91f126a12b889124cc8d27654dbe2a5152183b0ac3debea73aaa06d4"
+        }
+      ],
+      "bank": "local-f0313ba2847dad3ca2d1",
+      "available": true
+    },
+    {
+      "id": "op-celesta",
+      "name": "Celesta",
+      "short": "Celesta",
+      "category": "Keys",
+      "sourceId": "celesta",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/celesta_fl-ogg.js",
+          "bytes": 1911941,
+          "sha256": "372fa34e457f5328601bb6f8b4528f49f8e4c9b87e0ace0c9502c7c2f29b3eff"
+        }
+      ],
+      "bank": "local-454f55f5854231eeaf55",
+      "available": true
+    },
+    {
+      "id": "op-glockenspiel-mk",
+      "name": "Glockenspiel",
+      "short": "Glocken.",
+      "category": "Keys",
+      "sourceId": "glockenspiel_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/glockenspiel_mk-ogg.js",
+          "bytes": 2449138,
+          "sha256": "b884b9b4fe44a23178339034a474a6e57e9243d114a18807f87aea6a96177a1c"
+        }
+      ],
+      "bank": "local-eabe426e2a3670616ada",
+      "available": true
+    },
+    {
+      "id": "op-music-box",
+      "name": "Music Box",
+      "short": "Music Box",
+      "category": "Keys",
+      "sourceId": "music_box",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/music_box_fl-ogg.js",
+          "bytes": 2070395,
+          "sha256": "c5d8cc7be23e9031576f9201f049964ae0aaa5b969a3ccb085e86c191c6d2674"
+        }
+      ],
+      "bank": "local-83dd9dee68f61a26dee1",
+      "available": true
+    },
+    {
+      "id": "op-vibraphone",
+      "name": "Vibraphone",
+      "short": "Vibraphone",
+      "category": "Keys",
+      "sourceId": "vibraphone",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/vibraphone_fl-ogg.js",
+          "bytes": 2185704,
+          "sha256": "1ab27587d06adf292d911bce7b5c6782a69cbb49b7e1d1523e4ffb9ac960b3c3"
+        }
+      ],
+      "bank": "local-5c9eba12dc85f63c2dbe",
+      "available": true
+    },
+    {
+      "id": "op-marimba-fb",
+      "name": "Marimba",
+      "short": "Marimba",
+      "category": "Keys",
+      "sourceId": "marimba_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/marimba_fb-ogg.js",
+          "bytes": 1894437,
+          "sha256": "617873e2a2778ae9de5d8740b194d8c78c8afeda57a12f8f692bf63d13ce0e38"
+        }
+      ],
+      "bank": "local-a374c87c8e5b9fcf887b",
+      "available": true
+    },
+    {
+      "id": "op-xylophone",
+      "name": "Xylophone",
+      "short": "Xylophone",
+      "category": "Keys",
+      "sourceId": "xylophone",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/xylophone_fl-ogg.js",
+          "bytes": 1768463,
+          "sha256": "aa4b0cc3d35b93d56e0b8b69b5db6fc6ef9be2b1deb5b7432736469799c95a42"
+        }
+      ],
+      "bank": "local-ea3780dfca2a9ebd7de7",
+      "available": true
+    },
+    {
+      "id": "op-tubular-bells-mk",
+      "name": "Tubular Bells",
+      "short": "Tub. Bells",
+      "category": "Keys",
+      "sourceId": "tubular_bells_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tubular_bells_mk-ogg.js",
+          "bytes": 2365795,
+          "sha256": "a81a7022da57910f01813c4d7f171734bc2c9d78c65e752c811f13c3cc0f6c79"
+        }
+      ],
+      "bank": "local-36f4ba9239c2376e82b9",
+      "available": true
+    },
+    {
+      "id": "op-dulcimer-fb",
+      "name": "Dulcimer",
+      "short": "Dulcimer",
+      "category": "Keys",
+      "sourceId": "dulcimer_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/dulcimer_fb-ogg.js",
+          "bytes": 2302198,
+          "sha256": "dc3dee18128989e381ec9b99f7c0de7bb1081b4f1a459d2097bdd5c236445795"
+        }
+      ],
+      "bank": "local-887f31081a51570e545b",
+      "available": true
+    },
+    {
+      "id": "op-drawbar-organ-fb",
+      "name": "Drawbar Organ",
+      "short": "Organ 1",
+      "category": "Organ",
+      "sourceId": "drawbar_organ_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/drawbar_organ_fb-ogg.js",
+          "bytes": 2758495,
+          "sha256": "90bda7d347bad0c5126b66bb237abb2931a91000e6e9d230f441696f0e5e390b"
+        }
+      ],
+      "bank": "local-eeb0eb4bd07d05141f97",
+      "available": true
+    },
+    {
+      "id": "op-percussive-organ-fb",
+      "name": "Percussive Organ",
+      "short": "Organ 2",
+      "category": "Organ",
+      "sourceId": "percussive_organ_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/percussive_organ_fb-ogg.js",
+          "bytes": 3121726,
+          "sha256": "f50ac4c37042bd94cd24140e95eafa12f3fc9d739feb1b91d8626920b1a6e646"
+        }
+      ],
+      "bank": "local-89dc08feca02570c52f6",
+      "available": true
+    },
+    {
+      "id": "op-rock-organ-fb",
+      "name": "Rock Organ",
+      "short": "Organ 3",
+      "category": "Organ",
+      "sourceId": "rock_organ_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/rock_organ_fb-ogg.js",
+          "bytes": 3227408,
+          "sha256": "32cdeba961c8e32c87357f2ad981ba3d8392f1e72e7e1f1c266b1f9104745ba7"
+        }
+      ],
+      "bank": "local-95c18c7870f4c4abaa05",
+      "available": true
+    },
+    {
+      "id": "op-church-organ-fb",
+      "name": "Church Organ",
+      "short": "Organ 4",
+      "category": "Organ",
+      "sourceId": "church_organ_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/church_organ_fb-ogg.js",
+          "bytes": 3278438,
+          "sha256": "3f8bc1103a6bcf8fc9e84b16b76bd0f209a0a43ed2609406f118d6ac6f7ca827"
+        }
+      ],
+      "bank": "local-b1dd0309ba106145b60c",
+      "available": true
+    },
+    {
+      "id": "op-reed-organ-fb",
+      "name": "Reed Organ",
+      "short": "Organ 5",
+      "category": "Organ",
+      "sourceId": "reed_organ_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/reed_organ_fb-ogg.js",
+          "bytes": 2661444,
+          "sha256": "ddd83eb6aa3ab0eb0cba39eda01310307b2d574310b49f4c11f08c9df1974a8f"
+        }
+      ],
+      "bank": "local-c695d883d34f74a06662",
+      "available": true
+    },
+    {
+      "id": "op-accordion-fb",
+      "name": "Accordion",
+      "short": "Accordion",
+      "category": "Organ",
+      "sourceId": "accordion_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/accordion_fb-ogg.js",
+          "bytes": 2889863,
+          "sha256": "476e4b1e23073b2b5b61ac900034663b552a5a7a45360555a34f9d84e44cd0c5"
+        }
+      ],
+      "bank": "local-45075284117bd5955722",
+      "available": true
+    },
+    {
+      "id": "op-harmonica-fb",
+      "name": "Harmonica",
+      "short": "Harmonica",
+      "category": "Organ",
+      "sourceId": "harmonica_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/harmonica_fb-ogg.js",
+          "bytes": 2624563,
+          "sha256": "ca70e105b2fa6723a6af65adf45e64921272f6196efe6e12868e34bf3e626544"
+        }
+      ],
+      "bank": "local-22d572de0fa9712e932f",
+      "available": true
+    },
+    {
+      "id": "op-tango-accordion",
+      "name": "Tango Accordion",
+      "short": "Tango Acc.",
+      "category": "Organ",
+      "sourceId": "tango_accordion",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tango_accordion_fl-ogg.js",
+          "bytes": 3319477,
+          "sha256": "32a4c7f65fa0b159d559617f1a58c4d58917b1ce8484e83235338f8fd99f1ddb"
+        }
+      ],
+      "bank": "local-3cda9b1b8449817f2912",
+      "available": true
+    },
+    {
+      "id": "op-guitar-nylon-fb",
+      "name": "Nylon Guitar",
+      "short": "Guitar 1",
+      "category": "Guitar",
+      "sourceId": "guitar_nylon_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_guitar_nylon_fb-ogg.js",
+          "bytes": 2390459,
+          "sha256": "04080824c5c17307c33f62c83e4b8fca9fce130150066d0ce797107f86c1caef"
+        }
+      ],
+      "bank": "local-55138b3bee8e5a9e2391",
+      "available": true
+    },
+    {
+      "id": "op-guitar-steel-fb",
+      "name": "Steel Guitar",
+      "short": "Guitar 2",
+      "category": "Guitar",
+      "sourceId": "guitar_steel_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_guitar_steel_fb-ogg.js",
+          "bytes": 2472631,
+          "sha256": "5f40d05af66f3c6f2f78cf4c07f6c120720226e98d6a3a37cbedb34ab9ac6df8"
+        }
+      ],
+      "bank": "local-828feb3512e06676c8ff",
+      "available": true
+    },
+    {
+      "id": "op-guitar-jazz-fb",
+      "name": "Jazz Guitar",
+      "short": "Guitar 3",
+      "category": "Guitar",
+      "sourceId": "guitar_jazz_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_guitar_jazz_fb-ogg.js",
+          "bytes": 2163358,
+          "sha256": "90b8bf7a960320f9312df411be30ae0352cac4e6228d802736169f414595a8d0"
+        }
+      ],
+      "bank": "local-d2d403ffae4bebc4226d",
+      "available": true
+    },
+    {
+      "id": "op-guitar-clean-mk",
+      "name": "Clean Electric",
+      "short": "Guitar 4",
+      "category": "Guitar",
+      "sourceId": "guitar_clean_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_guitar_clean_mk-ogg.js",
+          "bytes": 2581247,
+          "sha256": "d3230413a260e86d261bb831430184f9d1ef6dde1224eb2e233e96c4cbef47bc"
+        }
+      ],
+      "bank": "local-73db1ad709cc265c766e",
+      "available": true
+    },
+    {
+      "id": "op-electric-guitar-muted",
+      "name": "Muted Guitar",
+      "short": "Guitar 5",
+      "category": "Guitar",
+      "sourceId": "electric_guitar_muted",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_guitar_muted_fl-ogg.js",
+          "bytes": 1996703,
+          "sha256": "0c9f9498304aa4d626ffb1642048da3d8dcc063ea4f982e8d6cff2683f97e509"
+        }
+      ],
+      "bank": "local-f57c0c4f973b60f3317d",
+      "available": true
+    },
+    {
+      "id": "op-overdriven-guitar-mk",
+      "name": "Overdrive Guitar",
+      "short": "Guitar 6",
+      "category": "Guitar",
+      "sourceId": "overdriven_guitar_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/overdriven_guitar_mk-ogg.js",
+          "bytes": 2741995,
+          "sha256": "0403dadb1064df9211ec678be152e29508d1ae3802179faa92e59b4a601e5357"
+        }
+      ],
+      "bank": "local-779b88230631a06128d3",
+      "available": true
+    },
+    {
+      "id": "op-distortion-guitar-fb",
+      "name": "Distortion Guitar",
+      "short": "Guitar 7",
+      "category": "Guitar",
+      "sourceId": "distortion_guitar_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/distortion_guitar_fb-ogg.js",
+          "bytes": 3110399,
+          "sha256": "9b9d7856795b4dc822d137b86e59380347493d3a827bfdc469134c59ad25ab01"
+        }
+      ],
+      "bank": "local-29d9faca94c1bce68b08",
+      "available": true
+    },
+    {
+      "id": "op-guitar-harmonics-fb",
+      "name": "Guitar Harmonics",
+      "short": "Guitar 8",
+      "category": "Guitar",
+      "sourceId": "guitar_harmonics_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/guitar_harmonics_fb-ogg.js",
+          "bytes": 2779366,
+          "sha256": "64969af480ddf21b5530c36e0b3324a29ebe757a1a8343a97b33db8923c96a1b"
+        }
+      ],
+      "bank": "local-4f2d90f975449de7f7c3",
+      "available": true
+    },
+    {
+      "id": "op-banjo",
+      "name": "Banjo",
+      "short": "Banjo",
+      "category": "Guitar",
+      "sourceId": "banjo",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "fluidr3/banjo-mp3.js",
+          "bytes": 1765131,
+          "sha256": "08f49bde197e518187b17bed57d6b16e4afa1f2102e4e0a368275b57583ec355"
+        }
+      ],
+      "bank": "local-4f9d196099d9b8292d2c",
+      "available": true
+    },
+    {
+      "id": "op-acoustic-bass-mk",
+      "name": "Acoustic Bass",
+      "short": "Bass 1",
+      "category": "Bass",
+      "sourceId": "acoustic_bass_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/acoustic_bass_mk-ogg.js",
+          "bytes": 2250827,
+          "sha256": "f5d1f7325750c1ebde65f069bb37e548518e7178faffa19f9547e39ece7c54f0"
+        }
+      ],
+      "bank": "local-1e332777d106091d045b",
+      "available": true
+    },
+    {
+      "id": "op-electric-bass-finger-fb",
+      "name": "Electric Bass",
+      "short": "Bass 2",
+      "category": "Bass",
+      "sourceId": "electric_bass_finger_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_bass_finger_fb-ogg.js",
+          "bytes": 2263674,
+          "sha256": "da66dc448a437cc7900f83568db06e0da35e6a5a3fa643b3f5dfaf48aee480bf"
+        }
+      ],
+      "bank": "local-fa1f501b422fa1417286",
+      "available": true
+    },
+    {
+      "id": "op-electric-bass-pick-mk",
+      "name": "Pick Bass",
+      "short": "Bass 3",
+      "category": "Bass",
+      "sourceId": "electric_bass_pick_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/electric_bass_pick_mk-ogg.js",
+          "bytes": 2062520,
+          "sha256": "d3bb5585a5ff36f200c675f8e59b820cd4c274eaa9de25df369c5b583692e3b6"
+        }
+      ],
+      "bank": "local-e43894a91ea10b3ccfed",
+      "available": true
+    },
+    {
+      "id": "op-fretless-bass-mk",
+      "name": "Fretless Bass",
+      "short": "Bass 4",
+      "category": "Bass",
+      "sourceId": "fretless_bass_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/fretless_bass_mk-ogg.js",
+          "bytes": 2489583,
+          "sha256": "4af4f49d9022278f3a7a145588482b8e0d45d8030752ed882a59df1a6de0e88a"
+        }
+      ],
+      "bank": "local-9b2736719cd743df33cb",
+      "available": true
+    },
+    {
+      "id": "op-slap-bass-1-fb",
+      "name": "Slap Bass 1",
+      "short": "Slap Bass 1",
+      "category": "Bass",
+      "sourceId": "slap_bass_1_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/slap_bass_1_fb-ogg.js",
+          "bytes": 2476505,
+          "sha256": "0ac59f8c42061bd369fbe12473b9fdd38ea481a82781ab71ce2365a56282eb68"
+        }
+      ],
+      "bank": "local-641db329ae7c65ff2765",
+      "available": true
+    },
+    {
+      "id": "op-slap-bass-2-mk",
+      "name": "Slap Bass 2",
+      "short": "Slap Bass 2",
+      "category": "Bass",
+      "sourceId": "slap_bass_2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/slap_bass_2_mk-ogg.js",
+          "bytes": 2263049,
+          "sha256": "ce971556d9c42e5a225748ee39ff784d45c5eafb31d9ef509d35e8c7d3d12b1c"
+        }
+      ],
+      "bank": "local-66aeb844a34b4a034f4a",
+      "available": true
+    },
+    {
+      "id": "op-synth-bass-1-mk",
+      "name": "Synth Bass 1",
+      "short": "Synth Bass 1",
+      "category": "Bass",
+      "sourceId": "synth_bass_1_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_bass_1_mk-ogg.js",
+          "bytes": 2146918,
+          "sha256": "c88660768e50eb8237ecd6a74c296b6689f56a49eced4e6e7c92cb3cf87f7718"
+        }
+      ],
+      "bank": "local-126e1fe3a0b40fccc31e",
+      "available": true
+    },
+    {
+      "id": "op-synth-bass-2-mk",
+      "name": "Synth Bass 2",
+      "short": "Synth Bass 2",
+      "category": "Bass",
+      "sourceId": "synth_bass_2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_bass_2_mk-ogg.js",
+          "bytes": 2216482,
+          "sha256": "1579598982d43c5ca773ce4ee0a165c9f1783ede3ca43b6ee84e46110ea6e3a3"
+        }
+      ],
+      "bank": "local-bd425cc1317c800c5bdb",
+      "available": true
+    },
+    {
+      "id": "op-violin-fb",
+      "name": "Violin",
+      "short": "Violin",
+      "category": "Strings",
+      "sourceId": "violin_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/violin_fb-ogg.js",
+          "bytes": 3594104,
+          "sha256": "d290182fb7d879eae13a337f04806cfa93283549ecdccd0368b20a609e5043b8"
+        }
+      ],
+      "bank": "local-d5a890436c479bab1364",
+      "available": true
+    },
+    {
+      "id": "op-viola-fb",
+      "name": "Viola",
+      "short": "Viola",
+      "category": "Strings",
+      "sourceId": "viola_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/viola_fb-ogg.js",
+          "bytes": 3499539,
+          "sha256": "7f5eda54932ae162db714da569c73e5a0af0692b75cbfefdf35b255d7e805b00"
+        }
+      ],
+      "bank": "local-8fe0540cb806ceeae07a",
+      "available": true
+    },
+    {
+      "id": "op-cello",
+      "name": "Cello",
+      "short": "Cello",
+      "category": "Strings",
+      "sourceId": "cello",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/cello_fl-ogg.js",
+          "bytes": 3921871,
+          "sha256": "0d555cfc0e320a04543554014b5688863790ce52b21cfa2b7565e10dac368458"
+        }
+      ],
+      "bank": "local-b5aaff3c38695c3a728f",
+      "available": true
+    },
+    {
+      "id": "op-contrabass-mk",
+      "name": "Contrabass",
+      "short": "Contrabass",
+      "category": "Strings",
+      "sourceId": "contrabass_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/contrabass_mk-ogg.js",
+          "bytes": 3214584,
+          "sha256": "4a4a66c55fb1a69e6a4ae3577dc4233098c96b52527226d3850a63e8014759e3"
+        }
+      ],
+      "bank": "local-687f02504df42260f435",
+      "available": true
+    },
+    {
+      "id": "op-tremolo-strings-mk",
+      "name": "Tremolo Strings",
+      "short": "Tremolo",
+      "category": "Strings",
+      "sourceId": "tremolo_strings_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tremolo_strings_mk-ogg.js",
+          "bytes": 3262777,
+          "sha256": "4bdb6ade5dd2a49a6dbcb9034bc48a06165ed7f4acc713fcc6d663770d7d4a5c"
+        }
+      ],
+      "bank": "local-227230b07943e469ec27",
+      "available": true
+    },
+    {
+      "id": "op-pizzicato-strings",
+      "name": "Pizzicato Strings",
+      "short": "Pizzicato",
+      "category": "Strings",
+      "sourceId": "pizzicato_strings",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/pizzicato_strings_fl-ogg.js",
+          "bytes": 2180859,
+          "sha256": "c16cf28ae62c10b82be3dbf3eaf409af587da9462184679b39f36904b3760941"
+        }
+      ],
+      "bank": "local-4f80a6267983484efad5",
+      "available": true
+    },
+    {
+      "id": "op-orchestral-harp-fb",
+      "name": "Orchestral Harp",
+      "short": "Harp",
+      "category": "Strings",
+      "sourceId": "orchestral_harp_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/orchestral_harp_fb-ogg.js",
+          "bytes": 2021397,
+          "sha256": "228900e0e7c0d92bafdb26912182ca4f1b5b7322f9ff17e7b4478758ca0cec22"
+        }
+      ],
+      "bank": "local-5045f38558b1ccc93e3f",
+      "available": true
+    },
+    {
+      "id": "op-timpani-mk",
+      "name": "Timpani",
+      "short": "Timpani",
+      "category": "Strings",
+      "sourceId": "timpani_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/timpani_mk-ogg.js",
+          "bytes": 2684869,
+          "sha256": "8c09e480990b0cbc3299453132550afd0ea0e66c46a8801e53ee8c3cdc2f4164"
+        }
+      ],
+      "bank": "local-bcbfa65f7419828dc7a5",
+      "available": true
+    },
+    {
+      "id": "op-string-ensemble-1-mk",
+      "name": "String Ensemble",
+      "short": "Strings",
+      "category": "Strings",
+      "sourceId": "string_ensemble_1_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/string_ensemble_1_mk-ogg.js",
+          "bytes": 3410419,
+          "sha256": "11fc6036ea4cdd0d7b665050b42374ef8aee3cbf3f83d26787b171a4b0c1adb0"
+        }
+      ],
+      "bank": "local-234428b892d5fc099806",
+      "available": true
+    },
+    {
+      "id": "op-string-ensemble-2-mk",
+      "name": "Slow Strings",
+      "short": "Slow Strings",
+      "category": "Strings",
+      "sourceId": "string_ensemble_2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/string_ensemble_2_mk-ogg.js",
+          "bytes": 3744395,
+          "sha256": "3df4564a65f67c22b476b749af58668b62c9b34085bf937f9ed4007cb1c3ae93"
+        }
+      ],
+      "bank": "local-af05f79666de9c260990",
+      "available": true
+    },
+    {
+      "id": "op-synth-strings-1",
+      "name": "Synth Strings 1",
+      "short": "Syn. Str. 1",
+      "category": "Strings",
+      "sourceId": "synth_strings_1",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_strings_1_fl-ogg.js",
+          "bytes": 2958961,
+          "sha256": "e52159db11bf7e2288f75f1522669a68761b07c6cd9473f140d56ceb4fd1f3bf"
+        }
+      ],
+      "bank": "local-280dc33d31a34be2809e",
+      "available": true
+    },
+    {
+      "id": "op-synth-strings-2-mk",
+      "name": "Synth Strings 2",
+      "short": "Syn. Str. 2",
+      "category": "Strings",
+      "sourceId": "synth_strings_2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_strings_2_mk-ogg.js",
+          "bytes": 2673981,
+          "sha256": "03de0e9a3d33ec56b55a63614fb3586384a86a7a07b70147f5641666889169f4"
+        }
+      ],
+      "bank": "local-6966da2b369dc13b5afa",
+      "available": true
+    },
+    {
+      "id": "op-sitar",
+      "name": "Sitar",
+      "short": "Sitar",
+      "category": "Strings",
+      "sourceId": "sitar",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "fluidr3/sitar-mp3.js",
+          "bytes": 2906871,
+          "sha256": "be220a6fd38a8594cf41d035ab01b8a61895cf4b8f2d7b3b8da78242a9f9d634"
+        }
+      ],
+      "bank": "local-6123f46650374aa13a61",
+      "available": true
+    },
+    {
+      "id": "op-choir-aahs-mk",
+      "name": "Choir Aahs",
+      "short": "Choir Aahs",
+      "category": "Voice",
+      "sourceId": "choir_aahs_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/choir_aahs_mk-ogg.js",
+          "bytes": 3663068,
+          "sha256": "1ba6d803b5a62703dcf9d3d83bcf19ce0bd84f1571bf2cdc29771c7c98eeb48c"
+        }
+      ],
+      "bank": "local-ce155bb55113e97d1c79",
+      "available": true
+    },
+    {
+      "id": "op-voice-oohs-fb",
+      "name": "Voice Oohs",
+      "short": "Voice Oohs",
+      "category": "Voice",
+      "sourceId": "voice_oohs_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/voice_oohs_fb-ogg.js",
+          "bytes": 3228064,
+          "sha256": "65ace0d7f8c8af1ca16aa5440cb3e7bb575600fcb430ab8fff1a842aadfd98ff"
+        }
+      ],
+      "bank": "local-cea0bae7fc065dfd6a58",
+      "available": true
+    },
+    {
+      "id": "op-synth-choir-mk",
+      "name": "Synth Voice",
+      "short": "Synth Voice",
+      "category": "Voice",
+      "sourceId": "synth_choir_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_choir_mk-ogg.js",
+          "bytes": 3466337,
+          "sha256": "b4e1f64677220b9e89ddf0bce2caa0b23e5fb8deeb34460543f4919e85898d98"
+        }
+      ],
+      "bank": "local-4856ca2cf83cdfdc3d12",
+      "available": true
+    },
+    {
+      "id": "op-orchestra-hit-mk",
+      "name": "Orchestra Hit",
+      "short": "Orch. Hit",
+      "category": "Voice",
+      "sourceId": "orchestra_hit_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/orchestra_hit_mk-ogg.js",
+          "bytes": 2491231,
+          "sha256": "4467ec83b4019477a25cddd8a7cf7d8b418f0e498ab676efda1284a74d696443"
+        }
+      ],
+      "bank": "local-a9d5a14ce2cf8e0c232c",
+      "available": true
+    },
+    {
+      "id": "op-trumpet-fb",
+      "name": "Trumpet",
+      "short": "Trumpet",
+      "category": "Brass",
+      "sourceId": "trumpet_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/trumpet_fb-ogg.js",
+          "bytes": 3237937,
+          "sha256": "86f47e913ea0fa5934eac24897461c804eb5f5f7f3cdec2d281c75bb48e5a1ba"
+        }
+      ],
+      "bank": "local-40322b919c0dc0739a79",
+      "available": true
+    },
+    {
+      "id": "op-trombone-fb",
+      "name": "Trombone",
+      "short": "Trombone",
+      "category": "Brass",
+      "sourceId": "trombone_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/trombone_fb-ogg.js",
+          "bytes": 3211498,
+          "sha256": "a2964cce1407f13b8520ee8a7b5e31775e708b21f1f61e871f01d67458beb95a"
+        }
+      ],
+      "bank": "local-a88fda24e2481a8f18fc",
+      "available": true
+    },
+    {
+      "id": "op-tuba-mk",
+      "name": "Tuba",
+      "short": "Tuba",
+      "category": "Brass",
+      "sourceId": "tuba_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tuba_mk-ogg.js",
+          "bytes": 2995310,
+          "sha256": "58a7736a7665a2f8ffd9f010581987affe84811bd14ff16911ebaeeaddd89eab"
+        }
+      ],
+      "bank": "local-790f1f3f60bd8ccfa684",
+      "available": true
+    },
+    {
+      "id": "op-muted-trumpet-fb",
+      "name": "Muted Trumpet",
+      "short": "Muted Trpt.",
+      "category": "Brass",
+      "sourceId": "muted_trumpet_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/muted_trumpet_fb-ogg.js",
+          "bytes": 3237367,
+          "sha256": "9a9322057409930f7e9b72f0cd0340e60319836dbf050aa87c87cba19e354bdb"
+        }
+      ],
+      "bank": "local-2833adc47d62e0565725",
+      "available": true
+    },
+    {
+      "id": "op-french-horn",
+      "name": "French Horn",
+      "short": "Fr. Horn",
+      "category": "Brass",
+      "sourceId": "french_horn",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/french_horn_fl-ogg.js",
+          "bytes": 2862997,
+          "sha256": "cf93b2c8dd823ee82b0c6afe826b38f7d290e8f98a25f628538a46c8e04820a4"
+        }
+      ],
+      "bank": "local-1545ca267a64e7e710a9",
+      "available": true
+    },
+    {
+      "id": "op-brass-section-fb",
+      "name": "Brass Section",
+      "short": "Brass",
+      "category": "Brass",
+      "sourceId": "brass_section_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/brass_section_fb-ogg.js",
+          "bytes": 3226667,
+          "sha256": "8fca8097833ac72371bb29d021bc8ff1bcae1f86cb269037ae0cac95b16e8b85"
+        }
+      ],
+      "bank": "local-89e6c7347557640c2c34",
+      "available": true
+    },
+    {
+      "id": "op-synth-brass-1-fb",
+      "name": "Synth Brass 1",
+      "short": "Syn. Brass 1",
+      "category": "Brass",
+      "sourceId": "synth_brass_1_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_brass_1_fb-ogg.js",
+          "bytes": 3938123,
+          "sha256": "dfb57206720d72d1c80cd6c74a3cc5bf154b4e9b8539136dc7cabfceec9ad979"
+        }
+      ],
+      "bank": "local-b935e5e290744b78d795",
+      "available": true
+    },
+    {
+      "id": "op-synth-brass-2-mk",
+      "name": "Synth Brass 2",
+      "short": "Syn. Brass 2",
+      "category": "Brass",
+      "sourceId": "synth_brass_2_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/synth_brass_2_mk-ogg.js",
+          "bytes": 3030311,
+          "sha256": "f3bd87bbaeb0ba0bbd23c6596f03e6ed121b8aed568af2db90df1ff8f9870ca3"
+        }
+      ],
+      "bank": "local-77e483887dbf495eac14",
+      "available": true
+    },
+    {
+      "id": "op-soprano-sax-fb",
+      "name": "Soprano Sax",
+      "short": "Sop. Sax",
+      "category": "Wind",
+      "sourceId": "soprano_sax_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/soprano_sax_fb-ogg.js",
+          "bytes": 2598109,
+          "sha256": "76ab99445a441fbb5fda75c57149337f8b66546b2bf085b2aa11b13caa0bfb1f"
+        }
+      ],
+      "bank": "local-e7eb9a75a8387b12ec1f",
+      "available": true
+    },
+    {
+      "id": "op-alto-sax-fb",
+      "name": "Alto Saxophone",
+      "short": "Alto Sax",
+      "category": "Wind",
+      "sourceId": "alto_sax_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/alto_sax_fb-ogg.js",
+          "bytes": 3214694,
+          "sha256": "95316b8b3550c15b91481a723ab5b3b711992eecd37edab5f288b8e3f58aa7a9"
+        }
+      ],
+      "bank": "local-8c5ad6a6b38f67540296",
+      "available": true
+    },
+    {
+      "id": "op-tenor-sax-mk",
+      "name": "Tenor Saxophone",
+      "short": "Tenor Sax",
+      "category": "Wind",
+      "sourceId": "tenor_sax_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tenor_sax_mk-ogg.js",
+          "bytes": 2932555,
+          "sha256": "110763cc78a1483fb37ea0bf8dfbfe6309d643d35b6fdf1a9fdd6391780df78b"
+        }
+      ],
+      "bank": "local-e15557778a5be2a57f01",
+      "available": true
+    },
+    {
+      "id": "op-baritone-sax-mk",
+      "name": "Baritone Sax",
+      "short": "Bari. Sax",
+      "category": "Wind",
+      "sourceId": "baritone_sax_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/baritone_sax_mk-ogg.js",
+          "bytes": 3320902,
+          "sha256": "4fcea4d8a17e7ac3864cb0b4884b389d23e386a45e4a3be414fb9f2c1ee2354d"
+        }
+      ],
+      "bank": "local-13ecb3e87a8a253d13c1",
+      "available": true
+    },
+    {
+      "id": "op-oboe-fb",
+      "name": "Oboe",
+      "short": "Oboe",
+      "category": "Wind",
+      "sourceId": "oboe_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/oboe_fb-ogg.js",
+          "bytes": 2608078,
+          "sha256": "7e54936019fa760bc982bb966ff308514c48fefd9a92c8427caa071dfe6d0b55"
+        }
+      ],
+      "bank": "local-812811e43abcbabd83d4",
+      "available": true
+    },
+    {
+      "id": "op-english-horn",
+      "name": "English Horn",
+      "short": "Eng. Horn",
+      "category": "Wind",
+      "sourceId": "english_horn",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/english_horn_fl-ogg.js",
+          "bytes": 2796946,
+          "sha256": "8ee774fd69eba9986f6e956408f549b9197e7973000c1d56d430053f1af2efb5"
+        }
+      ],
+      "bank": "local-65d203760107180305a1",
+      "available": true
+    },
+    {
+      "id": "op-bassoon",
+      "name": "Bassoon",
+      "short": "Bassoon",
+      "category": "Wind",
+      "sourceId": "bassoon",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/bassoon_fl-ogg.js",
+          "bytes": 3309017,
+          "sha256": "4f7ee707f921a0900688b3f43bc1e9fa66e06cf46c531e82b20f333c681eba10"
+        }
+      ],
+      "bank": "local-0880e1ddcbfc5cbf946d",
+      "available": true
+    },
+    {
+      "id": "op-clarinet-fb",
+      "name": "Clarinet",
+      "short": "Clarinet",
+      "category": "Wind",
+      "sourceId": "clarinet_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/clarinet_fb-ogg.js",
+          "bytes": 2766154,
+          "sha256": "2679f6ffdd32f8077b7f3f47f47de4db4e1b5b211bc523473b40581b6b053ecc"
+        }
+      ],
+      "bank": "local-da8d6194bfb8707150e0",
+      "available": true
+    },
+    {
+      "id": "op-piccolo-fb",
+      "name": "Piccolo",
+      "short": "Piccolo",
+      "category": "Wind",
+      "sourceId": "piccolo_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/piccolo_fb-ogg.js",
+          "bytes": 3024813,
+          "sha256": "a03de8694b640965bbfacecbf8e68983cf00047db1a208e2a7d065208236aa6a"
+        }
+      ],
+      "bank": "local-cb70562fe2ee307868d0",
+      "available": true
+    },
+    {
+      "id": "op-flute-fb",
+      "name": "Flute",
+      "short": "Flute",
+      "category": "Wind",
+      "sourceId": "flute_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/flute_fb-ogg.js",
+          "bytes": 2829659,
+          "sha256": "d4b2a20c27f87de11206d520d0351576683e9d038b8eaf3fd7fa2cdfb6eaca76"
+        }
+      ],
+      "bank": "local-ddf4712f5a4df98de98e",
+      "available": true
+    },
+    {
+      "id": "op-recorder-fb",
+      "name": "Recorder",
+      "short": "Recorder",
+      "category": "Wind",
+      "sourceId": "recorder_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/recorder_fb-ogg.js",
+          "bytes": 2483578,
+          "sha256": "124115e955b8fcba1f778a0eec288198968712d0b35125fd9241886d122ffbd4"
+        }
+      ],
+      "bank": "local-60eaa9bbed9b2682810d",
+      "available": true
+    },
+    {
+      "id": "op-pan-flute-fb",
+      "name": "Pan Flute",
+      "short": "Pan Flute",
+      "category": "Wind",
+      "sourceId": "pan_flute_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/pan_flute_fb-ogg.js",
+          "bytes": 3259411,
+          "sha256": "d5e430eba7f1a606fb60e3e5de9e8f2f73f2e359e24aab3f2f91e32531e63d8d"
+        }
+      ],
+      "bank": "local-4721e8f6e7f501915c39",
+      "available": true
+    },
+    {
+      "id": "op-blown-bottle-fb",
+      "name": "Blown Bottle",
+      "short": "Bottle",
+      "category": "Wind",
+      "sourceId": "blown_bottle_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/blown_bottle_fb-ogg.js",
+          "bytes": 2829434,
+          "sha256": "791245a5a9aa4ed74d641bb890f652e0e7e2a21b41539b46bd8910f2e24f9576"
+        }
+      ],
+      "bank": "local-bedc7f5f49b6366621c4",
+      "available": true
+    },
+    {
+      "id": "op-shakuhachi-fb",
+      "name": "Shakuhachi",
+      "short": "Shakuhachi",
+      "category": "Wind",
+      "sourceId": "shakuhachi_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/shakuhachi_fb-ogg.js",
+          "bytes": 3128444,
+          "sha256": "8f1bbc5b58a405341fcf26e1881819590a5ca7df956ee55d2415e87b76f380f6"
+        }
+      ],
+      "bank": "local-5ae059804d979574e9f2",
+      "available": true
+    },
+    {
+      "id": "op-whistle-mk",
+      "name": "Whistle",
+      "short": "Whistle",
+      "category": "Wind",
+      "sourceId": "whistle_mk",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/whistle_mk-ogg.js",
+          "bytes": 2426409,
+          "sha256": "eb35cd6bcae4594187716445ca4a0149a15bbe3cb0fbf69324e3747d77754f0a"
+        }
+      ],
+      "bank": "local-2988abee02b38f3f3052",
+      "available": true
+    },
+    {
+      "id": "op-ocarina-fb",
+      "name": "Ocarina",
+      "short": "Ocarina",
+      "category": "Wind",
+      "sourceId": "ocarina_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/ocarina_fb-ogg.js",
+          "bytes": 2569541,
+          "sha256": "73f5025c7687a2c4d83ee776a0957f4a4fb558b343fea81bb15d87b90bb769cc"
+        }
+      ],
+      "bank": "local-a5e2ff443cfa08bc02e7",
+      "available": true
+    },
+    {
+      "id": "op-lead-1-square-fb",
+      "name": "Square Lead",
+      "short": "Square Lead",
+      "category": "Synth",
+      "sourceId": "lead_1_square_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/lead_1_square_fb-ogg.js",
+          "bytes": 2751195,
+          "sha256": "5b554beeea7b9914c92a4d9a6d3d6c620b72a6e4520f90001b6f2a1acb26f0d5"
+        }
+      ],
+      "bank": "local-1299f1918486bac6f2da",
+      "available": true
+    },
+    {
+      "id": "op-lead-2-sawtooth-fb",
+      "name": "Synth Lead",
+      "short": "Synth Lead",
+      "category": "Synth",
+      "sourceId": "lead_2_sawtooth_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/lead_2_sawtooth_fb-ogg.js",
+          "bytes": 3570621,
+          "sha256": "9f50dbe8391f6eff2583946d114815aa98bc2574f5003ddfc66f0ec5e5649b20"
+        }
+      ],
+      "bank": "local-3ff79e904166d73a68b1",
+      "available": true
+    },
+    {
+      "id": "op-pad-2-warm-fb",
+      "name": "Warm Pad",
+      "short": "Warm Pad",
+      "category": "Synth",
+      "sourceId": "pad_2_warm_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/pad_2_warm_fb-ogg.js",
+          "bytes": 2820480,
+          "sha256": "0e532747d52430792ae7e69c52f4f3bfec8634fad3fb86ed8abcaccd5ff2e4d9"
+        }
+      ],
+      "bank": "local-7f9d455e00b87bfd6161",
+      "available": true
+    },
+    {
+      "id": "op-pad-7-halo-fb",
+      "name": "Halo Pad",
+      "short": "Halo Pad",
+      "category": "Synth",
+      "sourceId": "pad_7_halo_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/pad_7_halo_fb-ogg.js",
+          "bytes": 3466804,
+          "sha256": "20495cbb32e390c11d7fa999776b5c2e82fb1e2f8ed2f70214e4cc7a63bf80d6"
+        }
+      ],
+      "bank": "local-58a32c48ea311cca44c6",
+      "available": true
+    },
+    {
+      "id": "op-tinkle-bell-fb",
+      "name": "Tinkle Bell",
+      "short": "Tinkle Bell",
+      "category": "Percussion",
+      "sourceId": "tinkle_bell_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/tinkle_bell_fb-ogg.js",
+          "bytes": 2206593,
+          "sha256": "4929857c671ccd76adc16934533b25f034a98943d04b04b0059e205a395ccd33"
+        }
+      ],
+      "bank": "local-11c3daf38e43d4753dc7",
+      "available": true
+    },
+    {
+      "id": "op-steel-drums-fb",
+      "name": "Steel Drums",
+      "short": "Steel Drm",
+      "category": "Percussion",
+      "sourceId": "steel_drums_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/steel_drums_fb-ogg.js",
+          "bytes": 1940741,
+          "sha256": "918f993424dda6c4b0835956f46061e36691a968cfb66f7ce73b685554d97c64"
+        }
+      ],
+      "bank": "local-5ba96afbdc9003478f9e",
+      "available": true
+    },
+    {
+      "id": "op-taiko-drum-fb",
+      "name": "Taiko Drum",
+      "short": "Taiko",
+      "category": "Percussion",
+      "sourceId": "taiko_drum_fb",
+      "kind": "soundfont",
+      "assets": [
+        {
+          "file": "soundfonts/taiko_drum_fb-ogg.js",
+          "bytes": 2128636,
+          "sha256": "4a88dfcd71f3763e6a097cfc5706751793a8dfd329d9145311ce83e2c7ff4e7a"
+        }
+      ],
+      "bank": "local-3a9ab43b9f0eee9240c1",
+      "available": true
+    }
+  ]
+}

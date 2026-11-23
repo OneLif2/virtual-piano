@@ -1,0 +1,6 @@
+Yamaha Disklavier Pro / FreePats YDP Grand Piano, version2016-08-04.
+Recorded for OLPC by Dr. Mikhail Krishtal and his team at Zenph Studios; soundfont and source-sample modifications by Roberto for FreePats.
+Source: https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+License: Creative Commons Attribution3.0 https://creativecommons.org/licenses/by/3.0/
+This browser audition is modified: bank0/program0 at fixed MIDIvelocity100, sample-header tuning/pan and nominal envelope/filter subset, native48k stereo rendering, at most7s with20ms fade, uniform linear export headroom gain. Host uses A-reference loudness calibration and key-up release.
+Not a full dynamic-velocity SF2/FluidSynth engine, exact native interpolation, CC/modulation/effects or original source-sample release/pedal simulation. No Yamaha endorsement implied. Original README retained.

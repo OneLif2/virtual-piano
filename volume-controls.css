@@ -1,0 +1,37 @@
+/* Append after sounds-layout.css. Uses the existing Sounds footer, not a new category. */
+#volumeAlignControls {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:6px 14px;
+  margin:0 0 7px;
+  padding:0 0 7px;
+  border-bottom:1px solid #35414b;
+  color:#d9e8ed;
+}
+#volumeAlignControls .volume-align-label {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:32px;
+  font:600 14px/1.4 system-ui,"Microsoft JhengHei",sans-serif;
+  color:#d5fff0;
+  cursor:pointer;
+}
+#volumeAlignA {
+  width:18px;
+  height:18px;
+  accent-color:#8be0c7;
+  cursor:pointer;
+}
+#volumeAlignA:focus-visible {outline:2px solid #ffd38e;outline-offset:3px;}
+#volumeAlignmentStatus {font-size:13px;line-height:1.5;overflow-wrap:anywhere;}
+#volumeAlignmentStatus[data-state="error"],#volumeAlignmentStatus[data-state="unavailable"] {color:#ffd38e;}
+#volumeAlignControls .volume-align-note {flex-basis:100%;font-size:12px;line-height:1.4;color:#aebfc8;}
+@media(max-width:650px) {
+  #volumeAlignControls {gap:4px 8px;}
+  #volumeAlignmentStatus {flex-basis:100%;font-size:12px;}
+}
+
+/* Keep mobile close controls stable while sample loading changes footer height. */
+@media(max-width:650px){#soundsPanel .sounds-head{flex-wrap:nowrap;min-height:0}#soundsPanel .sounds-current{display:none}#soundsPanel .sounds-intro::before{width:32px;height:32px;font-size:24px;margin-bottom:4px;border-radius:10px}#soundsPanel .sounds-title{font-size:14px}#soundsPanel .sounds-controls{flex-shrink:0;margin-top:8px}}

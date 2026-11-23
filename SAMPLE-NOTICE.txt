@@ -1,37 +1,532 @@
-Nocturne Virtual Piano — instrument sample credits
+Nocturne Virtual Piano — public sample credits and release scope
 
-The 95 instrument choices use 93 distinct public General MIDI banks from
-Benjamin Gleitzman's MIDI.js Soundfonts project. Two piano alias choices and
-the FluidR3 acoustic grand share one bank. “Concert Grand Piano” and “Grand
-Piano 1” use this public replacement; neither contains OnlinePianist's custom
-piano recordings. The labels do not imply endorsement.
+Only the 170 explicitly audited sample files listed for 101 enabled presets are added in this release.
+Eight other preset positions are retained but unavailable, without audio assets, bank URLs or substitution.
+Displayed generic names are not claims about the instrument manufacturer; recording attribution is retained below.
 
-Exact upstream release:
-https://github.com/gleitz/midi-js-soundfonts/tree/044fab8e1456bfafc5776e86dfd6bb8697149aef
-Upstream author, instrument origins and bank-specific license declarations:
-https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/README.md
+C5/YDP selected seven roots, 22050 Hz PCM16, fixed layer, maximum seven seconds plus fade, nearest-root browser playback and gain normalization. Audio remains CC BY 3.0; SFZ CC0 does not relicense recordings.
+Benjamin Gleitzman MIDI.js Soundfonts conversion. FluidR3 GM by Frank Wen CC BY 3.0 US; Musyng Kite/FatBoy CC BY-SA 3.0. Preserve licenses for sounds/adaptations; software MIT separate.
 
-  FluidR3_GM (18 banks), FluidR3 GM by Frank Wen:
-  Creative Commons Attribution 3.0 United States
-  https://creativecommons.org/licenses/by/3.0/us/
+Existing score and backing files remain byte-identical to public main cb377b81c6e5c912c3d98060ba00d133cf87d372.
+Their previous provenance has NOT been re-cleared by this sound-library release. No new OnlinePianist backing recording is uploaded.
 
-  Musyng Kite (30 banks), the Musyng Kite soundfont distributed via SynthFont:
-  Creative Commons Attribution-ShareAlike 3.0 Unported
-  https://creativecommons.org/licenses/by-sa/3.0/
+Acoustic Grand [concert-grand-fluid-ab]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/acoustic_grand_piano-ogg.js
 
-  FatBoy (45 banks), the FatBoy SoundFont:
-  Creative Commons Attribution-ShareAlike 3.0 Unported
-  https://creativecommons.org/licenses/by-sa/3.0/
+Sampled Grand [salamander-grand]
+Alexander Holm
+CC-BY-3.0 — https://creativecommons.org/licenses/by/3.0/
+https://github.com/Tonejs/audio/tree/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander
 
-Pre-rendered Ogg/MP3 MIDI.js conversion: Benjamin Gleitzman's MIDI.js
-Soundfonts. Nocturne fetches pinned, unmodified upstream data on demand,
-checks the recorded byte count and SHA-256, parses only its note/audio-data
-map (never executes the fetched JavaScript), then decodes the selected samples
-locally for playback with a gain envelope. Nocturne does not assert ownership
-of the recordings. The above credit, terms and applicable share-alike license
-remain attached to those sounds and adaptations of those sounds. The separate
-MIT license for upstream software is not a replacement for the sample licenses.
+Chamber Grand [vcsl-steinway]
+Versilian Studios / Joachim’s Piano
+CC0-1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+https://github.com/sgossner/VCSL/tree/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Chordophones/Zithers/Grand%20Piano%2C%20Steinway%20B
 
-If a sample cannot be loaded or verified, the interface identifies the
-fallback explicitly: the existing locally synthesized instrument is used,
-not a substitute recording silently described as the named sample.
+Grand Piano 2 [op-grand-piano2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/acoustic_grand_piano-ogg.js
+
+Grand Piano 3 [op-grand-piano2-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/acoustic_grand_piano-ogg.js
+
+Grand Piano 4 [op-grand-piano2]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/acoustic_grand_piano-ogg.js
+
+Bright Piano [op-bright-acoustic-piano-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/bright_acoustic_piano-ogg.js
+
+Honky-tonk [op-honkytonk-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/honkytonk_piano-ogg.js
+
+Mellow Grand [vcsl-kawai-grand]
+Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)
+CC0-1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+https://github.com/sgossner/VCSL/tree/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Chordophones/Zithers/Grand%20Piano%2C%20Kawai
+
+Upright Piano 1 [vcsl-knight-upright]
+Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)
+CC0-1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+https://github.com/sgossner/VCSL/tree/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Chordophones/Zithers/Upright%20Piano%2C%20Knight
+
+Upright Piano 2 [vcsl-yamaha-upright]
+Versilian Studios / VCSL contributors (Knight: Simon Dalzell, Ivy Audio)
+CC0-1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+https://github.com/sgossner/VCSL/tree/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Chordophones/Zithers/Upright%20Piano%2C%20Yamaha
+
+Accurate Grand [yamaha-c5-accurate-z]
+Alexander Holm / Chisato Yamauchi / Hiroharu Narikawa / Jeff Learman
+CC-BY-3.0 — https://creativecommons.org/licenses/by/3.0/
+https://github.com/jlearman/zynthian-salamander-grand/tree/8432465f1fea83016635836c9850ac2b6398ffd3
+
+Player Grand [freepats-ydp-grand]
+Zenph Studios / Dr. Mikhail Krishtal; FreePats / Roberto
+CC-BY-3.0 — https://creativecommons.org/licenses/by/3.0/
+https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+
+Electric Grand [op-electric-grand-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/electric_grand_piano-ogg.js
+
+Electric Piano 1 [op-electric1]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/electric_piano_1-ogg.js
+
+Electric Piano 2 [op-electric1-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/electric_piano_1-ogg.js
+
+Electric Piano 3 [op-electric2]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/electric_piano_2-ogg.js
+
+Electric Piano 4 [op-electric2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/electric_piano_2-ogg.js
+
+Harpsichord [op-harpsichord]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/harpsichord-ogg.js
+
+Clavinet [op-clavinet-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/clavinet-ogg.js
+
+Celesta [op-celesta]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/celesta-ogg.js
+
+Glockenspiel [op-glockenspiel-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/glockenspiel-ogg.js
+
+Music Box [op-music-box]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/music_box-ogg.js
+
+Vibraphone [op-vibraphone]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/vibraphone-ogg.js
+
+Marimba [op-marimba-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/marimba-ogg.js
+
+Xylophone [op-xylophone]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/xylophone-ogg.js
+
+Tubular Bells [op-tubular-bells-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/tubular_bells-ogg.js
+
+Dulcimer [op-dulcimer-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/dulcimer-ogg.js
+
+Drawbar Organ [op-drawbar-organ-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/drawbar_organ-ogg.js
+
+Percussive Organ [op-percussive-organ-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/percussive_organ-ogg.js
+
+Rock Organ [op-rock-organ-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/rock_organ-ogg.js
+
+Church Organ [op-church-organ-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/church_organ-ogg.js
+
+Reed Organ [op-reed-organ-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/reed_organ-ogg.js
+
+Accordion [op-accordion-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/accordion-ogg.js
+
+Harmonica [op-harmonica-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/harmonica-ogg.js
+
+Tango Accordion [op-tango-accordion]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/tango_accordion-ogg.js
+
+Nylon Guitar [op-guitar-nylon-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/acoustic_guitar_nylon-ogg.js
+
+Steel Guitar [op-guitar-steel-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/acoustic_guitar_steel-ogg.js
+
+Jazz Guitar [op-guitar-jazz-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/electric_guitar_jazz-ogg.js
+
+Clean Electric [op-guitar-clean-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/electric_guitar_clean-ogg.js
+
+Muted Guitar [op-electric-guitar-muted]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/electric_guitar_muted-ogg.js
+
+Overdrive Guitar [op-overdriven-guitar-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/overdriven_guitar-ogg.js
+
+Distortion Guitar [op-distortion-guitar-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/distortion_guitar-ogg.js
+
+Guitar Harmonics [op-guitar-harmonics-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/guitar_harmonics-ogg.js
+
+Banjo [op-banjo]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/banjo-mp3.js
+
+Acoustic Bass [op-acoustic-bass-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/acoustic_bass-ogg.js
+
+Electric Bass [op-electric-bass-finger-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/electric_bass_finger-ogg.js
+
+Pick Bass [op-electric-bass-pick-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/electric_bass_pick-ogg.js
+
+Fretless Bass [op-fretless-bass-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/fretless_bass-ogg.js
+
+Slap Bass 1 [op-slap-bass-1-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/slap_bass_1-ogg.js
+
+Slap Bass 2 [op-slap-bass-2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/slap_bass_2-ogg.js
+
+Synth Bass 1 [op-synth-bass-1-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/synth_bass_1-ogg.js
+
+Synth Bass 2 [op-synth-bass-2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/synth_bass_2-ogg.js
+
+Violin [op-violin-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/violin-ogg.js
+
+Viola [op-viola-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/viola-ogg.js
+
+Cello [op-cello]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/cello-ogg.js
+
+Contrabass [op-contrabass-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/contrabass-ogg.js
+
+Tremolo Strings [op-tremolo-strings-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/tremolo_strings-ogg.js
+
+Pizzicato Strings [op-pizzicato-strings]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/pizzicato_strings-ogg.js
+
+Orchestral Harp [op-orchestral-harp-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/orchestral_harp-ogg.js
+
+Timpani [op-timpani-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/timpani-ogg.js
+
+String Ensemble [op-string-ensemble-1-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/string_ensemble_1-ogg.js
+
+Slow Strings [op-string-ensemble-2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/string_ensemble_2-ogg.js
+
+Synth Strings 1 [op-synth-strings-1]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/synth_strings_1-ogg.js
+
+Synth Strings 2 [op-synth-strings-2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/synth_strings_2-ogg.js
+
+Sitar [op-sitar]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/sitar-mp3.js
+
+Choir Aahs [op-choir-aahs-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/choir_aahs-ogg.js
+
+Voice Oohs [op-voice-oohs-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/voice_oohs-ogg.js
+
+Synth Voice [op-synth-choir-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/synth_choir-ogg.js
+
+Orchestra Hit [op-orchestra-hit-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/orchestra_hit-ogg.js
+
+Trumpet [op-trumpet-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/trumpet-ogg.js
+
+Trombone [op-trombone-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/trombone-ogg.js
+
+Tuba [op-tuba-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/tuba-ogg.js
+
+Muted Trumpet [op-muted-trumpet-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/muted_trumpet-ogg.js
+
+French Horn [op-french-horn]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/french_horn-ogg.js
+
+Brass Section [op-brass-section-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/brass_section-ogg.js
+
+Synth Brass 1 [op-synth-brass-1-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/synth_brass_1-ogg.js
+
+Synth Brass 2 [op-synth-brass-2-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/synth_brass_2-ogg.js
+
+Soprano Sax [op-soprano-sax-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/soprano_sax-ogg.js
+
+Alto Saxophone [op-alto-sax-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/alto_sax-ogg.js
+
+Tenor Saxophone [op-tenor-sax-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/tenor_sax-ogg.js
+
+Baritone Sax [op-baritone-sax-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/baritone_sax-ogg.js
+
+Oboe [op-oboe-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/oboe-ogg.js
+
+English Horn [op-english-horn]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/english_horn-ogg.js
+
+Bassoon [op-bassoon]
+Frank Wen / Benjamin Gleitzman
+CC-BY-3.0-US — https://creativecommons.org/licenses/by/3.0/us/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FluidR3_GM/bassoon-ogg.js
+
+Clarinet [op-clarinet-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/clarinet-ogg.js
+
+Piccolo [op-piccolo-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/piccolo-ogg.js
+
+Flute [op-flute-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/flute-ogg.js
+
+Recorder [op-recorder-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/recorder-ogg.js
+
+Pan Flute [op-pan-flute-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/pan_flute-ogg.js
+
+Blown Bottle [op-blown-bottle-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/blown_bottle-ogg.js
+
+Shakuhachi [op-shakuhachi-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/shakuhachi-ogg.js
+
+Whistle [op-whistle-mk]
+MusyngKite soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/MusyngKite/whistle-ogg.js
+
+Ocarina [op-ocarina-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/ocarina-ogg.js
+
+Square Lead [op-lead-1-square-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/lead_1_square-ogg.js
+
+Synth Lead [op-lead-2-sawtooth-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/lead_2_sawtooth-ogg.js
+
+Warm Pad [op-pad-2-warm-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/pad_2_warm-ogg.js
+
+Halo Pad [op-pad-7-halo-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/pad_7_halo-ogg.js
+
+Tinkle Bell [op-tinkle-bell-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/tinkle_bell-ogg.js
+
+Steel Drums [op-steel-drums-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/steel_drums-ogg.js
+
+Taiko Drum [op-taiko-drum-fb]
+FatBoy soundfont contributors / Benjamin Gleitzman
+CC-BY-SA-3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+https://github.com/gleitz/midi-js-soundfonts/blob/044fab8e1456bfafc5776e86dfd6bb8697149aef/FatBoy/taiko_drum-ogg.js
+
+Attribution documents bundled with the samples:
+licenses/salamander/README
+licenses/vcsl/LICENSE
+licenses/vcsl/README.md
+instruments/pianos/more-pianos-licenses/LICENSE
+instruments/pianos/more-pianos-licenses/README.md
+instruments/pianos/more-pianos-licenses/Info.txt
+instruments/pianos/more-pianos-licenses/Legacy.txt
+instruments/pianos/more-pianos-licenses/Note.txt
+instruments/pianos/more-pianos-licenses/PitchValueConversionChart.txt
+instruments/pianos/yamaha-licenses/accurate-README.md
+instruments/pianos/yamaha-licenses/accurate-README.orig.txt
+instruments/pianos/yamaha-licenses/accurate-README.cyamauch.txt
+instruments/pianos/yamaha-licenses/soundfonts-YDP-ATTRIBUTION.txt
+instruments/pianos/yamaha-licenses/soundfonts-YDP-GrandPiano-20160804.txt
