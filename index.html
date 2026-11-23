@@ -1860,14 +1860,14 @@ function alignReadingLetter(part,info,width,size){
   if(part.dataset.readerGeometry!==geometry){
     stylePx(part,'width',width);
     const box=part.getBoundingClientRect(),glyph=letter.getBoundingClientRect();
-    attack=glyph.left-box.left+.5;
+    attack=glyph.left-box.left+3.5;
     part.style.setProperty('--letter-attack',syncPx(attack));
     part.style.setProperty('--tick-top',syncPx(glyph.top-box.top-9));
     part.style.setProperty('--tick-bottom',syncPx(glyph.bottom-box.top+2));
     tagValue(part,'letterAttackOffset',attack);part.dataset.readerGeometry=geometry;
   }
-  // The letter's first pixel column is the onset anchor. The 1px tick's left
-  // edge matches the letter's left edge; parentheses/dashes never participate.
+  // The onset anchor is 3px right of the letter's first pixel column.
+  // The 1px tick's left edge is letter.left+3; parentheses/dashes never participate.
   // Keep the note-off endpoint at start+duration on the axis.
   stylePx(part,'width',width+attack);
   const transform='translateX('+syncPx(-attack)+')';if(part.style.transform!==transform)part.style.transform=transform;
