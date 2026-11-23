@@ -156,8 +156,9 @@
   }
   // Normal piano key-up is a damped release, not a sustain latch.
   // Explicit short fades remain emergency/cancel operations.
-  const PIANO_RELEASE_SECONDS = .35;
-  function startSample(ctx,destination,sample,midi,time,velocity,endTime,presetId) {
+  const releaseProfiles=global.NocturnePianoRelease;
+  if(!releaseProfiles||typeof releaseProfiles.getProfile!=='function')throw new Error('Piano release profiles must load before the sampled engine');
+  function startSample(ctx,destination,sample,midi,time,velocity,endTime,presetId,releaseProfileOverride=null) {
     const source=ctx.createBufferSource(), gain=ctx.createGain();
     const when=Math.max(ctx.currentTime,finite(time,ctx.currentTime)), peak=.25*clamp(finite(velocity,.8),0,1)*volumeGain(presetId,midi);
     source.buffer=sample.buffer;source.playbackRate.setValueAtTime(Math.pow(2,(midi-sample.midi)/12),when);
@@ -168,9 +169,17 @@
     function envelopeAt(at){
       if(releasePlan&&at>=releasePlan.at){
         const f=Math.max(0,Math.min(1,(at-releasePlan.at)/releasePlan.span));
-        return Math.max(.00001,releasePlan.linear
-          ? releasePlan.level*(1-f)+.00001*f
-          : releasePlan.level*Math.pow(.00001/releasePlan.level,f));
+        if(releasePlan.profile){
+          let factor=releaseProfiles.sampledValue(releasePlan.profile.familyId,f);
+          if(releasePlan.profile.familyId==='stepped'){
+            // Match the exact scheduled timestamps. Normalizing a boundary can
+            // round just below a step and otherwise restore the previous gain.
+            let completed=0;while(completed<8&&at>=releasePlan.at+releasePlan.span*(completed+1)/8)completed++;
+            factor=1-completed/8;
+          }
+          return Math.max(.00001,.00001+(releasePlan.level-.00001)*factor);
+        }
+        return Math.max(.00001,releasePlan.level*Math.pow(.00001/releasePlan.level,f));
       }
       const f=Math.max(0,Math.min(1,(at-when)/.004));
       return .00001+(targetPeak-.00001)*f;
@@ -184,20 +193,26 @@
         gain.gain.cancelScheduledValues(ctx.currentTime);gain.gain.setValueAtTime(.00001,ctx.currentTime);
         try{source.stop(stop);}catch(_){}return;
       }
-      const naturalPiano=!Number.isFinite(fade)&&rowFor(presetId).category==='Piano';
-      const now=Math.max(when,ctx.currentTime,requested),span=clamp(finite(fade,naturalPiano?PIANO_RELEASE_SECONDS:.12),.008,1.5);
+      const profile=!Number.isFinite(fade)&&rowFor(presetId).category==='Piano'?(releaseProfileOverride||releaseProfiles.getProfile()):null;
+      const now=Math.max(when,ctx.currentTime,requested),span=profile?profile.durationMs/1000:clamp(finite(fade,.12),.008,1.5);
       if(now+span+.01>=stopAt)return;stopAt=now+span+.01;
       const level=envelopeAt(now),continuingRelease=releasePlan&&now>releasePlan.at&&now<releasePlan.at+releasePlan.span;
       gain.gain.cancelScheduledValues(now);
       if(continuingRelease){
-        if(releasePlan.linear)gain.gain.linearRampToValueAtTime(level,now);
-        else gain.gain.exponentialRampToValueAtTime(level,now);
+        if(releasePlan.profile){
+          if(releasePlan.profile.familyId==='stepped')gain.gain.setValueAtTime(level,now);
+          else gain.gain.linearRampToValueAtTime(level,now);
+        }else gain.gain.exponentialRampToValueAtTime(level,now);
       }
       else if(now<when+.004)gain.gain.linearRampToValueAtTime(level,now);
       else gain.gain.setValueAtTime(level,now);
-      if(naturalPiano)gain.gain.linearRampToValueAtTime(.00001,now+span);
-      else gain.gain.exponentialRampToValueAtTime(.00001,now+span);
-      releasePlan={at:now,level,span,linear:naturalPiano};
+      if(profile){
+        const points=releaseProfiles.curveSamples(profile.familyId);
+        if(profile.familyId==='stepped'){
+          for(let step=1;step<=8;step++)gain.gain.setValueAtTime(.00001+(level-.00001)*(1-step/8),now+span*step/8);
+        }else for(let i=1;i<points.length;i++)gain.gain.linearRampToValueAtTime(.00001+(level-.00001)*points[i],now+span*i/(points.length-1));
+      }else gain.gain.exponentialRampToValueAtTime(.00001,now+span);
+      releasePlan={at:now,level,span,profile};
       try{source.stop(now+span+.01);}catch(_){}
     }
     const result={release(fade){releaseAt(ctx.currentTime,fade);},releaseAt,ended:null};
@@ -206,7 +221,7 @@
     if(endTime!=null)releaseAt(endTime);
     return result;
   }
-  function voice(ctx,destination,midi,time,velocity,id) {
+  function voice(ctx,destination,midi,time,velocity,id='yamaha-c5-accurate-z') {
     if(!available(id)){const error=unavailableError(id);return {release(){},releaseAt(){},cancelPending(){},error};}
     if(failed.has(id))return fallbackVoice(ctx,destination,midi,time,velocity,id);
     let real=null,cancelled=false,end=null,fade,requestError=null;
@@ -246,6 +261,7 @@
     }).catch(error=>{loadEncoder.pending=null;throw error;});return loadEncoder.pending;
   }
   async function exportMp3(tracks,{volume=.85,onProgress}={}) {
+    const exportProfile=releaseProfiles.getProfile();
     const parts=(Array.isArray(tracks)?tracks:[]).slice(0,4).flatMap(track=>{
       if(!track||track.muted||track.mute)return[];
       const gain=clamp(finite(track.gain,1),0,1.5),notes=track.events||track.notes;if(!gain||!Array.isArray(notes))return[];
@@ -257,7 +273,8 @@
     const duration=Math.max(...parts.map(e=>e.start+e.duration))/1000;if(duration>180)throw new Error('MP3 export supports recordings up to 3 minutes.');
     parts.forEach(e=>rowFor(e.presetId));
     const Offline=global.OfflineAudioContext||global.webkitOfflineAudioContext;if(!Offline)throw new Error('This browser does not support offline audio rendering.');
-    const sampleRate=44100,offline=new Offline(2,Math.ceil((duration+1.62)*sampleRate),sampleRate),master=offline.createGain(),compressor=offline.createDynamicsCompressor();
+    const tailPadding=Math.max(1.62,exportProfile.durationMs/1000+.10);
+    const sampleRate=44100,offline=new Offline(2,Math.ceil((duration+tailPadding)*sampleRate),sampleRate),master=offline.createGain(),compressor=offline.createDynamicsCompressor();
     master.gain.value=clamp(finite(volume,.85),0,1);compressor.threshold.value=-12;compressor.knee.value=15;compressor.ratio.value=4;compressor.attack.value=.004;compressor.release.value=.16;master.connect(compressor).connect(offline.destination);
     if(onProgress)onProgress(0);
     const resources=new Map(),uniqueBuffers=new Set();let retainedBytes=0;
@@ -272,7 +289,7 @@
     const buses=new Map();parts.forEach(e=>{
       if(!buses.has(e.gain)){const bus=offline.createGain();bus.gain.value=e.gain;bus.connect(master);buses.set(e.gain,bus);}
       const midi=clamp(Math.round(e.midi),0,127),when=e.start/1000+.008;
-      startSample(offline,buses.get(e.gain),resources.get(e.presetId+':'+midi),midi,when,finite(e.velocity,.8),when+Math.max(.012,e.duration/1000),e.presetId);
+      startSample(offline,buses.get(e.gain),resources.get(e.presetId+':'+midi),midi,when,finite(e.velocity,.8),when+Math.max(.012,e.duration/1000),e.presetId,exportProfile);
     });
     const [audio,Encoder]=await Promise.all([offline.startRendering(),loadEncoder()]);
     const encoder=new Encoder(2,sampleRate,128),chunks=[],left=audio.getChannelData(0),right=audio.getChannelData(1);
@@ -281,6 +298,9 @@
     const tail=encoder.flush();if(tail.length)chunks.push(tail);const head=chunks[0];if(!head||(head[0]&255)!==255||(head[1]&224)!==224)throw new Error('MP3 encoder did not return an MPEG audio stream.');
     if(onProgress)onProgress(1);return new Blob(chunks,{type:'audio/mpeg'});
   }
+  // The metadata and the DSP read the same validated, persistent global profile.
+  function getReleaseProfile(presetId){return rowFor(presetId).category==='Piano'?releaseProfiles.getProfile():null;}
+  function setReleaseProfile(profile){return releaseProfiles.setProfile(profile);}
   function cancelAll(fade=.025){for(const handle of [...liveHandles])handle.release(clamp(finite(fade,.025),.008,1.5));}
   function cacheStats(){return Object.freeze({banks:banks.size,decodedEntries:decoded.size,decodedBytes:bufferBytes,liveVoices:handles.size,liveSources:liveHandles.size,maxBanks:MAX_BANKS,maxDecodedBytes:MAX_BUFFER_BYTES,maxLiveVoices:MAX_LIVE_VOICES});}
   global.NocturneOriginalAB=Object.freeze({localOnly:false,revision:REF,catalog,
@@ -289,5 +309,5 @@
       return Object.freeze({id,midi,root:sample.midi,rate:Math.pow(2,(midi-sample.midi)/12),file:sample.asset?.file||row.assets[0].file});}
   });
   global.NocturneLocalSounds=global.NocturneOriginalAB;
-  global.NocturneAudio=Object.freeze({...original,presets,categories:Object.freeze(catalog.categories.slice()),prepare,warm,retry,voice,exportMp3,onStatus,getStatus,cacheStats,cancelAll,getVolumeAlignment,setVolumeAlignment,alignmentInfo,sampled:true});
+  global.NocturneAudio=Object.freeze({...original,presets,categories:Object.freeze(catalog.categories.slice()),prepare,warm,retry,voice,exportMp3,onStatus,getStatus,cacheStats,cancelAll,getReleaseProfile,setReleaseProfile,getVolumeAlignment,setVolumeAlignment,alignmentInfo,sampled:true});
 })(window);

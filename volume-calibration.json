@@ -1,7 +1,7 @@
 {
   "version": "a-reference-full-max200-rms-v1-openpiano-v2.0.2-more-pianos-v1-yamaha-v1",
   "reference": "concert-grand",
-  "sourceCatalogSha256": "216e72c8f1f1eb52891d10e8f15cd6cc43f0d40ac7dc80a672856267b76a21f8",
+  "sourceCatalogSha256": "9dcb945da32168ff3b11d69ca4ea1ad01ba70bdb4d04fdc420553f54ffecc7fe",
   "midiMin": 43,
   "midiMax": 76,
   "method": {

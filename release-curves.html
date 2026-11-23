@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nocturne · 尾音曲線試聽</title>
+  <link rel="stylesheet" href="release-curves.css?v=464ed38e3d9a8e1d6f28a9e04ab77ec2431376cd0a9d06f71a6765c1412e5cef">
+</head>
+<body>
+<main class="lab-shell">
+  <header class="lab-header">
+    <div><p class="eyebrow">NOCTURNE / RELEASE CURVE LAB</p><h1>同一琴音，81 種收音方式。</h1><p class="intro">曲線試聽室 · 點圖只選擇；按「套用」才會更改正式琴鍵的收音設定。</p></div>
+    <a class="back-link" href="index.html?panel=sounds" id="returnToPiano">返回 Virtual Piano</a>
+  </header>
+  <section class="controls" aria-label="共同試聽設定">
+    <label class="preset-control">鋼琴音色<select id="labPreset" disabled aria-describedby="soundPolicy"><option>正在核對音色清單…</option></select></label>
+    <label class="volume-control">試聽音量 <output id="labVolumeValue" for="labVolume">75%</output><input id="labVolume" type="range" min="0" max="100" step="1" value="75" aria-valuetext="75%"></label>
+    <button id="labStop" type="button" class="stop-button">■ 停止全部 <span>Esc</span></button>
+    <div class="selected-control"><span class="muted">鍵盤 I / O / P 試聽選擇</span><strong id="selectedCurve">Power · 0.5 · 350ms</strong></div>
+  </section>
+  <div class="formal-profile"><span class="formal-swatch" aria-hidden="true"></span><strong id="formalCurrentCurve">正在讀取正式琴鍵的收音設定…</strong><span>薄荷色標記＝正式琴鍵目前使用；金色發光＝正在收尾。</span></div>
+  <p id="applyStatus" class="apply-status" role="status" aria-live="polite">新分頁會讀取目前已套用的設定；預設為 Power · 0.5 / 350ms。</p>
+  <div class="status-strip"><span class="status-dot" aria-hidden="true"></span><p id="labStatus" role="status" aria-live="polite">正在核對音色資料；尚未播放任何聲音。</p></div>
+  <section class="explanation" aria-label="比較方法">
+    <p><b>跟正式琴鍵一樣：</b>按下 I / O / P 就起音，按住便維持取樣播放，放開才開始所選尾音曲線；可同時按三音並各自放開。取樣會自然衰減或播完，不會人工循環延長。</p>
+    <p><b>公平比較：</b>相同音色、力度 0.8、起音 4ms；共用 +5dB／手彈 +5dB，音量對齊開啟。比較時請自己維持相近的按住時間。切換曲線或音色會先停止舊聲音。</p>
+    <p><b>比較與套用：</b>先用同一欄的時間比較九種形狀；最大增益與聲音素材相同。每格左上角「套用」會儲存本機設定、同步其他鋼琴分頁並暫停演奏，不會自動播放。平滑多項式只是類回歸示例，沒有以實測錄音進行擬合。</p>
+    <p><b>讀圖：</b>縱軸是正規化增益（100% → 0%），不是錄音本身的響度。<span class="legend release">┊</span> 放鍵當下＝0ms，<span class="legend play">│</span> 尾音播放位置；按住時不會自動開始收尾。不加混響或背景音樂。</p>
+    <p id="soundPolicy">先選一格，再按住／放開實體 <kbd>I</kbd> C4、<kbd>O</kbd> D4、<kbd>P</kbd> E4；格內按鈕亦支援按住滑鼠／觸控，或焦點上的 Enter／空白鍵。首次載入請按住等就緒；未就緒便放開會取消，不會延遲發聲，亦不會用合成音代替。</p>
+  </section>
+  <div class="matrix-heading"><h2>曲線 × 收音時間</h2><p>9 個曲線家族 × 9 個時間 · 可橫向捲動 <span aria-hidden="true">↔</span></p></div>
+  <div class="matrix-scroll" tabindex="0" role="region" aria-label="81 種尾音曲線，可橫向及縱向捲動">
+    <table id="curveMatrix"><caption class="sr-only">每行為曲線家族，每欄為放鍵後收音時間；每格包含 I、O、P 三個試聽按鈕。</caption></table>
+  </div>
+  <footer class="lab-footer"><p>套用只改鋼琴放鍵後的振幅包絡，不會延長按鍵判定、開啟 Sustain，亦不會改音檔或鍵位。設定只保存在同一網站來源的瀏覽器本機儲存，不會上傳演奏資料。</p><a href="SAMPLE-NOTICE.txt" target="_blank" rel="noopener">取樣來源與授權</a></footer>
+</main>
+<script type="application/json" id="sampleBankCatalog">{}</script>
+<script type="application/json" id="volumeCalibration">{}</script>
+<script src="piano-release-profile.js?v=18e2c1dbfe019284bdb0e9f40246ee7264a307904fe84fe7ecf5f3c685ab5de0" integrity="sha256-GOLB2/4BkoS9sOn0AkbucmSjB5BP6E/n7PXzxoWrXeA=" crossorigin="anonymous"></script>
+<script src="studio.js"></script>
+<script src="release-curves.js?v=8dcfc491baed1a5abf575979b9207f7bbf8dabb8db15f8662dfc307ea0747c20"></script>
+</body>
+</html>
