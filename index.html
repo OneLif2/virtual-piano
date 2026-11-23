@@ -334,6 +334,8 @@ html[data-score-view=horizontal] .read-pitch .notation-text{height:1.4em;box-siz
 html[data-score-view=horizontal] .read-pitch::after{display:none}
 html[data-score-view=horizontal] .read-note[data-state=done]{color:#647581}
 html[data-score-view=horizontal] .read-note[data-current=true]{color:#f38a8d}
+.read-pitch[data-feedback=auto]{color:#99ebd0}
+.read-pitch[data-feedback=demo-waiting]{color:#cbd3da}
 html[data-score-view=horizontal] .read-pitch[data-rest=true]{color:transparent}
 html[data-score-view=horizontal] .read-pitch[data-feedback=holding],html[data-score-view=horizontal] .read-pitch[data-feedback=hit]{color:#8dd2ff}
 html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
@@ -391,7 +393,10 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
             <label class="field">音色 <select id="preset"><option value="">夜曲原聲</option></select></label>
             
             <label class="field">音量 <input id="volume" type="range" min="0" max="100" value="68"></label>
-            <label class="field">背景音量 <input id="backingVolume" type="range" min="0" max="100" value="45" aria-label="背景音量"><output id="backingVolumeLabel" for="backingVolume">45%</output></label>
+            <label class="field">琴鍵加強（自動＋手動）
+              <input id="pianoBoost" aria-label="琴鍵加強（自動及手動）" aria-valuetext="+3 dB · 141%" type="range" min="0" max="6" step="1" value="3">
+              <output id="pianoBoostReadout" for="pianoBoost">+3 dB · 141%</output></label>
+            <label class="field">背景音量 <input id="backingVolume" type="range" min="0" max="100" value="50" aria-label="背景音量"><output id="backingVolumeLabel" for="backingVolume">50%</output></label>
             <label id="alongBoostField" class="field" hidden>手彈音量加強
               <input id="alongBoost" aria-label="手彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
               <output id="alongBoostReadout" for="alongBoost">+9 dB</output></label>
@@ -960,14 +965,25 @@ const status=s=>{ui.status.textContent=s};
 function soundWarning(message){
   status(message);guide.lessonFeedback.textContent=message;
 }
-let alongBus=null, outputGuard=null;
+let pianoBus=null, alongBus=null, outputGuard=null;
 // The existing compressor has a finite attack. Only round exceptionally high
 // Along peaks; the transfer is exactly linear below 0.8 and maps zero to zero.
 const alongCeiling=Float32Array.from({length:4097},(_,i)=>{
   const x=i/2048-1, a=Math.abs(x), knee=.80, headroom=.15;
   return a<=knee ? x : Math.sign(x)*(knee-headroom*Math.expm1(-(a-knee)/headroom));
 });
-function guardAlongOutput(enabled){if(outputGuard)outputGuard.curve=enabled?alongCeiling:null;}
+function guardAlongOutput(enabled){if(outputGuard)outputGuard.curve=enabled||Number($('pianoBoost').value)>0?alongCeiling:null;}
+function setPianoBoost(initial=false){
+  const input=$('pianoBoost'),db=Number(input.value),gain=10**(db/20);
+  const label=(db>0?'+':'')+db+' dB · '+Math.round(gain*100)+'%';
+  $('pianoBoostReadout').value=label;input.setAttribute('aria-valuetext',label);
+  if(pianoBus){
+    if(initial)pianoBus.gain.value=gain;
+    else pianoBus.gain.setTargetAtTime(gain,ctx.currentTime,.02);
+  }
+  guardAlongOutput(mode!=='Demo'&&isFull());
+}
+$('pianoBoost').oninput=()=>setPianoBoost();
 function setAlongBoost(initial=false){
   const input=$('alongBoost'), db=Number(input.value), label=(db>0?'+':'')+db+' dB';
   $('alongBoostReadout').value=label;input.setAttribute('aria-valuetext',label);
@@ -984,7 +1000,8 @@ function audio(){
       if(!C){soundWarning('此瀏覽器不支援 Web Audio。');return false;}
       ctx=new C({latencyHint:'interactive'});
       master=ctx.createGain();
-      alongBus=ctx.createGain();alongBus.connect(master);setAlongBoost(true);
+      pianoBus=ctx.createGain();pianoBus.connect(master);setPianoBoost(true);
+      alongBus=ctx.createGain();alongBus.connect(pianoBus);setAlongBoost(true);
       const limiter=ctx.createDynamicsCompressor(); limiter.threshold.value=-15; limiter.ratio.value=6;
       outputGuard=ctx.createWaveShaper();guardAlongOutput(mode!=='Demo'&&isFull());
       master.connect(limiter).connect(outputGuard).connect(ctx.destination); setVolume();
@@ -997,6 +1014,8 @@ function audio(){
 }
 function setVolume(){if(master)master.gain.setTargetAtTime((Number(ui.volume.value)/100)**1.5,ctx.currentTime,.025)}
 function voice(midi,time=ctx.currentTime,velocity=1,presetId=ui.preset.value,destination=master){
+  // Both automatic and physical piano use one extra gain; backing bypasses it.
+  destination=destination===master?(pianoBus||master):destination;
   if(engine)return engine.voice(ctx,destination,midi,time,velocity,presetId);
   const freq=hz(midi), gain=ctx.createGain(), partials=[];
   const peak=.24*velocity, decay=Math.max(.35,1.45-(midi-45)*.017);
@@ -1442,7 +1461,9 @@ function notationMark(el,info,start,state,index,midi,current){
   const seen=state?.played?.get(index)?.has(midi)||false;
   const physical=!!(state&&lesson===state&&state.mode==='Practice'&&current&&state.chordKeys.has(midi));
   const retry=!!(state&&lesson===state&&current&&state.retryMidi===midi);
-  const feedback=physical?'holding':retry?'retry':!info.rest&&state?.mode!=='Demo'&&seen?'hit':!info.rest&&current?'expected':'none';
+  const demo=(state?.mode||mode)==='Demo';
+  const automatic=!!(!info.rest&&current&&state&&lesson===state&&demo&&state.autoNotes?.some(n=>n.midi===midi));
+  const feedback=physical?'holding':retry?'retry':automatic?'auto':!info.rest&&demo&&current?'demo-waiting':!info.rest&&!demo&&seen?'hit':!info.rest&&current?'expected':'none';
   tagValue(el,'feedback',feedback);tagValue(el,'hit',feedback==='hit');
 }
 // The blue contact strip is live input only: never infer a press from a score cue
@@ -1588,7 +1609,7 @@ function drawStage(beat){
   // Both readers use the caller's one transport sample, including hold progress.
   // Reduced-motion mode drops decorative animation, not the score's time axis.
   if(pitchLegend){
-    const legend=mode==='Demo'?'每個 - 約 ¼ 拍 · 琴鍵：金＝示範旋律、灰藍＝伴奏':'每個 - 約 ¼ 拍 · 綠＝目標、亮藍＝你按下的鍵';
+    const legend=mode==='Demo'?'每個 - 約 ¼ 拍 · 綠字＝自動彈對 · 琴鍵：金＝示範旋律、灰藍＝伴奏':'每個 - 約 ¼ 拍 · 綠＝目標、亮藍＝你按下的鍵';
     if(pitchLegend.textContent!==legend)pitchLegend.textContent=legend;
   }
   if(compactCaption){
