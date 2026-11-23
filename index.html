@@ -355,6 +355,15 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 @media(max-width:999px),(max-height:519px){
   html[data-score-view=horizontal] .note-runway{min-height:96px}
 }
+/* The reader controls occupy the same top-right toolbar in every view.
+   Keep them in normal layout, not over the notation, links or falling lanes. */
+.cue-line{flex-shrink:0}
+.cue-line .range-group{margin-inline-start:auto;justify-content:flex-end;max-width:100%}
+@media(min-width:1000px) and (min-height:520px){
+  .desk,html[data-score-view=falling] .desk{grid-template-rows:var(--bar-h) var(--time-h) auto minmax(0,1fr) var(--key-h)}
+  .cue-line,html[data-score-view=falling] .cue-line{grid-row:3}
+  .note-runway,html[data-score-view=falling] .note-runway{grid-row:4}
+}
 
 </style>
 <style>
@@ -400,8 +409,8 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
               <output id="pianoBoostReadout" for="pianoBoost">+5 dB · 178%</output></label>
             <label class="field">背景音量 <input id="backingVolume" type="range" min="0" max="100" value="50" aria-label="背景音量"><output id="backingVolumeLabel" for="backingVolume">50%</output></label>
             <label id="alongBoostField" class="field" hidden>手彈音量加強
-              <input id="alongBoost" aria-label="手彈音量加強" aria-valuetext="+9 dB" type="range" min="0" max="12" step="1" value="9">
-              <output id="alongBoostReadout" for="alongBoost">+9 dB</output></label>
+              <input id="alongBoost" aria-label="手彈音量加強" aria-valuetext="+5 dB" type="range" min="0" max="12" step="1" value="5">
+              <output id="alongBoostReadout" for="alongBoost">+5 dB</output></label>
             <label class="field">電腦鍵配置 <select id="keyLayout" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="reference" selected>參考配置 · 42 鍵</option><option value="compact">精簡配置 · 25 鍵</option></select></label>
             <label class="field">實體鍵盤音域 <select id="octave" disabled title="全曲試奏版固定原譜速度及截圖鍵位"><option value="-2">C1–C3</option><option value="-1">C2–C4</option><option value="0" selected>C3–C5</option><option value="1">C4–C6</option><option value="2">C5–C7</option></select></label>
             <label class="field">移調 <select id="transpose" disabled title="全曲試奏版固定原譜速度及截圖鍵位"></select></label>
