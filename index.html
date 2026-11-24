@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#151c24">
 <meta name="description" content="夜曲是一個可用滑鼠、觸控或電腦鍵盤彈奏的免費虛擬鋼琴。">
 <title>夜曲 Nocturne ｜ Canon in D · 雙手全曲 · 192 音</title>
+<script>const phonePianoLayout=matchMedia('(pointer:coarse)').matches&&innerWidth<=1000;document.documentElement.dataset.mobilePiano=String(phonePianoLayout);</script>
 <style>
 :root{
   color-scheme:dark;--bg:#10151c;--surface:#19222c;--border:#34414f;--ink:#f2f3ee;--muted:#b2c0cb;
@@ -450,6 +451,7 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-view=horizontal] .read-pitch .notation-text{overflow:hidden}html[data-score-view=horizontal] .read-pitch .notation-tick{display:block}html[data-score-view=horizontal] .read-note{gap:20px}
 @media(min-width:1000px) and (min-height:520px){html[data-score-view=auto] .read-pitch{overflow:visible}html[data-score-view=auto] .read-pitch .notation-text{overflow:hidden}html[data-score-view=auto] .read-pitch .notation-tick{display:block}html[data-score-view=auto] .read-note{gap:20px}}
 </style>
+<link rel="stylesheet" href="mobile-piano.css?v=e82ac14be5ccdef93fdcd9d8876f40b489f33cf233c796b0a577e80c2ffbe6da" integrity="sha256-6CrBS+XM3vk/3NnYh29AtInzPPIzx5awpXfoDC/75to=" crossorigin="anonymous">
 </head>
 <body>
 <main class="desk">
@@ -1740,7 +1742,7 @@ function onStageGeometry(){
     const size=stageSize(),changed=size!==lastStageSize;lastStageSize=size;
     const session=lesson||pausedLesson;
     // Rotation can clip a formerly visible target. Ordinary user panning must not snap back.
-    if(changed&&!isHorizontalReader()&&session&&!pointers.size){
+    if(changed&&!isHorizontalReader()&&session&&!pointers.size&&(!phonePianoLayout||window.NocturneMobilePiano?.mayAutoFollow())){
       const step=session.score[session.index],wanted=step?.pitches.find(p=>!session.got.has(p));
       const key=keyButtons.get(wanted),vp=ui.keyboardViewport;
       if(key&&vp.scrollWidth>vp.clientWidth){
@@ -1760,8 +1762,8 @@ document.addEventListener('keydown',e=>{
     e.preventDefault();drawer.open=false;drawer.querySelector('summary')?.focus();
   }
 });
-ui.scrollLow.onclick=()=>{ui.keyboardViewport.scrollLeft-=ui.keyboardViewport.clientWidth*.75;};
-ui.scrollHigh.onclick=()=>{ui.keyboardViewport.scrollLeft+=ui.keyboardViewport.clientWidth*.75;};
+ui.scrollLow.onclick=()=>{if(phonePianoLayout&&window.NocturneMobilePiano?.navigationBlocked())return;if(phonePianoLayout)window.NocturneMobilePiano?.manualPan();ui.keyboardViewport.scrollLeft-=ui.keyboardViewport.clientWidth*.75;};
+ui.scrollHigh.onclick=()=>{if(phonePianoLayout&&window.NocturneMobilePiano?.navigationBlocked())return;if(phonePianoLayout)window.NocturneMobilePiano?.manualPan();ui.keyboardViewport.scrollLeft+=ui.keyboardViewport.clientWidth*.75;};
 ui.keyLayout.onchange=()=>{
   releaseLive(true);updateOctaveChoices();render();paintTargets();drawTimeline();
 };
@@ -1879,7 +1881,7 @@ function paintTargets(){
     key.classList.toggle('hold-pending',!!a?.chordKeys.has(midi));key.classList.toggle('retry',a?.retryMidi===midi);
   }
   const next=pitches.find(p=>!a.got.has(p));
-  if(next!==undefined)revealKey(next);
+  if(next!==undefined){if(phonePianoLayout)window.NocturneMobilePiano?.followTarget(next);else revealKey(next);}
   laneGeometryDirty=true;
 }
 
@@ -1963,6 +1965,7 @@ function paintManualKey(midi){
 }
 let laneHeight=0,lastLaneScroll=NaN;
 function drawNoteLane(beat){
+  if(phonePianoLayout)window.NocturneMobilePiano?.follow(beat);
   if(!lane)return;
   const scroll=ui.keyboardViewport.scrollLeft;
   if(laneGeometryDirty||!laneHeight||scroll!==lastLaneScroll){
@@ -2144,7 +2147,7 @@ guide.paintLane=drawStage;
 desktopReader?.addEventListener?.('change',onStageGeometry);
 $('scoreView').onchange=()=>{
   document.documentElement.dataset.scoreView=$('scoreView').value;
-  try{localStorage.setItem('nocturne.scoreView.horizontal-default-v1',$('scoreView').value);}catch(_){}
+  try{localStorage.setItem(phonePianoLayout?'nocturne.scoreView.phone-v1':'nocturne.scoreView.horizontal-default-v1',$('scoreView').value);}catch(_){}
   onStageGeometry();drawTimeline();
 };
 stillMotion?.addEventListener?.('change',onStageGeometry);
@@ -2801,9 +2804,9 @@ seekResumeBadge();
 updateOctaveChoices();render();guideChange();drawTracks();
 {
   const requestedView=new URLSearchParams(location.search).get('view');
-  let savedView=null;try{savedView=localStorage.getItem('nocturne.scoreView.horizontal-default-v1');}catch(_){}
+  let savedView=null;try{savedView=localStorage.getItem(phonePianoLayout?'nocturne.scoreView.phone-v1':'nocturne.scoreView.horizontal-default-v1');}catch(_){}
   const chosen=['falling','horizontal','auto'].includes(requestedView)?requestedView:
-    ['falling','horizontal','auto'].includes(savedView)?savedView:'horizontal';
+    ['falling','horizontal','auto'].includes(savedView)?savedView:phonePianoLayout?'falling':'horizontal';
   $('scoreView').value=chosen;$('scoreView').dispatchEvent(new Event('change'));
 }
 
@@ -2973,5 +2976,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   ui.preset.addEventListener('change',refreshReleaseTools);refreshReleaseTools();
 })();
 </script>
+<script src="mobile-piano.js?v=a211e1c873e176b6b4acc44505bdfcf9561e339725dc553c5ef40fd601f440e4" integrity="sha256-ohHhyHPhdra0rMRFBb38+VYeM5cl3FU8XvQP1gH0QOQ=" crossorigin="anonymous"></script>
 </body>
 </html>
