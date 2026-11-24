@@ -1515,7 +1515,7 @@ function releaseLive(reset=false){
   if(gated&&lesson?.mode==='Practice'){drawGuide();practiceCue();}
 }
 /* Only a trusted timebar gesture arms this gate. Query links remain idle links. */
-const seekResumeState={armed:false,gesture:false,pending:null,wake:null,epoch:0};
+const seekResumeState={armed:false,gesture:false,pending:null,wake:null,epoch:0,spaceHeld:false};
 const seekResumeNavKeys=new Set(['Home','End','ArrowLeft','ArrowRight','ArrowDown','ArrowUp','PageDown','PageUp']);
 function seekResumeBadge(){
   guide.seek.dataset.resumeArmed=String(seekResumeState.armed);
@@ -1539,7 +1539,7 @@ function seekResumeBegin(){
 function seekResumePreview(){
   const text=rhythmClock(Number(guide.seek.value));
   guide.elapsed.textContent=text;guide.seek.setAttribute('aria-valuetext',text);
-  feedbackText.textContent='選擇時間 '+text+' · 放手後按任何琴鍵開始';
+  feedbackText.textContent='選擇時間 '+text+' · 放手後按琴鍵或 Space 開始';
 }
 function seekResumePark(arm=true){
   if(!seekResumeState.gesture)return;
@@ -1553,7 +1553,7 @@ function seekResumePark(arm=true){
   seekResumeState.armed=!!(arm&&guidePos<totalBeats);
   seekResumeBadge();
   feedbackText.textContent='已跳至 '+rhythmClock(seconds)+
-    (seekResumeState.armed?' · 按任何琴鍵開始（電腦鍵盤或畫面琴鍵）':' · 已暫停');
+    (seekResumeState.armed?' · 按琴鍵或 Space 開始（電腦鍵盤或畫面琴鍵）':' · 已暫停');
   drawTimeline();
 }
 function seekResumeRelease(id){
@@ -2731,12 +2731,30 @@ guide.seek.addEventListener('keydown',event=>{
   if(!seekResumeNavKeys.has(event.key))return;
   event.stopImmediatePropagation();seekResumeBegin();
 },true);
+// Own the entire seek-resume Space edge, including repeats during loading/focus changes.
+// Keep the latch across clear/blur; a fresh non-repeat edge recovers a lost keyup.
+window.addEventListener('keydown',event=>{
+  if(!event.isTrusted||event.code!=='Space'||!seekResumeState.spaceHeld)return;
+  if(!event.repeat){seekResumeState.spaceHeld=false;return;}
+  if(!event.altKey&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.isComposing)event.preventDefault();
+  event.stopImmediatePropagation();
+},true);
+window.addEventListener('keyup',event=>{
+  if(!event.isTrusted||event.code!=='Space'||!seekResumeState.spaceHeld)return;
+  seekResumeState.spaceHeld=false;event.preventDefault();event.stopImmediatePropagation();
+},true);
 document.addEventListener('keydown',event=>{
   if(!event.isTrusted||!seekResumeState.armed||event.defaultPrevented)return;
   const rangeFocus=event.target===guide.seek&&document.activeElement===guide.seek;
   if(rangeFocus&&seekResumeNavKeys.has(event.key))return;
   const editing=(typing(event.target)||typing(document.activeElement))&&!rangeFocus;
   if(editing)return;
+  if(rangeFocus&&event.code==='Space'){
+    if(event.repeat||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.isComposing)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    seekResumeState.spaceHeld=true;seekResumeClear();
+    performanceMode(true);ui.keybed.focus({preventScroll:true});startLesson();return;
+  }
   const binding=layout().byCode.get(event.code);
   const selfShift=fullKeyboard&&!!binding&&(event.code==='ShiftLeft'||event.code==='ShiftRight');
   if(event.repeat||event.altKey||event.ctrlKey||event.metaKey||(event.shiftKey&&!selfShift)||event.isComposing){
