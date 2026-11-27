@@ -6,7 +6,9 @@ from pathlib import Path
 import hashlib,json
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
-IN=ROOT/'canon-staff-poc'
+# A staged release uses its own frozen public score books, so the build also
+# works in a normal fresh clone instead of depending on this machine's folders.
+IN=HERE/'staff' if (HERE/'staff'/'data.json').is_file() else ROOT/'canon-staff-poc'
 LEVELS=('easy','normal','hard','extreme')
 
 def make(book,slug,title):
