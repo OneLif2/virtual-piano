@@ -1,0 +1,52 @@
+{
+  "canonMutopia": {
+    "sha256": "c647d813e8be57d92cf18544eeac3b3baa9ab76ffb8f7817f18084f3982263b8",
+    "grades": {
+      "easy": {
+        "keys": 471,
+        "backing": 1459,
+        "duration": 248.72727272727272
+      },
+      "normal": {
+        "keys": 818,
+        "backing": 1112,
+        "duration": 248.72727272727272
+      },
+      "hard": {
+        "keys": 1386,
+        "backing": 544,
+        "duration": 248.72727272727272
+      },
+      "extreme": {
+        "keys": 1930,
+        "backing": 0,
+        "duration": 248.72727272727272
+      }
+    }
+  },
+  "canonFull": {
+    "sha256": "4f23a5e0a7dab2af12d323788d12f096f50da62c091284d6e48ee94d4e3d5295",
+    "grades": {
+      "easy": {
+        "keys": 192,
+        "backing": 248,
+        "duration": 163.264
+      },
+      "normal": {
+        "keys": 258,
+        "backing": 182,
+        "duration": 163.264
+      },
+      "hard": {
+        "keys": 395,
+        "backing": 45,
+        "duration": 163.264
+      },
+      "extreme": {
+        "keys": 440,
+        "backing": 0,
+        "duration": 163.264
+      }
+    }
+  }
+}

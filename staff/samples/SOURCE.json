@@ -1,0 +1,7 @@
+{
+  "id": "yamaha-c5-accurate-z",
+  "author": "Alexander Holm / Chisato Yamauchi / Hiroharu Narikawa / Jeff Learman",
+  "license": "CC-BY-3.0 recordings; derivative Zynthian SFZ CC0.",
+  "source": "https://github.com/jlearman/zynthian-salamander-grand/tree/8432465f1fea83016635836c9850ac2b6398ffd3",
+  "notes": "Actual Accurate6.2beta2 live-flat derivative, normalized16bit FLAC v08 layer at7roots, baked source SFZ root tuning; not latest6.2e, not full88-note individualized tuning/16layers/pedal/release implementation. Same physical YamahaC5 as original Salamander, processed variant—not a new piano model. A calibration replaces SFZ nominal level curve. Compact34key audition: selected actualroots,22050HzPCM16,max7s; notlossless/full88keys."
+}

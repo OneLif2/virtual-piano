@@ -1,0 +1,172 @@
+:root{color-scheme:dark;font:15px/1.5 system-ui,"Microsoft JhengHei",sans-serif;background:#102123;color:#e4eeea;--mint:#a4e7cc;--muted:#acc1b9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 84% 5%,#233f3e,transparent 45%),#102123;min-height:100vh}.mast{display:flex;align-items:center;gap:14px;border-bottom:1px solid #354743;padding:14px max(18px,calc((100vw - 1160px)/2));background:#112628}.brand{font:italic 27px Georgia,serif;white-space:nowrap;color:#f7edcf}.bars{font:20px/1 system-ui;color:var(--mint);letter-spacing:-2px}.tagline{padding-left:16px;border-left:1px solid #617a70;letter-spacing:.12em;font-size:12px;color:var(--muted)}main{max-width:1200px;margin:0 auto;padding:18px 20px 30px}.heading p,.heading h1{margin:0}.eyebrow,.folio{font-size:10px;font-weight:750;letter-spacing:.2em}.eyebrow{color:var(--mint)}h1{font:clamp(27px,4.3vw,48px)/1.3 Georgia,"Microsoft JhengHei",serif;color:#fff1ce}h1 span{margin-left:7px;font:600 clamp(17px,2vw,23px) system-ui;color:#e0eae6}.artist{color:var(--muted);font-size:13px}.artist span{margin:0 6px}.controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:16px 0 12px;padding:12px 14px;background:#192f30;border:1px solid #36504a;border-radius:11px}.controls label{display:grid;gap:3px;color:var(--muted);font-size:11px;font-weight:650}.transport,.pager{display:flex;align-items:center;gap:6px}button,select{min-height:40px;font:650 14px system-ui;color:#edf6f0;background:#203b3a;border:1px solid #48615a;border-radius:7px;padding:6px 11px;cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #f4bd6e;outline-offset:2px}button:disabled{opacity:.42;cursor:default}#demo{background:var(--mint);color:#12362b;border-color:var(--mint);min-width:114px}.timeline{display:flex;gap:8px;align-items:center;flex:1 1 240px;height:40px}.timeline input{width:100%;min-width:35px;accent-color:var(--mint);cursor:pointer}.timeline span,.timeline output{font:12px ui-monospace,monospace;color:#c7dbd0;font-variant-numeric:tabular-nums;white-space:nowrap}.paper{color:#252823;background:#fffdf5;padding:12px 14px 7px;border-radius:10px;box-shadow:0 8px 26px #07171760;overflow:hidden}.paper-head,.score-meta,.keyboard-head,footer{display:flex;align-items:center;justify-content:space-between;gap:8px}.paper-head{padding:0 4px 9px;border-bottom:1px solid #e0dccb}.folio{color:#857754}.paper-head strong{font-size:15px;line-height:1.3}.pager{white-space:nowrap}.pager button{min-height:36px;min-width:36px;color:#355246;background:#eeeede;border-color:#c7cfbd;font-size:20px;padding:2px}.pager output{font:600 12px ui-monospace,monospace}.score-meta{border-top:1px solid #e0dccb;color:#59635b;padding:5px 4px 0;font-size:12px}.score-meta span:last-child{font-variant-numeric:tabular-nums}#score{outline-offset:-3px}#score svg{display:block;width:100%;height:auto;overflow:visible}.key-cue{font:700 11px ui-monospace,"Segoe UI Symbol",monospace;fill:#397257;pointer-events:none}.key-cue.bass{fill:#596590}.staff-note.is-now{fill:#b75a22;stroke:#b75a22}.staff-note.is-now *{fill:#b75a22!important;stroke:#b75a22!important}#playhead{stroke:#0f8c77;stroke-width:2;pointer-events:none}.measure-num{fill:#7d806f;font:italic 11px Georgia,serif}.keyboard-section{margin-top:12px}.keyboard-head{margin-bottom:6px}.keyboard-head h2{font-size:14px;font-weight:650;margin:0}.keyboard-head span,.help,footer{color:var(--muted);font-size:12px}.help{margin:.5em 0}.keyboard-scroll{overflow-x:auto;overscroll-behavior-x:contain;border-radius:7px;background:#111a1b;border-top:3px solid #7d4250}#keys{position:relative;height:88px;touch-action:pan-x}#keys .key{position:absolute;border-radius:0 0 4px 4px;padding:2px;display:flex;justify-content:center;align-items:flex-end;line-height:1;font:650 11px/1.25 ui-monospace,monospace;touch-action:none;user-select:none}.white{height:100%;background:#f6f3e7;color:#333934;border:1px solid #9c9e91}.black{height:63%;background:#242d2c;color:#ebeee9;border:1px solid #0f1716;z-index:2}.key.demo-active{background:#f4c481;color:#2f2117}.key.manual-active{background:#92d8e7;color:#173b44}.key small{font-size:8px;display:block;font-weight:450}.key span{text-align:center}.help{line-height:1.55}footer{padding-top:8px;border-top:1px solid #354a44}#status[data-error=true]{color:#ffc8ac}#target{font-family:ui-monospace,monospace}
+@media(max-width:660px){main{padding:10px 8px 18px}.mast{padding:8px 12px}.brand{font-size:23px}.controls{gap:6px;padding:8px;margin:9px 0}.controls label{flex:1}.controls select{width:100%;max-width:100%;padding-inline:3px;font-size:12px}.controls .transport{width:100%}.timeline{height:29px;flex:1 1 100%}.paper{padding:7px 3px}.paper-head strong{font-size:12px}.pager button{min-width:33px}.key-cue{font-size:11px}.help{font-size:11px}#keys{height:76px}}
+.resources{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;align-items:baseline;color:var(--muted);font-size:12px}.resources a{color:#ade9cf}.resources summary{cursor:pointer}.resources details[open]{flex-basis:100%}.resources p{margin:.5em 0}.keyboard-head #target{margin-left:auto}.kb-pan{display:none}.kb-pan button{font-size:11px;min-height:30px;padding:3px 7px}@media(max-width:780px){.kb-pan{display:flex;gap:4px}}
+
+/* The sheet is typeset once at reading size: each system has its own complete
+   treble/bass stave. Scroll inside it, without hiding transport or piano keys. */
+#score{overflow:auto;overflow-x:hidden;scrollbar-gutter:stable;overflow-anchor:none;max-height:clamp(265px,calc(100svh - 340px),900px);overscroll-behavior-y:contain}
+#score svg{overflow:hidden}
+#pageCoverage{display:block;font-size:11px;line-height:1.45;color:#657367}
+.key-cue.is-now{fill:#9b4817;font-weight:900;text-decoration:underline}
+.pager #overview{font-size:12px;padding:4px 9px}
+.pager #overview[aria-pressed="true"]{background:#244e42;color:#fff}
+#score.overview-source{height:0;min-height:0;overflow:hidden;outline:0}
+#scoreOverview:not([hidden]){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:6px 0}
+#scoreOverview button{min-width:0;padding:3px 2px;line-height:1;background:#fffdf5;border:1px solid #dfdfcf;border-radius:4px;text-align:left;color:#4d6357}
+#scoreOverview button.current{border-color:#228672;box-shadow:inset 2px 0 #228672;background:#f4f9ed}
+#scoreOverview button:hover{border-color:#518d77}
+#scoreOverview span{display:block;font:600 10px/1.3 system-ui;padding:0 3px}
+#scoreOverview svg{display:block;width:100%;height:auto;fill:#101510;color:#101510}
+@media(max-width:660px){#scoreOverview:not([hidden]){grid-template-columns:repeat(2,minmax(0,1fr))}.pager{gap:3px}.pager #overview{font-size:11px;padding:4px}#pageCoverage{font-size:10px}}
+@media print{#score{height:auto!important;max-height:none!important;overflow:visible!important}#scoreOverview,.pager #overview{display:none!important}}
+#score:not(.overview-source){max-height:clamp(255px,calc(100svh - 505px),900px)}
+.key-cue,.measure-num{stroke:none}
+@media(max-width:660px){#score:not(.overview-source){max-height:clamp(260px,calc(100svh - 405px),600px)}}
+#arrangement:not([hidden]){width:100%;display:flex;align-items:center;flex-wrap:wrap;gap:.4em .9em;border-top:1px solid #36504a;padding-top:.5em}
+#partCounts{font-weight:650;font-size:.9rem}#backingToggle{min-height:32px;font-size:12px}
+#backingToggle[aria-pressed=true]{border-color:#8ed3b8;color:#b9f1d8}.mix-help{font-size:12px;color:var(--muted)}
+/* Per-head keyboard notation. Variables inherit into the overview's SVG <use>
+   shadow tree; the same score ink serves both modes, without moving the clock. */
+.paper[data-pc-heads="on"]{--pc-note-display:inline;--native-head-opacity:0;--row-cue-display:none}
+.paper[data-pc-heads="off"]{--pc-note-display:none;--native-head-opacity:1;--row-cue-display:inline}
+.native-pitched-head{opacity:var(--native-head-opacity,1)}
+.key-cue{display:var(--row-cue-display,inline)}
+.pc-notehead{display:var(--pc-note-display,none);--head-ink:#255746;--cap-paper:#fffdf5;pointer-events:none}
+.pc-notehead.bass{--head-ink:#3f507b}
+.pc-notehead.is-now{--head-ink:#a1460d;--cap-paper:#fff3ce}
+.pc-head-badge{fill:var(--head-ink);stroke:var(--head-ink);stroke-width:.85px}
+.pc-head-label{font:700 14px/1 Consolas,"DejaVu Sans Mono","Segoe UI Symbol",monospace;fill:var(--cap-paper);stroke:none}
+.pc-notehead.compact .pc-head-label{font-size:10px}
+.pc-notehead.hollow .pc-head-badge{fill:var(--cap-paper);stroke-width:1.3px}
+.pc-notehead.hollow .pc-head-label{fill:var(--head-ink)}
+.pager #headMode{padding:4px 9px;font-size:12px}
+.pager #headMode[aria-pressed="true"]{color:#164939;background:#d2e8d9;border-color:#699981}
+#densityReport:not([hidden]){display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:34px;
+ padding:3px 8px;border:1px solid #849e89;border-radius:7px;background:#edf4e9;color:#1f584b;
+ font:650 12px/1.25 system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+#densityReport:focus-visible{outline:3px solid #b96820;outline-offset:2px}
+#densityReport:hover{background:#d7ecdf}
+.song-choice{min-width:0}.song-choice select{max-width:min(420px,85vw)}
+@media screen and (max-width:660px){body.dense-reader:not(.dense-tools) .controls>label.song-choice{display:flex;flex:1 1 100%;width:100%}
+ body.dense-reader .song-choice select{max-width:none;width:100%;flex:1;min-width:0;min-height:34px;font-size:12px}}
+@media(max-width:660px){#densityReport:not([hidden]){min-height:36px;padding-inline:5px}#densityReport svg{display:none}}
+@media print{#densityReport{display:none!important}}
+@media(max-width:660px){.paper-head{flex-wrap:wrap}.paper-head>.pager{margin-left:auto}.pager #headMode{padding:4px;font-size:11px}}
+
+/* Same-level continuous score, 4/8/12/15 systems per screen. Only the
+   selected reading mode owns the viewport; ordinary reading remains intact.
+   The musical SVG stays mounted at its real width so references and the one
+   live playhead continue to work even while its scroll box is collapsed. */
+#denseTools {display:none}
+@media screen {
+  body.dense-reader {
+    --dense-pad:clamp(3px,.55vw,9px);
+    --dense-gap:clamp(2px,.42vw,7px);
+    min-height:0;margin:0;
+  }
+  body.dense-reader > .mast,
+  body.dense-reader main > .heading {display:none}
+  body.dense-reader main {
+    width:100%;max-width:none;height:100vh;height:100dvh;min-height:0;
+    display:flex;flex-direction:column;gap:var(--dense-pad);
+    padding:max(var(--dense-pad),env(safe-area-inset-top)) max(var(--dense-pad),env(safe-area-inset-right)) max(var(--dense-pad),env(safe-area-inset-bottom)) max(var(--dense-pad),env(safe-area-inset-left));
+  }
+  body.dense-reader:not(.dense-tools) main > :is(.keyboard-section,.resources),
+  body.dense-reader:not(.dense-tools) main > footer:not(:has(#status[data-error=true])),
+  body.dense-reader:not(.dense-tools) #arrangement {display:none}
+  body.dense-reader .controls {
+    flex:none;align-items:center;gap:4px 8px;margin:0;padding:3px 7px;border-radius:6px;
+  }
+  body.dense-reader .controls label {display:flex;align-items:center;gap:3px}
+  body.dense-reader .controls select,
+  body.dense-reader button:not(.key) {min-height:36px}
+  body.dense-reader .controls select,
+  body.dense-reader .transport button {padding:3px 7px;font-size:13px}
+  body.dense-reader .transport {gap:4px}
+  body.dense-reader #demo {min-width:0}
+  body.dense-reader .timeline {min-width:0;height:32px;flex:1 1 170px}
+  body.dense-reader .paper {
+    display:flex;flex-direction:column;flex:1 1 0%;min-height:0;
+    padding:3px var(--dense-pad) 2px;border-radius:6px;box-shadow:none;
+  }
+  body.dense-reader .paper-head {flex:none;min-width:0;padding:1px 1px 3px;gap:4px 8px;flex-wrap:wrap}
+  body.dense-reader .paper-head > div:first-child {flex:1 1 10rem;min-width:0}
+  body.dense-reader .paper-head strong {
+    display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;
+  }
+  body.dense-reader .folio {display:none}
+  body.dense-reader .paper-head .pager {flex-wrap:wrap;min-width:0;gap:3px;margin-left:auto}
+  body.dense-reader :is(.pager select,.pager button) {min-height:36px}
+  body.dense-reader .pager .view-choice {min-width:0}
+  body.dense-reader #scoreView {max-width:13em;font-size:13px;padding-block:2px}
+  body.dense-reader #denseTools:not([hidden]) {
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#20473d;border-color:#8b9f89;background:#e9eee0;font:650 12px/1.1 system-ui;padding:3px 8px;
+  }
+  body.dense-reader #denseTools[aria-expanded=true] {color:#fff;background:#254f42}
+  body.dense-reader #score.overview-source {flex:0 0 0;min-height:0;height:0;max-height:0;padding:0}
+  body.dense-reader #scoreFour:not([hidden]) {
+    display:grid;flex:1 1 0%;min-height:0;min-width:0;overflow:hidden;
+    grid-template-columns:repeat(var(--dense-cols,2),minmax(0,1fr));
+    grid-template-rows:repeat(var(--dense-rows,2),minmax(0,1fr));
+    align-content:stretch;align-items:stretch;justify-items:stretch;
+    margin:0;gap:var(--dense-gap);padding:var(--dense-gap) 1px;
+  }
+  body.dense-reader #scoreFour button {
+    position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+    min-height:0;min-width:0;width:100%;height:100%;max-height:100%;overflow:hidden;
+    padding:1px 2px;border-radius:4px;border:1px solid #dddcca;background:#fffdf5;color:#324e40;
+    text-align:left;cursor:pointer;
+  }
+  body.dense-reader #scoreFour button.current {background:#f3f9ed;border-color:#297964;box-shadow:inset 3px 0 #297964}
+  body.dense-reader #scoreFour .four-row-title {
+    flex:none;display:block;align-self:stretch;max-width:100%;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap;padding:1px 4px;color:inherit;font:650 11px/1.15 system-ui,sans-serif;
+  }
+  body.dense-reader #scoreFour button > svg {
+    display:block;flex:1 1 0%;min-width:0;min-height:0;width:100%;height:0;
+    margin:0;overflow:hidden;color:#101510;fill:#101510;
+  }
+  body.dense-reader :is(#scoreFour button,#scoreView,#denseTools):focus-visible {
+    outline:3px solid #99571b;outline-offset:-3px;z-index:1;
+  }
+  body.dense-reader .score-meta {flex:none;line-height:1.15;padding:2px;font-size:11px}
+  body.dense-reader #pageCoverage {font-size:10px;line-height:1.1}
+  /* Optional controls do not have to fight the score for the same pixels:
+     users can scroll down to the keyboard/credits, then close tools to restore
+     a one-screen score. Keep the pager, selector and exit button reachable. */
+  body.dense-reader.dense-tools main {height:auto;min-height:100vh;min-height:100dvh}
+  body.dense-reader.dense-tools .paper {flex:none;height:74vh;height:74dvh;min-height:225px}
+  body.dense-reader.dense-tools main > .keyboard-section {margin-top:3px}
+}
+@media screen and (max-width:760px) {
+  body.dense-reader .controls {padding:2px 4px;gap:2px 6px}
+  body.dense-reader .controls .transport {width:auto;flex:0 1 auto}
+  body.dense-reader:not(.dense-tools) .controls > label {display:none}
+  body.dense-reader .timeline {height:32px;flex:1 1 106px;gap:4px}
+  body.dense-reader .timeline input {min-width:24px}
+  body.dense-reader .timeline :is(output,span) {font-size:10px}
+  body.dense-reader .paper-head > div:first-child {flex:1 1 100%}
+  body.dense-reader:not(.dense-tools) .paper-head > div:first-child {display:flex;align-items:baseline;gap:5px}
+  body.dense-reader .paper-head .pager {margin:0;justify-content:space-between;width:100%}
+  body.dense-reader:not(.dense-tools) .pager :is(#headMode,#overview) {display:none}
+  body.dense-reader .pager select {min-height:36px}
+  body.dense-reader .score-meta {font-size:10px}
+}
+@media screen and (max-height:470px) {
+  body.dense-reader {--dense-pad:2px;--dense-gap:2px}
+  body.dense-reader:not(.dense-tools) :is(.score-meta,.paper-head .folio,#pageCoverage) {display:none}
+  body.dense-reader .paper-head {padding:0 2px;flex-wrap:nowrap}
+  body.dense-reader .paper-head > div:first-child {flex:1 1 5rem}
+  body.dense-reader .paper-head .pager {width:auto;justify-content:flex-end;flex-wrap:wrap}
+  body.dense-reader #scoreFour .four-row-title {font-size:10px;padding-block:0}
+}
+@media print {
+  body.dense-reader > .mast,body.dense-reader .controls,body.dense-reader .pager,
+  body.dense-reader #scoreFour,body.dense-reader .keyboard-section,body.dense-reader footer,
+  body.dense-reader .resources,body.dense-reader .score-meta {display:none!important}
+  body.dense-reader,body.dense-reader main,body.dense-reader .paper,body.dense-reader #score.overview-source {
+    display:block!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;
+  }
+}

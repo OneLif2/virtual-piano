@@ -1,8 +1,8 @@
 /* Original preview scheduler: score data and required attribution are in ../score/. */
 (() => {
   'use strict';
-  const s=window.NocturneFullScore;
-  if(!s)return;
+  function compile(s){
+  if(!s)throw Error("Missing score");
   const {ppq,endTick,tempoBpm,tracks}=s;
   if(!Number.isInteger(ppq)||ppq<1||!Number.isInteger(endTick)||endTick<1||
     !Number.isFinite(tempoBpm)||tempoBpm<=0||!Array.isArray(tracks)||tracks.length!==2)throw Error('Invalid full-score header');
@@ -37,5 +37,8 @@
     carry=Math.max(carry,...notes.map(e=>e.end));const release=Math.min(carry,next);
     count++;add(tick,release,[...new Set(notes.map(e=>e.midi))]);add(release,next,[]);
   });
-  window.NocturneScorePlayer={ppq,tempoBpm,endTick,timeline,guide,leadGroups:count,at};
+  return {ppq,tempoBpm,endTick,timeline,guide,leadGroups:count,at};
+  }
+  window.NocturneCompileScore=compile;
+  window.NocturneScorePlayer=compile(window.NocturneFullScore);
 })();
