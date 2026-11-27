@@ -452,7 +452,7 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
 @media(min-width:1000px) and (min-height:520px){html[data-score-view=auto] .read-pitch{overflow:visible}html[data-score-view=auto] .read-pitch .notation-text{overflow:hidden}html[data-score-view=auto] .read-pitch .notation-tick{display:block}html[data-score-view=auto] .read-note{gap:20px}}
 </style>
 <link rel="stylesheet" href="mobile-piano.css?v=e82ac14be5ccdef93fdcd9d8876f40b489f33cf233c796b0a577e80c2ffbe6da" integrity="sha256-6CrBS+XM3vk/3NnYh29AtInzPPIzx5awpXfoDC/75to=" crossorigin="anonymous">
-<style>.published-grade{display:flex;gap:4px;align-items:center;font-size:12px}.published-grade select{min-height:40px;max-width:110px;background:#21312f;color:#e6f0eb;border:1px solid #49695e;border-radius:7px;padding:5px}.published-staff-link{color:#a1e1ce;font-size:12px;white-space:nowrap}.lesson-head{flex-wrap:wrap}</style></head>
+<style>.published-chart-controls{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;height:27px}.song-field #song{min-height:26px}.song-field #scoreGrade{min-height:25px;font-size:12px;width:90px;padding:2px 5px;line-height:1.2}.published-grade{display:flex;gap:4px;align-items:center;font-size:12px}.published-grade select{min-height:40px;max-width:110px;background:#21312f;color:#e6f0eb;border:1px solid #49695e;border-radius:7px;padding:5px}.published-staff-link{color:#a1e1ce;font-size:12px;white-space:nowrap}.lesson-head{flex-wrap:wrap}@media(max-width:1000px){.published-chart-controls{height:36px;justify-content:flex-start}.song-field #scoreGrade{min-height:34px}.published-staff-link{padding:6px 1px}.mobile-details-panel .published-chart-controls{height:auto;min-height:44px}.mobile-details-panel .song-field #scoreGrade{min-height:44px;font-size:16px}}</style></head>
 <body>
 <main class="desk">
 <header class="masthead">
@@ -519,9 +519,9 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
 <section id="soundsPanel" role="region" aria-label="音色 Sounds" hidden></section>
 <section class="performance" aria-label="跟譜工作室">
   <div class="song-bar">
-    <label class="song-field"><span class="kicker">Songbook · 樂曲</span>
-      <select id="song" aria-label="樂曲"><option value="canonMutopia">Canon in D · Mutopia D 調總譜 · 4:08.7</option><option value="canonFull" selected>Canon in D (Short ver) · 2:43.2</option></select><label class="published-grade">難度 <select id="scoreGrade" aria-label="歌曲難度"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="extreme">Extreme</option></select></label><a class="published-staff-link" href="staff/" target="_blank" rel="noopener">五線譜 ↗</a>
-    </label>
+    <div class="song-field" role="group" aria-label="歌曲及難度"><span class="kicker">Songbook · 樂曲</span>
+      <select id="song" aria-label="樂曲"><option value="canonMutopia">Canon in D · Mutopia D 調總譜 · 4:08.7</option><option value="canonFull" selected>Canon in D (Short ver) · 2:43.2</option></select><div class="published-chart-controls"><label class="published-grade">難度 <select id="scoreGrade" aria-label="歌曲難度"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="extreme">Extreme</option></select></label><a class="published-staff-link" href="staff/" target="_blank" rel="noopener">五線譜 ↗</a></div>
+    </div>
     <div class="modes" role="group" aria-label="學習模式">
       <button id="modeDemo" type="button" aria-pressed="false">Demo <small>示範</small></button>
       <button id="modeAlong" type="button" aria-pressed="false">Play Along <small>跟彈</small></button>
