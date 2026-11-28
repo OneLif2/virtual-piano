@@ -1,4 +1,4 @@
-"""Native Chrome smoke for the two public symbolic Canon editions and existing three modes."""
+"""Native Chrome smoke for three public symbolic editions and existing three modes."""
 from pathlib import Path
 import json,sys,tempfile,os,threading,http.server,functools
 sys.path.insert(0,str(Path(tempfile.gettempdir())/'nocturne-6b0f1afd-smoketools/deps'))
@@ -14,7 +14,7 @@ def run():
    b=pw.chromium.launch(executable_path=os.path.join(os.environ['ProgramFiles'],'Google/Chrome/Application/chrome.exe'),args=['--mute-audio'])
    p=b.new_page(viewport={'width':1280,'height':900});errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
    p.add_init_script('window.actualStarts=[];const old=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){actualStarts.push({t:args[0],rate:this.playbackRate.value});return old.apply(this,args)}')
-   for song in ['canonMutopia','canonFull']:
+   for song in ['canonMutopia','canonFull','furElise']:
     for grade in ['easy','normal','hard','extreme']:
      p.goto(base+'/?song='+song+'&grade='+grade)
      p.wait_for_function('()=>window.NocturnePublishedLayers?.snapshot().grade===document.querySelector("#scoreGrade").value',timeout=15000)

@@ -48,5 +48,30 @@
         "duration": 163.264
       }
     }
+  },
+  "furElise": {
+    "sha256": "fce7a94c77c22a59484c348b5aaf1c4f3e013805ea99808c9d6cc77edb9ea423",
+    "grades": {
+      "easy": {
+        "keys": 387,
+        "backing": 518,
+        "duration": 131.25
+      },
+      "normal": {
+        "keys": 634,
+        "backing": 271,
+        "duration": 131.25
+      },
+      "hard": {
+        "keys": 787,
+        "backing": 118,
+        "duration": 131.25
+      },
+      "extreme": {
+        "keys": 905,
+        "backing": 0,
+        "duration": 131.25
+      }
+    }
   }
 }

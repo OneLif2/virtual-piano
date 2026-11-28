@@ -31,3 +31,22 @@ Playback:
 
 The grand-staff reader at `staff/` provides the separate editions, PC noteheads,
 4/8/12/15-system views and each edition's four-curve KPS report.
+
+## Für Elise
+
+**Für Elise · A-minor full written form**, Ludwig van Beethoven, Mutopia #931,
+typeset by Stelios Samelis (2015), from Breitkopf & Härtel (1888), Public Domain.
+<https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=931>
+
+The complete supplied 905-attack MIDI form is used at quarter = 72 in 3/8. A quarter
+of initial rest aligns the pickup, producing 105 notated bars and 131.25 seconds.
+No additional repeat passes absent from the supplied source are inserted.
+Four cumulative playable charts use 387 / 634 / 787 / 905 attacks, with exact
+complements of 518 / 271 / 118 / 0. Extreme is this complete identified written
+form, not an audio transcription or a claim to every performance's repeat policy.
+
+This song automatically shows an 88-key A0–C8 keyboard so all actual notes A1–E7
+are present without octave folding. Its physical codes are identical to the
+grand-staff edition, extending unused keys for low/high pitches. Special keys
+(arrows, Home/End, Page Up/Down, Insert/Delete) require the existing full-key
+performance focus or may be played using the on-screen keys.
