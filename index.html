@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant" data-score-view="horizontal">
+<html lang="zh-Hant" data-score-view="horizontal" data-note-judgment-lines="false">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -448,8 +448,8 @@ html[data-score-view=horizontal] .read-pitch[data-feedback=retry]{color:#ffc18b}
 <style id="homeCleanupStyles">#localDiagnostics{margin:12px 0}#localDiagnostics>summary{cursor:pointer;font-size:14px;color:#bceade}#localDiagnostics[open]>summary{margin-bottom:10px}.tools-panel #originalAbControls{flex-wrap:wrap;white-space:normal}.tools-panel #fullScoreLinks{position:static;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:14px}#sampleBankStatusHost #soundBankStatus{position:static;display:block;max-width:none;margin:6px 0;font-size:14px;white-space:normal}</style>
 <style id="readerOnsetTickStyles">
 .notation-letter{display:inline-block;flex:none}.notation-tick{display:none;position:absolute;left:var(--letter-attack,0px);width:1px;height:7px;background:currentColor;transform:translateX(-50%);pointer-events:none}.notation-tick-top{top:var(--tick-top,-9px)}.notation-tick-bottom{top:var(--tick-bottom,100%)}
-html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-view=horizontal] .read-pitch .notation-text{overflow:hidden}html[data-score-view=horizontal] .read-pitch .notation-tick{display:block}html[data-score-view=horizontal] .read-note{gap:20px}
-@media(min-width:1000px) and (min-height:520px){html[data-score-view=auto] .read-pitch{overflow:visible}html[data-score-view=auto] .read-pitch .notation-text{overflow:hidden}html[data-score-view=auto] .read-pitch .notation-tick{display:block}html[data-score-view=auto] .read-note{gap:20px}}
+html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-view=horizontal] .read-pitch .notation-text{overflow:hidden}html[data-score-view=horizontal][data-note-judgment-lines=true] .read-pitch .notation-tick{display:block}html[data-score-view=horizontal] .read-note{gap:20px}
+@media(min-width:1000px) and (min-height:520px){html[data-score-view=auto] .read-pitch{overflow:visible}html[data-score-view=auto] .read-pitch .notation-text{overflow:hidden}html[data-score-view=auto][data-note-judgment-lines=true] .read-pitch .notation-tick{display:block}html[data-score-view=auto] .read-note{gap:20px}}
 </style>
 <link rel="stylesheet" href="mobile-piano.css?v=e82ac14be5ccdef93fdcd9d8876f40b489f33cf233c796b0a577e80c2ffbe6da" integrity="sha256-6CrBS+XM3vk/3NnYh29AtInzPPIzx5awpXfoDC/75to=" crossorigin="anonymous">
 <style>.published-chart-controls{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;height:27px}.song-field #song{min-height:26px}.song-field #scoreGrade{min-height:25px;font-size:12px;width:90px;padding:2px 5px;line-height:1.2}.published-grade{display:flex;gap:4px;align-items:center;font-size:12px}.published-grade select{min-height:40px;max-width:110px;background:#21312f;color:#e6f0eb;border:1px solid #49695e;border-radius:7px;padding:5px}.published-staff-link{color:#a1e1ce;font-size:12px;white-space:nowrap}.lesson-head{flex-wrap:wrap}@media(max-width:1000px){.published-chart-controls{height:36px;justify-content:flex-start}.song-field #scoreGrade{min-height:34px}.published-staff-link{padding:6px 1px}.mobile-details-panel .published-chart-controls{height:auto;min-height:44px}.mobile-details-panel .song-field #scoreGrade{min-height:44px;font-size:16px}}</style></head>
@@ -474,6 +474,10 @@ html[data-score-view=horizontal] .read-pitch{overflow:visible}html[data-score-vi
           <nav id="fullScoreLinks" aria-label="全譜檔案"><a href="?mode=demo&amp;at=120&amp;view=falling">試 2:00</a><a href="canon-layer-sources.json">編曲分級及來源</a></nav>
         </details>
         <section class="tool-group" id="pianoReleaseTools" style="font-size:14px"><h3>琴鍵尾音</h3><div id="sampleBankStatusHost"></div><p><strong id="pianoReleaseReadout">Power · 0.5 · 350ms</strong></p><p><a id="toolsReleaseCurveLab" href="release-curves.html?v=1ed3ad5dc027274a371af53f934ed85728a37d9a09cf80cba94f7e732ab357cc" target="_blank" rel="noopener">曲線試聽室</a></p><p id="pianoReleaseStorageStatus" style="font-size:14px">在試聽室按「套用」會儲存設定並暫停演奏，不會自動繼續。</p></section>
+        <section class="tool-group"><h3>琴譜提示</h3>
+          <label style="display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer"><input id="showJudgmentLines" type="checkbox" autocomplete="off" aria-describedby="judgmentLinesHelp">顯示判定線（所有歌曲）</label>
+          <p id="judgmentLinesHelp" class="hint">所有歌曲共用此開關，每次開啟頁面預設關閉字母上、下方短線；長按線 c-------- 及綠色目標線會一直保留。</p>
+        </section>
         <section class="tool-group"><h3>音色與鍵盤</h3>
           <div class="controls">
             <label class="field">音色 <select id="preset" autocomplete="off"><option value="">夜曲原聲</option></select></label>
@@ -2165,6 +2169,15 @@ $('scoreView').onchange=()=>{
   onStageGeometry();drawTimeline();
 };
 stillMotion?.addEventListener?.('change',onStageGeometry);
+// Global presentation only: song/grade/mode switches retain this choice.
+// A fresh page always starts OFF; never seek, re-score or rebuild hold rulers.
+const judgmentLineToggle=$('showJudgmentLines');
+judgmentLineToggle.checked=false;
+function syncJudgmentLines(){
+  document.documentElement.dataset.noteJudgmentLines=String(judgmentLineToggle.checked);
+}
+syncJudgmentLines();
+judgmentLineToggle.addEventListener('change',syncJudgmentLines);
 if(lane&&window.ResizeObserver){
   const observer=new ResizeObserver(onStageGeometry);
   observer.observe(lane);observer.observe(ui.keyboardViewport);if(readingLane)observer.observe(readingLane);
